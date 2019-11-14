@@ -1,0 +1,58 @@
+ion-header{
+
+   text-align: center;
+   position: absolute;
+   top: 30%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+
+   .title {
+      font-size: 52px;
+      color: #fff;
+   }
+
+   .subTitle{
+      font-size: 14px;
+      color: #82733B;
+   }
+
+}
+
+ion-content{
+
+   background: #101B1C;
+   position: absolute;
+   top: 100%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+
+   ion-item {
+
+      ion-input {
+            width: 75%;
+            color: #fff;
+      }
+
+   }
+
+   .recuperarConta {
+
+      display: block;
+      text-align: end;
+      color: #fff;
+
+   }
+
+   h2 {
+
+      font-size: 10px;
+      text-align: center;
+      color: #fff;
+
+      span {
+         color: #3880ff;
+      }
+
+   }
+
+}
