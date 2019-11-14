@@ -1,0 +1,6 @@
+btn: #9CA6F7
+yellow1: #99691A
+yellow2: #DFAF5F
+danger: #D64142
+background: #081415
+background-alt: #0E191A
