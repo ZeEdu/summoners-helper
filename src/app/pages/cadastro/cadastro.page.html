@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="heading">Cadastro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-input
+      primary
+      type="text"
+      placeholder="Insira seu nome de usuário"
+    ></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input
+      primary
+      type="email"
+      placeholder="Insira seu email"
+      [(ngModel)]="userRegister.email"
+    ></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input
+      primary
+      type="password"
+      placeholder="Insira sua Senha"
+      [(ngModel)]="userRegister.password"
+    ></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input
+      primary
+      type="password"
+      placeholder="Confirme sua Senha"
+    ></ion-input>
+  </ion-item>
+  <ion-button expand="block" (click)="register()">
+    Cadastrar
+  </ion-button>
+</ion-content>
