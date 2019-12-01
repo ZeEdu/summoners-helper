@@ -13,7 +13,7 @@
       primary
       type="email"
       placeholder="Insira seu email"
-      [(ngModel)]="email"
+      [(ngModel)]="userLogin.email"
     ></ion-input>
   </ion-item>
   <ion-item>
@@ -21,7 +21,7 @@
       primary
       type="password"
       placeholder="Insira sua Senha"
-      [(ngModel)]="password"
+      [(ngModel)]="userLogin.password"
     ></ion-input>
   </ion-item>
   <a routerLink="/recuperarConta" class="recuperarConta"
@@ -36,7 +36,5 @@
     </ion-button>
   </a>
 
-  <h2>
-    Não possui uma conta? <a routerLink="/cadastro" class="">Cadastre-se</a>
-  </h2>
+  <h2>Não possui uma conta? <a routerLink="/cadastro">Cadastre-se</a></h2>
 </ion-content>
