@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { User } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cadastro',
@@ -13,8 +14,8 @@ export class CadastroPage implements OnInit {
   constructor(
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
-    private authService: AuthService
-
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   public userLogin: User = {};
@@ -43,7 +44,7 @@ export class CadastroPage implements OnInit {
 
     }
 
-    this.loading.dismiss();
+    this.router.navigate(['/login']);
 
   }
 
@@ -55,7 +56,7 @@ export class CadastroPage implements OnInit {
   }
 
   async presentToast(message: string) {
-    const toast = await this.toastCtrl.create({ message, duration: 2000 });
+    const toast = await this.toastCtrl.create({ message, duration: 3000 });
     toast.present();
   }
 

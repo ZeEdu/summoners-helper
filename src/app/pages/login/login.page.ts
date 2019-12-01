@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { User } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
    selector: 'app-login',
@@ -15,28 +16,24 @@ export class LoginPage implements OnInit {
    constructor(
       private loadingCtrl: LoadingController,
       private toastCtrl: ToastController,
-      private authService: AuthService
+      private authService: AuthService,
+      private router: Router,
    ) { }
 
    ngOnInit() { }
 
    async login() {
       await this.presentloading();
-      try {
 
+      try {
          await this.authService.login(this.userLogin);
          this.presentToast('Login Realizado com Sucesso!');
-
       } catch (error) {
-
          const errorMessage = this.setErrorMessage(error.code);
          console.log(error);
          this.presentToast(errorMessage);
-
       } finally {
-
          this.loading.dismiss();
-
       }
 
    }
