@@ -9,35 +9,18 @@
 
 <ion-content>
   <ion-item>
-    <ion-input
-      primary
-      type="text"
-      placeholder="Insira seu nome de usuário"
-    ></ion-input>
+    <ion-input primary type="text" placeholder="Insira seu nome de usuário" [(ngModel)]="userRegister.userName">
+    </ion-input>
   </ion-item>
   <ion-item>
-    <ion-input
-      primary
-      type="email"
-      placeholder="Insira seu email"
-      [(ngModel)]="userRegister.email"
-    ></ion-input>
+    <ion-input primary type="email" placeholder="Insira seu email" [(ngModel)]="userRegister.email"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-input
-      primary
-      type="password"
-      placeholder="Insira sua Senha"
-      [(ngModel)]="userRegister.password"
-    ></ion-input>
+    <ion-input primary type="password" placeholder="Insira sua Senha" [(ngModel)]="userRegister.password"></ion-input>
   </ion-item>
-  <ion-item>
-    <ion-input
-      primary
-      type="password"
-      placeholder="Confirme sua Senha"
-    ></ion-input>
-  </ion-item>
+  <!-- <ion-item>
+    <ion-input primary type="password" placeholder="Confirme sua Senha"></ion-input>
+  </ion-item> -->
   <ion-button expand="block" (click)="register()">
     Cadastrar
   </ion-button>

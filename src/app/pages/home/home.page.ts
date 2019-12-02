@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { User } from 'src/app/interfaces/user';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
    selector: 'app-home',
@@ -6,9 +10,22 @@ import { Component } from '@angular/core';
    styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-   public message: string;
-   constructor() {}
-   setMessage(): void {
-      this.message = 'hello world';
+
+   constructor(
+      private authService: AuthService,
+      private afa: AngularFireAuth,
+      private afs: AngularFirestore
+   ) { }
+
+   public currentUser: User = this.afa.auth.currentUser;
+
+
+
+   logout() {
+      this.authService.logout();
    }
+
+
+
+
 }
