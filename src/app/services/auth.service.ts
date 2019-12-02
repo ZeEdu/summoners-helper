@@ -19,13 +19,16 @@ export class AuthService {
     return this.afa.auth.signInWithEmailAndPassword(user.email, user.password);
   }
 
-  async register(user: User) {
-    try {
-      const newUser = await this.afa.auth.createUserWithEmailAndPassword(user.email, user.password);
-      await this.afs.collection('Users').doc(newUser.user.uid).set(this.user);
-    } catch (error) {
-      console.log(error);
-    }
+  // async register(user: User) {
+  //   try {
+  //     const newUser = await this.afa.auth.createUserWithEmailAndPassword(user.email, user.password);
+  //     await this.afs.collection('Users').doc(newUser.user.uid).set(this.user);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+  register(user: User) {
+    this.afa.auth.createUserWithEmailAndPassword(user.email, user.password);
   }
 
   logout() {
