@@ -1,5 +1,7 @@
 {
   "name": "leagueApp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
