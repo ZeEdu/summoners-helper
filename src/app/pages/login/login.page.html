@@ -9,32 +9,13 @@
 
 <ion-content>
   <ion-item>
-    <ion-input
-      primary
-      type="email"
-      placeholder="Insira seu email"
-      [(ngModel)]="userLogin.email"
-    ></ion-input>
+    <ion-input primary type="email" placeholder="Insira seu email" [(ngModel)]="userLogin.email"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-input
-      primary
-      type="password"
-      placeholder="Insira sua Senha"
-      [(ngModel)]="userLogin.password"
-    ></ion-input>
+    <ion-input primary type="password" placeholder="Insira sua Senha" [(ngModel)]="userLogin.password"></ion-input>
   </ion-item>
-  <a routerLink="/recuperarConta" class="recuperarConta"
-    >Recuperar minha conta</a
-  >
   <ion-button expand="block" (click)="login()">
     Entrar
   </ion-button>
-  <a routerLink="/home" class="btn">
-    <ion-button expand="block">
-      Continuar Sem Cadastro
-    </ion-button>
-  </a>
-
   <h2>Não possui uma conta? <a routerLink="/cadastro">Cadastre-se</a></h2>
 </ion-content>

@@ -38,6 +38,7 @@ export class LoginPage implements OnInit {
 
    }
 
+
    async presentloading() {
       this.loading = await this.loadingCtrl.create({
          message: 'Por favor, aguarde...',

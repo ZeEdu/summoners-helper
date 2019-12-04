@@ -26,26 +26,17 @@ export class CadastroPage implements OnInit {
 
   async register() {
     await this.presentloading();
-
     try {
-
       await this.authService.register(this.userRegister);
       this.presentToast('Cadastrado com Sucesso!');
-
     } catch (error) {
-
       const errorMessage = this.setErrorMessage(error.code);
       console.log(errorMessage);
       this.presentToast(errorMessage);
-
     } finally {
-
       this.loading.dismiss();
-
     }
-
     this.router.navigate(['/login']);
-
   }
 
   async presentloading() {
