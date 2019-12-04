@@ -36,7 +36,6 @@ export class CadastroPage implements OnInit {
     } finally {
       this.loading.dismiss();
     }
-    this.router.navigate(['/login']);
   }
 
   async presentloading() {
