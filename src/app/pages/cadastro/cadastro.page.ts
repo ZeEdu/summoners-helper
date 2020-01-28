@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { User } from 'src/app/interfaces/user';
+import { UserProfile } from 'src/app/interfaces/user-profile';
 import { AuthService } from 'src/app/services/auth.service';
-import { Router } from '@angular/router';
-import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
     selector: 'app-cadastro',
@@ -16,14 +15,12 @@ export class CadastroPage implements OnInit {
         private loadingCtrl: LoadingController,
         private toastCtrl: ToastController,
         private authService: AuthService,
-        private afs: AngularFirestore,
     ) { }
 
     public userRegister: User = {};
+    public userProfile: UserProfile = {};
     public checkPassword: string;
     public loading: any;
-    public time: any = Date.now();
-
 
     ngOnInit() { }
 
@@ -34,9 +31,12 @@ export class CadastroPage implements OnInit {
         //
         await this.presentloading();
         try {
+            // Registra o usuário no Sistema de Autenticação do Firebase
             const newUser = await this.authService.register(this.userRegister);
-            await this.afs.collection('UsersProfile').doc(newUser.user.uid).set(this.userRegister);
-            this.presentToast('Cadastrado com Sucesso!');
+            // Cria um perfil para o usuário
+            console.log(newUser.user.uid);
+            this.userProfile.
+                this.presentToast('Cadastrado com Sucesso!');
         } catch (error) {
             const errorMessage = this.setErrorMessage(error.code);
             console.log(error);
