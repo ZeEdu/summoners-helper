@@ -8,19 +8,25 @@
 </ion-header>
 
 <ion-content>
-    <ion-item>
-        <ion-input primary type="text" placeholder="Username" [(ngModel)]="userRegister.username"></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-input primary type="email" placeholder="Email" [(ngModel)]="userRegister.email"></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-input primary type="password" placeholder="Password" [(ngModel)]="userRegister.password"></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-input primary type="password" placeholder="Confirm Password" [(ngModel)]="checkPassword"></ion-input>
-    </ion-item>
-    <ion-button expand="block" (click)="register()">
-        Cadastrar
-    </ion-button>
+    <form [formGroup]="frmSignup" (ngSubmit)="onSubmit()">
+        <ion-item>
+            <ion-input primary type="text" placeholder="Username" formControlName="username"></ion-input>
+            <ion-label *ngIf="frmSignup.controls.username.pristine == false">
+                Pristine é false
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-input primary type="email" placeholder="Email" formControlName="email"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-input primary type="password" placeholder="Password" formControlName="password" ></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input primary type="password" placeholder="Confirm Password" formControlName="confirmPassword"></ion-input>
+        </ion-item>
+        <ion-button expand="block" type="submit" disabled="frmGroup.invalid || frmGroup.pristine">
+            Cadastrar
+        </ion-button>
+    </form>
 </ion-content>

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { LoadingController, ToastController } from '@ionic/angular';
-import { User } from 'src/app/interfaces/user';
-import { UserProfile } from 'src/app/interfaces/user-profile';
-import { AuthService } from 'src/app/services/auth.service';
+import {Component, OnInit} from '@angular/core';
+import {LoadingController, ToastController} from '@ionic/angular';
+import {User} from 'src/app/interfaces/user';
+import {UserProfile} from 'src/app/interfaces/user-profile';
+import {AuthService} from 'src/app/services/auth.service';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
     selector: 'app-cadastro',
@@ -15,15 +16,40 @@ export class CadastroPage implements OnInit {
         private loadingCtrl: LoadingController,
         private toastCtrl: ToastController,
         private authService: AuthService,
-    ) { }
+        private fb: FormBuilder
+    ) {
+    }
+
+    public frmSignup: FormGroup;
 
     public userRegister: User = {};
     public userProfile: UserProfile = {};
     public checkPassword: string;
     public loading: any;
 
-    ngOnInit() { }
+    ngOnInit() {
+        this.createForm();
+    }
 
+    // Get Form Values Methods
+
+    createForm() {
+        this.frmSignup = this.fb.group({
+            username: new FormControl('', [
+                Validators.required,
+                Validators.minLength(5),
+                Validators.maxLength(30)
+            ]),
+            email: new FormControl(''),
+            password: new FormControl(''),
+            confirmPassword: new FormControl(''),
+        });
+    }
+
+    onSubmit() {
+        console.log(this.frmSignup.value);
+        console.log(this.frmSignup.pristine);
+    }
 
     // Utilizar a Promise de retorno em authService.register
     async register() {
@@ -35,8 +61,7 @@ export class CadastroPage implements OnInit {
             const newUser = await this.authService.register(this.userRegister);
             // Cria um perfil para o usuário
             console.log(newUser.user.uid);
-            this.userProfile.
-                this.presentToast('Cadastrado com Sucesso!');
+            this.presentToast('Cadastrado com Sucesso!');
         } catch (error) {
             const errorMessage = this.setErrorMessage(error.code);
             console.log(error);
@@ -55,7 +80,7 @@ export class CadastroPage implements OnInit {
     }
 
     async presentToast(message: string) {
-        const toast = await this.toastCtrl.create({ message, duration: 3000 });
+        const toast = await this.toastCtrl.create({message, duration: 3000});
         toast.present();
     }
 
