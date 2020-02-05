@@ -11,19 +11,42 @@
     <form [formGroup]="frmSignup" (ngSubmit)="onSubmit()">
         <ion-item>
             <ion-input primary type="text" placeholder="Username" formControlName="username"></ion-input>
-            <ion-label *ngIf="frmSignup.controls.username.pristine == false">
-                Pristine é false
+        </ion-item>
+        <ion-item color="danger" *ngIf="frmSignup.controls['username'].hasError('required') &&
+            frmSignup.controls['username'].pristine == false">
+            <ion-label>
+                Username is required
             </ion-label>
         </ion-item>
+        <ion-item color="danger" *ngIf="frmSignup.controls['username'].hasError('minlength') &&
+            frmSignup.controls['username'].pristine == false">
+            <ion-label>
+                Must have at least 5 characters
+            </ion-label>
+        </ion-item>
+        <ion-item color="danger" *ngIf="frmSignup.controls['username'].hasError('maxlength') &&
+            frmSignup.controls['username'].pristine == false">
+            <ion-label>
+                Must have less than 30 characters
+            </ion-label>
+        </ion-item>
+        <ion-item color="danger" *ngIf="(frmSignup.controls['username'].hasError('notUnique') || frmSignup.controls['username'].hasError('maxlength')) &&
+            frmSignup.controls['username'].pristine == false">
+            <ion-label>
+                Username already being used
+            </ion-label>
+        </ion-item>
+
         <ion-item>
             <ion-input primary type="email" placeholder="Email" formControlName="email"></ion-input>
         </ion-item>
 
         <ion-item>
-            <ion-input primary type="password" placeholder="Password" formControlName="password" ></ion-input>
+            <ion-input primary type="password" placeholder="Password" formControlName="password"></ion-input>
         </ion-item>
         <ion-item>
-            <ion-input primary type="password" placeholder="Confirm Password" formControlName="confirmPassword"></ion-input>
+            <ion-input primary type="password" placeholder="Confirm Password"
+                       formControlName="confirmPassword"></ion-input>
         </ion-item>
         <ion-button expand="block" type="submit" disabled="frmGroup.invalid || frmGroup.pristine">
             Cadastrar
