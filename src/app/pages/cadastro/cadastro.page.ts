@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {LoadingController, ToastController} from '@ionic/angular';
-import {User} from 'src/app/interfaces/user';
-import {UserProfile} from 'src/app/interfaces/user-profile';
-import {AuthService} from 'src/app/services/auth.service';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { LoadingController, ToastController } from '@ionic/angular';
+import { User } from 'src/app/interfaces/user';
+import { UserProfile } from 'src/app/interfaces/user-profile';
+import { AuthService } from 'src/app/services/auth.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { CustomAsyncValidators } from '../../validations/custom-async-validators';
+import { CustomValidators } from '../../validations/custom-validators';
 
 @Component({
     selector: 'app-cadastro',
@@ -16,7 +18,8 @@ export class CadastroPage implements OnInit {
         private loadingCtrl: LoadingController,
         private toastCtrl: ToastController,
         private authService: AuthService,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private asyncCustomValidator: CustomAsyncValidators,
     ) {
     }
 
@@ -38,8 +41,12 @@ export class CadastroPage implements OnInit {
             username: new FormControl('', [
                 Validators.required,
                 Validators.minLength(5),
-                Validators.maxLength(30)
-            ]),
+                Validators.maxLength(30),
+                CustomValidators.patternValidator(/^\S*$/, { haswhitespaces: true })
+
+            ], [
+                    this.asyncCustomValidator.asyncValidate('isusernametaken')
+                ]),
             email: new FormControl(''),
             password: new FormControl(''),
             confirmPassword: new FormControl(''),
@@ -54,7 +61,6 @@ export class CadastroPage implements OnInit {
     // Utilizar a Promise de retorno em authService.register
     async register() {
         // Checar se existe um  usuário com este nome
-        //
         await this.presentloading();
         try {
             // Registra o usuário no Sistema de Autenticação do Firebase
@@ -80,8 +86,8 @@ export class CadastroPage implements OnInit {
     }
 
     async presentToast(message: string) {
-        const toast = await this.toastCtrl.create({message, duration: 3000});
-        toast.present();
+        const toast = await this.toastCtrl.create({ message, duration: 3000 });
+        await toast.present();
     }
 
     setErrorMessage(errorCode: string) {

@@ -18,6 +18,12 @@
                 Username is required
             </ion-label>
         </ion-item>
+        <ion-item color="danger" *ngIf="frmSignup.controls['username'].hasError('haswhitespaces') &&
+            frmSignup.controls['username'].pristine == false">
+            <ion-label>
+                White Spaces are not allowed
+            </ion-label>
+        </ion-item>
         <ion-item color="danger" *ngIf="frmSignup.controls['username'].hasError('minlength') &&
             frmSignup.controls['username'].pristine == false">
             <ion-label>
@@ -30,7 +36,7 @@
                 Must have less than 30 characters
             </ion-label>
         </ion-item>
-        <ion-item color="danger" *ngIf="(frmSignup.controls['username'].hasError('notUnique') || frmSignup.controls['username'].hasError('maxlength')) &&
+        <ion-item color="danger" *ngIf="(frmSignup.controls['username'].hasError('isusernametaken') || frmSignup.controls['username'].hasError('maxlength')) &&
             frmSignup.controls['username'].pristine == false">
             <ion-label>
                 Username already being used
