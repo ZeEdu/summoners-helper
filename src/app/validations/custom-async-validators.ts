@@ -4,51 +4,48 @@ import { Injectable } from "@angular/core";
 import { Observable, timer } from "rxjs";
 import { map, switchMap } from "rxjs/operators";
 import { HTTP } from "@ionic-native/http";
-
-const URL = "localhost:3000";
+import { Platform } from "@ionic/angular";
 
 @Injectable({
-    providedIn: "root"
+  providedIn: "root"
 })
 export class CustomAsyncValidators {
-    constructor(private http: HttpClient, private nativeHTTP: HTTP) { }
+  private basepath = "http://localhost:3000";
+  constructor(private http: HttpClient) {}
 
-    searchMethod(query: string, method: string) {
-        return timer(1000).pipe(
-            switchMap(() => {
-                return this.http.get(`${URL}/validations/${method}/${query}`);
-            })
-        );
-        // return timer(1000).pipe(
-        //   switchMap(() => {
-        //     console.log("Entrou Aqui");
+  private searchMethod(query: string, method: string) {
+    return timer(1000).pipe(
+      switchMap(() => {
+        return this.http.get(`${this.basepath}/validations/${method}/${query}`);
+      })
+    );
+  }
 
-        //     return this.nativeHTTP.get(
-        //       `${URL}/validations/${method}/${query}`,
-        //       {},
-        //       {}
-        //     );
-        //   })
-        // );
-    }
+  public asyncValidateUsername(errMethod: string): AsyncValidatorFn {
+    return (
+      control: AbstractControl
+    ): Observable<{ [key: string]: any } | null> => {
+      return this.searchMethod(control.value, errMethod).pipe(
+        map(res => {
+          if (Object.entries(res).length) {
+            return { isusernametaken: true };
+          }
+        })
+      );
+    };
+  }
 
-    asyncValidate(errMethod: string): AsyncValidatorFn {
-        return (
-            control: AbstractControl
-        ): Observable<{ [key: string]: any } | null> => {
-            console.log(control.value);
-            console.log(errMethod);
-            return this.searchMethod(control.value, errMethod).pipe(
-                map(res => {
-                    // if username is already taken
-                    console.log(res);
-                    if (res) {
-                        // return error
-                        return { errMethod: true };
-                    }
-                    console.log("It's a valid username");
-                })
-            );
-        };
-    }
+  public asyncValidateEmail(errMethod: string): AsyncValidatorFn {
+    return (
+      control: AbstractControl
+    ): Observable<{ [key: string]: any } | null> => {
+      return this.searchMethod(control.value, errMethod).pipe(
+        map(res => {
+          if (Object.entries(res).length) {
+            return { isemailtaken: true };
+          }
+        })
+      );
+    };
+  }
 }

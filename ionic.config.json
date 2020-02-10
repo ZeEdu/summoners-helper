@@ -1,5 +1,11 @@
 {
   "name": "leagueApp",
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "localhost:3000"
+    }
+  ],
   "integrations": {
     "cordova": {}
   },
