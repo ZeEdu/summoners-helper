@@ -9,6 +9,8 @@
 
 <ion-content>
     <form [formGroup]="frmSignup" (ngSubmit)="onSubmit()">
+
+        <!-- Username -->
         <ion-item>
             <ion-input
                     primary
@@ -32,7 +34,7 @@
             frmSignup.controls['username'].pristine == false"
         >
             <ion-label>
-                White Spaces are not allowed
+                White Spaces are in the username
             </ion-label>
         </ion-item>
         <ion-item
@@ -71,6 +73,7 @@
                 This Username is available!
             </ion-label>
         </ion-item>
+        <!-- Email -->
         <ion-item>
             <ion-input
                     primary
@@ -79,6 +82,43 @@
                     formControlName="email"
             ></ion-input>
         </ion-item>
+        <ion-item
+                color="danger"
+                *ngIf="frmSignup.controls['email'].hasError('required') &&
+            frmSignup.controls['email'].pristine == false"
+        >
+            <ion-label>
+                Email is required
+            </ion-label>
+        </ion-item>
+        <ion-item
+                color="danger"
+                *ngIf="frmSignup.controls['email'].hasError('email') &&
+            frmSignup.controls['email'].pristine == false"
+        >
+            <ion-label>
+                Invalid email format
+            </ion-label>
+        </ion-item>
+        <ion-item
+                color="danger"
+                *ngIf="frmSignup.controls['email'].hasError('isemailtaken') &&
+            frmSignup.controls['email'].pristine == false"
+        >
+            <ion-label>
+                Email already taken
+            </ion-label>
+        </ion-item>
+        <ion-item
+                color="success"
+                *ngIf="frmSignup.controls['email'].hasError('isemailtaken') == false &&
+            frmSignup.controls['email'].pristine == false && frmSignup.controls['email'].valid"
+        >
+            <ion-label>
+                That's a vacant email!
+            </ion-label>
+        </ion-item>
+        <!-- Password -->
         <ion-item>
             <ion-input
                     primary
@@ -87,6 +127,7 @@
                     formControlName="password"
             ></ion-input>
         </ion-item>
+        <!-- Confirm Password -->
         <ion-item>
             <ion-input
                     primary

@@ -69,9 +69,10 @@ export class CadastroPage implements OnInit {
                 [this.asyncCustomValidator.asyncValidateUsername('isusernametaken')]
             ),
             email: new FormControl(
-                ''
-                // [Validators.required, Validators.email],
-                // [this.asyncCustomValidator.asyncValidateEmail("isemailtaken")]
+                '',
+                [Validators.required,
+                    Validators.email],
+                [this.asyncCustomValidator.asyncValidateEmail('isemailtaken')]
             ),
             password: new FormControl(''),
             confirmPassword: new FormControl('')
