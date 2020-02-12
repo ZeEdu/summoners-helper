@@ -17,11 +17,12 @@
                     type="text"
                     placeholder="Username"
                     formControlName="username"
+                    [ngModel]="this.userRegister.username"
             ></ion-input>
         </ion-item>
         <ion-item
                 color="danger"
-                *ngIf="frmSignup.controls['username'].hasError('required') &&
+                *ngIf="frmSignup.controls['username'].hasError('required')  &&
             frmSignup.controls['username'].pristine == false"
         >
             <ion-label>
@@ -30,11 +31,11 @@
         </ion-item>
         <ion-item
                 color="danger"
-                *ngIf="frmSignup.controls['username'].hasError('haswhitespaces') &&
+                *ngIf="frmSignup.controls['username'].hasError('alphanumeric') &&
             frmSignup.controls['username'].pristine == false"
         >
             <ion-label>
-                White Spaces are in the username
+                Only letters, number and underscore are valid
             </ion-label>
         </ion-item>
         <ion-item
@@ -58,7 +59,7 @@
         <ion-item
                 color="danger"
                 *ngIf="frmSignup.controls['username'].hasError('isusernametaken') &&
-            frmSignup.controls['username'].pristine == false"
+            frmSignup.controls['username'].dirty"
         >
             <ion-label>
                 Username already taken
@@ -70,7 +71,7 @@
             frmSignup.controls['username'].pristine == false && frmSignup.controls['username'].valid"
         >
             <ion-label>
-                This Username is available!
+                This username is available!
             </ion-label>
         </ion-item>
         <!-- Email -->
@@ -80,6 +81,7 @@
                     type="email"
                     placeholder="Email"
                     formControlName="email"
+                    [ngModel]="this.userRegister.email"
             ></ion-input>
         </ion-item>
         <ion-item
@@ -93,7 +95,7 @@
         </ion-item>
         <ion-item
                 color="danger"
-                *ngIf="frmSignup.controls['email'].hasError('email') &&
+                *ngIf="(frmSignup.controls['email'].hasError('email') || frmSignup.controls['email'].hasError('invalidemailformat')) &&
             frmSignup.controls['email'].pristine == false"
         >
             <ion-label>
@@ -125,7 +127,43 @@
                     type="password"
                     placeholder="Password"
                     formControlName="password"
+                    [ngModel]="this.userRegister.password"
             ></ion-input>
+        </ion-item>
+        <ion-item
+                color="danger"
+                *ngIf="(frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].value === '') &&
+            frmSignup.controls['password'].dirty"
+        >
+            <ion-label>
+                Password is required
+            </ion-label>
+        </ion-item>
+        <ion-item
+                color="danger"
+                *ngIf="frmSignup.controls['password'].hasError('minlength') &&
+                frmSignup.controls['password'].dirty"
+        >
+            <ion-label>
+                Password must have at least 6 characters
+            </ion-label>
+        </ion-item>
+        <ion-item
+                color="danger"
+                *ngIf="frmSignup.controls['password'].hasError('maxlength') &&
+                frmSignup.controls['password'].dirty"
+        >
+            <ion-label>
+                Password must have less than 30 characters
+            </ion-label>
+        </ion-item>
+        <ion-item
+                color="success"
+                *ngIf="frmSignup.controls['password'].valid"
+        >
+            <ion-label>
+                That's a valid password!
+            </ion-label>
         </ion-item>
         <!-- Confirm Password -->
         <ion-item>
@@ -136,11 +174,27 @@
                     formControlName="confirmPassword"
             ></ion-input>
         </ion-item>
-        <!--        <ion-button expand="block" (click)="setUsername()">Get username</ion-button>-->
+        <ion-item
+                color="danger"
+                *ngIf="frmSignup.controls['password'].valid && frmSignup.controls['confirmPassword'].dirty && frmSignup.controls['confirmPassword'].invalid"
+        >
+            <ion-label>
+                Passwords do not match!
+            </ion-label>
+        </ion-item>
+        <ion-item
+                color="success"
+                *ngIf="frmSignup.controls['password'].valid && frmSignup.controls['confirmPassword'].valid"
+        >
+            <ion-label>
+                Passwords do match!
+            </ion-label>
+        </ion-item>
+        <!--<ion-button expand="block" (click)="checkValues()">Get Values</ion-button>-->
         <ion-button
                 expand="block"
                 type="submit"
-                disabled="frmGroup.invalid || frmGroup.pristine"
+                [disabled]="frmSignup.invalid"
         >
             Cadastrar
         </ion-button>

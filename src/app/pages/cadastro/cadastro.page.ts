@@ -30,14 +30,21 @@ export class CadastroPage implements OnInit {
     public frmSignup: FormGroup;
 
     public userRegister: User = {};
-    public userProfile: UserProfile = {};
-    public checkPassword: string;
     public loading: any;
 
     public usernameValue: string;
 
     ngOnInit() {
         this.createForm();
+    }
+
+    public checkValues(): void {
+        console.log(`Is dirty: ${this.frmSignup.controls.confirmPassword.dirty}`);
+        console.log(`Is pristine: ${this.frmSignup.controls.confirmPassword.pristine}`);
+        console.log(`Is valid: ${this.frmSignup.controls.confirmPassword.valid}`);
+        console.log(`Input value in password: ${this.frmSignup.controls.password.value}`);
+        console.log(`Input value in confirmPassword: ${this.frmSignup.controls.confirmPassword.value}`);
+        console.log(`Form is invalid? ${this.frmSignup.invalid}`);
     }
 
     // Get form values
@@ -64,27 +71,37 @@ export class CadastroPage implements OnInit {
                     Validators.required,
                     Validators.minLength(5),
                     Validators.maxLength(30),
-                    CustomValidators.patternValidator(/^\S*$/, {haswhitespaces: true})
+                    CustomValidators.patternValidator(/^\S*$/, {haswhitespaces: true}),
+                    CustomValidators.patternValidator(/^[a-zA-Z0-9-_]+$/, {alphanumeric: true})
                 ],
                 [this.asyncCustomValidator.asyncValidateUsername('isusernametaken')]
             ),
             email: new FormControl(
                 '',
                 [Validators.required,
-                    Validators.email],
+                    Validators.email,
+                    CustomValidators.patternValidator(
+                        // tslint:disable-next-line:max-line-length
+                        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                        {invalidemailformat: true}),
+                ],
                 [this.asyncCustomValidator.asyncValidateEmail('isemailtaken')]
             ),
-            password: new FormControl(''),
-            confirmPassword: new FormControl('')
+            password: new FormControl('', [
+                    Validators.required,
+                    Validators.minLength(6),
+                    Validators.maxLength(30),
+                ]
+            ),
+            confirmPassword: new FormControl('', [Validators.required])
+        }, {
+            validators: CustomValidators.passwordMatchingValidator
         });
     }
 
-    public checkValues(): void {
-    }
 
     onSubmit() {
         console.log(this.frmSignup.value);
-        console.log(this.frmSignup.pristine);
     }
 
     public async register() {
@@ -94,6 +111,7 @@ export class CadastroPage implements OnInit {
             // Registra o usuário no Sistema de Autenticação do Firebase
             const newUser = await this.authService.register(this.userRegister);
             // Cria um perfil para o usuário
+            this.userRegister.uid = newUser.user.uid;
             console.log(newUser.user.uid);
             this.presentToast('Cadastrado com Sucesso!');
         } catch (error) {
