@@ -28,6 +28,7 @@ export class CustomAsyncValidators {
     ): Observable<{ [key: string]: any } | null> => {
       return this.searchMethod(control.value, errMethod).pipe(
         map(res => {
+          console.log(res);
           if (Object.entries(res).length) {
             return { isusernametaken: true };
           }

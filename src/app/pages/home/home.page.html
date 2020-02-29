@@ -1,19 +1,26 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Página Inicial
+      Start Page
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <p>Logado com o email: {{currentUserEmail}}</p>
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="champions">
+        <ion-label>Champions</ion-label>
+        <ion-icon name="skull-sharp"></ion-icon>
+      </ion-tab-button>
+      <ion-tab-button tab="builds">
+        <ion-label>Builds</ion-label>
+        <ion-icon name="book-sharp"></ion-icon>
+      </ion-tab-button>
+      <ion-tab-button tab="settings">
+        <ion-label>Settings</ion-label>
+        <ion-icon name="settings-sharp"></ion-icon>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
 </ion-content>
-
-<ion-footer>
-  <ion-toolbar>
-    <ion-button (click)="logout()" color="danger" expand="block">
-      Sair
-    </ion-button>
-  </ion-toolbar>
-</ion-footer>

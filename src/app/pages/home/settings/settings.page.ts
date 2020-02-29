@@ -1,13 +1,13 @@
 import { Component, OnInit } from "@angular/core";
-import { AuthService } from "../../services/auth.service";
+import { AuthService } from "src/app/services/auth.service";
 import { AngularFireAuth } from "@angular/fire/auth";
 
 @Component({
-  selector: "app-home",
-  templateUrl: "home.page.html",
-  styleUrls: ["home.page.scss"]
+  selector: "app-settings",
+  templateUrl: "./settings.page.html",
+  styleUrls: ["./settings.page.scss"]
 })
-export class HomePage implements OnInit {
+export class SettingsPage implements OnInit {
   public currentUserEmail: any;
 
   ngOnInit(): void {

@@ -10,6 +10,7 @@ import {
 } from "@angular/forms";
 import { CustomAsyncValidators } from "../../validations/custom-async-validators";
 import { CustomValidators } from "../../validations/custom-validators";
+import { UserManagerService } from "src/app/services/user-manager.service";
 
 @Component({
   selector: "app-cadastro",
@@ -22,7 +23,8 @@ export class CadastroPage implements OnInit {
     private toastCtrl: ToastController,
     private authService: AuthService,
     private fb: FormBuilder,
-    private asyncCustomValidator: CustomAsyncValidators
+    private asyncCustomValidator: CustomAsyncValidators,
+    private userManager: UserManagerService
   ) {}
 
   public frmSignup: FormGroup;
@@ -30,41 +32,6 @@ export class CadastroPage implements OnInit {
   public usernameValue: string;
 
   public loading: any;
-
-  ngOnInit() {
-    this.createForm();
-  }
-
-  public checkValues(): void {
-    console.log(`Is dirty: ${this.frmSignup.controls.confirmPassword.dirty}`);
-    console.log(
-      `Is pristine: ${this.frmSignup.controls.confirmPassword.pristine}`
-    );
-    console.log(`Is valid: ${this.frmSignup.controls.confirmPassword.valid}`);
-    console.log(
-      `Input value in password: ${this.frmSignup.controls.password.value}`
-    );
-    console.log(
-      `Input value in confirmPassword: ${this.frmSignup.controls.confirmPassword.value}`
-    );
-    console.log(`Form is invalid? ${this.frmSignup.invalid}`);
-  }
-
-  // Get form values
-
-  private getUsername(): string {
-    return this.frmSignup.controls.username.value;
-  }
-
-  private getEmail(): string {
-    return this.frmSignup.controls.email.value;
-  }
-
-  private getPassword(): string {
-    return this.frmSignup.controls.username.value;
-  }
-
-  // Get Form Values Methods
 
   public createForm() {
     this.frmSignup = this.fb.group(
@@ -109,17 +76,33 @@ export class CadastroPage implements OnInit {
     );
   }
 
+  ngOnInit() {
+    this.createForm();
+  }
+
   public onSubmit() {
-    console.log("Submited");
-    this.formUser();
-    console.log(this.userRegister);
+    this.getFormValues();
     this.register();
   }
 
-  private formUser(): void {
+  // Get Form Values Methods
+
+  private getFormValues(): void {
     this.userRegister.username = this.getUsername();
     this.userRegister.email = this.getEmail();
     this.userRegister.password = this.getPassword();
+  }
+
+  private getUsername(): string {
+    return this.frmSignup.controls.username.value;
+  }
+
+  private getEmail(): string {
+    return this.frmSignup.controls.email.value;
+  }
+
+  private getPassword(): string {
+    return this.frmSignup.controls.username.value;
   }
 
   public async register() {
@@ -127,9 +110,21 @@ export class CadastroPage implements OnInit {
     await this.presentloading();
     try {
       // Registra o usuário no Sistema de Autenticação do Firebase
-      const newUser = await this.authService.register(this.userRegister);
-      // Register the new user in the backend
-      console.log(newUser);
+      console.log(this.userRegister);
+
+      await this.authService
+        .register(this.userRegister)
+        .then(res => {
+          this.userRegister.uid = res.user.uid;
+        })
+        .catch(err => console.log(err));
+      // Register him in the backend
+      try {
+        const signRes = this.userManager.signupUser(this.userRegister);
+        console.log(signRes);
+      } catch (error) {
+        this.presentToast(error);
+      }
       // Registra o usuário no backend
       this.presentToast("Cadastrado com Sucesso!");
     } catch (error) {
