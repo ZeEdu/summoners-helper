@@ -6,28 +6,28 @@ import { User } from "../interfaces/user";
   providedIn: "root"
 })
 export class UserManagerService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  private baseUrl = "http://localhost:3000";
-  private signupPath = "users/newuser";
+  private baseUrl = "http://localhost:5000";
+  private signupPath = "/api/v1/users";
 
-  public signupUser(user: User) {
+  public addUser(user: User) {
     const sendUser = JSON.stringify(user);
     const httpNewHeader = new HttpHeaders({
       "Content-type": "application/json",
       "Cache-Control": "no-cache"
     });
     return this.http
-      .post<User>(`${this.baseUrl}/${this.signupPath}`, sendUser, {
-        headers: httpNewHeader
-      })
-      .subscribe(
-        val => {
-          console.log("POST call", val);
-        },
-        err => {
-          console.log("POST returned a error", err);
-        }
-      );
+    .post<User>(`${this.baseUrl}/${this.signupPath}`, sendUser, {
+      headers: httpNewHeader
+    })
+    .subscribe(
+      val => {
+        console.log("POST call", val);
+      },
+      err => {
+        console.log("POST returned a error", err);
+      }
+    );
   }
 }
