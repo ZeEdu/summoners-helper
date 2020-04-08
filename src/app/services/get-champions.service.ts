@@ -13,7 +13,8 @@ export class GetChampionsService {
       'http://ddragon.leagueoflegends.com/cdn/10.7.1/data/en_US/champion.json'
     );
   }
-  public getChampionByID(id: string) {
+
+  public getChampionByID(id?: string) {
     return this.http.get(
       `http://ddragon.leagueoflegends.com/cdn/10.7.1/data/en_US/champion/${id}.json`
     );

@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
-import { AngularFireAuth } from "@angular/fire/auth";
-import { User } from "../interfaces/user";
-import { UserManagerService } from "./user-manager.service";
+import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { User } from '../interfaces/user';
+import { UserManagerService } from './user-manager.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
 export class AuthService {
   constructor(
