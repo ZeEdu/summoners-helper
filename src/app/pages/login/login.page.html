@@ -12,7 +12,7 @@
     <ion-input
       primary
       type="email"
-      placeholder="Insira seu email"
+      placeholder="Email"
       [(ngModel)]="userLogin.email"
     ></ion-input>
   </ion-item>
@@ -20,17 +20,17 @@
     <ion-input
       primary
       type="password"
-      placeholder="Insira sua Senha"
+      placeholder="Password"
       [(ngModel)]="userLogin.password"
     ></ion-input>
   </ion-item>
   <ion-button expand="block" (click)="login()">
-    Logar
+    Login
   </ion-button>
   <ion-button expand="block" (click)="loginAnon()"
-    >Continuar sem Cadastro</ion-button
+    >Continue as a Guest</ion-button
   >
   <h2 class="sign-in">
-    Não possui uma conta? <a routerLink="/cadastro">Cadastre-se</a>
+    Don't have an account yet? <a routerLink="/cadastro">Create yours Here</a>
   </h2>
 </ion-content>

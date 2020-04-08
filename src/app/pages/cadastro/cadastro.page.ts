@@ -25,7 +25,7 @@ export class CadastroPage implements OnInit {
     private fb: FormBuilder,
     private asyncCustomValidator: CustomAsyncValidators,
     private userManager: UserManagerService
-  ) { }
+  ) {}
 
   public frmSignup: FormGroup;
   public userRegister: User = {};
@@ -111,21 +111,16 @@ export class CadastroPage implements OnInit {
 
     try {
       // Registra o usuário no Sistema de Autenticação do Firebase
-      console.log(this.userRegister);
-
       const newUser = await this.authService.register(this.userRegister);
 
       // Atualiza
       this.userRegister.uid = newUser.user.uid;
-
       this.userManager.addUser(this.userRegister);
 
       // Registra o usuário no backend
       this.presentToast("Cadastrado com Sucesso!");
     } catch (error) {
-      const errorMessage = this.setErrorMessage(error.code);
-      console.log(error);
-      this.presentToast(errorMessage);
+      this.presentToast(error.code);
     } finally {
       this.loading.dismiss();
     }
@@ -141,21 +136,5 @@ export class CadastroPage implements OnInit {
   async presentToast(message: string) {
     const toast = await this.toastCtrl.create({ message, duration: 3000 });
     await toast.present();
-  }
-
-  setErrorMessage(errorCode: string) {
-    let errorMessage: string;
-    switch (errorCode) {
-      case "auth/argument-error":
-        errorMessage = "Email ou senha informados são inválidos!";
-      break;
-      case "auth/weak-password":
-        errorMessage = "Senha deve possuir 6 caracteres ou mais!";
-      break;
-      case "auth/email-already-in-use":
-        errorMessage = "O Email informado já está em uso!";
-      break;
-    }
-    return errorMessage;
   }
 }

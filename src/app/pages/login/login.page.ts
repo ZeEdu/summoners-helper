@@ -24,15 +24,11 @@ export class LoginPage implements OnInit {
     await this.presentloading();
 
     try {
-      console.log(this.userLogin);
       await this.authService.login(this.userLogin);
-      console.log(this.authService.user.uid);
 
       this.presentToast("Login Realizado com Sucesso!");
     } catch (error) {
-      const errorMessage = this.setErrorMessage(error.code);
-      console.log(error);
-      this.presentToast(errorMessage);
+      this.presentToast(error);
     } finally {
       this.loading.dismiss();
     }
@@ -45,9 +41,7 @@ export class LoginPage implements OnInit {
       await this.authService.anonLogin();
       this.presentToast("Continuando como convidado!");
     } catch (error) {
-      const errorMessage = this.setErrorMessage(error.code);
-      console.log(error);
-      this.presentToast(errorMessage);
+      this.presentToast(error);
     } finally {
       this.loading.dismiss();
     }
@@ -63,24 +57,5 @@ export class LoginPage implements OnInit {
   async presentToast(message: string) {
     const toast = await this.toastCtrl.create({ message, duration: 2000 });
     toast.present();
-  }
-
-  setErrorMessage(errorCode: string) {
-    let errorMessage: string;
-    switch (errorCode) {
-      case "auth/argument-error":
-        errorMessage = "Email ou senha informados são inválidos!";
-        break;
-      case "auth/weak-password":
-        errorMessage = "Senha deve possuir 6 caracteres ou mais!";
-        break;
-      case "auth/email-already-in-use":
-        errorMessage = "O Email informado já está em uso!";
-        break;
-      case "auth/user-not-found":
-        errorMessage = "Usuário não encontrado";
-        break;
-    }
-    return errorMessage;
   }
 }

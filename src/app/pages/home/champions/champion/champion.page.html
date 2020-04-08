@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Champion Page Detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="padding">
+  <ion-segment
+    scrollable
+    mode="md"
+    [(ngModel)]="segment"
+    (ionChange)="segmentChanged($event)"
+  >
+    <ion-segment-button value="0">overview</ion-segment-button>
+    <ion-segment-button value="1">status</ion-segment-button>
+    <ion-segment-button value="2">abilities</ion-segment-button>
+    <ion-segment-button value="3">builds</ion-segment-button>
+  </ion-segment>
+
+  <ion-slides
+    #slides
+    pager="false"
+    [options]="sliderOptions"
+    (ionSlideDidChange)="slideChanged(slides)"
+    (ionSlidesDidLoad)="slideChanged(slides)"
+  >
+    <ion-slide>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img
+            src="http://ddragon.leagueoflegends.com/cdn/10.7.1/img/champion/Aatrox.png"
+          />
+        </ion-avatar>
+        <ion-label class="white-text">
+          <h2>Overview</h2>
+        </ion-label>
+      </ion-item>
+    </ion-slide>
+    <ion-slide>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img
+            src="http://ddragon.leagueoflegends.com/cdn/10.7.1/img/champion/Ahri.png"
+          />
+        </ion-avatar>
+        <ion-label class="white-text">
+          <h2>status</h2>
+        </ion-label>
+      </ion-item>
+    </ion-slide>
+    <ion-slide>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img
+            src="http://ddragon.leagueoflegends.com/cdn/10.7.1/img/champion/Akali.png"
+          />
+        </ion-avatar>
+        <ion-label class="white-text">
+          <h1>abilities</h1>
+        </ion-label>
+      </ion-item>
+    </ion-slide>
+    <ion-slide>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img
+            src="http://ddragon.leagueoflegends.com/cdn/10.7.1/img/champion/Amumu.png"
+          />
+        </ion-avatar>
+        <ion-label class="white-text">
+          <h2>Builds</h2>
+        </ion-label>
+      </ion-item>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

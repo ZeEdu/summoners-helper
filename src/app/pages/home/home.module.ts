@@ -8,6 +8,6 @@ import { HomeRoutingModule } from "./home-routes.module";
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, HomeRoutingModule],
-  declarations: [HomePage]
+  declarations: [HomePage],
 })
 export class HomePageModule {}

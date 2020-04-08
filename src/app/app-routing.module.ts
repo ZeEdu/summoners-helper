@@ -1,31 +1,36 @@
-import { NgModule } from "@angular/core";
-import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
-import { AuthGuard } from "./guards/auth.guard";
-import { LoginGuard } from "./guards/login.guard";
+import { NgModule } from '@angular/core';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
+import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
-  { path: "", redirectTo: "login", pathMatch: "full" },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
-    path: "home",
-    loadChildren: "./pages/home/home.module#HomePageModule",
-    canActivate: [AuthGuard]
+    path: 'home',
+    loadChildren: './pages/home/home.module#HomePageModule',
+    canActivate: [AuthGuard],
   },
   {
-    path: "login",
-    loadChildren: "./pages/login/login.module#LoginPageModule",
-    canActivate: [LoginGuard]
+    path: 'login',
+    loadChildren: './pages/login/login.module#LoginPageModule',
+    canActivate: [LoginGuard],
   },
   {
-    path: "cadastro",
-    loadChildren: "./pages/cadastro/cadastro.module#CadastroPageModule",
-    canActivate: [LoginGuard]
-  }
+    path: 'cadastro',
+    loadChildren: './pages/cadastro/cadastro.module#CadastroPageModule',
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'home/tabs/champions/champion/:id',
+    loadChildren:
+      './pages/home/champions/champion/champion.module#ChampionPageModule',
+  },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

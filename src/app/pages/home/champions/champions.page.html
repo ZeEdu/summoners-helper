@@ -1,8 +1,27 @@
-<ion-header>
+<ion-header class="body-margin">
   <ion-toolbar>
-    <ion-title>Champions</ion-title>
+    <ion-title class="title-color"> Champion </ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <ion-list>
+    <ion-list-header>
+      <ion-label class="white-text">Select a Champion</ion-label>
+    </ion-list-header>
 
+    <ion-router-outlet> </ion-router-outlet>
+    <a routerLink="champion/{{champion.id}}" *ngFor="let champion of champions">
+      <ion-item>
+        <ion-avatar slot="start">
+          <img
+            src="http://ddragon.leagueoflegends.com/cdn/10.7.1/img/champion/{{champion.image.full}}"
+          />
+        </ion-avatar>
+        <ion-label class="white-text">
+          <h2>{{ champion.name }}</h2>
+          <h3>{{ champion.title }}</h3>
+        </ion-label>
+      </ion-item>
+    </a>
+  </ion-list>
 </ion-content>

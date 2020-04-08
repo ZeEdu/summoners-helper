@@ -6,9 +6,9 @@ import { User } from "../interfaces/user";
   providedIn: "root"
 })
 export class UserManagerService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  private baseUrl = "http://localhost:5000";
+  private baseUrl = "http://localhost:8000";
   private signupPath = "/api/v1/users";
 
   public addUser(user: User) {
@@ -18,16 +18,16 @@ export class UserManagerService {
       "Cache-Control": "no-cache"
     });
     return this.http
-    .post<User>(`${this.baseUrl}/${this.signupPath}`, sendUser, {
-      headers: httpNewHeader
-    })
-    .subscribe(
-      val => {
-        console.log("POST call", val);
-      },
-      err => {
-        console.log("POST returned a error", err);
-      }
-    );
+      .post<User>(`${this.baseUrl}/${this.signupPath}`, sendUser, {
+        headers: httpNewHeader
+      })
+      .subscribe(
+        val => {
+          console.log("POST call", val);
+        },
+        err => {
+          console.log("POST returned a error", err);
+        }
+      );
   }
 }
