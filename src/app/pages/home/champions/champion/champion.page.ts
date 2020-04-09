@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
+import { GetChampionsService } from 'src/app/services/get-champions.service';
+import { ActivatedRoute } from '@angular/router';
+import { Champion, LoLResponse } from 'src/app/interfaces/champion-overview';
 
 @Component({
   selector: 'app-champion',
@@ -8,8 +11,12 @@ import { IonSlides } from '@ionic/angular';
 })
 export class ChampionPage implements OnInit {
   @ViewChild(IonSlides, { static: false }) slides: IonSlides;
-  constructor() {}
+  constructor(
+    private getChampion: GetChampionsService,
+    private route: ActivatedRoute
+  ) {}
 
+  public championData: Champion;
   public segmentPosition = 0;
   public segment = 0;
   public selectedSlide: any;
@@ -19,7 +26,16 @@ export class ChampionPage implements OnInit {
     speed: 400,
   };
 
-  ngOnInit() {}
+  ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.getChampion
+      .getChampionByID(id)
+      .subscribe(
+        (response: LoLResponse) => (this.championData = response.data[id])
+      );
+
+    // this.getChampion.getChampionByID();
+  }
   // TODO: get id from route
   // TODO: Create service to get champion
 
@@ -28,8 +44,8 @@ export class ChampionPage implements OnInit {
   }
   public async slideChanged(slides: IonSlides) {
     this.selectedSlide = slides;
-    slides.getActiveIndex().then((selectedIndex) => {
-      this.segment = selectedIndex;
-    });
+    slides
+      .getActiveIndex()
+      .then((selectedIndex) => (this.segment = selectedIndex));
   }
 }

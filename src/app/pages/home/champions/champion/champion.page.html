@@ -1,6 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Champion Page Detail</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="championData" color="primary"
+      >{{championData.name}}</ion-title
+    >
   </ion-toolbar>
 </ion-header>
 
@@ -25,28 +30,220 @@
     (ionSlidesDidLoad)="slideChanged(slides)"
   >
     <ion-slide>
-      <ion-item>
-        <ion-avatar slot="start">
-          <img
-            src="http://ddragon.leagueoflegends.com/cdn/10.7.1/img/champion/Aatrox.png"
-          />
-        </ion-avatar>
-        <ion-label class="white-text">
-          <h2>Overview</h2>
-        </ion-label>
-      </ion-item>
+      <ion-grid *ngIf="championData" class="ion-padding">
+        <ion-col>
+          <ion-item>
+            <ion-text color="primary" class="ion-text-start">
+              <h2 class="title">Lore</h2>
+            </ion-text>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-text class="ion-text-start" color="light">
+              <p class="paragraph">{{championData.lore}}</p>
+            </ion-text>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-list>
+            <ion-item>
+              <ion-label color="primary">Attack</ion-label>
+              <ion-note slot="end" color="light"
+                >{{championData.info.attack}}</ion-note
+              >
+            </ion-item>
+            <ion-item>
+              <ion-label color="primary">Defence</ion-label>
+              <ion-note slot="end" color="light"
+                >{{championData.info.defense}}</ion-note
+              >
+            </ion-item>
+            <ion-item>
+              <ion-label color="primary">Magic</ion-label>
+              <ion-note slot="end" color="light"
+                >{{championData.info.magic}}</ion-note
+              >
+            </ion-item>
+            <ion-item>
+              <ion-label color="primary">Difficulty</ion-label>
+              <ion-note slot="end" color="light"
+                >{{championData.info.difficulty}}</ion-note
+              >
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-text color="primary" class="ion-text-start">
+              <h3 class="title">Playing With {{championData.name}}</h3>
+            </ion-text>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item *ngFor="let allyTip of championData.allytips; index as i;">
+            <ion-text class="ion-text-start" color="light">
+              <p class="paragraph">{{allyTip}}</p>
+            </ion-text>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-text color="primary" class="ion-text-start">
+              <h3 class="title">Playing Against {{championData.name}}</h3>
+            </ion-text>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item
+            *ngFor="let enemyTip of championData.enemytips; index as i;"
+          >
+            <ion-text class="ion-text-start" color="light">
+              <p class="paragraph">{{enemyTip}}</p>
+            </ion-text>
+          </ion-item>
+        </ion-col>
+      </ion-grid>
     </ion-slide>
     <ion-slide>
-      <ion-item>
-        <ion-avatar slot="start">
-          <img
-            src="http://ddragon.leagueoflegends.com/cdn/10.7.1/img/champion/Ahri.png"
-          />
-        </ion-avatar>
-        <ion-label class="white-text">
-          <h2>status</h2>
-        </ion-label>
-      </ion-item>
+      <ion-grid class="padding">
+        <ion-col>
+          <ion-list *ngIf="championData">
+            <ion-item>
+              <ion-label color="primary">Hit Points</ion-label>
+              <ion-note slot="end" color="light"
+                >{{championData.stats.hp}}</ion-note
+              >
+            </ion-item>
+            <ion-item>
+              <ion-label color="primary">Hit Points (p/ Level)</ion-label>
+              <ion-note slot="end" color="light"
+                >{{championData.stats.hpperlevel}}</ion-note
+              >
+            </ion-item>
+            <ion-item>
+              <ion-label color="primary">Hit Points Regeneration</ion-label>
+              <ion-note slot="end" color="light"
+                >{{championData.stats.hpregen}}</ion-note
+              >
+            </ion-item>
+            <ion-item>
+              <ion-label color="primary"
+                >Hit Points Regeneration (p/ Level)</ion-label
+              >
+              <ion-note slot="end" color="light"
+                >{{championData.stats.hpregenperlevel}}</ion-note
+              >
+            </ion-item>
+
+            <ion-item>
+              <ion-label color="primary">Attack Damage</ion-label>
+              <ion-note slot="end" color="light"
+                >{{championData.stats.attackdamage}}</ion-note
+              >
+            </ion-item>
+
+            <ion-item>
+              <ion-label color="primary">Attack Damage (p/ Level)</ion-label>
+              <ion-note slot="end" color="light"
+                >{{championData.stats.attackdamageperlevel}}</ion-note
+              >
+            </ion-item>
+
+            <ion-item>
+              <ion-label color="primary">Attack Range (p/ Level)</ion-label>
+              <ion-note slot="end" color="light"
+                >{{championData.stats.attackrange}}</ion-note
+              >
+            </ion-item>
+
+            <ion-item>
+              <ion-label color="primary">Atack Speed</ion-label>
+              <ion-note slot="end" color="light"
+                >{{championData.stats.attackspeed}}</ion-note
+              >
+            </ion-item>
+
+            <ion-item>
+              <ion-label color="primary">Attack Speed (p/ Level)</ion-label>
+              <ion-note slot="end" color="light"
+                >{{championData.stats.attackspeedperlevel}}</ion-note
+              >
+            </ion-item>
+
+            <ion-item>
+              <ion-label color="primary">Movespeed</ion-label>
+              <ion-note slot="end" color="light"
+                >{{championData.stats.movespeed}}</ion-note
+              >
+            </ion-item>
+
+            <ion-item>
+              <ion-label color="primary">Critical (p/ Level)</ion-label>
+              <ion-note slot="end" color="light"
+                >{{championData.stats.crit}}</ion-note
+              >
+            </ion-item>
+            <ion-item>
+              <ion-label color="primary">Critical (p/ Level)</ion-label>
+              <ion-note slot="end" color="light"
+                >{{championData.stats.critperlevel}}</ion-note
+              >
+            </ion-item>
+
+            <ion-item>
+              <ion-label color="primary">Armor</ion-label>
+              <ion-note slot="end" color="light"
+                >{{championData.stats.armor}}</ion-note
+              >
+            </ion-item>
+            <ion-item>
+              <ion-label color="primary">Armor (p/ Level)</ion-label>
+              <ion-note slot="end" color="light"
+                >{{championData.stats.armorperlevel}}</ion-note
+              >
+            </ion-item>
+            <ion-item>
+              <ion-label color="primary">Mana</ion-label>
+              <ion-note slot="end" color="light"
+                >{{championData.stats.mp}}</ion-note
+              >
+            </ion-item>
+            <ion-item>
+              <ion-label color="primary">Mana (p/ Level)</ion-label>
+              <ion-note slot="end" color="light"
+                >{{championData.stats.mpperlevel}}</ion-note
+              >
+            </ion-item>
+            <ion-item>
+              <ion-label color="primary">Mana Regeneration</ion-label>
+              <ion-note slot="end" color="light"
+                >{{championData.stats.mpregen}}</ion-note
+              >
+            </ion-item>
+            <ion-item>
+              <ion-label color="primary"
+                >Mana Regeneration (p/ Level)</ion-label
+              >
+              <ion-note slot="end" color="light"
+                >{{championData.stats.mpregenperlevel}}</ion-note
+              >
+            </ion-item>
+            <ion-item>
+              <ion-label color="primary">Spellblock</ion-label>
+              <ion-note slot="end" color="light"
+                >{{championData.stats.spellblock}}</ion-note
+              >
+            </ion-item>
+            <ion-item>
+              <ion-label color="primary">Spellblock (p/ Level)</ion-label>
+              <ion-note slot="end" color="light"
+                >{{championData.stats.spellblockperlevel}}</ion-note
+              >
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-grid>
     </ion-slide>
     <ion-slide>
       <ion-item>
