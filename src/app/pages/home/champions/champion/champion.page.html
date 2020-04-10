@@ -1,7 +1,10 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button
+        color="primary"
+        defaultHref="/home/tabs/champions"
+      ></ion-back-button>
     </ion-buttons>
     <ion-title *ngIf="championData" color="primary"
       >{{championData.name}}</ion-title
@@ -12,7 +15,6 @@
 <ion-content class="padding">
   <ion-segment
     scrollable
-    mode="md"
     [(ngModel)]="segment"
     (ionChange)="segmentChanged($event)"
   >
