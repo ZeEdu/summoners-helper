@@ -9,11 +9,13 @@ import { GetChampionsService } from 'src/app/services/get-champions.service';
 export class ChampionsPage implements OnInit {
   constructor(private championsService: GetChampionsService) {}
 
-  public champions: any;
+  public champions: any = [];
 
   ngOnInit() {
-    this.championsService.getChampions().subscribe((respose: any) => {
-      this.champions = Object.values(respose.data);
-    });
+    this.championsService
+      .getChampions()
+      .subscribe(
+        (respose: any) => (this.champions = Object.values(respose.data))
+      );
   }
 }

@@ -1,2 +1,1 @@
-export interface UserProfile {
-}
+export interface UserProfile {}

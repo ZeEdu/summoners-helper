@@ -1,21 +1,21 @@
-import { Component, OnInit } from "@angular/core";
-import { LoadingController, ToastController } from "@ionic/angular";
-import { User } from "src/app/interfaces/user";
-import { AuthService } from "src/app/services/auth.service";
+import { Component, OnInit } from '@angular/core';
+import { LoadingController, ToastController } from '@ionic/angular';
+import { User } from 'src/app/interfaces/user';
+import { AuthService } from 'src/app/services/auth.service';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
-  Validators
-} from "@angular/forms";
-import { CustomAsyncValidators } from "../../validations/custom-async-validators";
-import { CustomValidators } from "../../validations/custom-validators";
-import { UserManagerService } from "src/app/services/user-manager.service";
+  Validators,
+} from '@angular/forms';
+import { CustomAsyncValidators } from '../../validations/custom-async-validators';
+import { CustomValidators } from '../../validations/custom-validators';
+import { UserManagerService } from 'src/app/services/user-manager.service';
 
 @Component({
-  selector: "app-cadastro",
-  templateUrl: "./cadastro.page.html",
-  styleUrls: ["./cadastro.page.scss"]
+  selector: 'app-cadastro',
+  templateUrl: './cadastro.page.html',
+  styleUrls: ['./cadastro.page.scss'],
 })
 export class CadastroPage implements OnInit {
   constructor(
@@ -37,41 +37,41 @@ export class CadastroPage implements OnInit {
     this.frmSignup = this.fb.group(
       {
         username: new FormControl(
-          "",
+          '',
           [
             Validators.required,
             Validators.minLength(5),
             Validators.maxLength(30),
             CustomValidators.patternValidator(/^\S*$/, {
-              haswhitespaces: true
+              haswhitespaces: true,
             }),
             CustomValidators.patternValidator(/^[a-zA-Z0-9-_]+$/, {
-              alphanumeric: true
-            })
+              alphanumeric: true,
+            }),
           ],
-          [this.asyncCustomValidator.asyncValidateUsername("isusernametaken")]
+          [this.asyncCustomValidator.asyncValidateUsername('isusernametaken')]
         ),
         email: new FormControl(
-          "",
+          '',
           [
             Validators.required,
             Validators.email,
             CustomValidators.patternValidator(
               /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
               { invalidemailformat: true }
-            )
+            ),
           ],
-          [this.asyncCustomValidator.asyncValidateEmail("isemailtaken")]
+          [this.asyncCustomValidator.asyncValidateEmail('isemailtaken')]
         ),
-        password: new FormControl("", [
+        password: new FormControl('', [
           Validators.required,
           Validators.minLength(6),
-          Validators.maxLength(30)
+          Validators.maxLength(30),
         ]),
-        confirmPassword: new FormControl("", [Validators.required])
+        confirmPassword: new FormControl('', [Validators.required]),
       },
       {
-        validators: CustomValidators.passwordMatchingValidator
+        validators: CustomValidators.passwordMatchingValidator,
       }
     );
   }
@@ -118,7 +118,7 @@ export class CadastroPage implements OnInit {
       this.userManager.addUser(this.userRegister);
 
       // Registra o usuário no backend
-      this.presentToast("Cadastrado com Sucesso!");
+      this.presentToast('Cadastrado com Sucesso!');
     } catch (error) {
       this.presentToast(error.code);
     } finally {
@@ -128,7 +128,7 @@ export class CadastroPage implements OnInit {
 
   async presentloading() {
     this.loading = await this.loadingCtrl.create({
-      message: "Por favor, aguarde..."
+      message: 'Por favor, aguarde...',
     });
     return this.loading.present();
   }

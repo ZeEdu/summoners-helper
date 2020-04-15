@@ -1,13 +1,27 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>settings</ion-title>
+    <ion-title color="primary">
+      Settings
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-button (click)="logout()" color="danger" expand="block">
+<ion-content class="ion-padding">
+  <ion-text color="primary">
+    <h2>User UID</h2>
+  </ion-text>
+  <ion-text color="light">
+    <p>{{currentUser.uid}}</p>
+  </ion-text>
+  <ion-text color="primary">
+    <h2>Email</h2>
+  </ion-text>
+  <ion-text color="light">
+    <p>{{currentUser.email}}</p>
+  </ion-text>
+</ion-content>
+<ion-footer>
+  <ion-button (click)="logout()" color="danger" expand="block" bottom>
     Sair
   </ion-button>
-
-  <p>Logado com o email: {{currentUserEmail}}</p>
-</ion-content>
+</ion-footer>

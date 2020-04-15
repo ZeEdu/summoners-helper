@@ -4,8 +4,28 @@
   margin-bottom: 0;
 }
 
+ion-segment-button {
+  color: #ffffff;
+}
+
+.segment-button-checked {
+  color: #9ca6f7;
+}
+
 ion-label,
 ion-note,
 p {
   font-size: 1rem;
+}
+
+.title {
+  font-size: 1.25rem;
+}
+
+.description {
+  white-space: wrap !important;
+}
+
+.spell-block {
+  margin-bottom: 10px;
 }

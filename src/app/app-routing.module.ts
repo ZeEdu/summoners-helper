@@ -22,8 +22,15 @@ const routes: Routes = [
   },
   {
     path: 'home/tabs/champions/champion/:id',
+    canActivate: [AuthGuard],
     loadChildren:
       './pages/home/champions/champion/champion.module#ChampionPageModule',
+  },
+  {
+    path: 'home/tabs/builds/build-modelling',
+    canActivate: [AuthGuard],
+    loadChildren:
+      './pages/home/builds/build-modelling/build-modelling.module#BuildModellingPageModule',
   },
 ];
 

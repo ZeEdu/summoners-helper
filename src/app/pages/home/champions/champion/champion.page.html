@@ -1,10 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button
-        color="primary"
-        defaultHref="/home/tabs/champions"
-      ></ion-back-button>
+      <ion-back-button color="primary" defaultHref=""></ion-back-button>
     </ion-buttons>
     <ion-title *ngIf="championData" color="primary"
       >{{championData.name}}</ion-title
@@ -12,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="padding">
+<ion-content>
   <ion-segment
     scrollable
     [(ngModel)]="segment"
@@ -32,14 +29,16 @@
     (ionSlidesDidLoad)="slideChanged(slides)"
   >
     <ion-slide>
-      <ion-grid *ngIf="championData" class="ion-padding">
-        <ion-col>
-          <ion-item>
-            <ion-text color="primary" class="ion-text-start">
-              <h2 class="title">Lore</h2>
-            </ion-text>
-          </ion-item>
-        </ion-col>
+      <ion-grid *ngIf="championData">
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-text color="primary" class="ion-text-start">
+                <h2 class="title">Lore</h2>
+              </ion-text>
+            </ion-item>
+          </ion-col>
+        </ion-row>
         <ion-col>
           <ion-item>
             <ion-text class="ion-text-start" color="light">
@@ -248,28 +247,99 @@
       </ion-grid>
     </ion-slide>
     <ion-slide>
-      <ion-item>
-        <ion-avatar slot="start">
-          <img
-            src="http://ddragon.leagueoflegends.com/cdn/10.7.1/img/champion/Akali.png"
-          />
-        </ion-avatar>
-        <ion-label class="white-text">
-          <h1>abilities</h1>
-        </ion-label>
-      </ion-item>
+      <ion-grid class="ion-padding">
+        <ion-col>
+          <ion-item>
+            <ion-text color="primary" class="ion-text-start">
+              <h2 class="title">Spells</h2>
+            </ion-text>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <div *ngIf="championData">
+            <div class="spell-block">
+              <ion-row>
+                <ion-text color="primary" class="ion-text-start">
+                  <h3>
+                    Passive - {{championData.passive.name}}
+                  </h3>
+                </ion-text>
+              </ion-row>
+              <ion-row>
+                <ion-col size="3" class="ion-text-start">
+                  <img
+                    width="100"
+                    height="100"
+                    src="http://ddragon.leagueoflegends.com/cdn/10.7.1/img/passive/{{championData.passive.image.full}}"
+                  />
+                </ion-col>
+                <ion-col size="9" class="">
+                  <ion-label>
+                    <ion-text class="ion-text-start" color="light">
+                      <p>{{championData.passive.description}}</p>
+                    </ion-text>
+                  </ion-label>
+                </ion-col>
+              </ion-row>
+            </div>
+            <div
+              *ngFor="let spell of championData.spells; index as i"
+              class="spell-block"
+            >
+              <ion-row>
+                <ion-text color="primary" class="ion-text-start">
+                  <h3>
+                    {{spell.name}}
+                  </h3>
+                </ion-text>
+              </ion-row>
+              <ion-row>
+                <ion-col size="3" class="ion-text-start">
+                  <img
+                    width="100"
+                    height="100"
+                    src="http://ddragon.leagueoflegends.com/cdn/10.7.1/img/spell/{{spell.image.full}}"
+                  />
+                </ion-col>
+                <ion-col size="9" class="">
+                  <ion-label>
+                    <ion-text class="ion-text-start" color="light">
+                      <p>{{spell.description}}</p>
+                    </ion-text>
+                  </ion-label>
+                </ion-col>
+              </ion-row>
+            </div>
+          </div>
+        </ion-col>
+      </ion-grid>
     </ion-slide>
     <ion-slide>
-      <ion-item>
-        <ion-avatar slot="start">
-          <img
-            src="http://ddragon.leagueoflegends.com/cdn/10.7.1/img/champion/Amumu.png"
-          />
-        </ion-avatar>
-        <ion-label class="white-text">
-          <h2>Builds</h2>
-        </ion-label>
-      </ion-item>
+      <ion-grid class="ion-padding">
+        <ion-row>
+          <ion-col size="12">
+            <ion-text color="primary" class="ion-text-start">
+              <h2 class="title">
+                Champion's Build
+              </h2>
+            </ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-list *ngIf="builds">
+          <ion-item *ngFor="let build of builds; index as i;">
+            <ion-label>
+              <ion-text color="light">
+                {{build.name}}
+              </ion-text>
+            </ion-label>
+            <ion-note slot="end">
+              <ion-text>
+                {{build.patch}}
+              </ion-text>
+            </ion-note>
+          </ion-item>
+        </ion-list>
+      </ion-grid>
     </ion-slide>
   </ion-slides>
 </ion-content>

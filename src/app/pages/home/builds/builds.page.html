@@ -1,9 +1,46 @@
-<ion-header>
+<ion-header class="body-margin">
   <ion-toolbar>
-    <ion-title>builds</ion-title>
+    <ion-title color="primary">My Builds</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-
+  <ion-grid class="ion-padding">
+    <ion-row>
+      <ion-col size="12">
+        <ion-text color="primary" class="ion-text-start">
+          <h2 class="title">
+            User's Build
+          </h2>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-list *ngIf="userBuilds">
+      <ion-item *ngFor="let build of userBuilds; index as i;">
+        <ion-avatar slot="start">
+          <ion-img
+            src="http://ddragon.leagueoflegends.com/cdn/10.7.1/img/champion/{{build.champ}}.png"
+          >
+          </ion-img>
+        </ion-avatar>
+        <ion-label>
+          <ion-text color="primary">
+            <h3>{{build.name}}</h3>
+          </ion-text>
+          <ion-text color="light">
+            <h4>
+              {{build.patch}}
+            </h4>
+          </ion-text>
+        </ion-label>
+        <ion-icon color="primary" slot="end" name="trash"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </ion-grid>
+  <a routerLink="build-modelling">
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button>
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </a>
 </ion-content>
