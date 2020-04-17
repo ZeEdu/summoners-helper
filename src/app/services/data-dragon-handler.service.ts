@@ -4,8 +4,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
-export class GetChampionsService {
-  patchVersion: string;
+export class DataDragonHandlerService {
   constructor(private http: HttpClient) {}
 
   public getChampions() {

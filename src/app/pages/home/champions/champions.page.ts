@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GetChampionsService } from 'src/app/services/get-champions.service';
+import { DataDragonHandlerService } from 'src/app/services/data-dragon-handler.service';
 
 @Component({
   selector: 'app-champions',
@@ -7,12 +7,12 @@ import { GetChampionsService } from 'src/app/services/get-champions.service';
   styleUrls: ['./champions.page.scss'],
 })
 export class ChampionsPage implements OnInit {
-  constructor(private championsService: GetChampionsService) {}
+  constructor(private dDragonhandler: DataDragonHandlerService) {}
 
   public champions: any = [];
 
   ngOnInit() {
-    this.championsService
+    this.dDragonhandler
       .getChampions()
       .subscribe(
         (respose: any) => (this.champions = Object.values(respose.data))

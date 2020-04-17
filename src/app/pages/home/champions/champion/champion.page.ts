@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
-import { GetChampionsService } from 'src/app/services/get-champions.service';
 import { ActivatedRoute } from '@angular/router';
 import { Champion, LoLResponse } from 'src/app/interfaces/champion-overview';
 import { BuildManagerService } from 'src/app/services/build-manager.service';
 import { Builds } from 'src/app/interfaces/get-builds';
+import { DataDragonHandlerService } from 'src/app/services/data-dragon-handler.service';
 
 @Component({
   selector: 'app-champion',
@@ -15,7 +15,7 @@ export class ChampionPage implements OnInit {
   @ViewChild(IonSlides, { static: false }) slides: IonSlides;
   constructor(
     private buildService: BuildManagerService,
-    private getChampion: GetChampionsService,
+    private dDragonHandler: DataDragonHandlerService,
     private route: ActivatedRoute
   ) {}
 
@@ -32,7 +32,7 @@ export class ChampionPage implements OnInit {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
-    this.getChampion
+    this.dDragonHandler
       .getChampionByID(id)
       .subscribe(
         (response: LoLResponse) => (this.championData = response.data[id])
@@ -41,8 +41,6 @@ export class ChampionPage implements OnInit {
       .getBuildByChampionID(id)
       .subscribe((response: Array<Builds>) => (this.builds = response));
   }
-  // TODO: get id from route
-  // TODO: Create service to get champion
 
   public async segmentChanged(event: any) {
     await this.selectedSlide.slideTo(this.segment);
