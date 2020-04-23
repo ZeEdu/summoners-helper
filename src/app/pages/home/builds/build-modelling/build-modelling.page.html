@@ -7,4 +7,79 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content>
+  <form [formGroup]="guideForm">
+    <ion-list formGroupName="runes" *ngIf="runes">
+      <ion-item>
+        <ion-label>Primary Rune</ion-label>
+        <ion-select name="primary-rune" formControlName="primaryRune">
+          <ion-select-option
+            *ngFor="let rune of runes; index as i"
+            [value]="rune.id"
+          >
+            {{rune.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div *ngIf="guideForm.value['runes'].primaryRune">
+        <div [ngSwitch]="guideForm.value['runes'].primaryRune">
+          <ion-item>
+            <ion-label>First Slot</ion-label>
+            <ion-select *ngSwitchCase="runes[0].id">
+              <ion-select-option
+                *ngFor="let slot of runes[0].slots[0].runes; index as i"
+              >
+                {{slot.name}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>Second Slot</ion-label>
+            <ion-select *ngSwitchCase="runes[0].id">
+              <ion-select-option
+                *ngFor="let slot of runes[0].slots[1].runes; index as i"
+              >
+                {{slot.name}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>Third Slot</ion-label>
+            <ion-select *ngSwitchCase="runes[0].id">
+              <ion-select-option
+                *ngFor="let slot of runes[0].slots[2].runes; index as i"
+              >
+                {{slot.name}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>Fourth Slot</ion-label>
+            <ion-select *ngSwitchCase="runes[0].id">
+              <ion-select-option
+                *ngFor="let slot of runes[0].slots[3].runes; index as i"
+              >
+                {{slot.name}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+      </div>
+
+      <ion-item *ngIf="this.guideForm.value['runes'].primaryRune">
+        <ion-label>Secondary Rune</ion-label>
+        <ion-select name="secondary-rune" formControlName="secondaryRune">
+          <div *ngFor="let rune of runes; index as i">
+            <ion-select-option
+              *ngIf="this.guideForm.value['runes'].primaryRune !== rune.id"
+              [value]="rune.id"
+            >
+              {{rune.name}}
+            </ion-select-option>
+          </div>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <ion-button color="secondary" (click)="onSubmit()">Login</ion-button>
+  </form>
+</ion-content>

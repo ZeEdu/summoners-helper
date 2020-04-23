@@ -22,14 +22,15 @@ import { HTTP } from '@ionic-native/http';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireModule,
     AngularFireAuthModule,
-    HttpClientModule,
+    HttpClientModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    HTTP,
+    HTTP
   ],
   bootstrap: [AppComponent],
+  exports: []
 })
 export class AppModule {}
