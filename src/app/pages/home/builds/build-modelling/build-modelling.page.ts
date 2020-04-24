@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { DataDragonHandlerService } from '../../../../services/data-dragon-handler.service';
 import { Rune, Runes } from '../../../../interfaces/runes';
+import { Champion, ChampionsResponse } from '../../../../interfaces/champions';
 
 @Component({
   selector: 'app-build-modelling',
@@ -9,27 +10,45 @@ import { Rune, Runes } from '../../../../interfaces/runes';
   styleUrls: ['./build-modelling.page.scss']
 })
 export class BuildModellingPage implements OnInit {
-  private runes: Array<Runes>;
+  public runes: Array<Runes>;
+  public champions: Array<Champion>;
+  public namingSlots = ['first', 'second', 'third', 'fourth'];
   constructor(
     private fb: FormBuilder,
     private ddHandler: DataDragonHandlerService
   ) {}
 
-  guideForm = this.fb.group({
+  public guideForm = this.fb.group({
+    name: [''],
+    champion: [''],
     runes: this.fb.group({
       primaryRune: [''],
-      secondaryRune: ['']
+      primarySlots: this.fb.group({
+        first: [''],
+        second: [''],
+        third: [''],
+        fourth: ['']
+      }),
+      secondaryRune: [''],
+      secondarySlots: this.fb.group({
+        first: [''],
+        second: [''],
+        third: ['']
+      })
     })
   });
 
   onSubmit(): void {
-    console.log(this.guideForm.value['runes'].primaryRune);
+    console.log(this.guideForm.value);
   }
 
   ngOnInit() {
-    this.ddHandler.getRunes().subscribe((response: Array<Runes>) => {
-      this.runes = response;
-      console.log(this.runes);
+    this.ddHandler
+      .getRunes()
+      .subscribe((response: Array<Runes>) => (this.runes = response));
+    this.ddHandler.getChampions().subscribe((response: ChampionsResponse) => {
+      this.champions = Object.values(response.data);
+      console.log(this.champions);
     });
   }
 }
