@@ -8,130 +8,44 @@
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="guideForm">
-    <ion-item>
-      <ion-input placeholder="Guide Name" formControlName="name"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>select a champion</ion-label>
-      <ion-select>
-        <ion-select-option *ngFor="let champion of champions" [value]="champion.id"> {{champion.name}} </ion-select-option>
-      </ion-select>
-    </ion-item>
-    <div formGroupName="runes" *ngIf="runes">
+  <div *ngIf="guideForm">
+    <form [formGroup]="guideForm">
       <ion-item>
-        <ion-label>primary rune</ion-label>
-        <ion-select name="primary-rune" formControlName="primaryRune">
+        <ion-input placeholder="Guide Name" formControlName="name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>select a champion</ion-label>
+        <ion-select>
           <ion-select-option
-            *ngFor="let rune of runes; index as i"
-            [value]="rune.id"
+            *ngFor="let champion of champions"
+            [value]="champion.id"
           >
-            {{rune.name}}
+            {{champion.name}}
           </ion-select-option>
         </ion-select>
       </ion-item>
-      <div *ngIf="guideForm.value.runes.primaryRune">
-        <div [ngSwitch]="guideForm.value.runes.primaryRune">
-          <div formGroupName="primarySlots">
-            <div *ngSwitchCase="runes[0].id">
-              <ion-item *ngFor="let naming of namingSlots; index as j">
-                <ion-label>{{naming}} Slot</ion-label>
-                <ion-select formControlName="{{naming}}">
-                  <ion-select-option
-                    *ngFor="let slot of runes[0].slots[j].runes;"
-                    [value]="slot.id"
-                  >
-                    {{slot.name}}
-                  </ion-select-option>
-                </ion-select>
-              </ion-item>
-            </div>
-          </div>
-          <div *ngSwitchCase="runes[1].id">
-            <div formGroupName="primarySlots">
-              <ion-item *ngFor="let naming of namingSlots; index as j">
-                <ion-label>{{naming}} Slot</ion-label>
-                <ion-select formControlName="{{naming}}">
-                  <ion-select-option
-                    *ngFor="let slot of runes[1].slots[j].runes;"
-                    [value]="slot.id"
-                  >
-                    {{slot.name}}
-                  </ion-select-option>
-                </ion-select>
-              </ion-item>
-            </div>
-          </div>
-          <div *ngSwitchCase="runes[2].id">
-            <div formGroupName="primarySlots">
-              <ion-item *ngFor="let naming of namingSlots; index as j">
-                <ion-label>{{naming}} Slot</ion-label>
-                <ion-select formControlName="{{naming}}">
-                  <ion-select-option
-                    *ngFor="let slot of runes[2].slots[j].runes;"
-                    [value]="slot.id"
-                  >
-                    {{slot.name}}
-                  </ion-select-option>
-                </ion-select>
-              </ion-item>
-            </div>
-          </div>
-          <div *ngSwitchCase="runes[3].id">
-            <div formGroupName="primarySlots">
-              <ion-item *ngFor="let naming of namingSlots; index as j">
-                <ion-label>{{naming}} Slot</ion-label>
-                <ion-select formControlName="{{naming}}">
-                  <ion-select-option
-                    *ngFor="let slot of runes[3].slots[j].runes;"
-                    [value]="slot.id"
-                  >
-                    {{slot.name}}
-                  </ion-select-option>
-                </ion-select>
-              </ion-item>
-            </div>
-          </div>
-          <div *ngSwitchCase="runes[4].id">
-            <div formGroupName="primarySlots">
-              <ion-item *ngFor="let naming of namingSlots; index as j">
-                <ion-label>{{naming}} Slot</ion-label>
-                <ion-select formControlName="{{naming}}">
-                  <ion-select-option
-                    *ngFor="let slot of runes[4].slots[j].runes;"
-                    [value]="slot.id"
-                  >
-                    {{slot.name}}
-                  </ion-select-option>
-                </ion-select>
-              </ion-item>
-            </div>
-          </div>
-        </div>
-      </div>
-      <ion-item *ngIf="guideForm.value.runes.primaryRune">
-        <ion-label>Secondary Rune</ion-label>
-        <ion-select name="secondary-rune" formControlName="secondaryRune">
-          <div *ngFor="let rune of runes; index as i">
+      <div formGroupName="runes" *ngIf="runes">
+        <ion-item>
+          <ion-label>primary rune</ion-label>
+          <ion-select name="primary-rune" formControlName="primaryRune">
             <ion-select-option
-              *ngIf="this.guideForm.value.runes.primaryRune !== rune.id"
+              *ngFor="let rune of runes; index as i"
               [value]="rune.id"
             >
               {{rune.name}}
             </ion-select-option>
-          </div>
-        </ion-select>
-      </ion-item>
-      <div *ngIf="guideForm.value.runes.secondaryRune">
-        <div [ngSwitch]="guideForm.value.runes.secondaryRune">
-          <div *ngSwitchCase="runes[0].id">
-            <div formGroupName="secondarySlots">
-              <div *ngFor="let naming of namingSlots; index as j">
-                <ion-item *ngIf="naming !== namingSlots[0]">
-                  <ion-label>{{namingSlots[j - 1]}} Slot</ion-label>
-                  <ion-select formControlName="{{namingSlots[j - 1]}}">
+          </ion-select>
+        </ion-item>
+        <div *ngIf="guideForm.value.runes.primaryRune">
+          <div [ngSwitch]="guideForm.value.runes.primaryRune">
+            <div formGroupName="primarySlots">
+              <div *ngSwitchCase="runes[0].id">
+                <ion-item *ngFor="let naming of namingSlots; index as j">
+                  <ion-label>{{naming}} Slot</ion-label>
+                  <ion-select formControlName="{{naming}}">
                     <ion-select-option
-                      *ngFor="let slot of runes[1].slots[j].runes;"
+                      *ngFor="let slot of runes[0].slots[j].runes;"
+                      [value]="slot.id"
                     >
                       {{slot.name}}
                     </ion-select-option>
@@ -139,15 +53,14 @@
                 </ion-item>
               </div>
             </div>
-          </div>
-          <div *ngSwitchCase="runes[1].id">
-            <div formGroupName="secondarySlots">
-              <div *ngFor="let naming of namingSlots; index as j">
-                <ion-item *ngIf="naming !== namingSlots[0]">
-                  <ion-label>{{namingSlots[j - 1]}} Slot</ion-label>
-                  <ion-select formControlName="{{namingSlots[j - 1]}}">
+            <div *ngSwitchCase="runes[1].id">
+              <div formGroupName="primarySlots">
+                <ion-item *ngFor="let naming of namingSlots; index as j">
+                  <ion-label>{{naming}} Slot</ion-label>
+                  <ion-select formControlName="{{naming}}">
                     <ion-select-option
                       *ngFor="let slot of runes[1].slots[j].runes;"
+                      [value]="slot.id"
                     >
                       {{slot.name}}
                     </ion-select-option>
@@ -155,15 +68,14 @@
                 </ion-item>
               </div>
             </div>
-          </div>
-          <div *ngSwitchCase="runes[2].id">
-            <div formGroupName="secondarySlots">
-              <div *ngFor="let naming of namingSlots; index as j">
-                <ion-item *ngIf="naming !== namingSlots[0]">
-                  <ion-label>{{namingSlots[j - 1]}} Slot</ion-label>
-                  <ion-select formControlName="{{namingSlots[j - 1]}}">
+            <div *ngSwitchCase="runes[2].id">
+              <div formGroupName="primarySlots">
+                <ion-item *ngFor="let naming of namingSlots; index as j">
+                  <ion-label>{{naming}} Slot</ion-label>
+                  <ion-select formControlName="{{naming}}">
                     <ion-select-option
                       *ngFor="let slot of runes[2].slots[j].runes;"
+                      [value]="slot.id"
                     >
                       {{slot.name}}
                     </ion-select-option>
@@ -171,15 +83,14 @@
                 </ion-item>
               </div>
             </div>
-          </div>
-          <div *ngSwitchCase="runes[3].id">
-            <div formGroupName="secondarySlots">
-              <div *ngFor="let naming of namingSlots; index as j">
-                <ion-item *ngIf="naming !== namingSlots[0]">
-                  <ion-label>{{namingSlots[j - 1]}} Slot</ion-label>
-                  <ion-select formControlName="{{namingSlots[j - 1]}}">
+            <div *ngSwitchCase="runes[3].id">
+              <div formGroupName="primarySlots">
+                <ion-item *ngFor="let naming of namingSlots; index as j">
+                  <ion-label>{{naming}} Slot</ion-label>
+                  <ion-select formControlName="{{naming}}">
                     <ion-select-option
                       *ngFor="let slot of runes[3].slots[j].runes;"
+                      [value]="slot.id"
                     >
                       {{slot.name}}
                     </ion-select-option>
@@ -187,15 +98,14 @@
                 </ion-item>
               </div>
             </div>
-          </div>
-          <div *ngSwitchCase="runes[4].id">
-            <div formGroupName="secondarySlots">
-              <div *ngFor="let naming of namingSlots; index as j">
-                <ion-item *ngIf="naming !== namingSlots[0]">
-                  <ion-label>{{namingSlots[j - 1]}} Slot</ion-label>
-                  <ion-select formControlName="{{namingSlots[j - 1]}}">
+            <div *ngSwitchCase="runes[4].id">
+              <div formGroupName="primarySlots">
+                <ion-item *ngFor="let naming of namingSlots; index as j">
+                  <ion-label>{{naming}} Slot</ion-label>
+                  <ion-select formControlName="{{naming}}">
                     <ion-select-option
                       *ngFor="let slot of runes[4].slots[j].runes;"
+                      [value]="slot.id"
                     >
                       {{slot.name}}
                     </ion-select-option>
@@ -205,8 +115,349 @@
             </div>
           </div>
         </div>
+        <ion-item *ngIf="guideForm.value.runes.primaryRune">
+          <ion-label>Secondary Rune</ion-label>
+          <ion-select name="secondary-rune" formControlName="secondaryRune">
+            <div *ngFor="let rune of runes; index as i">
+              <ion-select-option
+                *ngIf="this.guideForm.value.runes.primaryRune !== rune.id"
+                [value]="rune.id"
+              >
+                {{rune.name}}
+              </ion-select-option>
+            </div>
+          </ion-select>
+        </ion-item>
+        <div *ngIf="guideForm.value.runes.secondaryRune">
+          <div [ngSwitch]="guideForm.value.runes.secondaryRune">
+            <div *ngSwitchCase="runes[0].id">
+              <div formGroupName="secondarySlots">
+                <div *ngFor="let naming of namingSlots; index as j">
+                  <ion-item *ngIf="naming !== namingSlots[0]">
+                    <ion-label>{{namingSlots[j - 1]}} Slot</ion-label>
+                    <ion-select formControlName="{{namingSlots[j - 1]}}">
+                      <ion-select-option
+                        *ngFor="let slot of runes[1].slots[j].runes;"
+                      >
+                        {{slot.name}}
+                      </ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                </div>
+              </div>
+            </div>
+            <div *ngSwitchCase="runes[1].id">
+              <div formGroupName="secondarySlots">
+                <div *ngFor="let naming of namingSlots; index as j">
+                  <ion-item *ngIf="naming !== namingSlots[0]">
+                    <ion-label>{{namingSlots[j - 1]}} Slot</ion-label>
+                    <ion-select formControlName="{{namingSlots[j - 1]}}">
+                      <ion-select-option
+                        *ngFor="let slot of runes[1].slots[j].runes;"
+                      >
+                        {{slot.name}}
+                      </ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                </div>
+              </div>
+            </div>
+            <div *ngSwitchCase="runes[2].id">
+              <div formGroupName="secondarySlots">
+                <div *ngFor="let naming of namingSlots; index as j">
+                  <ion-item *ngIf="naming !== namingSlots[0]">
+                    <ion-label>{{namingSlots[j - 1]}} Slot</ion-label>
+                    <ion-select formControlName="{{namingSlots[j - 1]}}">
+                      <ion-select-option
+                        *ngFor="let slot of runes[2].slots[j].runes;"
+                      >
+                        {{slot.name}}
+                      </ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                </div>
+              </div>
+            </div>
+            <div *ngSwitchCase="runes[3].id">
+              <div formGroupName="secondarySlots">
+                <div *ngFor="let naming of namingSlots; index as j">
+                  <ion-item *ngIf="naming !== namingSlots[0]">
+                    <ion-label>{{namingSlots[j - 1]}} Slot</ion-label>
+                    <ion-select formControlName="{{namingSlots[j - 1]}}">
+                      <ion-select-option
+                        *ngFor="let slot of runes[3].slots[j].runes;"
+                      >
+                        {{slot.name}}
+                      </ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                </div>
+              </div>
+            </div>
+            <div *ngSwitchCase="runes[4].id">
+              <div formGroupName="secondarySlots">
+                <div *ngFor="let naming of namingSlots; index as j">
+                  <ion-item *ngIf="naming !== namingSlots[0]">
+                    <ion-label>{{namingSlots[j - 1]}} Slot</ion-label>
+                    <ion-select formControlName="{{namingSlots[j - 1]}}">
+                      <ion-select-option
+                        *ngFor="let slot of runes[4].slots[j].runes;"
+                      >
+                        {{slot.name}}
+                      </ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <ion-button color="primary" (click)="onSubmit()">Login</ion-button>
-  </form>
+      <div formArrayName="itemsBlock">
+        <div
+          *ngFor="let block of guideForm['controls'].itemsBlock['controls']; index as i"
+        >
+          <div formGroupName="{{i}}">
+            <ion-input
+              type="text"
+              formControlName="itemRollName"
+              placeholder="Name this Roll"
+            ></ion-input>
+            <div formArrayName="itemArray">
+              <div
+                *ngFor="let item of block['controls'].itemArray['controls']; index as j"
+              >
+                <div formGroupName="{{ j }}">
+                  <ion-item>
+                    <ion-label>{{ j + 1 }}º Item</ion-label>
+                    <ion-select
+                      formControlName="item"
+                      placeholder="Select a item"
+                    >
+                      <ion-select-option
+                        *ngFor="let gameItem of items"
+                        value="{{gameItem.name}}"
+                        >{{gameItem.name}}</ion-select-option
+                      >
+                    </ion-select>
+                  </ion-item>
+                </div>
+              </div>
+              <ion-button expand="block" color="primary" (click)="addItem(i)"
+                >Add New Item</ion-button
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <ion-button expand="full" color="primary" (click)="addItemRoll()"
+        >Add New Roll</ion-button
+      >
+      <div formGroupName="abilitiesProgression">
+        <ion-list>
+          <ion-list-header>
+            Abilities Progression
+          </ion-list-header>
+          <ion-item>
+            <ion-label>
+              Level One
+            </ion-label>
+            <ion-select formGroupName="l1">
+              <ion-select-option value="q">Q</ion-select-option>
+              <ion-select-option value="w">W</ion-select-option>
+              <ion-select-option value="e">E</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              Level Two
+            </ion-label>
+            <ion-select formGroupName="l2">
+              <ion-select-option value="q">Q</ion-select-option>
+              <ion-select-option value="w">W</ion-select-option>
+              <ion-select-option value="e">E</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              Level Three
+            </ion-label>
+            <ion-select formGroupName="l3">
+              <ion-select-option value="q">Q</ion-select-option>
+              <ion-select-option value="w">W</ion-select-option>
+              <ion-select-option value="e">E</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              Level Four
+            </ion-label>
+            <ion-select formGroupName="l4">
+              <ion-select-option value="q">Q</ion-select-option>
+              <ion-select-option value="w">W</ion-select-option>
+              <ion-select-option value="e">E</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              Level Five
+            </ion-label>
+            <ion-select formGroupName="l5">
+              <ion-select-option value="q">Q</ion-select-option>
+              <ion-select-option value="w">W</ion-select-option>
+              <ion-select-option value="e">E</ion-select-option>
+              <ion-select-option value="r">R</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              Level Six
+            </ion-label>
+            <ion-select formGroupName="l6">
+              <ion-select-option value="q">Q</ion-select-option>
+              <ion-select-option value="w">W</ion-select-option>
+              <ion-select-option value="e">E</ion-select-option>
+              <ion-select-option value="r">R</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              Level Seven One
+            </ion-label>
+            <ion-select formGroupName="l7">
+              <ion-select-option value="q">Q</ion-select-option>
+              <ion-select-option value="w">W</ion-select-option>
+              <ion-select-option value="e">E</ion-select-option>
+              <ion-select-option value="r">R</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              Level Eight One
+            </ion-label>
+            <ion-select formGroupName="l8">
+              <ion-select-option value="q">Q</ion-select-option>
+              <ion-select-option value="w">W</ion-select-option>
+              <ion-select-option value="e">E</ion-select-option>
+              <ion-select-option value="r">R</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              Level nine One
+            </ion-label>
+            <ion-select formGroupName="l9">
+              <ion-select-option value="q">Q</ion-select-option>
+              <ion-select-option value="w">W</ion-select-option>
+              <ion-select-option value="e">E</ion-select-option>
+              <ion-select-option value="r">R</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              Level Ten
+            </ion-label>
+            <ion-select formGroupName="l10">
+              <ion-select-option value="q">Q</ion-select-option>
+              <ion-select-option value="w">W</ion-select-option>
+              <ion-select-option value="e">E</ion-select-option>
+              <ion-select-option value="r">R</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              Level Eleven
+            </ion-label>
+            <ion-select formGroupName="l11">
+              <ion-select-option value="q">Q</ion-select-option>
+              <ion-select-option value="w">W</ion-select-option>
+              <ion-select-option value="e">E</ion-select-option>
+              <ion-select-option value="r">R</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              Level Twelve
+            </ion-label>
+            <ion-select formGroupName="l12">
+              <ion-select-option value="q">Q</ion-select-option>
+              <ion-select-option value="w">W</ion-select-option>
+              <ion-select-option value="e">E</ion-select-option>
+              <ion-select-option value="r">R</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              Level Thirteen
+            </ion-label>
+            <ion-select formGroupName="l13">
+              <ion-select-option value="q">Q</ion-select-option>
+              <ion-select-option value="w">W</ion-select-option>
+              <ion-select-option value="e">E</ion-select-option>
+              <ion-select-option value="r">R</ion-select-option>
+            </ion-select> </ion-item
+          ><ion-item>
+            <ion-label>
+              Level Fourteen
+            </ion-label>
+            <ion-select formGroupName="l14">
+              <ion-select-option value="q">Q</ion-select-option>
+              <ion-select-option value="w">W</ion-select-option>
+              <ion-select-option value="e">E</ion-select-option>
+              <ion-select-option value="r">R</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              Level Fifteen
+            </ion-label>
+            <ion-select formGroupName="l15">
+              <ion-select-option value="q">Q</ion-select-option>
+              <ion-select-option value="w">W</ion-select-option>
+              <ion-select-option value="e">E</ion-select-option>
+              <ion-select-option value="r">R</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              Level Sixteen
+            </ion-label>
+            <ion-select formGroupName="l16">
+              <ion-select-option value="q">Q</ion-select-option>
+              <ion-select-option value="w">W</ion-select-option>
+              <ion-select-option value="e">E</ion-select-option>
+              <ion-select-option value="r">R</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              Level Seventeen
+            </ion-label>
+            <ion-select formGroupName="l17">
+              <ion-select-option value="q">Q</ion-select-option>
+              <ion-select-option value="w">W</ion-select-option>
+              <ion-select-option value="e">E</ion-select-option>
+              <ion-select-option value="r">R</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              Level Eighteen
+            </ion-label>
+            <ion-select formGroupName="l18">
+              <ion-select-option value="q">Q</ion-select-option>
+              <ion-select-option value="w">W</ion-select-option>
+              <ion-select-option value="e">E</ion-select-option>
+              <ion-select-option value="r">R</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      </div>
+      <ion-button expand="full" color="primary" (click)="onSubmit()"
+        >Salvar
+      </ion-button>
+
+      <pre> <ion-text color="light">{{guideForm.value | json}}</ion-text> </pre>
+    </form>
+  </div>
 </ion-content>

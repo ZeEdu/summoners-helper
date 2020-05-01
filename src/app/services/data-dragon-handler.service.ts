@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ItemsResponse } from '../interfaces/items';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,12 @@ export class DataDragonHandlerService {
   public getRunes() {
     return this.http.get(
       'https://ddragon.leagueoflegends.com/cdn/9.3.1/data/en_US/runesReforged.json'
+    );
+  }
+
+  public getItems() {
+    return this.http.get<ItemsResponse>(
+      'https://ddragon.leagueoflegends.com/cdn/10.9.1/data/en_US/item.json'
     );
   }
 }
