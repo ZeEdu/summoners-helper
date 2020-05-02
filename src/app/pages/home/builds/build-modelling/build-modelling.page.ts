@@ -45,6 +45,7 @@ export class BuildModellingPage implements OnInit {
     this.guideForm = this.fb.group({
       name: [''],
       champion: [''],
+      role: [''],
       runes: this.fb.group({
         primaryRune: [''],
         primarySlots: this.fb.group({
@@ -80,7 +81,8 @@ export class BuildModellingPage implements OnInit {
         l16: [''],
         l17: [''],
         l18: ['']
-      })
+      }),
+      threats: this.fb.array([this.threat()])
     });
   }
 
@@ -116,5 +118,16 @@ export class BuildModellingPage implements OnInit {
       .at(index)
       .get('itemArray') as FormArray;
     control.push(this.item());
+  }
+
+  private threat() {
+    return this.fb.group({
+      threat: [''],
+      description: ['']
+    });
+  }
+  public addThreat() {
+    const control = this.guideForm.controls.threats as FormArray;
+    control.push(this.threat());
   }
 }
