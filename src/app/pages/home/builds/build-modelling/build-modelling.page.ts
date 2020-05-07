@@ -18,7 +18,7 @@ import { SpellResponse, Spell } from 'src/app/interfaces/spells';
 export class BuildModellingPage implements OnInit {
   public guideForm: FormGroup;
   public runes: Runes[];
-  public champions: Champion[];
+  public champions: Array<Champion>;
   public namingSlots = ['first', 'second', 'third', 'fourth'];
   public bonus = {
     first: ['9 Adaptive', '10% Attack Speed', '1-10% CDR'],
@@ -147,7 +147,7 @@ export class BuildModellingPage implements OnInit {
       formData.userUID = user.uid;
     });
     console.log(formData);
-    this.saveGuide(formData);
+    await this.saveGuide(formData);
   }
 
   async saveGuide(guide: Guide) {
