@@ -32,6 +32,7 @@ const routes: Routes = [
     loadChildren:
       './pages/home/builds/build-modelling/build-modelling.module#BuildModellingPageModule',
   },
+  { path: 'build-edit', loadChildren: './pages/home/builds/build-edit/build-edit.module#BuildEditPageModule' },
 ];
 
 @NgModule({

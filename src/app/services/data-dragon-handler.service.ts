@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ItemsResponse } from '../interfaces/items';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataDragonHandlerService {
   constructor(private http: HttpClient) {}
@@ -22,7 +22,13 @@ export class DataDragonHandlerService {
 
   public getRunes() {
     return this.http.get(
-      'https://ddragon.leagueoflegends.com/cdn/9.3.1/data/en_US/runesReforged.json'
+      'https://ddragon.leagueoflegends.com/cdn/10.9.1/data/en_US/runesReforged.json'
+    );
+  }
+
+  public getSpells() {
+    return this.http.get(
+      'http://ddragon.leagueoflegends.com/cdn/10.9.1/data/en_US/summoner.json'
     );
   }
 

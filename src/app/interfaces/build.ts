@@ -1,100 +1,60 @@
-export interface Id {
-  $oid: string;
+export interface Guide {
+  name: string;
+  champion: string;
+  role: string;
+  createdOn: number;
+  updatedOne: number;
+  runes: Runes;
+  itemsBlock: ItemsBlock[];
+  abilitiesProgression: AbilitiesProgression;
+  threats: Threat[];
 }
 
-export interface Date {
-  $numberLong: string;
+export interface AbilitiesProgression {
+  l1: string;
+  l2: string;
+  l3: string;
+  l4: string;
+  l5: string;
+  l6: string;
+  l7: string;
+  l8: string;
+  l9: string;
+  l10: string;
+  l11: string;
+  l12: string;
+  l13: string;
+  l14: string;
+  l15: string;
+  l16: string;
+  l17: string;
+  l18: string;
 }
 
-export interface Pub {
-  $date: Date;
+export interface ItemsBlock {
+  itemRollName: string;
+  itemArray: ItemArray[];
 }
 
-export interface PRune {
-  Domain: string;
-  d1: string;
-  d2: string;
-  d3: string;
-  d4: string;
+export interface ItemArray {
+  item: string;
 }
 
-export interface SRune {
-  Domain: string;
-  d1: string;
-  d2: string;
+export interface Runes {
+  primaryRune: string;
+  primarySlots: ArySlots;
+  secondaryRune: string;
+  secondarySlots: ArySlots;
 }
 
-export interface B1 {
-  $numberInt: string;
-}
-
-export interface B2 {
-  $numberInt: string;
-}
-
-export interface B3 {
-  $numberInt: string;
-}
-
-export interface Bonus {
-  b1: B1;
-  b2: B2;
-  b3: B3;
-}
-
-export interface Spells {
+export interface ArySlots {
   first: string;
   second: string;
-}
-
-export interface ItemList {
-  $numberInt: string;
-}
-
-export interface Item {
-  groupName: string;
-  itemList: ItemList[];
-}
-
-export interface Abilities {
-  1: string;
-  2: string;
-  3: string;
-  4: string;
-  5: string;
-  6: string;
-  7: string;
-  8: string;
-  9: string;
-  10: string;
-  11: string;
-  12: string;
-  13: string;
-  14: string;
-  15: string;
-  16: string;
-  17: string;
-  18: string;
+  third: string;
+  fourth?: string;
 }
 
 export interface Threat {
-  id: string;
-  desc: string;
-}
-
-export interface Build {
-  _id: Id;
-  usrUID: string;
-  champ: string;
-  name: string;
-  patch: string;
-  pub: Pub;
-  pRune: PRune;
-  sRune: SRune;
-  bonus: Bonus;
-  spells: Spells;
-  items: Item[];
-  abilities: Abilities;
-  threats: Threat[];
+  threat: string;
   description: string;
 }

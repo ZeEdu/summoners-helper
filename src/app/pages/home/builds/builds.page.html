@@ -1,6 +1,6 @@
 <ion-header class="body-margin">
   <ion-toolbar>
-    <ion-title color="primary">My Builds</ion-title>
+    <ion-title color="primary">My Guides</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -32,7 +32,12 @@
             </h4>
           </ion-text>
         </ion-label>
-        <ion-icon color="primary" slot="end" name="trash"></ion-icon>
+        <ion-icon
+          color="primary"
+          slot="end"
+          name="trash"
+          (click)="presentAlertConfirm(build.name, build._id)"
+        ></ion-icon>
       </ion-item>
     </ion-list>
   </ion-grid>
