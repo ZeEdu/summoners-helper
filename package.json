@@ -32,7 +32,7 @@
     "cordova-plugin-file": "^6.0.2",
     "core-js": "^3.6.4",
     "firebase": "^7.7.0",
-    "rxjs": "~6.5.1",
+    "rxjs": "^6.5.5",
     "tslib": "^1.11.2",
     "zone.js": "^0.10.3"
   },
@@ -65,9 +65,9 @@
     "karma-jasmine-html-reporter": "^1.5.1",
     "prettier": "2.0.5",
     "protractor": "^5.4.4",
-    "ts-node": "~7.0.0",
+    "ts-node": "^8.10.1",
     "tslint": "^6.1.2",
-    "typescript": "~3.4.3"
+    "typescript": "~3.4.5"
   },
   "description": "An Ionic project",
   "cordova": {
