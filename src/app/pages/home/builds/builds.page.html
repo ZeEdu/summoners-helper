@@ -23,19 +23,25 @@
           </ion-img>
         </ion-avatar>
         <ion-label>
-          <ion-text color="primary">
-            <h3>{{build.name}}</h3>
-          </ion-text>
-          <ion-text color="light">
-            <h4>
-              {{build.patch}}
-            </h4>
-          </ion-text>
+          <a routerLink="build-view/{{build._id}}" class="link-style">
+            <ion-text color="primary">
+              <h3>{{build.name}}</h3>
+            </ion-text>
+            <ion-text color="light">
+              <h4>
+                {{build.patch}}
+              </h4>
+            </ion-text>
+          </a>
+
         </ion-label>
+        <a routerLink="build-edit/{{build._id}}">
+          <ion-icon color="primary" slot="end" name=pencil></ion-icon>
+        </a>
         <ion-icon
           color="primary"
           slot="end"
-          name="trash"
+          name="close"
           (click)="presentAlertConfirm(build.name, build._id)"
         ></ion-icon>
       </ion-item>

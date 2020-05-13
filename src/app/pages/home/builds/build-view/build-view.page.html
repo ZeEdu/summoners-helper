@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="primary" defaultHref=""></ion-back-button>
+    </ion-buttons>
+    <ion-title color="primary">Build Viewer</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div *ngIf="guide">
+    <ion-text color="light">
+      <h1>Guide Name: {{guide.name}}</h1>
+    </ion-text>
+    <span>[{{guide.patch}}]</span>
+    <ion-text>
+      <p>{{guide.runes.primaryRune}}</p>
+    </ion-text>
+
+
+    <ion-text color="light">
+      <h1>Guide Name: {{guide.description}}</h1>
+    </ion-text>
+    <ion-text color="light">
+      <h1>{{guide.champion}}</h1>
+    </ion-text>
+
+  </div>
+
+
+  <ion-text color="light">
+    <pre>{{spells | json}}</pre>
+    <pre>{{guide | json}}</pre>
+  </ion-text>
+
+
+</ion-content>

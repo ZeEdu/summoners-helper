@@ -1,20 +1,20 @@
-export interface Rune {
-    id: number;
-    key: string;
-    icon: string;
-    name: string;
-    shortDesc: string;
-    longDesc: string;
+export interface PathResponse {
+  id: number;
+  key: string;
+  icon: string;
+  name: string;
+  slots: Slot[];
 }
 
 export interface Slot {
-    runes: Rune[];
+  runes: PathRune[];
 }
 
-export interface Runes {
-    id: number;
-    key: string;
-    icon: string;
-    name: string;
-    slots: Slot[];
+export interface PathRune {
+  id: number;
+  key: string;
+  icon: string;
+  name: string;
+  shortDesc: string;
+  longDesc: string;
 }

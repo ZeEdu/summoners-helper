@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { BuildEditPage } from './build-edit.page';
+import { BuildViewPage } from './build-view.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: BuildEditPage
+    component: BuildViewPage
   }
 ];
 
@@ -19,9 +19,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes),
-    ReactiveFormsModule
+    RouterModule.forChild(routes)
   ],
-  declarations: [BuildEditPage]
+  declarations: [BuildViewPage]
 })
-export class BuildEditPageModule {}
+export class BuildViewPageModule {}

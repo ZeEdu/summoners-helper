@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Builds } from 'src/app/interfaces/get-builds';
+import { Builds, Id } from 'src/app/interfaces/get-builds';
 import { BuildManagerService } from 'src/app/services/build-manager.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import {
@@ -41,7 +41,7 @@ export class BuildsPage implements OnInit {
       .subscribe((response: Array<Builds>) => (this.userBuilds = response));
   }
 
-  async presentAlertConfirm(guideName: string, id: string) {
+  async presentAlertConfirm(guideName: string, id: Id) {
     const alert = await this.alertController.create({
       header: 'Confirm!',
       message: 'Delete: ' + guideName,
@@ -63,7 +63,7 @@ export class BuildsPage implements OnInit {
     await alert.present();
   }
 
-  private async deleteGuide(id: string) {
+  private async deleteGuide(id: Id) {
     await this.presentloading();
     this.buildManager.deleteByBuildId(id).subscribe(
       (res) => {

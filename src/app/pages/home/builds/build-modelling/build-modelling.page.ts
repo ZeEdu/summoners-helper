@@ -19,14 +19,15 @@ export class BuildModellingPage implements OnInit {
   public guideForm: FormGroup;
   public runes: Runes[];
   public champions: Array<Champion>;
+  public spells: Spell[];
+  public items: Item[];
   public namingSlots = ['first', 'second', 'third', 'fourth'];
   public bonus = {
     first: ['9 Adaptive', '10% Attack Speed', '1-10% CDR'],
     second: ['9 Adaptive', '6 Armor', '8 Magic Resist'],
     third: ['6 Armor', '8 Magic Resist', '15-90 HP'],
   };
-  public spells: Spell[];
-  public items: Item[];
+
   public levels = [
     'One',
     'Two',
@@ -146,8 +147,9 @@ export class BuildModellingPage implements OnInit {
     this.afa.user.subscribe((user) => {
       formData.userUID = user.uid;
     });
-    console.log(formData);
-    await this.saveGuide(formData);
+    const sendGuide: Guide = formData;
+    console.log(sendGuide);
+    await this.saveGuide(sendGuide);
   }
 
   async saveGuide(guide: Guide) {

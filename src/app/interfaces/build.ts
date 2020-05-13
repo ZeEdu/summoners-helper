@@ -3,11 +3,19 @@ export interface Guide {
   champion: string;
   role: string;
   createdOn: number;
-  updatedOne: number;
+  updatedOne?: number;
   runes: Runes;
-  itemsBlock: ItemsBlock[];
+  spells: Spells,
+  items: Items[];
   abilitiesProgression: AbilitiesProgression;
   threats: Threat[];
+  description: string,
+  userUID: string,
+  patch: string
+}
+export interface Spells {
+  first: string;
+  second: string;
 }
 
 export interface AbilitiesProgression {
@@ -31,7 +39,7 @@ export interface AbilitiesProgression {
   l18: string;
 }
 
-export interface ItemsBlock {
+export interface Items {
   itemRollName: string;
   itemArray: ItemArray[];
 }
