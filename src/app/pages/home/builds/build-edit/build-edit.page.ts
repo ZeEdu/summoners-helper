@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Runes } from '../../../../interfaces/runes';
+// import { Runes } from '../../../../interfaces/runes';
 import { Champion, ChampionsResponse } from '../../../../interfaces/champions';
 import { Spell, SpellResponse } from '../../../../interfaces/spells';
 import { Item, ItemsResponse } from '../../../../interfaces/items';
@@ -20,7 +20,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BuildEditPage implements OnInit {
   public guideForm: FormGroup;
-  public runes: Runes[];
+  // public runes: Runes[];
   public champions: Array<Champion>;
   public namingSlots = ['first', 'second', 'third', 'fourth'];
   public bonus = {
@@ -63,7 +63,7 @@ export class BuildEditPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.ddHandler
+               /*this.ddHandler
       .getChampions()
       .subscribe(
         (response: ChampionsResponse) =>
@@ -83,12 +83,13 @@ export class BuildEditPage implements OnInit {
       .subscribe(
         (response: ItemsResponse) => (this.items = Object.values(response.data))
       );
-    this.initializeForm();
-    const id = this.route.snapshot.paramMap.get('id');
-    this.loadForm(id);
-  }
+               this.initializeForm();
+               const id = this.route.snapshot.paramMap.get('id');
+               this.loadForm(id);
+               */
+             }
 
-  initializeForm() {
+  /*initializeForm() {
     this.guideForm = this.fb.group({
       name: ['', Validators.required],
       champion: ['', Validators.required],
@@ -141,7 +142,7 @@ export class BuildEditPage implements OnInit {
       threats: this.fb.array([this.threat()]),
       description: ['', Validators.required],
     });
-  }
+  }*/
 
   get formOverview() {
     return this.guideForm as FormGroup;
