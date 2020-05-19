@@ -52,16 +52,16 @@ export class BuildModellingPage implements OnInit {
   public loading: any;
   slideOpts = {
     initialSlide: 0,
-    allowTouchMove: false
+    allowTouchMove: false,
   };
 
   public basicForm: FormGroup;
   public runesForm: FormGroup;
   public bonusForm: FormGroup;
   public spellsForm: FormGroup;
-  private itemsForm: FormGroup;
-  private abilitiesForm: FormGroup;
-  private threatForm: FormGroup;
+  public itemsForm: FormGroup;
+  public abilitiesForm: FormGroup;
+  public threatForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -93,11 +93,11 @@ export class BuildModellingPage implements OnInit {
       .subscribe(
         (response: ItemsResponse) => (this.items = Object.values(response.data))
       );
-    // this.initializeForm();
     this.initializeBasicForm();
     this.initializeRunesForm();
     this.initializeBonusForm();
     this.initializeSpellsForm();
+    this.initializeItemForm();
     this.initializeAbilitiesForm();
     this.initializeThreatForm();
   }
@@ -107,11 +107,20 @@ export class BuildModellingPage implements OnInit {
   }
 
   public async onSubmit() {
-    const formData = this.guideForm.value;
+    const formValues = [
+      this.basicForm.value,
+      this.runesForm.value,
+      this.bonusForm.value,
+      this.spellsForm.value,
+      this.abilitiesForm.value,
+      this.itemsForm.value,
+      this.threatForm.value,
+    ];
+    const guideAssign = Object.assign({}, ...formValues);
     this.afa.user.subscribe((user) => {
-      formData.userUID = user.uid;
+      guideAssign.userUID = user.uid;
     });
-    const sendGuide: Guide = formData;
+    const sendGuide: Guide = guideAssign;
     console.log(sendGuide);
     await this.saveGuide(sendGuide);
   }
@@ -136,12 +145,12 @@ export class BuildModellingPage implements OnInit {
   }
 
   public addItemRoll(): void {
-    const control = this.guideForm.controls.itemsBlock as FormArray;
+    const control = this.itemsForm.controls.itemsBlock as FormArray;
     control.push(this.itemRoll());
   }
 
   public addItem(index: number) {
-    const control = (this.guideForm.controls.itemsBlock as FormArray)
+    const control = (this.itemsForm.controls.itemsBlock as FormArray)
       .at(index)
       .get('itemArray') as FormArray;
     control.push(this.item());
@@ -154,7 +163,7 @@ export class BuildModellingPage implements OnInit {
     });
   }
   public addThreat() {
-    const control = this.guideForm.controls.threats as FormArray;
+    const control = this.threatForm.controls.threats as FormArray;
     control.push(this.threat());
   }
 
@@ -175,7 +184,7 @@ export class BuildModellingPage implements OnInit {
       name: ['', Validators.required],
       champion: ['', Validators.required],
       role: ['', Validators.required],
-      introduction: ['', Validators.required],
+      introduction: [''],
     });
   }
 
@@ -196,7 +205,7 @@ export class BuildModellingPage implements OnInit {
           third: ['', Validators.required],
         }),
       }),
-      runesDescription: ['', Validators.required],
+      runesDescription: [''],
     });
   }
   private initializeBonusForm(): void {
@@ -206,7 +215,7 @@ export class BuildModellingPage implements OnInit {
         slotTwo: ['', Validators.required],
         slotThree: ['', Validators.required],
       }),
-      bonusDescription: ['', Validators.required],
+      bonusDescription: [''],
     });
   }
   private initializeSpellsForm(): void {
@@ -215,13 +224,13 @@ export class BuildModellingPage implements OnInit {
         first: ['', Validators.required],
         second: ['', Validators.required],
       }),
-      spellsDescription: ['', Validators.required],
+      spellsDescription: [''],
     });
   }
   private initializeItemForm(): void {
     this.itemsForm = this.fb.group({
       itemsBlock: this.fb.array([this.itemRoll()]),
-      itemsDescription: ['', Validators.required],
+      itemsDescription: [''],
     });
   }
   private itemRoll() {
@@ -252,72 +261,16 @@ export class BuildModellingPage implements OnInit {
         l17: ['', Validators.required],
         l18: ['', Validators.required],
       }),
-      abilitiesDescription: ['', Validators.required],
+      abilitiesDescription: [''],
     });
   }
 
   private initializeThreatForm(): void {
     this.threatForm = this.fb.group({
       threats: this.fb.array([this.threat()]),
-      description: ['', Validators.required],
     });
   }
-  /*
-  initializeForm() {
-    this.guideForm = this.fb.group({
-      name: ['', Validators.required],
-      champion: ['', Validators.required],
-      role: ['', Validators.required],
-      runes: this.fb.group({
-        primaryRune: ['', Validators.required],
-        primarySlots: this.fb.group({
-          first: ['', Validators.required],
-          second: ['', Validators.required],
-          third: ['', Validators.required],
-          fourth: ['', Validators.required],
-        }),
-        secondaryRune: ['', Validators.required],
-        secondarySlots: this.fb.group({
-          first: ['', Validators.required],
-          second: ['', Validators.required],
-          third: ['', Validators.required],
-        }),
-      }),
-      bonus: this.fb.group({
-        slotOne: ['', Validators.required],
-        slotTwo: ['', Validators.required],
-        slotThree: ['', Validators.required],
-      }),
-      spells: this.fb.group({
-        first: ['', Validators.required],
-        second: ['', Validators.required],
-      }),
-      itemsBlock: this.fb.array([this.itemRoll()]),
-      abilitiesProgression: this.fb.group({
-        l1: ['', Validators.required],
-        l2: ['', Validators.required],
-        l3: ['', Validators.required],
-        l4: ['', Validators.required],
-        l5: ['', Validators.required],
-        l6: ['', Validators.required],
-        l7: ['', Validators.required],
-        l8: ['', Validators.required],
-        l9: ['', Validators.required],
-        l10: ['', Validators.required],
-        l11: ['', Validators.required],
-        l12: ['', Validators.required],
-        l13: ['', Validators.required],
-        l14: ['', Validators.required],
-        l15: ['', Validators.required],
-        l16: ['', Validators.required],
-        l17: ['', Validators.required],
-        l18: ['', Validators.required],
-      }),
-      threats: this.fb.array([this.threat()]),
-      description: ['', Validators.required],
-    });
-  }
-*/
+
   slideNext() {
     this.slides.slideNext();
   }
@@ -327,7 +280,12 @@ export class BuildModellingPage implements OnInit {
   }
 
   checkBasicForm() {
-    console.log(this.basicForm.valid);
+    console.log('Is the form valid: ', this.basicForm.valid);
     console.log(this.basicForm.value);
+  }
+
+  checkForm() {
+    console.log('Is the form valid: ', this.itemsForm.valid);
+    console.log(this.itemsForm.value);
   }
 }

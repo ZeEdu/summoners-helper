@@ -100,17 +100,17 @@ export interface Image {
 }
 
 export enum Type {
-  Item = 'item'
+  Item = 'item',
 }
 
 export enum Sprite {
   Item0PNG = 'item0.png',
   Item1PNG = 'item1.png',
-  Item2PNG = 'item2.png'
+  Item2PNG = 'item2.png',
 }
 
 export enum RequiredAlly {
-  Ornn = 'Ornn'
+  Ornn = 'Ornn',
 }
 
 export interface Group {
