@@ -1,17 +1,23 @@
 export interface Guide {
+  createdOn: number;
+  updatedOne?: number;
   name: string;
   champion: string;
   role: string;
-  createdOn: number;
-  updatedOne?: number;
   runes: Runes;
-  spells: Spells,
+  bonus: Bonus;
+  spells: Spells;
   items: Items[];
   abilitiesProgression: AbilitiesProgression;
   threats: Threat[];
-  description: string,
-  userUID: string,
-  patch: string
+  description: string;
+  userUID: string;
+  patch: string;
+}
+export interface Bonus {
+  slotOne: string;
+  slotTwo: string;
+  slotThree: string;
 }
 export interface Spells {
   first: string;

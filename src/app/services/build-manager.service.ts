@@ -48,6 +48,5 @@ export class BuildManagerService {
     const endPoint = 'getbuildbyid';
     const url = `${this.baseUrl}/${this.buildRoute}/${endPoint}/${id}`;
     return this.http.get(url);
-
   }
 }
