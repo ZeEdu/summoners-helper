@@ -7,32 +7,65 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content fullscreen>
+  <ion-slides pager="true" [options]="slideOpts">
+    <div *ngIf="guide">
+      <div class="container">
+        <span class="overlay overlay-top">
+          <ion-text color="primary">{{guide.name}}</ion-text>
+        </span>
+        <ion-img
+          src="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{guide.champ}}_0.jpg"
+          alt=""
+          height="100%"
+          width="100%"
+        ></ion-img>
+        <span class="overlay overlay-bottom">
+          <ion-text color="primary">Role: </ion-text>
+          <ion-text color="light">Top</ion-text>
+        </span>
+      </div>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <ion-item>
+              <ion-text color="primary">
+                <h1 class="title">Introduction</h1>
+              </ion-text>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <ion-item>
+              <p clas="padding">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illum
+                earum consectetur, eligendi omnis blanditiis debitis dignissimos
+                minima nam ut reiciendis aut vero numquam architecto quibusdam
+                vel eaque mollitia quae autem expedita rerum inventore. Adipisci
+                iste nobis mollitia odit omnis sint officia cumque nam alias.
+                Assumenda sunt odit nisi. Perferendis, ex!
+              </p>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6">
+            <p class="bottom-content">
+              <ion-text color="primary">Last Updated: </ion-text>
+              <ion-text color="light">12/05/2020</ion-text>
+            </p>
+          </ion-col>
+          <ion-col size="6">
+            <p class="bottom-content">
+              <ion-text color="primary">Created by:</ion-text>
+              <ion-text color="light">Administrator</ion-text>
+            </p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ion-slides>
 
-  <div *ngIf="guide">
-    <ion-text color="light">
-      <h1>Guide Name: {{guide.name}}</h1>
-    </ion-text>
-    <span>[{{guide.patch}}]</span>
-    <ion-text>
-      <p>{{guide.runes.primaryRune}}</p>
-    </ion-text>
-
-
-    <ion-text color="light">
-      <h1>Guide Name: {{guide.description}}</h1>
-    </ion-text>
-    <ion-text color="light">
-      <h1>{{guide.champion}}</h1>
-    </ion-text>
-
-  </div>
-
-
-  <ion-text color="light">
-    <pre>{{spells | json}}</pre>
-    <pre>{{guide | json}}</pre>
-  </ion-text>
-
-
+  <div *ngIf="guide"></div>
 </ion-content>

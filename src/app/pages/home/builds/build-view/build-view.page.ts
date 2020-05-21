@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BuildManagerService } from '../../../../services/build-manager.service';
 import { Guide, Runes } from '../../../../interfaces/build';
-import { PathResponse} from '../../../../interfaces/runes';
+import { PathResponse } from '../../../../interfaces/runes';
 import { Champion, ChampionsResponse } from '../../../../interfaces/champions';
 import { Spell, SpellResponse } from '../../../../interfaces/spells';
 import { Item, ItemsResponse } from '../../../../interfaces/items';
@@ -14,6 +14,9 @@ import { DataDragonHandlerService } from '../../../../services/data-dragon-handl
   styleUrls: ['./build-view.page.scss'],
 })
 export class BuildViewPage implements OnInit {
+  slideOpts = {
+    initialSlide: 0,
+  };
   public guide: Guide;
   public paths: PathResponse[];
   public champion: Champion;
@@ -31,33 +34,36 @@ export class BuildViewPage implements OnInit {
       .subscribe((guide: Guide) => {
         // Load Guide
         this.guide = guide;
+        console.log(this.guide);
+
         // Load Assets
-        this.ddHandler
-          .getChampions()
-          .subscribe(
-            (response: ChampionsResponse) =>
-              (this.champion = response.data[guide.champion])
-          );
-        this.ddHandler.getRunes().subscribe(
-          (response: Array<PathResponse>) =>
-            (this.paths = response.filter((r:PathResponse) => {
-              return (
-                r.key === guide.runes.primaryRune || guide.runes.secondaryRune
-              );
-            }))
-        );
-        this.ddHandler
-          .getSpells()
-          .subscribe(
-            (response: SpellResponse) =>
-              (this.spells = Object.values(response.data))
-          );
-        this.ddHandler
-          .getItems()
-          .subscribe(
-            (response: ItemsResponse) =>
-              (this.items = Object.values(response.data))
-          );
+        //   this.ddHandler
+        //     .getChampions()
+        //     .subscribe(
+        //       (response: ChampionsResponse) =>
+        //         (this.champion = response.data[guide.champ])
+        //     );
+
+        //   this.ddHandler.getRunes().subscribe(
+        //     (response: Array<PathResponse>) =>
+        //       (this.paths = response.filter((r: PathResponse) => {
+        //         return (
+        //           r.key === guide.runes.primaryRune || guide.runes.secondaryRune
+        //         );
+        //       }))
+        //   );
+        //   this.ddHandler
+        //     .getSpells()
+        //     .subscribe(
+        //       (response: SpellResponse) =>
+        //         (this.spells = Object.values(response.data))
+        //     );
+        //   this.ddHandler
+        //     .getItems()
+        //     .subscribe(
+        //       (response: ItemsResponse) =>
+        //         (this.items = Object.values(response.data))
+        //     );
       });
   }
 }

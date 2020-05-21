@@ -145,7 +145,7 @@ export class BuildEditPage implements OnInit {
       });
     });
     this.abilitiesForm.patchValue({
-      abilitiesProgression: guide.abilities,
+      // abilitiesProgression: guide.abilities,
     });
     const threatArray = this.threatForm.get('threats') as FormArray;
     guide.threats.forEach((value) => {
