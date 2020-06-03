@@ -4,8 +4,8 @@ export interface Id {
 
 export interface Builds {
   _id: Id;
-  usrUID: string;
-  champ: string;
+  userUID: string;
+  champion: string;
   name: string;
   patch: string;
 }

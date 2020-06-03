@@ -38,7 +38,10 @@ export class BuildsPage implements OnInit {
   private getAllBuilds(uid: string) {
     this.buildService
       .getBuildByUserUID(uid)
-      .subscribe((response: Array<Builds>) => (this.userBuilds = response));
+      .subscribe((response: Array<Builds>) => {
+        console.log(response);
+        this.userBuilds = response;
+      });
   }
 
   async presentAlertConfirm(guideName: string, id: Id) {
