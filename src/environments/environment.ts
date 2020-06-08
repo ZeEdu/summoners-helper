@@ -3,18 +3,20 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-    production: false,
-    firebase: {
-        apiKey: 'AIzaSyAlxXly9cTeEQ8cNMtaqNqAU9_jzIOp4Gg',
-        authDomain: 'summoners-helper.firebaseapp.com',
-        databaseURL: 'https://summoners-helper.firebaseio.com',
-        projectId: 'summoners-helper',
-        storageBucket: 'summoners-helper.appspot.com',
-        messagingSenderId: '427390495077',
-        appId: '1:427390495077:web:4212e527c2d0212012598c',
-        measurementId: 'G-YMW9FG3888'
-    }
+   production: false,
+   firebase: {
+      apiKey: 'AIzaSyAlxXly9cTeEQ8cNMtaqNqAU9_jzIOp4Gg',
+      authDomain: 'summoners-helper.firebaseapp.com',
+      databaseURL: 'https://summoners-helper.firebaseio.com',
+      projectId: 'summoners-helper',
+      storageBucket: 'summoners-helper.appspot.com',
+      messagingSenderId: '427390495077',
+      appId: '1:427390495077:web:4212e527c2d0212012598c',
+      measurementId: 'G-YMW9FG3888',
+   },
 };
+
+export const backendBaseUrl = 'http://localhost:8000';
 
 /*
  * For easier debugging in development mode, you can import the following file

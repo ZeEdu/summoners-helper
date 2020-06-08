@@ -24,10 +24,44 @@ export class BuildModellingPage implements OnInit {
    public spells: Spell[];
    public items: Item[];
    public namingSlots = ['first', 'second', 'third', 'fourth'];
+
    public bonus = {
-      first: ['9 Adaptive', '10% Attack Speed', '1-10% CDR'],
-      second: ['9 Adaptive', '6 Armor', '8 Magic Resist'],
-      third: ['6 Armor', '8 Magic Resist', '15-90 HP'],
+      first: [
+         {
+            name: '9 Adaptive',
+            ArrayKey: 'AdaptiveForce',
+         },
+         {
+            name: '10% Attack Speed',
+            ArrayKey: 'AttackSpeed',
+         },
+         {
+            name: '1-10% CDR',
+            ArrayKey: 'CDRScaling',
+         },
+      ],
+      second: [
+         {
+            name: '9 Adaptive',
+            ArrayKey: 'AdaptiveForce',
+         },
+         { name: '6 Armor', ArrayKey: 'Armor' },
+         {
+            name: '8 Magic Resist',
+            ArrayKey: 'MagicRes',
+         },
+      ],
+      third: [
+         { name: '6 Armor', ArrayKey: 'Armor' },
+         {
+            name: '8 Magic Resist',
+            ArrayKey: 'MagicRes',
+         },
+         {
+            name: '1-10% CDR',
+            ArrayKey: 'CDRScaling',
+         },
+      ],
    };
    public levels = [
       'One',
@@ -118,16 +152,22 @@ export class BuildModellingPage implements OnInit {
          this.threatForm.value,
       ];
       const guideAssign = Object.assign({}, ...formValues);
-      this.afa.user.subscribe((user) => {
+      let tokenId: string;
+      this.afa.user.subscribe(async (user) => {
          guideAssign.userUID = user.uid;
+         await user.getIdToken().then((token) => {
+            tokenId = token;
+            const sendGuide: Guide = guideAssign;
+            this.saveGuide(sendGuide, tokenId);
+         });
       });
-      const sendGuide: Guide = guideAssign;
-      await this.saveGuide(sendGuide);
    }
 
-   async saveGuide(guide: Guide) {
+   async saveGuide(guide: Guide, token: string) {
       await this.presentloading();
-      this.buildManager.addNewBuild(guide).subscribe(
+      console.log(guide, token);
+
+      this.buildManager.addNewBuild(guide, token).subscribe(
          (res) => {
             this.presentToast('Successfully saved your build!');
          },

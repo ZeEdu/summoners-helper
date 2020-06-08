@@ -16,9 +16,9 @@ export class SettingsPage implements OnInit {
          this.currentUser.uid = user.uid;
          this.currentUser.email = user.email;
       });
-      this.afa.auth.onAuthStateChanged((user) => {
-         this.currentUserEmail = user.email;
-      });
+      this.afa.auth.onAuthStateChanged(
+         (user) => (this.currentUserEmail = user.email)
+      );
    }
 
    constructor(

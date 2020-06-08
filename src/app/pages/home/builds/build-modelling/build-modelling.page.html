@@ -441,8 +441,8 @@
                      </ion-label>
                      <ion-select formControlName="slotOne">
                         <div *ngFor="let firstBonus of bonus.first; index as i">
-                           <ion-select-option value="{{firstBonus}}"
-                              >{{firstBonus}}</ion-select-option
+                           <ion-select-option value="{{firstBonus.ArrayKey}}"
+                              >{{firstBonus.name}}</ion-select-option
                            >
                         </div>
                      </ion-select>
@@ -457,8 +457,8 @@
                         <div
                            *ngFor="let secondBonus of bonus.second; index as i"
                         >
-                           <ion-select-option value="{{secondBonus}}"
-                              >{{secondBonus}}</ion-select-option
+                           <ion-select-option value="{{secondBonus.ArrayKey}}"
+                              >{{secondBonus.name}}</ion-select-option
                            >
                         </div>
                      </ion-select>
@@ -471,8 +471,8 @@
                      </ion-label>
                      <ion-select formControlName="slotThree">
                         <div *ngFor="let thirdBonus of bonus.third; index as i">
-                           <ion-select-option value="{{thirdBonus}}"
-                              >{{thirdBonus}}
+                           <ion-select-option value="{{thirdBonus.ArrayKey}}"
+                              >{{thirdBonus.name}}
                            </ion-select-option>
                         </div>
                      </ion-select>
