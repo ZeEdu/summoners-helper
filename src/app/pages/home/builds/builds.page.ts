@@ -45,6 +45,7 @@ export class BuildsPage implements OnInit {
 
    async presentAlertConfirm(guideName: string, id: Id) {
       const alert = await this.alertController.create({
+         cssClass: 'customAlert',
          header: 'Confirm!',
          message: 'Delete: ' + guideName,
          buttons: [
