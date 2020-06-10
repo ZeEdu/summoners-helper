@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../interfaces/user';
+import { backendBaseUrl } from '../../environments/environment';
 
 @Injectable({
    providedIn: 'root',
@@ -8,13 +9,12 @@ import { User } from '../interfaces/user';
 export class UserManagerService {
    constructor(private http: HttpClient) {}
 
-   private baseUrl = 'http://localhost:3000';
    private usersRoute = 'api/v1/users';
 
    public getUsernameByUID(userUID: string) {
       const routeMethod = 'getuserbyuid';
       return this.http.get(
-         `${this.baseUrl}/${this.usersRoute}/${routeMethod}/${userUID}`
+         `${backendBaseUrl}/${this.usersRoute}/${routeMethod}/${userUID}`
       );
    }
 
@@ -27,7 +27,7 @@ export class UserManagerService {
       });
       return this.http
          .post<User>(
-            `${this.baseUrl}/${this.usersRoute}/${routeMethod}`,
+            `${backendBaseUrl}/${this.usersRoute}/${routeMethod}`,
             sendUser,
             {
                headers: httpNewHeader,

@@ -75,7 +75,7 @@
 .rune-description {
    text-align: left;
    font-size: 0.75rem;
-   margin: 0;
+   padding-left: 14px;
 }
 p {
    margin-top: 0;
@@ -118,7 +118,8 @@ p {
 }
 
 .box {
-   display: block;
+   display: flex;
+   flex-wrap: wrap;
    width: 64px;
    height: 64px;
    border-radius: 5px;
@@ -127,6 +128,14 @@ p {
 
 div.box.active {
    background-color: var(--ion-color-primary);
+}
+
+.level {
+   display: flex;
+   align-items: center;
+   margin-left: auto;
+   margin-right: auto;
+   color: var(--ion-color-light);
 }
 // .swiper-slide h2 {
 //   margin-top: 2.8rem;

@@ -5,6 +5,8 @@ import { Champion, LoLResponse } from 'src/app/interfaces/champion-overview';
 import { BuildManagerService } from 'src/app/services/build-manager.service';
 import { Builds } from 'src/app/interfaces/get-builds';
 import { DataDragonHandlerService } from 'src/app/services/data-dragon-handler.service';
+import { SafeHtmlPipe } from 'src/app/pipes/safe-html.pipe';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
    selector: 'app-champion',
@@ -16,7 +18,9 @@ export class ChampionPage implements OnInit {
    constructor(
       private buildService: BuildManagerService,
       private dDragonHandler: DataDragonHandlerService,
-      private route: ActivatedRoute
+      private route: ActivatedRoute,
+      public safeHtml: SafeHtmlPipe,
+      private afa: AngularFireAuth
    ) {}
 
    public builds: Array<Builds>;
@@ -32,14 +36,17 @@ export class ChampionPage implements OnInit {
 
    ngOnInit() {
       const id = this.route.snapshot.paramMap.get('id');
-      this.dDragonHandler
-         .getChampionByID(id)
-         .subscribe(
-            (response: LoLResponse) => (this.championData = response.data[id])
-         );
-      this.buildService
-         .getBuildByChampionID(id)
-         .subscribe((response: Array<Builds>) => (this.builds = response));
+      this.afa.idToken.subscribe((token) => {
+         this.dDragonHandler
+            .getChampionByID(id)
+            .subscribe(
+               (response: LoLResponse) =>
+                  (this.championData = response.data[id])
+            );
+         this.buildService
+            .getBuildByChampionID(id, token)
+            .subscribe((response: Array<Builds>) => (this.builds = response));
+      });
    }
 
    public async segmentChanged(event: any) {

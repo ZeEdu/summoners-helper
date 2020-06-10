@@ -17,10 +17,13 @@ export class BuildManagerService {
       'Cache-Control': 'no-cache',
    });
 
-   public getBuildByChampionID(id: string) {
+   public getBuildByChampionID(id: string, token: string) {
+      const header = {
+         headers: new HttpHeaders().set('Authorization', `Bearer ${token}`),
+      };
       const endPoint = 'getbuildsbychampion';
       const url = `${backendBaseUrl}/${this.buildRoute}/${endPoint}/${id}`;
-      return this.http.get(url);
+      return this.http.get(url, header);
    }
 
    public getBuildByUserUID(id: string, token: string) {
@@ -51,9 +54,16 @@ export class BuildManagerService {
       return this.http.delete(url, { headers: this.httpNewHeader });
    }
 
-   public getBuildByID(id: string) {
+   public getBuildByID(id: string, token: string) {
       const endPoint = 'getbuildbyid';
       const url = `${backendBaseUrl}/${this.buildRoute}/${endPoint}/${id}`;
-      return this.http.get(url);
+      const headers = {
+         headers: new HttpHeaders({
+            'Content-type': 'application/json',
+            'Cache-Control': 'no-cache',
+            Authorization: `Bearer ${token}`,
+         }),
+      };
+      return this.http.get(url, headers);
    }
 }
