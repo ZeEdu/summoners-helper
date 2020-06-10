@@ -48,7 +48,7 @@ export class BuildManagerService {
       return this.http.post(url, JSON.stringify(guide), headers);
    }
 
-   public deleteByBuildId(id: Id) {
+   public deleteByBuildId(id: Id, token: string) {
       const endPoint = 'deletebuild';
       const url = `${backendBaseUrl}/${this.buildRoute}/${endPoint}/${id}`;
       return this.http.delete(url, { headers: this.httpNewHeader });

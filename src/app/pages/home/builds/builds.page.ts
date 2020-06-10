@@ -28,19 +28,19 @@ export class BuildsPage implements OnInit {
 
    ngOnInit() {
       this.afa.user.subscribe((user) => {
-         if (!user.isAnonymous) {
-            this.userUID = user.uid;
-            user
-               .getIdToken()
-               .then((idToken) => this.getAllBuilds(this.userUID, idToken));
-         }
+         user.getIdToken(true).then((token) => {
+            this.getAllBuilds(user.uid, token);
+         });
       });
    }
 
    private getAllBuilds(uid: string, token: string) {
       this.buildService
          .getBuildByUserUID(uid, token)
-         .subscribe((response: Array<Builds>) => (this.userBuilds = response));
+         .subscribe((r: Array<Builds>) => {
+            this.userBuilds = r;
+            console.log(r);
+         });
    }
 
    async presentAlertConfirm(guideName: string, id: Id) {
@@ -67,20 +67,18 @@ export class BuildsPage implements OnInit {
 
    private async deleteGuide(id: Id) {
       await this.presentloading();
-      this.buildManager.deleteByBuildId(id).subscribe(
-         (res) => {
-            this.presentToast('Successfully deleted your build!');
-         },
-         (err) => {
-            this.presentToast(err.name);
-         }
-      );
-      this.loading.dismiss();
-      let token: string;
-      this.afa.user.subscribe((user) => {
-         user.getIdToken().then((idToken) => (token = idToken));
+
+      this.afa.idToken.subscribe((token) => {
+         this.buildManager.deleteByBuildId(id, token).subscribe(
+            (res) => {
+               this.presentToast('Successfully deleted your build!');
+            },
+            (err) => {
+               this.presentToast(err.name);
+            }
+         );
+         this.getAllBuilds(this.userUID, token);
       });
-      this.getAllBuilds(this.userUID, token);
    }
 
    async presentloading() {

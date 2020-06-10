@@ -1,36 +1,33 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title class="title">SH</ion-title>
-  </ion-toolbar>
-  <ion-toolbar>
-    <ion-title class="subTitle">Summoner's Helper</ion-title>
-  </ion-toolbar>
+   <ion-toolbar>
+      <ion-title class="title">SH</ion-title>
+   </ion-toolbar>
+   <ion-toolbar>
+      <ion-title class="subTitle">Summoner's Helper</ion-title>
+   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-item>
-    <ion-input
-      primary
-      type="email"
-      placeholder="Email"
-      [(ngModel)]="userLogin.email"
-    ></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-input
-      primary
-      type="password"
-      placeholder="Password"
-      [(ngModel)]="userLogin.password"
-    ></ion-input>
-  </ion-item>
-  <ion-button expand="block" (click)="login()">
-    Login
-  </ion-button>
-  <ion-button expand="block" (click)="loginAnon()"
-    >Continue as a Guest</ion-button
-  >
-  <h2 class="sign-in">
-    Don't have an account yet? <a routerLink="/cadastro">Create yours Here</a>
-  </h2>
+   <ion-item>
+      <ion-input
+         primary
+         type="email"
+         placeholder="Email"
+         [(ngModel)]="userLogin.email"
+      ></ion-input>
+   </ion-item>
+   <ion-item>
+      <ion-input
+         primary
+         type="password"
+         placeholder="Password"
+         [(ngModel)]="userLogin.password"
+      ></ion-input>
+   </ion-item>
+   <ion-button expand="block" (click)="login()">
+      Login
+   </ion-button>
+   <h2 class="sign-in">
+      Don't have an account yet? <a routerLink="/cadastro">Create yours Here</a>
+   </h2>
 </ion-content>

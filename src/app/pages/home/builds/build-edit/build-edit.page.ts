@@ -136,11 +136,14 @@ export class BuildEditPage implements OnInit {
       this.initializeItemForm();
       this.initializeAbilitiesForm();
       this.initializeThreatForm();
-      this.buildManager
-         .getBuildByID(this.route.snapshot.paramMap.get('id'))
-         .subscribe((guide: Guide) => {
-            this.fillForms(guide);
-         });
+
+      this.afa.idToken.subscribe((token) => {
+         this.buildManager
+            .getBuildByID(this.route.snapshot.paramMap.get('id'), token)
+            .subscribe((guide: Guide) => {
+               this.fillForms(guide);
+            });
+      });
    }
 
    fillForms(guide: Guide) {
