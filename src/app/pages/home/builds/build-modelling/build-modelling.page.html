@@ -7,7 +7,7 @@
    </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content fullscreen="true">
    <ion-slides pager="false" [options]="slideOpts" #slider>
       <ion-slide>
          <ion-grid>
@@ -15,19 +15,19 @@
                <ion-item-group>
                   <ion-item-divider>
                      <ion-text color="primary">
-                        <ion-label>basic information</ion-label>
+                        <ion-label>Basic Information</ion-label>
                      </ion-text>
                   </ion-item-divider>
                   <ion-item>
                      <ion-text color="light">
-                        <ion-label position="stacked">guide name</ion-label>
+                        <ion-label position="stacked">Guide Name</ion-label>
                      </ion-text>
                      <ion-input type="text" formControlName="name"></ion-input>
                   </ion-item>
                   <ion-item>
                      <ion-label>
                         <ion-text color="light">
-                           select a champion
+                           Select a Champion
                         </ion-text>
                      </ion-label>
                      <ion-select formControlName="champion">
@@ -75,11 +75,6 @@
             </form>
             <ion-footer>
                <ion-toolbar>
-                  <ion-buttons slot="end">
-                     <ion-button color="primary" (click)="checkBasicForm()"
-                        >Check Value</ion-button
-                     >
-                  </ion-buttons>
                   <ion-buttons slot="end">
                      <ion-button
                         color="primary"
@@ -634,16 +629,21 @@
                               </div>
                            </div>
                            <ion-button
-                              expand="block"
-                              color="primary"
-                              (click)="addItem(i)"
+                              color="danger"
+                              (click)="removeLastItem(i)"
+                              >Remove Last Item
+                           </ion-button>
+                           <ion-button color="primary" (click)="addItem(i)"
                               >Add New Item
                            </ion-button>
                         </div>
                      </div>
                   </div>
                </div>
-               <ion-button expand="full" color="primary" (click)="addItemRoll()"
+               <ion-button color="danger" (click)="addItemRoll()"
+                  >Remove Last Roll
+               </ion-button>
+               <ion-button color="primary" (click)="addItemRoll()"
                   >Add New Roll
                </ion-button>
                <ion-item>
@@ -753,6 +753,8 @@
                            <ion-select
                               formControlName="threat"
                               placeholder="Select a Threat"
+                              [interfaceOptions]="customAlert"
+                              interface="alert"
                            >
                               <ion-select-option
                                  *ngFor="let champion of champions"
@@ -769,29 +771,31 @@
                         </ion-item>
                      </div>
                   </div>
-                  <ion-button
-                     expand="block"
-                     color="secondary"
-                     (click)="addThreat()"
+                  <ion-button color="danger" (click)="removeLastThreat()"
+                     >Remove Last Threat
+                  </ion-button>
+                  <ion-button color="primary" (click)="addThreat()"
                      >Add New Threat
                   </ion-button>
                </div>
             </ion-item-group>
-            <ion-toolbar>
-               <ion-buttons slot="start">
-                  <ion-button color="primary" (click)="slidePrevious()"
-                     >Previous</ion-button
-                  >
-               </ion-buttons>
-               <ion-buttons slot="end">
-                  <ion-button
-                     color="primary"
-                     (click)="onSubmit()"
-                     [disabled]="!threatForm.valid"
-                     >Publish Guide</ion-button
-                  >
-               </ion-buttons>
-            </ion-toolbar>
+            <ion-footer>
+               <ion-toolbar>
+                  <ion-buttons slot="start">
+                     <ion-button color="primary" (click)="slidePrevious()"
+                        >Previous</ion-button
+                     >
+                  </ion-buttons>
+                  <ion-buttons slot="end">
+                     <ion-button
+                        color="primary"
+                        (click)="onSubmit()"
+                        [disabled]="!threatForm.valid"
+                        >Publish Guide</ion-button
+                     >
+                  </ion-buttons>
+               </ion-toolbar>
+            </ion-footer>
          </ion-grid>
       </ion-slide>
    </ion-slides>

@@ -97,6 +97,10 @@ export class BuildModellingPage implements OnInit {
    public abilitiesForm: FormGroup;
    public threatForm: FormGroup;
 
+   customAlert = {
+      cssClass: 'customAlert',
+   };
+
    constructor(
       private fb: FormBuilder,
       private ddHandler: DataDragonHandlerService,
@@ -137,10 +141,6 @@ export class BuildModellingPage implements OnInit {
       this.initializeThreatForm();
    }
 
-   get formOverview() {
-      return this.guideForm as FormGroup;
-   }
-
    public async onSubmit() {
       const formValues = [
          this.basicForm.value,
@@ -152,23 +152,20 @@ export class BuildModellingPage implements OnInit {
          this.threatForm.value,
       ];
       const guideAssign = Object.assign({}, ...formValues);
-      let tokenId: string;
       this.afa.user.subscribe(async (user) => {
          guideAssign.userUID = user.uid;
          await user.getIdToken().then((token) => {
-            tokenId = token;
             const sendGuide: Guide = guideAssign;
-            this.saveGuide(sendGuide, tokenId);
+            this.saveGuide(sendGuide, token);
          });
       });
    }
 
    async saveGuide(guide: Guide, token: string) {
       await this.presentloading();
-      console.log(guide, token);
 
       this.buildManager.addNewBuild(guide, token).subscribe(
-         (res) => {
+         () => {
             this.presentToast('Successfully saved your build!');
          },
          (err) => {
@@ -189,11 +186,23 @@ export class BuildModellingPage implements OnInit {
       control.push(this.itemRoll());
    }
 
+   public removeLastRoll(): void {
+      const control = this.itemsForm.controls.itemsBlock as FormArray;
+      control.removeAt(control.length - 1);
+   }
+
    public addItem(index: number) {
       const control = (this.itemsForm.controls.itemsBlock as FormArray)
          .at(index)
          .get('itemArray') as FormArray;
       control.push(this.item());
+   }
+
+   public removeLastItem(index: number) {
+      const control = (this.itemsForm.controls.itemsBlock as FormArray)
+         .at(index)
+         .get('itemArray') as FormArray;
+      control.removeAt(control.length - 1);
    }
 
    private threat() {
@@ -202,9 +211,13 @@ export class BuildModellingPage implements OnInit {
          description: ['', Validators.required],
       });
    }
-   public addThreat() {
+   public addThreat(): void {
       const control = this.threatForm.controls.threats as FormArray;
       control.push(this.threat());
+   }
+   public removeLastThreat(): void {
+      const control = this.threatForm.controls.threats as FormArray;
+      control.removeAt(control.length - 1);
    }
 
    async presentloading() {
@@ -317,15 +330,5 @@ export class BuildModellingPage implements OnInit {
 
    slidePrevious() {
       this.slides.slidePrev();
-   }
-
-   checkBasicForm() {
-      console.log('Is the form valid: ', this.basicForm.valid);
-      console.log(this.basicForm.value);
-   }
-
-   checkForm() {
-      console.log('Is the form valid: ', this.itemsForm.valid);
-      console.log(this.itemsForm.value);
    }
 }

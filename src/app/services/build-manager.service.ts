@@ -42,9 +42,7 @@ export class BuildManagerService {
             Authorization: `Bearer ${token}`,
          }),
       };
-      const data = JSON.stringify(guide);
-
-      return this.http.post(url, data, headers);
+      return this.http.post(url, JSON.stringify(guide), headers);
    }
 
    public deleteByBuildId(id: Id) {
