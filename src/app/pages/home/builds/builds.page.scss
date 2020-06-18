@@ -5,3 +5,15 @@ ion-note {
 .link-style {
   text-decoration: none;
 }
+
+.spinner-placeholder{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ion-spinner {
+  display: block;
+  margin: auto;
+
+}

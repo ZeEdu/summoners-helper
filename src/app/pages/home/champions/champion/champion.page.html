@@ -315,15 +315,6 @@
       </ion-slide>
       <ion-slide>
          <ion-grid class="ion-padding">
-            <ion-row>
-               <ion-col size="12">
-                  <ion-text color="primary" class="ion-text-start">
-                     <h2 class="title">
-                        Champion's Build
-                     </h2>
-                  </ion-text>
-               </ion-col>
-            </ion-row>
             <ion-list *ngIf="builds">
                <ion-item *ngFor="let build of builds; index as i;">
                   <ion-label>
@@ -338,6 +329,13 @@
                   </ion-note>
                </ion-item>
             </ion-list>
+            <ion-infinite-scroll (ionInfinite)="loadGuides(true, $event)">
+               <ion-infinite-scroll-content
+                  loadingSpinner="bubbles"
+                  loadingText="Loading more Guides..."
+               >
+               </ion-infinite-scroll-content>
+            </ion-infinite-scroll>
          </ion-grid>
       </ion-slide>
    </ion-slides>

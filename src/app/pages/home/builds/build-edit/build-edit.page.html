@@ -20,17 +20,21 @@
                   </ion-item-divider>
                   <ion-item>
                      <ion-text color="light">
-                        <ion-label position="stacked">guide name</ion-label>
+                        <ion-label position="stacked">Guide Name</ion-label>
                      </ion-text>
                      <ion-input type="text" formControlName="name"></ion-input>
                   </ion-item>
                   <ion-item>
                      <ion-label>
                         <ion-text color="light">
-                           select a champion
+                           Select a Champion
                         </ion-text>
                      </ion-label>
-                     <ion-select formControlName="champion">
+                     <ion-select
+                        formControlName="champion"
+                        [interfaceOptions]="customAlert"
+                        interface="alert"
+                     >
                         <ion-select-option
                            *ngFor="let champion of champions"
                            [value]="champion.id"
@@ -47,7 +51,11 @@
                            Select a Role
                         </ion-text>
                      </ion-label>
-                     <ion-select formControlName="role">
+                     <ion-select
+                        formControlName="role"
+                        [interfaceOptions]="customAlert"
+                        interface="alert"
+                     >
                         <ion-select-option value="top"
                            >Top Lane</ion-select-option
                         >
@@ -75,11 +83,6 @@
             </form>
             <ion-footer>
                <ion-toolbar>
-                  <ion-buttons slot="end">
-                     <ion-button color="primary" (click)="checkBasicForm()"
-                        >Check Value</ion-button
-                     >
-                  </ion-buttons>
                   <ion-buttons slot="end">
                      <ion-button color="primary" (click)="slideNext()"
                         >Go to Runes</ion-button
@@ -114,7 +117,7 @@
                            >
                               <ion-select-option
                                  *ngFor="let rune of runes; index as i"
-                                 [value]="rune.id"
+                                 [value]="rune.key"
                               >
                                  {{rune.name}}
                               </ion-select-option>
@@ -123,7 +126,7 @@
                         <div *ngIf="runesForm.value.runes.primaryRune">
                            <div [ngSwitch]="runesForm.value.runes.primaryRune">
                               <div formGroupName="primarySlots">
-                                 <div *ngSwitchCase="runes[0].id">
+                                 <div *ngSwitchCase="runes[0].key">
                                     <ion-item
                                        *ngFor="let naming of namingSlots; index as j"
                                     >
@@ -132,10 +135,14 @@
                                              {{naming}} Slot
                                           </ion-text>
                                        </ion-label>
-                                       <ion-select formControlName="{{naming}}">
+                                       <ion-select
+                                          formControlName="{{naming}}"
+                                          [interfaceOptions]="customAlert"
+                                          interface="alert"
+                                       >
                                           <ion-select-option
                                              *ngFor="let slot of runes[0].slots[j].runes;"
-                                             [value]="slot.id"
+                                             [value]="slot.key"
                                           >
                                              {{slot.name}}
                                           </ion-select-option>
@@ -143,7 +150,7 @@
                                     </ion-item>
                                  </div>
                               </div>
-                              <div *ngSwitchCase="runes[1].id">
+                              <div *ngSwitchCase="runes[1].key">
                                  <div formGroupName="primarySlots">
                                     <ion-item
                                        *ngFor="let naming of namingSlots; index as j"
@@ -153,10 +160,14 @@
                                              {{naming}} Slot
                                           </ion-text>
                                        </ion-label>
-                                       <ion-select formControlName="{{naming}}">
+                                       <ion-select
+                                          formControlName="{{naming}}"
+                                          [interfaceOptions]="customAlert"
+                                          interface="alert"
+                                       >
                                           <ion-select-option
                                              *ngFor="let slot of runes[1].slots[j].runes;"
-                                             [value]="slot.id"
+                                             [value]="slot.key"
                                           >
                                              {{slot.name}}
                                           </ion-select-option>
@@ -164,7 +175,7 @@
                                     </ion-item>
                                  </div>
                               </div>
-                              <div *ngSwitchCase="runes[2].id">
+                              <div *ngSwitchCase="runes[2].key">
                                  <div formGroupName="primarySlots">
                                     <ion-item
                                        *ngFor="let naming of namingSlots; index as j"
@@ -174,10 +185,14 @@
                                              {{naming}} Slot
                                           </ion-text>
                                        </ion-label>
-                                       <ion-select formControlName="{{naming}}">
+                                       <ion-select
+                                          formControlName="{{naming}}"
+                                          [interfaceOptions]="customAlert"
+                                          interface="alert"
+                                       >
                                           <ion-select-option
                                              *ngFor="let slot of runes[2].slots[j].runes;"
-                                             [value]="slot.id"
+                                             [value]="slot.key"
                                           >
                                              {{slot.name}}
                                           </ion-select-option>
@@ -185,7 +200,7 @@
                                     </ion-item>
                                  </div>
                               </div>
-                              <div *ngSwitchCase="runes[3].id">
+                              <div *ngSwitchCase="runes[3].key">
                                  <div formGroupName="primarySlots">
                                     <ion-item
                                        *ngFor="let naming of namingSlots; index as j"
@@ -195,10 +210,14 @@
                                              {{naming}} Slot
                                           </ion-text>
                                        </ion-label>
-                                       <ion-select formControlName="{{naming}}">
+                                       <ion-select
+                                          formControlName="{{naming}}"
+                                          [interfaceOptions]="customAlert"
+                                          interface="alert"
+                                       >
                                           <ion-select-option
                                              *ngFor="let slot of runes[3].slots[j].runes;"
-                                             [value]="slot.id"
+                                             [value]="slot.key"
                                           >
                                              {{slot.name}}
                                           </ion-select-option>
@@ -206,7 +225,7 @@
                                     </ion-item>
                                  </div>
                               </div>
-                              <div *ngSwitchCase="runes[4].id">
+                              <div *ngSwitchCase="runes[4].key">
                                  <div formGroupName="primarySlots">
                                     <ion-item
                                        *ngFor="let naming of namingSlots; index as j"
@@ -216,10 +235,14 @@
                                              {{naming}} Slot
                                           </ion-text>
                                        </ion-label>
-                                       <ion-select formControlName="{{naming}}">
+                                       <ion-select
+                                          formControlName="{{naming}}"
+                                          [interfaceOptions]="customAlert"
+                                          interface="alert"
+                                       >
                                           <ion-select-option
                                              *ngFor="let slot of runes[4].slots[j].runes;"
-                                             [value]="slot.id"
+                                             [value]="slot.key"
                                           >
                                              {{slot.name}}
                                           </ion-select-option>
@@ -241,8 +264,8 @@
                            >
                               <div *ngFor="let rune of runes; index as i">
                                  <ion-select-option
-                                    *ngIf="runesForm.value.runes.primaryRune !== rune.id"
-                                    [value]="rune.id"
+                                    *ngIf="runesForm.value.runes.primaryRune !== rune.key"
+                                    [value]="rune.key"
                                  >
                                     {{rune.name}}
                                  </ion-select-option>
@@ -253,7 +276,7 @@
                            <div
                               [ngSwitch]="runesForm.value.runes.secondaryRune"
                            >
-                              <div *ngSwitchCase="runes[0].id">
+                              <div *ngSwitchCase="runes[0].key">
                                  <div formGroupName="secondarySlots">
                                     <div
                                        *ngFor="let naming of namingSlots; index as j"
@@ -271,7 +294,7 @@
                                           >
                                              <ion-select-option
                                                 *ngFor="let slot of runes[1].slots[j].runes;"
-                                                [value]="slot.id"
+                                                [value]="slot.key"
                                              >
                                                 {{slot.name}}
                                              </ion-select-option>
@@ -280,7 +303,7 @@
                                     </div>
                                  </div>
                               </div>
-                              <div *ngSwitchCase="runes[1].id">
+                              <div *ngSwitchCase="runes[1].key">
                                  <div formGroupName="secondarySlots">
                                     <div
                                        *ngFor="let naming of namingSlots; index as j"
@@ -298,7 +321,7 @@
                                           >
                                              <ion-select-option
                                                 *ngFor="let slot of runes[1].slots[j].runes;"
-                                                [value]="slot.id"
+                                                [value]="slot.key"
                                              >
                                                 {{slot.name}}
                                              </ion-select-option>
@@ -307,7 +330,7 @@
                                     </div>
                                  </div>
                               </div>
-                              <div *ngSwitchCase="runes[2].id">
+                              <div *ngSwitchCase="runes[2].key">
                                  <div formGroupName="secondarySlots">
                                     <div
                                        *ngFor="let naming of namingSlots; index as j"
@@ -325,7 +348,7 @@
                                           >
                                              <ion-select-option
                                                 *ngFor="let slot of runes[2].slots[j].runes;"
-                                                [value]="slot.id"
+                                                [value]="slot.key"
                                              >
                                                 {{slot.name}}
                                              </ion-select-option>
@@ -334,7 +357,7 @@
                                     </div>
                                  </div>
                               </div>
-                              <div *ngSwitchCase="runes[3].id">
+                              <div *ngSwitchCase="runes[3].key">
                                  <div formGroupName="secondarySlots">
                                     <div
                                        *ngFor="let naming of namingSlots; index as j"
@@ -352,7 +375,7 @@
                                           >
                                              <ion-select-option
                                                 *ngFor="let slot of runes[3].slots[j].runes;"
-                                                [value]="slot.id"
+                                                [value]="slot.key"
                                              >
                                                 {{slot.name}}
                                              </ion-select-option>
@@ -433,10 +456,14 @@
                            Fist Bonus
                         </ion-text>
                      </ion-label>
-                     <ion-select formControlName="slotOne">
+                     <ion-select
+                        formControlName="slotOne"
+                        [interfaceOptions]="customAlert"
+                        interface="alert"
+                     >
                         <div *ngFor="let firstBonus of bonus.first; index as i">
-                           <ion-select-option value="{{firstBonus}}"
-                              >{{firstBonus}}</ion-select-option
+                           <ion-select-option value="{{firstBonus.ArrayKey}}"
+                              >{{firstBonus.name}}</ion-select-option
                            >
                         </div>
                      </ion-select>
@@ -447,12 +474,16 @@
                            Second Bonus
                         </ion-text>
                      </ion-label>
-                     <ion-select formControlName="slotTwo">
+                     <ion-select
+                        formControlName="slotTwo"
+                        [interfaceOptions]="customAlert"
+                        interface="alert"
+                     >
                         <div
                            *ngFor="let secondBonus of bonus.second; index as i"
                         >
-                           <ion-select-option value="{{secondBonus}}"
-                              >{{secondBonus}}</ion-select-option
+                           <ion-select-option value="{{secondBonus.ArrayKey}}"
+                              >{{secondBonus.name}}</ion-select-option
                            >
                         </div>
                      </ion-select>
@@ -463,10 +494,14 @@
                            Third Bonus
                         </ion-text>
                      </ion-label>
-                     <ion-select formControlName="slotThree">
+                     <ion-select
+                        formControlName="slotThree"
+                        [interfaceOptions]="customAlert"
+                        interface="alert"
+                     >
                         <div *ngFor="let thirdBonus of bonus.third; index as i">
-                           <ion-select-option value="{{thirdBonus}}"
-                              >{{thirdBonus}}
+                           <ion-select-option value="{{thirdBonus.ArrayKey}}"
+                              >{{thirdBonus.name}}
                            </ion-select-option>
                         </div>
                      </ion-select>
@@ -533,7 +568,11 @@
                            Second Spell
                         </ion-text>
                      </ion-label>
-                     <ion-select formControlName="second">
+                     <ion-select
+                        formControlName="second"
+                        [interfaceOptions]="customAlert"
+                        interface="alert"
+                     >
                         <div *ngFor="let spell of spells; index as i">
                            <ion-select-option
                               *ngIf="spellsForm.value.spells.first !== spell.id"
@@ -677,11 +716,15 @@
                               Level {{ level }}
                            </ion-text>
                         </ion-label>
-                        <ion-select formControlName="l{{i + 1}}">
-                           <ion-select-option value="q">Q</ion-select-option>
-                           <ion-select-option value="w">W</ion-select-option>
-                           <ion-select-option value="e">E</ion-select-option>
-                           <ion-select-option *ngIf="i >= 4" value="r"
+                        <ion-select
+                           formControlName="l{{i + 1}}"
+                           [interfaceOptions]="customAlert"
+                           interface="alert"
+                        >
+                           <ion-select-option [value]="0">Q</ion-select-option>
+                           <ion-select-option [value]="1">W</ion-select-option>
+                           <ion-select-option [value]="2">E</ion-select-option>
+                           <ion-select-option *ngIf="i >= 4" [value]="3"
                               >R
                            </ion-select-option>
                         </ion-select>
@@ -690,7 +733,7 @@
                </div>
                <ion-item>
                   <ion-textarea
-                     formControlName="abilitiesDescription"
+                     formControlName="abilitiesProgressionDescription"
                      placeholder="Add a description to this threat here"
                   ></ion-textarea>
                </ion-item>

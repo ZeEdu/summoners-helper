@@ -17,6 +17,7 @@ export const environment = {
 };
 
 export const backendBaseUrl = 'http://localhost:8000';
+// export const backendBaseUrl = 'https://summoners-helper.herokuapp.com/'
 
 /*
  * For easier debugging in development mode, you can import the following file

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides } from '@ionic/angular';
+import { IonInfiniteScroll, IonSlides } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { Champion, LoLResponse } from 'src/app/interfaces/champion-overview';
 import { BuildManagerService } from 'src/app/services/build-manager.service';
@@ -14,7 +14,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
    styleUrls: ['./champion.page.scss'],
 })
 export class ChampionPage implements OnInit {
+   @ViewChild(IonInfiniteScroll, { static: false }) infinite: IonInfiniteScroll;
    @ViewChild(IonSlides, { static: false }) slides: IonSlides;
+
    constructor(
       private buildService: BuildManagerService,
       private dDragonHandler: DataDragonHandlerService,
@@ -23,7 +25,8 @@ export class ChampionPage implements OnInit {
       private afa: AngularFireAuth
    ) {}
 
-   public builds: Array<Builds>;
+   page = 0;
+   public builds: Array<Builds> = [];
    public championData: Champion;
    public segmentPosition = 0;
    public segment = 0;
@@ -35,27 +38,45 @@ export class ChampionPage implements OnInit {
    };
 
    ngOnInit() {
-      const id = this.route.snapshot.paramMap.get('id');
-      this.afa.idToken.subscribe((token) => {
-         this.dDragonHandler
-            .getChampionByID(id)
-            .subscribe(
-               (response: LoLResponse) =>
-                  (this.championData = response.data[id])
-            );
-         this.buildService
-            .getBuildByChampionID(id, token)
-            .subscribe((response: Array<Builds>) => (this.builds = response));
-      });
+      const id = this.getChampionID();
+      this.dDragonHandler
+         .getChampionByID(id)
+         .subscribe(
+            (response: LoLResponse) => (this.championData = response.data[id])
+         );
+
+      this.loadGuides();
+   }
+
+   private getChampionID(): string {
+      return this.route.snapshot.paramMap.get('id');
    }
 
    public async segmentChanged(event: any) {
       await this.selectedSlide.slideTo(this.segment);
    }
+
    public async slideChanged(slides: IonSlides) {
       this.selectedSlide = slides;
       slides
          .getActiveIndex()
          .then((selectedIndex) => (this.segment = selectedIndex));
+   }
+
+   private loadGuides(loadMore = false, event?) {
+      if (loadMore) this.page++;
+
+      this.afa.idToken.subscribe((token) => {
+         this.buildService
+            .getBuildByChampionID(this.getChampionID(), token, this.page)
+            .subscribe(
+               (response: Array<Builds>) =>
+                  (this.builds = [...this.builds, ...response])
+            );
+      });
+
+      if (event) {
+         event.target.complete();
+      }
    }
 }

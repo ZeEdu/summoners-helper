@@ -20,6 +20,9 @@ import { PathResponse } from 'src/app/interfaces/runes';
 })
 export class BuildEditPage implements OnInit {
    @ViewChild('slider', { static: false }) slides: IonSlides;
+   customAlert = {
+      cssClass: 'customAlert',
+   };
    public runes: Array<PathResponse>;
    public champions: Array<Champion>;
    public spells: Spell[];
@@ -58,8 +61,8 @@ export class BuildEditPage implements OnInit {
             ArrayKey: 'MagicRes',
          },
          {
-            name: '1-10% CDR',
-            ArrayKey: 'CDRScaling',
+            name: '15-90 HP',
+            ArrayKey: 'HealthScaling',
          },
       ],
    };
@@ -141,6 +144,7 @@ export class BuildEditPage implements OnInit {
          this.buildManager
             .getBuildByID(this.route.snapshot.paramMap.get('id'), token)
             .subscribe((guide: Guide) => {
+               console.log(guide);
                this.fillForms(guide);
             });
       });
@@ -151,16 +155,19 @@ export class BuildEditPage implements OnInit {
          name: guide.name,
          champion: guide.champion,
          role: guide.role,
-         guide: guide.introduction,
+         introduction: guide.introduction,
       });
       this.runesForm.patchValue({
          runes: guide.runes,
+         runesDescription: guide.runesDescription,
       });
       this.bonusForm.patchValue({
          bonus: guide.bonus,
+         bonusDescription: guide.bonusDescription,
       });
       this.spellsForm.patchValue({
          spells: guide.spells,
+         spellsDescription: guide.spellsDescription,
       });
       const itemArray = this.itemsForm.get('itemsBlock') as FormArray;
       guide.itemsBlock.forEach((itemBlock, i) => {
@@ -181,8 +188,12 @@ export class BuildEditPage implements OnInit {
             itemControl.push(itemInsert);
          });
       });
+      this.itemsForm.patchValue({
+         itemsDescription: guide.itemsDescription,
+      });
       this.abilitiesForm.patchValue({
-         // abilitiesProgression: guide.abilities,
+         abilitiesProgression: guide.abilitiesProgression,
+         abilitiesProgressionDescription: guide.abilitiesProgressionDescription,
       });
       const threatArray = this.threatForm.get('threats') as FormArray;
       guide.threats.forEach((value) => {
@@ -215,14 +226,12 @@ export class BuildEditPage implements OnInit {
 
    async saveGuide(guide: Guide) {
       await this.presentloading();
-      // this.buildManager.addNewBuild(guide).subscribe(
-      //    (res) => {
-      //       this.presentToast('Successfully saved your build!');
-      //    },
-      //    (err) => {
-      //       this.presentToast(err.name);
-      //    }
-      // );
+      this.afa.idToken.subscribe((token) =>
+         this.buildManager.updateBuild(guide, token).subscribe(
+            (_) => this.presentToast('Successfully saved your build!'),
+            (err) => this.presentToast(err.name)
+         )
+      );
       this.loading.dismiss();
    }
 
@@ -349,7 +358,7 @@ export class BuildEditPage implements OnInit {
             l17: ['', Validators.required],
             l18: ['', Validators.required],
          }),
-         abilitiesDescription: [''],
+         abilitiesProgressionDescription: [''],
       });
    }
 

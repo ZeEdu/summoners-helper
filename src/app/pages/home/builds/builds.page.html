@@ -5,19 +5,14 @@
 </ion-header>
 <ion-content>
    <ion-grid class="ion-padding">
-      <ion-row>
-         <ion-col size="12">
-            <ion-text color="primary" class="ion-text-start">
-               <h2 class="title">
-                  User's Build
-               </h2>
-            </ion-text>
-         </ion-col>
-      </ion-row>
+      <div class="spinner-placeholder">
+         <ion-spinner
+            *ngIf="userBuilds.length == 0"
+            name="crescent"
+         ></ion-spinner>
+      </div>
 
-      <ion-spinner *ngIf="!userBuilds"></ion-spinner>
-
-      <ion-list *ngIf="userBuilds">
+      <ion-list>
          <ion-item *ngFor="let build of userBuilds; index as i;">
             <ion-avatar slot="start">
                <ion-img
@@ -48,12 +43,20 @@
             ></ion-icon>
          </ion-item>
       </ion-list>
+
+      <ion-infinite-scroll (ionInfinite)="loadGuides(true, $event)">
+         <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="Loading more guides..."
+         >
+         </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
    </ion-grid>
-   <a routerLink="build-modelling">
-      <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-         <ion-fab-button>
-            <ion-icon name="add"></ion-icon>
-         </ion-fab-button>
-      </ion-fab>
-   </a>
 </ion-content>
+<a routerLink="build-modelling">
+   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button>
+         <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+   </ion-fab>
+</a>
