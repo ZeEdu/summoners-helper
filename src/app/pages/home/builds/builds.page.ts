@@ -8,6 +8,7 @@ import {
    LoadingController,
    ToastController,
 } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
    selector: 'app-builds',
@@ -19,7 +20,6 @@ export class BuildsPage implements OnInit {
 
    page = 0;
    public userBuilds: Array<Builds> = [];
-   private userUID: string;
    loading: any;
 
    constructor(
@@ -39,14 +39,15 @@ export class BuildsPage implements OnInit {
       if (loadMore) {
          this.page++;
       }
+
       this.afa.user.subscribe((user) => {
          user.getIdToken().then((token) => {
             this.buildService
                .getBuildByUserUID(user.uid, token, this.page)
-               .subscribe((r: Array<Builds>) => {
-                  console.log('Entrou aqui');
-                  this.userBuilds = [...this.userBuilds, ...r];
-               });
+               .subscribe(
+                  (r: Array<Builds>) =>
+                     (this.userBuilds = [...this.userBuilds, ...r])
+               );
          });
       });
 
@@ -91,16 +92,29 @@ export class BuildsPage implements OnInit {
       this.afa.idToken.subscribe((token) => {
          this.buildManager.deleteByBuildId(id, token).subscribe(
             (_) => {
-               this.presentToast('Successfully deleted your build!');
+               this.presentToast(
+                  'Successfully deleted your build! Page will be reloaded'
+               );
+               this.reloadPage();
             },
             (err) => {
                this.presentToast(err.name);
-            },
-            () => {
-               this.getAllBuilds(this.userUID, token, this.page);
             }
          );
+         this.loading.dismiss();
       });
+   }
+
+   reloadPage() {
+      setTimeout(() => {
+         this.afa.user.subscribe((user) => {
+            user.getIdToken().then((token) => {
+               this.buildService
+                  .getBuildByUserUID(user.uid, token, this.page)
+                  .subscribe((r: Array<Builds>) => (this.userBuilds = r));
+            });
+         });
+      }, 3000);
    }
 
    async presentloading() {

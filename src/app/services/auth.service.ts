@@ -4,36 +4,36 @@ import { User } from '../interfaces/user';
 import { UserManagerService } from './user-manager.service';
 
 @Injectable({
-  providedIn: 'root',
+   providedIn: 'root',
 })
 export class AuthService {
-  constructor(
-    private afa: AngularFireAuth,
-    private usrMnger: UserManagerService
-  ) {}
+   constructor(private afa: AngularFireAuth) {}
 
-  public user: User;
+   public user: User;
 
-  login(user: User) {
-    return this.afa.auth.signInWithEmailAndPassword(user.email, user.password);
-  }
+   login(user: User) {
+      return this.afa.auth.signInWithEmailAndPassword(
+         user.email,
+         user.password
+      );
+   }
 
-  anonLogin() {
-    return this.afa.auth.signInAnonymously();
-  }
+   anonLogin() {
+      return this.afa.auth.signInAnonymously();
+   }
 
-  register(user: User) {
-    return this.afa.auth.createUserWithEmailAndPassword(
-      user.email,
-      user.password
-    );
-  }
+   register(user: User) {
+      return this.afa.auth.createUserWithEmailAndPassword(
+         user.email,
+         user.password
+      );
+   }
 
-  logout() {
-    return this.afa.auth.signOut();
-  }
+   logout() {
+      return this.afa.auth.signOut();
+   }
 
-  getAuth() {
-    return this.afa.auth;
-  }
+   getAuth() {
+      return this.afa.auth;
+   }
 }

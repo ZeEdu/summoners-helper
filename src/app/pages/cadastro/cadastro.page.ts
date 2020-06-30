@@ -110,18 +110,14 @@ export class CadastroPage implements OnInit {
    }
 
    public async register() {
-      // Checar se existe um  usuário com este nome
       await this.presentloading();
 
       try {
-         // Registra o usuário no Sistema de Autenticação do Firebase
          const newUser = await this.authService.register(this.userRegister);
 
-         // Atualiza
          this.userRegister.uid = newUser.user.uid;
          this.userManager.addUser(this.userRegister);
 
-         // Registra o usuário no backend
          this.presentToast('Cadastrado com Sucesso!');
       } catch (error) {
          this.presentToast(error.code);

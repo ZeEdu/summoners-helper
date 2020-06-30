@@ -3,9 +3,7 @@
       <ion-buttons slot="start">
          <ion-back-button color="primary" defaultHref=""></ion-back-button>
       </ion-buttons>
-      <ion-title *ngIf="championData" color="primary"
-         >{{championData.name}}</ion-title
-      >
+      <ion-title color="primary">Champion</ion-title>
    </ion-toolbar>
 </ion-header>
 
@@ -29,6 +27,19 @@
       (ionSlidesDidLoad)="slideChanged(slides)"
    >
       <ion-slide>
+         <div class="container" *ngIf="championData">
+            <ion-img
+               src="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{championData.id}}_0.jpg"
+               alt="{{championData.name}} splash screen"
+               height="100%"
+               width="100%"
+            ></ion-img>
+            <span class="overlay overlay-bottom overlay-left">
+               <ion-text color="primary">
+                  {{championData.name}} {{championData.title}}
+               </ion-text>
+            </span>
+         </div>
          <ion-grid *ngIf="championData">
             <ion-row>
                <ion-col>
@@ -316,7 +327,10 @@
       <ion-slide>
          <ion-grid class="ion-padding">
             <ion-list *ngIf="builds">
-               <ion-item *ngFor="let build of builds; index as i;">
+               <ion-item
+                  *ngFor="let build of builds; index as i;"
+                  routerLink="/guide/{{build._id}}"
+               >
                   <ion-label>
                      <ion-text color="light">
                         {{build.name}}

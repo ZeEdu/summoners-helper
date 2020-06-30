@@ -9,6 +9,7 @@ import { IonSlides, LoadingController, ToastController } from '@ionic/angular';
 import { Guide } from 'src/app/interfaces/build';
 import { BuildManagerService } from 'src/app/services/build-manager.service';
 import { SpellResponse, Spell } from 'src/app/interfaces/spells';
+import { Router } from '@angular/router';
 
 @Component({
    selector: 'app-build-modelling',
@@ -107,7 +108,8 @@ export class BuildModellingPage implements OnInit {
       private afa: AngularFireAuth,
       private loadingCtrl: LoadingController,
       private toastCtrl: ToastController,
-      private buildManager: BuildManagerService
+      private buildManager: BuildManagerService,
+      private router: Router
    ) {}
 
    ngOnInit() {
@@ -140,6 +142,7 @@ export class BuildModellingPage implements OnInit {
       this.initializeAbilitiesForm();
       this.initializeThreatForm();
    }
+   ngOnDestroy() {}
 
    public async onSubmit() {
       const formValues = [
@@ -166,13 +169,21 @@ export class BuildModellingPage implements OnInit {
 
       this.buildManager.addNewBuild(guide, token).subscribe(
          () => {
-            this.presentToast('Successfully saved your build!');
+            this.presentToast(
+               'Successfully saved your build! And wil be redirected to your guides page'
+            );
+            this.returnToGuides();
          },
          (err) => {
             this.presentToast(err.name);
          }
       );
       this.loading.dismiss();
+   }
+   returnToGuides() {
+      setTimeout(() => {
+         this.router.navigateByUrl('/home/tabs/builds');
+      }, 3000);
    }
 
    private item() {

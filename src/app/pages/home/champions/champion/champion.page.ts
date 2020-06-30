@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { IonInfiniteScroll, IonSlides } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { Champion, LoLResponse } from 'src/app/interfaces/champion-overview';
@@ -63,7 +63,7 @@ export class ChampionPage implements OnInit {
          .then((selectedIndex) => (this.segment = selectedIndex));
    }
 
-   private loadGuides(loadMore = false, event?) {
+   public loadGuides(loadMore = false, event?) {
       if (loadMore) this.page++;
 
       this.afa.idToken.subscribe((token) => {

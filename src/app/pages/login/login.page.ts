@@ -22,24 +22,9 @@ export class LoginPage implements OnInit {
 
    async login() {
       await this.presentloading();
-
       try {
          await this.authService.login(this.userLogin);
-
          this.presentToast('Login Realizado com Sucesso!');
-      } catch (error) {
-         this.presentToast(error);
-      } finally {
-         this.loading.dismiss();
-      }
-   }
-
-   async loginAnon() {
-      await this.presentloading();
-
-      try {
-         await this.authService.anonLogin();
-         this.presentToast('Continuando como convidado!');
       } catch (error) {
          this.presentToast(error);
       } finally {

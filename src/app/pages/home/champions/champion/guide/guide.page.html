@@ -1,0 +1,596 @@
+<ion-header>
+   <ion-toolbar>
+      <ion-buttons slot="start">
+         <ion-back-button color="primary" defaultHref=""></ion-back-button>
+      </ion-buttons>
+      <ion-title color="primary">Build Viewer</ion-title>
+   </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+   <ion-slides pager="false" [options]="slideOpts" *ngIf="guide && champions">
+      <ion-slide>
+         <div class="container">
+            <span class="overlay overlay-top overlay-left">
+               <ion-text color="primary">{{guide.name}}</ion-text>
+            </span>
+            <ion-img
+               src="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{guide.champion}}_0.jpg"
+               alt=""
+               height="100%"
+               width="100%"
+            ></ion-img>
+            <span class="overlay overlay-bottom overlay-left">
+               <ion-text color="primary">Role: </ion-text>
+               <ion-text color="light">{{guide.role}}</ion-text>
+            </span>
+            <span class="overlay overlay-bottom overlay-right">
+               <ion-text color="primary">Patch: </ion-text>
+               <ion-text color="light">{{guide.patch}}</ion-text>
+            </span>
+         </div>
+         <ion-grid>
+            <ion-row>
+               <ion-col size="12">
+                  <ion-item>
+                     <ion-text color="primary">
+                        <h1 class="title">Introduction</h1>
+                     </ion-text>
+                  </ion-item>
+               </ion-col>
+            </ion-row>
+            <ion-row>
+               <ion-col size="12">
+                  <ion-item>
+                     <p clas="padding">
+                        {{guide.introduction}}
+                     </p>
+                  </ion-item>
+               </ion-col>
+            </ion-row>
+            <ion-row>
+               <ion-col size="6" *ngIf="guide.updatedOn">
+                  <p class="bottom-content">
+                     <ion-text color="primary">Last Updated: </ion-text>
+                     <ion-text color="light"
+                        >{{guide.updatedOn | date}}</ion-text
+                     >
+                  </p>
+               </ion-col>
+               <ion-col size="6" *ngIf="!guide.updatedOn">
+                  <p class="bottom-content">
+                     <ion-text color="primary">Created On: </ion-text>
+                     <ion-text color="light"
+                        >{{guide.createdOn | date}}</ion-text
+                     >
+                  </p>
+               </ion-col>
+               <ion-col
+                  size="6"
+                  *ngIf="guideCreatorUsername; else creatorNotFound"
+               >
+                  <p class="bottom-content">
+                     <ion-text color="primary">Created by: </ion-text>
+                     <ion-text color="light">{{guideCreatorUsername}}</ion-text>
+                  </p>
+               </ion-col>
+               <ng-template #creatorNotFound>
+                  <ion-col size="6">
+                     <p class="bottom-content">
+                        <ion-text color="primary">Created by: </ion-text>
+                        <ion-text color="light">Not Found</ion-text>
+                     </p>
+                  </ion-col>
+               </ng-template>
+            </ion-row>
+         </ion-grid>
+      </ion-slide>
+      <ion-slide>
+         <ion-grid fixed>
+            <ion-row>
+               <ion-col size="12">
+                  <h1 class="title slide-title">
+                     <ion-text color="primary">
+                        First Path:
+                     </ion-text>
+                     <ion-text color="light"
+                        >{{guide.runes.primaryRune}}</ion-text
+                     >
+                  </h1>
+               </ion-col>
+            </ion-row>
+            <ion-row>
+               <ion-col size="12">
+                  <p class="item-section-description">
+                     {{guide.runesDescription}}
+                  </p>
+               </ion-col>
+            </ion-row>
+            <div *ngIf="firstPrimaryRune">
+               <ion-row class="ion-align-items-center">
+                  <ion-col size="3">
+                     <ion-img
+                        src="http://ddragon.leagueoflegends.com/cdn/img/{{firstPrimaryRune.icon}}"
+                        class="rune-img"
+                     >
+                     </ion-img>
+                  </ion-col>
+                  <ion-col size="9">
+                     <h2 class="sub-title">
+                        <ion-text color="primary">
+                           {{firstPrimaryRune.name}}
+                        </ion-text>
+                     </h2>
+                  </ion-col>
+               </ion-row>
+               <ion-row>
+                  <ion-col size="12">
+                     <p
+                        class="rune-description"
+                        [innerHTML]="firstPrimaryRune.longDesc | safeHtml"
+                     ></p>
+                  </ion-col>
+               </ion-row>
+            </div>
+            <div *ngIf="secondPrimaryRune">
+               <ion-row class="ion-align-items-center">
+                  <ion-col size="3">
+                     <ion-img
+                        src="http://ddragon.leagueoflegends.com/cdn/img/{{secondPrimaryRune.icon}}"
+                        class="rune-img"
+                     >
+                     </ion-img>
+                  </ion-col>
+                  <ion-col size="9">
+                     <h2 class="sub-title">
+                        <ion-text color="primary">
+                           {{secondPrimaryRune.name}}
+                        </ion-text>
+                     </h2>
+                  </ion-col>
+               </ion-row>
+               <ion-row>
+                  <ion-col size="12">
+                     <p
+                        class="rune-description"
+                        [innerHTML]="secondPrimaryRune.longDesc | safeHtml"
+                     ></p>
+                  </ion-col>
+               </ion-row>
+            </div>
+            <div *ngIf="thirdPrimaryRune">
+               <ion-row class="ion-align-items-center">
+                  <ion-col size="3">
+                     <ion-img
+                        src="http://ddragon.leagueoflegends.com/cdn/img/{{thirdPrimaryRune.icon}}"
+                        class="rune-img"
+                     >
+                     </ion-img>
+                  </ion-col>
+                  <ion-col size="9">
+                     <h2 class="sub-title">
+                        <ion-text color="primary">
+                           {{thirdPrimaryRune.name}}
+                        </ion-text>
+                     </h2>
+                  </ion-col>
+               </ion-row>
+               <ion-row>
+                  <ion-col size="12">
+                     <p
+                        class="rune-description"
+                        [innerHTML]="thirdPrimaryRune.longDesc| safeHtml"
+                     ></p>
+                  </ion-col>
+               </ion-row>
+            </div>
+            <div *ngIf="fourthPrimaryRune">
+               <ion-row class="ion-align-items-center">
+                  <ion-col size="3">
+                     <ion-img
+                        src="http://ddragon.leagueoflegends.com/cdn/img/{{fourthPrimaryRune.icon}}"
+                        class="rune-img"
+                     >
+                     </ion-img>
+                  </ion-col>
+                  <ion-col size="9">
+                     <h2 class="sub-title">
+                        <ion-text color="primary">
+                           {{fourthPrimaryRune.name}}
+                        </ion-text>
+                     </h2>
+                  </ion-col>
+               </ion-row>
+               <ion-row>
+                  <ion-col size="12">
+                     <p
+                        class="rune-description"
+                        [innerHTML]="fourthPrimaryRune.longDesc|safeHtml"
+                     ></p>
+                  </ion-col>
+               </ion-row>
+            </div>
+         </ion-grid>
+      </ion-slide>
+      <ion-slide>
+         <ion-grid fixed>
+            <ion-row>
+               <ion-col size="12">
+                  <h1 class="title slide-title">
+                     <ion-text color="primary">
+                        Second Path:
+                     </ion-text>
+                     <ion-text color="light"
+                        >{{guide.runes.secondaryRune}}</ion-text
+                     >
+                  </h1>
+               </ion-col>
+            </ion-row>
+            <div *ngIf="firstSecondaryRune">
+               <ion-row class="ion-align-items-center">
+                  <ion-col size="3">
+                     <ion-img
+                        src="http://ddragon.leagueoflegends.com/cdn/img/{{firstSecondaryRune.icon}}"
+                        class="rune-img"
+                     >
+                     </ion-img>
+                  </ion-col>
+                  <ion-col size="9">
+                     <h2 class="sub-title">
+                        <ion-text color="primary">
+                           {{firstSecondaryRune.name}}
+                        </ion-text>
+                     </h2>
+                  </ion-col>
+               </ion-row>
+               <ion-row>
+                  <ion-col size="12">
+                     <p
+                        class="rune-description"
+                        [innerHTML]="firstSecondaryRune.longDesc | safeHtml"
+                     ></p>
+                  </ion-col>
+               </ion-row>
+            </div>
+            <div *ngIf="secondSecondaryRune">
+               <ion-row class="ion-align-items-center">
+                  <ion-col size="3">
+                     <ion-img
+                        src="http://ddragon.leagueoflegends.com/cdn/img/{{secondSecondaryRune.icon}}"
+                        class="rune-img"
+                     >
+                     </ion-img>
+                  </ion-col>
+                  <ion-col size="9">
+                     <h2 class="sub-title">
+                        <ion-text color="primary">
+                           {{secondSecondaryRune.name}}
+                        </ion-text>
+                     </h2>
+                  </ion-col>
+               </ion-row>
+               <ion-row>
+                  <ion-col size="12">
+                     <p
+                        class="rune-description"
+                        [innerHTML]="secondSecondaryRune.longDesc | safeHtml"
+                     ></p>
+                  </ion-col>
+               </ion-row>
+            </div>
+            <div *ngIf="thirdSecondaryRune">
+               <ion-row class="ion-align-items-center">
+                  <ion-col size="3">
+                     <ion-img
+                        src="http://ddragon.leagueoflegends.com/cdn/img/{{thirdSecondaryRune.icon}}"
+                        class="rune-img"
+                     >
+                     </ion-img>
+                  </ion-col>
+                  <ion-col size="9">
+                     <h2 class="sub-title">
+                        <ion-text color="primary">
+                           {{thirdSecondaryRune.name}}
+                        </ion-text>
+                     </h2>
+                  </ion-col>
+               </ion-row>
+               <ion-row>
+                  <ion-col size="12">
+                     <p
+                        class="rune-description"
+                        [innerHTML]="thirdSecondaryRune.longDesc | safeHtml"
+                     ></p>
+                  </ion-col>
+               </ion-row>
+            </div>
+         </ion-grid>
+      </ion-slide>
+
+      <ion-slide>
+         <ion-grid fixed>
+            <ion-row>
+               <ion-col size="12">
+                  <h1 class="title slide-title">
+                     <ion-text color="primary">
+                        Spells
+                     </ion-text>
+                  </h1>
+               </ion-col>
+            </ion-row>
+            <ion-row>
+               <ion-col size="12">
+                  <p class="item-section-description">
+                     {{guide.spellsDescription}}
+                  </p>
+               </ion-col>
+            </ion-row>
+            <div *ngIf="firstSpell">
+               <ion-row class="ion-align-items-center">
+                  <ion-col size="3">
+                     <ion-img
+                        src="https://ddragon.leagueoflegends.com/cdn/10.9.1/img/spell/{{firstSpell.image.full}}"
+                        class="rune-img"
+                     >
+                     </ion-img>
+                  </ion-col>
+                  <ion-col size="9">
+                     <h2 class="sub-title">
+                        <ion-text color="primary">
+                           {{firstSpell.name}}
+                        </ion-text>
+                     </h2>
+                  </ion-col>
+               </ion-row>
+               <ion-row>
+                  <ion-col size="12">
+                     <p class="rune-description">
+                        {{firstSpell.description}}
+                     </p>
+                  </ion-col>
+               </ion-row>
+            </div>
+            <div *ngIf="secondSpell">
+               <ion-row class="ion-align-items-center">
+                  <ion-col size="3">
+                     <ion-img
+                        src="https://ddragon.leagueoflegends.com/cdn/10.9.1/img/spell/{{secondSpell.image.full}}"
+                        class="rune-img"
+                     >
+                     </ion-img>
+                  </ion-col>
+                  <ion-col size="9">
+                     <h2 class="sub-title">
+                        <ion-text color="primary">
+                           {{secondSpell.name}}
+                        </ion-text>
+                     </h2>
+                  </ion-col>
+               </ion-row>
+               <ion-row>
+                  <ion-col size="12">
+                     <p class="rune-description">
+                        {{secondSpell.description}}
+                     </p>
+                  </ion-col>
+               </ion-row>
+            </div>
+         </ion-grid>
+      </ion-slide>
+
+      <ion-slide class="bonus-slide">
+         <ion-grid fixed>
+            <ion-row>
+               <ion-col size="12">
+                  <h1 class="title slide-title">
+                     <ion-text color="primary">
+                        Bonus
+                     </ion-text>
+                  </h1>
+               </ion-col>
+            </ion-row>
+            <ion-row>
+               <ion-col size="12">
+                  <p class="item-section-description">
+                     {{guide.bonusDescription}}
+                  </p>
+               </ion-col>
+            </ion-row>
+            <ion-row *ngIf="guide" class="ion-align-items-center">
+               <ion-col size="3">
+                  <ion-img
+                     src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/StatMods/{{bonus.first[guide.bonus.slotOne].icon}}"
+                     class="rune-img"
+                  >
+                  </ion-img>
+               </ion-col>
+               <ion-col size="9">
+                  <h2 class="sub-title">
+                     <ion-text color="primary">
+                        {{bonus.first[guide.bonus.slotOne].name}}</ion-text
+                     >
+                  </h2>
+               </ion-col>
+            </ion-row>
+            <ion-row *ngIf="guide" class="ion-align-items-center">
+               <ion-col size="3">
+                  <ion-img
+                     src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/StatMods/{{bonus.second[guide.bonus.slotTwo].icon}}"
+                     class="rune-img"
+                  >
+                  </ion-img>
+               </ion-col>
+               <ion-col size="9">
+                  <h2 class="sub-title">
+                     <ion-text color="primary">
+                        {{bonus.second[guide.bonus.slotTwo].name}}</ion-text
+                     >
+                  </h2>
+               </ion-col>
+            </ion-row>
+            <ion-row *ngIf="guide" class="ion-align-items-center">
+               <ion-col size="3">
+                  <ion-img
+                     src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/StatMods/{{bonus.third[guide.bonus.slotThree].icon}}"
+                     class="rune-img"
+                  >
+                  </ion-img>
+               </ion-col>
+               <ion-col size="9">
+                  <h2 class="sub-title bunus-title">
+                     <ion-text color="primary">
+                        {{bonus.third[guide.bonus.slotThree].name}}</ion-text
+                     >
+                  </h2>
+               </ion-col>
+            </ion-row>
+         </ion-grid>
+      </ion-slide>
+
+      <ion-slide>
+         <ion-grid *ngIf="guide && abilitiesProgression">
+            <ion-row>
+               <ion-col size="12">
+                  <h1 class="title slide-title">
+                     <ion-text color="primary">
+                        Abilities Progression
+                     </ion-text>
+                  </h1>
+               </ion-col>
+            </ion-row>
+            <ion-row>
+               <ion-col size="12">
+                  <p class="item-section-description">
+                     {{guide.abilitiesProgressionDescription}}
+                  </p>
+               </ion-col>
+            </ion-row>
+         </ion-grid>
+         <div class="flex-holder">
+            <ion-img
+               src="https://ddragon.leagueoflegends.com/cdn/10.9.1/img/spell/AatroxQ.png"
+               class="ability-box-image"
+            ></ion-img>
+            <ion-img
+               src="https://ddragon.leagueoflegends.com/cdn/10.9.1/img/spell/AatroxW.png"
+            ></ion-img>
+            <ion-img
+               src="https://ddragon.leagueoflegends.com/cdn/10.9.1/img/spell/AatroxE.png"
+            ></ion-img>
+            <ion-img
+               src="https://ddragon.leagueoflegends.com/cdn/10.9.1/img/spell/AatroxR.png"
+            ></ion-img>
+         </div>
+         <div class="flex-holder" *ngFor="let level of levels; index as y">
+            <div *ngFor="let skill of skills; index as x">
+               <div
+                  class="box"
+                  [ngClass]=" (x === abilitiesProgression[y]) ? 'active' : ''"
+               >
+                  <span class="level" *ngIf="x === abilitiesProgression[y]"
+                     >{{y + 1}}</span
+                  >
+               </div>
+            </div>
+         </div>
+      </ion-slide>
+      <ion-slide *ngIf="guide && items">
+         <ion-grid fixed>
+            <ion-row>
+               <ion-col size="12">
+                  <h1 class="title slide-title">
+                     <ion-text color="primary">
+                        Items
+                     </ion-text>
+                  </h1>
+               </ion-col>
+            </ion-row>
+            <ion-row>
+               <ion-col size="12">
+                  <p class="item-section-description">
+                     {{guide.itemsDescription}}
+                  </p>
+               </ion-col>
+            </ion-row>
+            <div *ngFor="let itemBlock of guide.itemsBlock">
+               <ion-row>
+                  <ion-col size="12">
+                     <h2 class="title item-block-title">
+                        <ion-text color="primary">
+                           {{itemBlock.itemRollName}}
+                        </ion-text>
+                     </h2>
+                  </ion-col>
+               </ion-row>
+               <div *ngFor="let item of itemBlock.itemArray">
+                  <ion-row class="ion-align-items-center">
+                     <ion-col size="3">
+                        <ion-img
+                           src="http://ddragon.leagueoflegends.com/cdn/10.7.1/img/item/{{items[item.item].image.full}}"
+                           class="items-img"
+                        >
+                        </ion-img>
+                     </ion-col>
+                     <ion-col size="9">
+                        <h2 class="sub-title">
+                           <ion-text color="primary">
+                              {{items[item.item].name}}
+                           </ion-text>
+                        </h2>
+                     </ion-col>
+                  </ion-row>
+                  <ion-row>
+                     <ion-col size="12">
+                        <p
+                           class="rune-description"
+                           [innerHTML]="items[item.item].description | safeHtml"
+                        ></p>
+                     </ion-col>
+                  </ion-row>
+               </div>
+            </div>
+         </ion-grid>
+      </ion-slide>
+      <ion-slide>
+         <ion-grid fixed *ngIf="guide && champions">
+            <ion-row>
+               <ion-col size="12">
+                  <h1 class="title slide-title">
+                     <ion-text color="primary">
+                        Threats
+                     </ion-text>
+                  </h1>
+               </ion-col>
+            </ion-row>
+
+            <div *ngFor="let threat of guide.threats">
+               <ion-row class="ion-align-items-center">
+                  <ion-col size="3">
+                     <ion-img
+                        src="https://ddragon.leagueoflegends.com/cdn/10.9.1/img/champion/{{champions[threat.threat].image.full}}"
+                        class="items-img"
+                     >
+                     </ion-img>
+                  </ion-col>
+                  <ion-col size="9">
+                     <h2 class="sub-title">
+                        <ion-text color="primary">
+                           {{champions[threat.threat].name}}
+                        </ion-text>
+                     </h2>
+                  </ion-col>
+               </ion-row>
+               <ion-row>
+                  <ion-col size="12">
+                     <p class="rune-description">
+                        {{threat.description}}
+                     </p>
+                  </ion-col>
+               </ion-row>
+            </div>
+         </ion-grid>
+      </ion-slide>
+   </ion-slides>
+
+   <div *ngIf="guide"></div>
+</ion-content>

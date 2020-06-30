@@ -7,21 +7,20 @@
    </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content fullscreen="true">
    <ion-slides pager="false" [options]="slideOpts" #slider>
       <ion-slide>
          <ion-grid>
             <form [formGroup]="basicForm">
                <ion-item-group>
                   <ion-item-divider>
-                     <ion-text color="primary">
-                        <ion-label>basic information</ion-label>
+                     <ion-text color="primary" class="ion-text-uppercase">
+                        <ion-label>Basic Information</ion-label>
                      </ion-text>
                   </ion-item-divider>
                   <ion-item>
-                     <ion-text color="light">
-                        <ion-label position="stacked">Guide Name</ion-label>
-                     </ion-text>
+                     <ion-label position="stacked">Guide Name</ion-label>
+
                      <ion-input type="text" formControlName="name"></ion-input>
                   </ion-item>
                   <ion-item>
@@ -39,21 +38,18 @@
                            *ngFor="let champion of champions"
                            [value]="champion.id"
                         >
-                           <ion-text color="light">
-                              {{champion.name}}
-                           </ion-text>
+                           {{champion.name}}
                         </ion-select-option>
                      </ion-select>
                   </ion-item>
                   <ion-item>
                      <ion-label>
-                        <ion-text color="light">
-                           Select a Role
-                        </ion-text>
+                        Select a Role
                      </ion-label>
                      <ion-select
                         formControlName="role"
                         [interfaceOptions]="customAlert"
+                        class="customAlert"
                         interface="alert"
                      >
                         <ion-select-option value="top"
@@ -84,7 +80,10 @@
             <ion-footer>
                <ion-toolbar>
                   <ion-buttons slot="end">
-                     <ion-button color="primary" (click)="slideNext()"
+                     <ion-button
+                        color="primary"
+                        (click)="slideNext()"
+                        [disabled]="!basicForm.valid"
                         >Go to Runes</ion-button
                      >
                   </ion-buttons>
@@ -97,7 +96,7 @@
             <ion-item-group>
                <ion-item-divider>
                   <ion-label>
-                     <ion-text color="primary">
+                     <ion-text color="primary" class="ion-text-uppercase">
                         Runes
                      </ion-text>
                   </ion-label>
@@ -107,13 +106,12 @@
                      <div formGroupName="runes">
                         <ion-item>
                            <ion-label>
-                              <ion-text color="light">
-                                 Primary rune
-                              </ion-text>
+                              Primary rune
                            </ion-label>
                            <ion-select
                               name="primary-rune"
                               formControlName="primaryRune"
+                              [interfaceOptions]="customAlert"
                            >
                               <ion-select-option
                                  *ngFor="let rune of runes; index as i"
@@ -131,9 +129,7 @@
                                        *ngFor="let naming of namingSlots; index as j"
                                     >
                                        <ion-label>
-                                          <ion-text color="light">
-                                             {{naming}} Slot
-                                          </ion-text>
+                                          {{naming}} Slot
                                        </ion-label>
                                        <ion-select
                                           formControlName="{{naming}}"
@@ -156,9 +152,7 @@
                                        *ngFor="let naming of namingSlots; index as j"
                                     >
                                        <ion-label>
-                                          <ion-text color="light">
-                                             {{naming}} Slot
-                                          </ion-text>
+                                          {{naming}} Slot
                                        </ion-label>
                                        <ion-select
                                           formControlName="{{naming}}"
@@ -181,9 +175,7 @@
                                        *ngFor="let naming of namingSlots; index as j"
                                     >
                                        <ion-label>
-                                          <ion-text color="light">
-                                             {{naming}} Slot
-                                          </ion-text>
+                                          {{naming}} Slot
                                        </ion-label>
                                        <ion-select
                                           formControlName="{{naming}}"
@@ -206,9 +198,7 @@
                                        *ngFor="let naming of namingSlots; index as j"
                                     >
                                        <ion-label>
-                                          <ion-text color="light">
-                                             {{naming}} Slot
-                                          </ion-text>
+                                          {{naming}} Slot
                                        </ion-label>
                                        <ion-select
                                           formControlName="{{naming}}"
@@ -231,9 +221,7 @@
                                        *ngFor="let naming of namingSlots; index as j"
                                     >
                                        <ion-label>
-                                          <ion-text color="light">
-                                             {{naming}} Slot
-                                          </ion-text>
+                                          {{naming}} Slot
                                        </ion-label>
                                        <ion-select
                                           formControlName="{{naming}}"
@@ -254,13 +242,12 @@
                         </div>
                         <ion-item *ngIf="runesForm.value.runes.primaryRune">
                            <ion-label>
-                              <ion-text color="light">
-                                 Secondary Rune
-                              </ion-text>
+                              Secondary Rune
                            </ion-label>
                            <ion-select
                               name="secondary-rune"
                               formControlName="secondaryRune"
+                              [interfaceOptions]="customAlert"
                            >
                               <div *ngFor="let rune of runes; index as i">
                                  <ion-select-option
@@ -285,12 +272,11 @@
                                           *ngIf="naming !== namingSlots[0]"
                                        >
                                           <ion-label>
-                                             <ion-text color="light">
-                                                {{namingSlots[j - 1]}} Slot
-                                             </ion-text>
+                                             {{namingSlots[j - 1]}} Slot
                                           </ion-label>
                                           <ion-select
                                              formControlName="{{namingSlots[j - 1]}}"
+                                             [interfaceOptions]="customAlert"
                                           >
                                              <ion-select-option
                                                 *ngFor="let slot of runes[1].slots[j].runes;"
@@ -312,12 +298,11 @@
                                           *ngIf="naming !== namingSlots[0]"
                                        >
                                           <ion-label>
-                                             <ion-text color="light">
-                                                {{namingSlots[j - 1]}} Slot
-                                             </ion-text>
+                                             {{namingSlots[j - 1]}} Slot
                                           </ion-label>
                                           <ion-select
                                              formControlName="{{namingSlots[j - 1]}}"
+                                             [interfaceOptions]="customAlert"
                                           >
                                              <ion-select-option
                                                 *ngFor="let slot of runes[1].slots[j].runes;"
@@ -339,12 +324,11 @@
                                           *ngIf="naming !== namingSlots[0]"
                                        >
                                           <ion-label>
-                                             <ion-text color="light">
-                                                {{namingSlots[j - 1]}} Slot
-                                             </ion-text>
+                                             {{namingSlots[j - 1]}} Slot
                                           </ion-label>
                                           <ion-select
                                              formControlName="{{namingSlots[j - 1]}}"
+                                             [interfaceOptions]="customAlert"
                                           >
                                              <ion-select-option
                                                 *ngFor="let slot of runes[2].slots[j].runes;"
@@ -366,12 +350,11 @@
                                           *ngIf="naming !== namingSlots[0]"
                                        >
                                           <ion-label>
-                                             <ion-text color="light">
-                                                {{namingSlots[j - 1]}} Slot
-                                             </ion-text>
+                                             {{namingSlots[j - 1]}} Slot
                                           </ion-label>
                                           <ion-select
                                              formControlName="{{namingSlots[j - 1]}}"
+                                             [interfaceOptions]="customAlert"
                                           >
                                              <ion-select-option
                                                 *ngFor="let slot of runes[3].slots[j].runes;"
@@ -384,7 +367,7 @@
                                     </div>
                                  </div>
                               </div>
-                              <div *ngSwitchCase="runes[4].id">
+                              <div *ngSwitchCase="runes[4].key">
                                  <div formGroupName="secondarySlots">
                                     <div
                                        *ngFor="let naming of namingSlots; index as j"
@@ -393,16 +376,15 @@
                                           *ngIf="naming !== namingSlots[0]"
                                        >
                                           <ion-label>
-                                             <ion-text color="light">
-                                                {{namingSlots[j - 1]}} Slot
-                                             </ion-text>
+                                             {{namingSlots[j - 1]}} Slot
                                           </ion-label>
                                           <ion-select
                                              formControlName="{{namingSlots[j - 1]}}"
+                                             [interfaceOptions]="customAlert"
                                           >
                                              <ion-select-option
                                                 *ngFor="let slot of runes[4].slots[j].runes;"
-                                                [value]="slot.id"
+                                                [value]="slot.key"
                                              >
                                                 {{slot.name}}
                                              </ion-select-option>
@@ -431,7 +413,10 @@
                      >
                   </ion-buttons>
                   <ion-buttons slot="end">
-                     <ion-button color="primary" (click)="slideNext()"
+                     <ion-button
+                        color="primary"
+                        (click)="slideNext()"
+                        [disabled]="!runesForm.valid"
                         >Next</ion-button
                      >
                   </ion-buttons>
@@ -444,7 +429,7 @@
             <ion-item-group [formGroup]="bonusForm">
                <ion-item-divider>
                   <ion-label>
-                     <ion-text color="primary">
+                     <ion-text color="primary" class="ion-text-uppercase">
                         Bonus
                      </ion-text>
                   </ion-label>
@@ -452,9 +437,7 @@
                <div formGroupName="bonus">
                   <ion-item>
                      <ion-label>
-                        <ion-text color="light">
-                           Fist Bonus
-                        </ion-text>
+                        Fist Bonus
                      </ion-label>
                      <ion-select
                         formControlName="slotOne"
@@ -470,9 +453,7 @@
                   </ion-item>
                   <ion-item>
                      <ion-label>
-                        <ion-text color="light">
-                           Second Bonus
-                        </ion-text>
+                        Second Bonus
                      </ion-label>
                      <ion-select
                         formControlName="slotTwo"
@@ -490,9 +471,7 @@
                   </ion-item>
                   <ion-item>
                      <ion-label>
-                        <ion-text color="light">
-                           Third Bonus
-                        </ion-text>
+                        Third Bonus
                      </ion-label>
                      <ion-select
                         formControlName="slotThree"
@@ -523,7 +502,10 @@
                   </ion-buttons>
 
                   <ion-buttons slot="end">
-                     <ion-button color="primary" (click)="slideNext()"
+                     <ion-button
+                        color="primary"
+                        (click)="slideNext()"
+                        [disabled]="!bonusForm.valid"
                         >Next</ion-button
                      >
                   </ion-buttons>
@@ -536,7 +518,7 @@
             <ion-item-group [formGroup]="spellsForm">
                <ion-item-divider>
                   <ion-label>
-                     <ion-text>
+                     <ion-text color="primary" class="ion-text-uppercase">
                         Spells
                      </ion-text>
                   </ion-label>
@@ -544,13 +526,13 @@
                <div formGroupName="spells">
                   <ion-item>
                      <ion-label>
-                        <ion-text color="light">
-                           First Spell
-                        </ion-text>
+                        First Spell
                      </ion-label>
                      <ion-select
-                        aria-placeholder="Select Your Spell"
+                        placeholder="Select Your Spell"
                         formControlName="first"
+                        [interfaceOptions]="customAlert"
+                        interface="alert"
                      >
                         <div *ngFor="let spell of spells; index as i">
                            <ion-select-option
@@ -564,9 +546,7 @@
                   </ion-item>
                   <ion-item *ngIf="spellsForm.value.spells.first">
                      <ion-label>
-                        <ion-text color="light">
-                           Second Spell
-                        </ion-text>
+                        Second Spell
                      </ion-label>
                      <ion-select
                         formControlName="second"
@@ -601,7 +581,10 @@
                      >
                   </ion-buttons>
                   <ion-buttons slot="end">
-                     <ion-button color="primary" (click)="slideNext()"
+                     <ion-button
+                        color="primary"
+                        (click)="slideNext()"
+                        [disabled]="!spellsForm.valid"
                         >Next</ion-button
                      >
                   </ion-buttons>
@@ -614,7 +597,7 @@
             <ion-item-group [formGroup]="itemsForm">
                <ion-item-divider>
                   <ion-label>
-                     <ion-text color="primary">
+                     <ion-text class="ion-text-uppercase" color="primary">
                         Items
                      </ion-text>
                   </ion-label>
@@ -626,9 +609,7 @@
                      <div formGroupName="{{i}}">
                         <ion-item>
                            <ion-label position="stacked">
-                              <ion-text color="light">
-                                 Name this Roll
-                              </ion-text>
+                              Name this Roll
                            </ion-label>
                            <ion-input
                               type="text"
@@ -650,6 +631,8 @@
                                     <ion-select
                                        formControlName="item"
                                        placeholder="Select a item"
+                                       [interfaceOptions]="customAlert"
+                                       interface="alert"
                                     >
                                        <ion-select-option
                                           *ngFor="let gameItem of items"
@@ -661,16 +644,21 @@
                               </div>
                            </div>
                            <ion-button
-                              expand="block"
-                              color="primary"
-                              (click)="addItem(i)"
+                              color="danger"
+                              (click)="removeLastItem(i)"
+                              >Remove Last Item
+                           </ion-button>
+                           <ion-button color="primary" (click)="addItem(i)"
                               >Add New Item
                            </ion-button>
                         </div>
                      </div>
                   </div>
                </div>
-               <ion-button expand="full" color="primary" (click)="addItemRoll()"
+               <ion-button color="danger" (click)="addItemRoll()"
+                  >Remove Last Roll
+               </ion-button>
+               <ion-button color="primary" (click)="addItemRoll()"
                   >Add New Roll
                </ion-button>
                <ion-item>
@@ -689,7 +677,10 @@
                   </ion-buttons>
 
                   <ion-buttons slot="end">
-                     <ion-button color="primary" (click)="slideNext()"
+                     <ion-button
+                        color="primary"
+                        (click)="slideNext()"
+                        [disabled]="!itemsForm.valid"
                         >Next</ion-button
                      >
                   </ion-buttons>
@@ -703,7 +694,7 @@
             <ion-item-group [formGroup]="abilitiesForm">
                <ion-item-divider>
                   <ion-label>
-                     <ion-text color="primary">
+                     <ion-text color="primary" class="ion-text-uppercase">
                         Abilities Progression
                      </ion-text>
                   </ion-label>
@@ -712,9 +703,7 @@
                   <ion-list>
                      <ion-item *ngFor="let level of levels; index as i">
                         <ion-label>
-                           <ion-text color="light">
-                              Level {{ level }}
-                           </ion-text>
+                           Level {{ level }}
                         </ion-label>
                         <ion-select
                            formControlName="l{{i + 1}}"
@@ -746,7 +735,10 @@
                      >
                   </ion-buttons>
                   <ion-buttons slot="end">
-                     <ion-button color="primary" (click)="slideNext()"
+                     <ion-button
+                        color="primary"
+                        (click)="slideNext()"
+                        [disabled]="!abilitiesForm.valid"
                         >Next</ion-button
                      >
                   </ion-buttons>
@@ -759,7 +751,7 @@
             <ion-item-group [formGroup]="threatForm">
                <ion-item-divider>
                   <ion-label>
-                     <ion-text color="primary">
+                     <ion-text color="primary" class="ion-text-uppercase">
                         Threats
                      </ion-text>
                   </ion-label>
@@ -771,13 +763,13 @@
                      <div formGroupName="{{i}}">
                         <ion-item>
                            <ion-label>
-                              <ion-text color="light">
-                                 Select a Threat
-                              </ion-text>
+                              Select a Threat
                            </ion-label>
                            <ion-select
                               formControlName="threat"
                               placeholder="Select a Threat"
+                              [interfaceOptions]="customAlert"
+                              interface="alert"
                            >
                               <ion-select-option
                                  *ngFor="let champion of champions"
@@ -794,26 +786,31 @@
                         </ion-item>
                      </div>
                   </div>
-                  <ion-button
-                     expand="block"
-                     color="secondary"
-                     (click)="addThreat()"
+                  <ion-button color="danger" (click)="removeLastThreat()"
+                     >Remove Last Threat
+                  </ion-button>
+                  <ion-button color="primary" (click)="addThreat()"
                      >Add New Threat
                   </ion-button>
                </div>
             </ion-item-group>
-            <ion-toolbar>
-               <ion-buttons slot="start">
-                  <ion-button color="primary" (click)="slidePrevious()"
-                     >Previous</ion-button
-                  >
-               </ion-buttons>
-               <ion-buttons slot="end">
-                  <ion-button color="primary" (click)="onSubmit()"
-                     >Update Guide</ion-button
-                  >
-               </ion-buttons>
-            </ion-toolbar>
+            <ion-footer>
+               <ion-toolbar>
+                  <ion-buttons slot="start">
+                     <ion-button color="primary" (click)="slidePrevious()"
+                        >Previous</ion-button
+                     >
+                  </ion-buttons>
+                  <ion-buttons slot="end">
+                     <ion-button
+                        color="primary"
+                        (click)="onSubmit()"
+                        [disabled]="!threatForm.valid"
+                        >Publish Guide</ion-button
+                     >
+                  </ion-buttons>
+               </ion-toolbar>
+            </ion-footer>
          </ion-grid>
       </ion-slide>
    </ion-slides>

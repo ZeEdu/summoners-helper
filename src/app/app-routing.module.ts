@@ -44,6 +44,11 @@ const routes: Routes = [
       loadChildren:
          './pages/home/builds/build-view/build-view.module#BuildViewPageModule',
    },
+   {
+      path: 'guide/:id',
+      loadChildren:
+         './pages/home/champions/champion/guide/guide.module#GuidePageModule',
+   },
 ];
 
 @NgModule({

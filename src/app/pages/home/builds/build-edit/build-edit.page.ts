@@ -10,7 +10,7 @@ import { BuildManagerService } from '../../../../services/build-manager.service'
 import { Guide, Threat } from '../../../../interfaces/build';
 import { Id } from '../../../../interfaces/get-builds';
 import { tap } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PathResponse } from 'src/app/interfaces/runes';
 
 @Component({
@@ -99,6 +99,7 @@ export class BuildEditPage implements OnInit {
    public itemsForm: FormGroup;
    public abilitiesForm: FormGroup;
    public threatForm: FormGroup;
+   guideID: string;
 
    constructor(
       private fb: FormBuilder,
@@ -107,7 +108,8 @@ export class BuildEditPage implements OnInit {
       private loadingCtrl: LoadingController,
       private toastCtrl: ToastController,
       private buildManager: BuildManagerService,
-      private route: ActivatedRoute
+      private route: ActivatedRoute,
+      private router: Router
    ) {}
 
    ngOnInit() {
@@ -144,8 +146,8 @@ export class BuildEditPage implements OnInit {
          this.buildManager
             .getBuildByID(this.route.snapshot.paramMap.get('id'), token)
             .subscribe((guide: Guide) => {
-               console.log(guide);
                this.fillForms(guide);
+               this.guideID = guide._id;
             });
       });
    }
@@ -217,6 +219,7 @@ export class BuildEditPage implements OnInit {
          this.threatForm.value,
       ];
       const guideAssign = Object.assign({}, ...formValues);
+      guideAssign._id = this.guideID;
       this.afa.user.subscribe((user) => {
          guideAssign.userUID = user.uid;
       });
@@ -228,11 +231,21 @@ export class BuildEditPage implements OnInit {
       await this.presentloading();
       this.afa.idToken.subscribe((token) =>
          this.buildManager.updateBuild(guide, token).subscribe(
-            (_) => this.presentToast('Successfully saved your build!'),
+            (_) => {
+               this.presentToast(
+                  'Successfully saved your build! And will be redirected to your guides page soon'
+               );
+               this.returnToGuides();
+            },
             (err) => this.presentToast(err.name)
          )
       );
       this.loading.dismiss();
+   }
+   returnToGuides() {
+      setTimeout(() => {
+         this.router.navigateByUrl('/home/tabs/builds');
+      }, 4000);
    }
 
    private item() {
@@ -374,15 +387,5 @@ export class BuildEditPage implements OnInit {
 
    slidePrevious() {
       this.slides.slidePrev();
-   }
-
-   checkBasicForm() {
-      console.log('Is the form valid: ', this.basicForm.valid);
-      console.log(this.basicForm.value);
-   }
-
-   checkForm() {
-      console.log('Is the form valid: ', this.itemsForm.valid);
-      console.log(this.itemsForm.value);
    }
 }

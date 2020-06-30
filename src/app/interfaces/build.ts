@@ -18,6 +18,7 @@ export interface Guide {
    introduction: string;
    userUID: string;
    patch: string;
+   _id?: string;
 }
 export interface Bonus {
    slotOne: string;
