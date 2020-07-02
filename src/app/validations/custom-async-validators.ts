@@ -9,7 +9,7 @@ import { backendBaseUrl } from '../../environments/environment';
    providedIn: 'root',
 })
 export class CustomAsyncValidators {
-   private validationsRoute = 'http://localhost:8000/api/v1/validations';
+   private validationsRoute = 'api/v1/validations';
 
    constructor(private http: HttpClient) {}
 

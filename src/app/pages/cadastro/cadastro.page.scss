@@ -1,28 +1,28 @@
 .heading {
-  font-size: 20px;
-  font-family: sans-serif;
-  color: #fff;
+   font-size: 20px;
+   font-family: sans-serif;
+   color: #fff;
 }
 
 ion-content {
-  position: absolute;
-  top: 75%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+   //  position: absolute;
+   //  top: 75%;
+   //  left: 50%;
+   //  transform: translate(-50%, -50%);
 
-  ion-item {
-    max-width: 80%;
-    margin: 10px auto;
+   ion-item {
+      max-width: 80%;
+      margin: 10px auto;
 
-    ion-input {
-      color: #fff;
-      font-family: "EB Garamond";
-    }
-  }
+      ion-input {
+         color: #fff;
+         font-family: 'EB Garamond';
+      }
+   }
 
-  ion-button {
-    max-width: 80%;
-    margin: 16px auto;
-    font-family: "EB Garamond";
-  }
+   ion-button {
+      max-width: 80%;
+      margin: 16px auto;
+      font-family: 'EB Garamond';
+   }
 }

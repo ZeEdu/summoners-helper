@@ -118,7 +118,7 @@ export class CadastroPage implements OnInit {
          this.userRegister.uid = newUser.user.uid;
          this.userManager.addUser(this.userRegister);
 
-         this.presentToast('Cadastrado com Sucesso!');
+         this.presentToast('Account created successfully!');
       } catch (error) {
          this.presentToast(error.code);
       } finally {
@@ -128,7 +128,7 @@ export class CadastroPage implements OnInit {
 
    async presentloading() {
       this.loading = await this.loadingCtrl.create({
-         message: 'Por favor, aguarde...',
+         message: 'Please, wait a moment...',
       });
       return this.loading.present();
    }
