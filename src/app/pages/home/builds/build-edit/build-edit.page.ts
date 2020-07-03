@@ -1,17 +1,23 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Champion, ChampionResponse } from '../../../../interfaces/champions';
 import { Spell, SpellResponse } from '../../../../interfaces/spells';
 import { Item, ItemResponse } from '../../../../interfaces/items';
 import { DataDragonHandlerService } from '../../../../services/data-dragon-handler.service';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { LoadingController, ToastController, IonSlides } from '@ionic/angular';
+import {
+   LoadingController,
+   ToastController,
+   IonSlides,
+   NavController,
+} from '@ionic/angular';
 import { BuildManagerService } from '../../../../services/build-manager.service';
 import { Guide, Threat } from '../../../../interfaces/build';
 import { Id } from '../../../../interfaces/get-builds';
 import { tap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PathResponse } from 'src/app/interfaces/runes';
+import { Subscription } from 'rxjs';
 
 @Component({
    selector: 'app-build-edit',
@@ -88,7 +94,7 @@ export class BuildEditPage implements OnInit {
    ];
    public loading: any;
    slideOpts = {
-      initialSlide: 0,
+      initialSlide: 6,
       allowTouchMove: false,
    };
 
@@ -100,6 +106,16 @@ export class BuildEditPage implements OnInit {
    public abilitiesForm: FormGroup;
    public threatForm: FormGroup;
    guideID: string;
+   private getChampionSubscription: Subscription;
+   private getRunesSubscription: Subscription;
+   private getSpellsSubscription: Subscription;
+   private getItemsSubscription: Subscription;
+   private getBuildSubscription: Subscription;
+   private getBuildTokenSubscription: Subscription;
+   private userSubscription: Subscription;
+   private saveEditTokenSubscription: Subscription;
+   private updateBuildSubscription: Subscription;
+   private submitting: boolean;
 
    constructor(
       private fb: FormBuilder,
@@ -109,26 +125,28 @@ export class BuildEditPage implements OnInit {
       private toastCtrl: ToastController,
       private buildManager: BuildManagerService,
       private route: ActivatedRoute,
-      private router: Router
+      private router: Router,
+      private zone: NgZone,
+      private navCtrl: NavController
    ) {}
 
    ngOnInit() {
-      this.ddHandler
+      this.getChampionSubscription = this.ddHandler
          .getChampions()
          .subscribe(
             (response: ChampionResponse) =>
                (this.champions = Object.values(response.data))
          );
-      this.ddHandler
+      this.getRunesSubscription = this.ddHandler
          .getRunes()
          .subscribe((response: Array<PathResponse>) => (this.runes = response));
-      this.ddHandler
+      this.getSpellsSubscription = this.ddHandler
          .getSpells()
          .subscribe(
             (response: SpellResponse) =>
                (this.spells = Object.values(response.data))
          );
-      this.ddHandler
+      this.getItemsSubscription = this.ddHandler
          .getItems()
          .subscribe(
             (response: ItemResponse) =>
@@ -142,14 +160,31 @@ export class BuildEditPage implements OnInit {
       this.initializeAbilitiesForm();
       this.initializeThreatForm();
 
-      this.afa.idToken.subscribe((token) => {
-         this.buildManager
-            .getBuildByID(this.route.snapshot.paramMap.get('id'), token)
-            .subscribe((guide: Guide) => {
-               this.fillForms(guide);
-               this.guideID = guide._id;
-            });
+      this.getBuildTokenSubscription = this.afa.idToken.subscribe((token) => {
+         if (token) {
+            this.getBuildSubscription = this.buildManager
+               .getBuildByID(this.route.snapshot.paramMap.get('id'), token)
+               .subscribe((guide: Guide) => {
+                  this.fillForms(guide);
+                  this.guideID = guide._id;
+               });
+         }
       });
+   }
+
+   ngOnDestroy() {
+      this.getBuildTokenSubscription.unsubscribe();
+      this.getChampionSubscription.unsubscribe();
+      this.getRunesSubscription.unsubscribe();
+      this.getSpellsSubscription.unsubscribe();
+      this.getItemsSubscription.unsubscribe();
+      this.getBuildSubscription.unsubscribe();
+      if (this.submitting === true) {
+         this.saveEditTokenSubscription.unsubscribe();
+         this.userSubscription.unsubscribe();
+         this.saveEditTokenSubscription.unsubscribe();
+         this.updateBuildSubscription.unsubscribe();
+      }
    }
 
    fillForms(guide: Guide) {
@@ -209,6 +244,7 @@ export class BuildEditPage implements OnInit {
    }
 
    public async onSubmit() {
+      this.submitting = true;
       const formValues = [
          this.basicForm.value,
          this.runesForm.value,
@@ -220,7 +256,8 @@ export class BuildEditPage implements OnInit {
       ];
       const guideAssign = Object.assign({}, ...formValues);
       guideAssign._id = this.guideID;
-      this.afa.user.subscribe((user) => {
+
+      this.userSubscription = this.afa.user.subscribe((user) => {
          guideAssign.userUID = user.uid;
       });
       const sendGuide: Guide = guideAssign;
@@ -229,22 +266,32 @@ export class BuildEditPage implements OnInit {
 
    async saveGuide(guide: Guide) {
       await this.presentloading();
-      this.afa.idToken.subscribe((token) =>
-         this.buildManager.updateBuild(guide, token).subscribe(
-            (_) => {
-               this.presentToast(
-                  'Successfully saved your build! And will be redirected to your guides page soon'
-               );
-               this.returnToGuides();
-            },
-            (err) => this.presentToast(err.name)
-         )
+      this.saveEditTokenSubscription = this.afa.idToken.subscribe(
+         (token) =>
+            (this.updateBuildSubscription = this.buildManager
+               .updateBuild(guide, token)
+               .subscribe(
+                  (_) => {
+                     this.presentToast(
+                        'Successfully saved your build! And will be redirected to your guides page soon'
+                     );
+                     this.returnToGuides();
+                  },
+                  (err) => this.presentToast(err.name)
+               ))
       );
       this.loading.dismiss();
    }
+
+   // returnToGuides() {
+   //    setTimeout(() => {
+   //       this.zone.run(() => this.router.navigate(['/home/tabs/builds']));
+   //    }, 4000);
+   // }
+
    returnToGuides() {
       setTimeout(() => {
-         this.router.navigateByUrl('/home/tabs/builds');
+         this.zone.run(() => this.router.navigate(['/home/tabs/builds']));
       }, 4000);
    }
 
@@ -265,6 +312,12 @@ export class BuildEditPage implements OnInit {
          .get('itemArray') as FormArray;
       control.push(this.item());
    }
+   public removeLastItem(index: number) {
+      const control = (this.itemsForm.controls.itemsBlock as FormArray)
+         .at(index)
+         .get('itemArray') as FormArray;
+      control.removeAt(control.length - 1);
+   }
 
    private threat() {
       return this.fb.group({
@@ -275,6 +328,11 @@ export class BuildEditPage implements OnInit {
    public addThreat() {
       const control = this.threatForm.controls.threats as FormArray;
       control.push(this.threat());
+   }
+
+   public removeLastThreat(): void {
+      const control = this.threatForm.controls.threats as FormArray;
+      control.removeAt(control.length - 1);
    }
 
    async presentloading() {

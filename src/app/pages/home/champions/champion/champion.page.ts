@@ -7,6 +7,7 @@ import { Builds } from 'src/app/interfaces/get-builds';
 import { DataDragonHandlerService } from 'src/app/services/data-dragon-handler.service';
 import { SafeHtmlPipe } from 'src/app/pipes/safe-html.pipe';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Subscription } from 'rxjs';
 
 @Component({
    selector: 'app-champion',
@@ -16,14 +17,6 @@ import { AngularFireAuth } from '@angular/fire/auth';
 export class ChampionPage implements OnInit {
    @ViewChild(IonInfiniteScroll, { static: false }) infinite: IonInfiniteScroll;
    @ViewChild(IonSlides, { static: false }) slides: IonSlides;
-
-   constructor(
-      private buildService: BuildManagerService,
-      private dDragonHandler: DataDragonHandlerService,
-      private route: ActivatedRoute,
-      public safeHtml: SafeHtmlPipe,
-      private afa: AngularFireAuth
-   ) {}
 
    page = 0;
    public builds: Array<Builds> = [];
@@ -36,16 +29,32 @@ export class ChampionPage implements OnInit {
       slidesPerView: 1,
       speed: 400,
    };
+   private dDChampionSubscription: Subscription;
+   private buildServiceSubscription: Subscription;
+
+   constructor(
+      private buildService: BuildManagerService,
+      private dDragonHandler: DataDragonHandlerService,
+      private route: ActivatedRoute,
+      public safeHtml: SafeHtmlPipe,
+      private afa: AngularFireAuth
+   ) {}
 
    ngOnInit() {
       const id = this.getChampionID();
-      this.dDragonHandler
+
+      this.dDChampionSubscription = this.dDragonHandler
          .getChampionByID(id)
          .subscribe(
             (response: LoLResponse) => (this.championData = response.data[id])
          );
 
       this.loadGuides();
+   }
+
+   ngOnDestroy() {
+      this.dDChampionSubscription.unsubscribe();
+      this.buildServiceSubscription.unsubscribe();
    }
 
    private getChampionID(): string {
@@ -67,12 +76,14 @@ export class ChampionPage implements OnInit {
       if (loadMore) this.page++;
 
       this.afa.idToken.subscribe((token) => {
-         this.buildService
-            .getBuildByChampionID(this.getChampionID(), token, this.page)
-            .subscribe(
-               (response: Array<Builds>) =>
-                  (this.builds = [...this.builds, ...response])
-            );
+         if (token) {
+            this.buildServiceSubscription = this.buildService
+               .getBuildByChampionID(this.getChampionID(), token, this.page)
+               .subscribe(
+                  (response: Array<Builds>) =>
+                     (this.builds = [...this.builds, ...response])
+               );
+         }
       });
 
       if (event) {

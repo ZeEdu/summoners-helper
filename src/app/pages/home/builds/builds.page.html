@@ -5,13 +5,6 @@
 </ion-header>
 <ion-content>
    <ion-grid class="ion-padding">
-      <div class="spinner-placeholder">
-         <ion-spinner
-            *ngIf="userBuilds.length == 0"
-            name="crescent"
-         ></ion-spinner>
-      </div>
-
       <ion-list>
          <ion-item *ngFor="let build of userBuilds; index as i;">
             <ion-avatar slot="start">

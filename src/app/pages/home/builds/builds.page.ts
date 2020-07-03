@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Builds, Id } from 'src/app/interfaces/get-builds';
 import { BuildManagerService } from 'src/app/services/build-manager.service';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -8,19 +8,24 @@ import {
    LoadingController,
    ToastController,
 } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
    selector: 'app-builds',
    templateUrl: './builds.page.html',
    styleUrls: ['./builds.page.scss'],
 })
-export class BuildsPage implements OnInit {
+export class BuildsPage implements OnInit, OnDestroy {
    @ViewChild(IonInfiniteScroll, { static: false }) infinite: IonInfiniteScroll;
 
    page = 0;
    public userBuilds: Array<Builds> = [];
    loading: any;
+   private userSubscription: Subscription;
+   private getBuildSubscription: Subscription;
+   firstLoad = true;
+   routeSubscription: Subscription;
 
    constructor(
       private buildService: BuildManagerService,
@@ -28,10 +33,24 @@ export class BuildsPage implements OnInit {
       private loadingCtrl: LoadingController,
       private toastCtrl: ToastController,
       private buildManager: BuildManagerService,
-      public alertController: AlertController
+      public alertController: AlertController,
+      public route: ActivatedRoute
    ) {}
 
    ngOnInit() {
+      this.routeSubscription = this.route.params.subscribe((_) => {
+         this.loadGuides();
+      });
+   }
+
+   ionViewWillEnter() {}
+
+   ngOnDestroy() {
+      this.userSubscription.unsubscribe();
+      this.getBuildSubscription.unsubscribe();
+      this.routeSubscription.unsubscribe();
+   }
+   firstGuideLoad(): void {
       this.loadGuides();
    }
 
@@ -40,15 +59,20 @@ export class BuildsPage implements OnInit {
          this.page++;
       }
 
-      this.afa.user.subscribe((user) => {
-         user.getIdToken().then((token) => {
-            this.buildService
-               .getBuildByUserUID(user.uid, token, this.page)
-               .subscribe(
-                  (r: Array<Builds>) =>
-                     (this.userBuilds = [...this.userBuilds, ...r])
-               );
-         });
+      this.userSubscription = this.afa.user.subscribe((user) => {
+         if (user) {
+            user.getIdToken().then((token) => {
+               this.getBuildSubscription = this.buildService
+                  .getBuildByUserUID(user.uid, token, this.page)
+                  .subscribe((r: Array<Builds>) => {
+                     if (event) {
+                        this.userBuilds = [...this.userBuilds, ...r];
+                     } else {
+                        this.userBuilds = r;
+                     }
+                  });
+            });
+         }
       });
 
       if (event) {

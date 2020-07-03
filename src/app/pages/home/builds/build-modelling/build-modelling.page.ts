@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataDragonHandlerService } from '../../../../services/data-dragon-handler.service';
 import { PathResponse } from '../../../../interfaces/runes';
@@ -10,6 +10,7 @@ import { Guide } from 'src/app/interfaces/build';
 import { BuildManagerService } from 'src/app/services/build-manager.service';
 import { SpellResponse, Spell } from 'src/app/interfaces/spells';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
    selector: 'app-build-modelling',
@@ -18,6 +19,10 @@ import { Router } from '@angular/router';
 })
 export class BuildModellingPage implements OnInit {
    @ViewChild('slider', { static: false }) slides: IonSlides;
+   private getChampionSubscription: Subscription;
+   private getRunesSubscription: Subscription;
+   private getSpellsSubscription: Subscription;
+   private getItemsSubscription: Subscription;
 
    public guideForm: FormGroup;
    public runes: Array<PathResponse>;
@@ -101,6 +106,9 @@ export class BuildModellingPage implements OnInit {
    customAlert = {
       cssClass: 'customAlert',
    };
+   userSubscription: Subscription;
+   idTokenSubscription: void;
+   submitting: boolean;
 
    constructor(
       private fb: FormBuilder,
@@ -109,26 +117,27 @@ export class BuildModellingPage implements OnInit {
       private loadingCtrl: LoadingController,
       private toastCtrl: ToastController,
       private buildManager: BuildManagerService,
-      private router: Router
+      private router: Router,
+      private zone: NgZone
    ) {}
 
    ngOnInit() {
-      this.ddHandler
+      this.getChampionSubscription = this.getChampionSubscription = this.ddHandler
          .getChampions()
          .subscribe(
             (response: ChampionResponse) =>
                (this.champions = Object.values(response.data))
          );
-      this.ddHandler
+      this.getRunesSubscription = this.getRunesSubscription = this.ddHandler
          .getRunes()
          .subscribe((response: Array<PathResponse>) => (this.runes = response));
-      this.ddHandler
+      this.getSpellsSubscription = this.getSpellsSubscription = this.ddHandler
          .getSpells()
          .subscribe(
             (response: SpellResponse) =>
                (this.spells = Object.values(response.data))
          );
-      this.ddHandler
+      this.getItemsSubscription = this.getItemsSubscription = this.ddHandler
          .getItems()
          .subscribe(
             (response: ItemResponse) =>
@@ -142,9 +151,18 @@ export class BuildModellingPage implements OnInit {
       this.initializeAbilitiesForm();
       this.initializeThreatForm();
    }
-   ngOnDestroy() {}
+   ngOnDestroy() {
+      this.getChampionSubscription.unsubscribe();
+      this.getRunesSubscription.unsubscribe();
+      this.getSpellsSubscription.unsubscribe();
+      this.getItemsSubscription.unsubscribe();
+      if (this.submitting === true) {
+         this.userSubscription.unsubscribe();
+      }
+   }
 
    public async onSubmit() {
+      this.submitting = true;
       const formValues = [
          this.basicForm.value,
          this.runesForm.value,
@@ -155,12 +173,16 @@ export class BuildModellingPage implements OnInit {
          this.threatForm.value,
       ];
       const guideAssign = Object.assign({}, ...formValues);
-      this.afa.user.subscribe(async (user) => {
-         guideAssign.userUID = user.uid;
-         await user.getIdToken().then((token) => {
-            const sendGuide: Guide = guideAssign;
-            this.saveGuide(sendGuide, token);
-         });
+      this.userSubscription = this.afa.user.subscribe(async (user) => {
+         if (user) {
+            guideAssign.userUID = user.uid;
+            await user.getIdToken().then((token) => {
+               if (token) {
+                  const sendGuide: Guide = guideAssign;
+                  this.saveGuide(sendGuide, token);
+               }
+            });
+         }
       });
    }
 
@@ -181,9 +203,10 @@ export class BuildModellingPage implements OnInit {
       this.loading.dismiss();
    }
    returnToGuides() {
-      setTimeout(() => {
-         this.router.navigateByUrl('/home/tabs/builds');
-      }, 3000);
+      setTimeout(
+         () => this.zone.run(() => this.router.navigate(['/home/tabs/builds'])),
+         4000
+      );
    }
 
    private item() {

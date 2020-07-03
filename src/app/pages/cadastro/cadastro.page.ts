@@ -11,6 +11,7 @@ import {
 import { CustomAsyncValidators } from '../../validations/custom-async-validators';
 import { CustomValidators } from '../../validations/custom-validators';
 import { UserManagerService } from 'src/app/services/user-manager.service';
+import { Subscription } from 'rxjs';
 
 @Component({
    selector: 'app-cadastro',
@@ -18,6 +19,8 @@ import { UserManagerService } from 'src/app/services/user-manager.service';
    styleUrls: ['./cadastro.page.scss'],
 })
 export class CadastroPage implements OnInit {
+   createProfileSubscription: Subscription;
+   registerOn: boolean;
    constructor(
       private loadingCtrl: LoadingController,
       private toastCtrl: ToastController,
@@ -83,7 +86,11 @@ export class CadastroPage implements OnInit {
    ngOnInit() {
       this.createForm();
    }
-
+   onDestroy() {
+      if (this.registerOn === true) {
+         this.createProfileSubscription.unsubscribe();
+      }
+   }
    public onSubmit() {
       this.getFormValues();
       this.register();
@@ -111,12 +118,14 @@ export class CadastroPage implements OnInit {
 
    public async register() {
       await this.presentloading();
-
+      this.registerOn = true;
       try {
          const newUser = await this.authService.register(this.userRegister);
 
          this.userRegister.uid = newUser.user.uid;
-         this.userManager.addUser(this.userRegister);
+         this.createProfileSubscription = this.userManager.addUser(
+            this.userRegister
+         );
 
          this.presentToast('Account created successfully!');
       } catch (error) {
