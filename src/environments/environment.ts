@@ -16,7 +16,9 @@ export const environment = {
    },
 };
 
-export const backendBaseUrl = 'http://localhost:3000';
+// export const backendBaseUrl = 'http://localhost:3000';
+export const backendBaseUrl = 'http://192.168.15.12:3000';
+
 // export const backendBaseUrl = 'http://summoners-helper-api.com';
 
 /*
