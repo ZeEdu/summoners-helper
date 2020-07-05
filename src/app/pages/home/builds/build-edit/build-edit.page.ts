@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone, OnDestroy } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Champion, ChampionResponse } from '../../../../interfaces/champions';
+import { Champion, ChampionsResponse } from '../../../../interfaces/champions';
 import { Spell, SpellResponse } from '../../../../interfaces/spells';
 import { Item, ItemResponse } from '../../../../interfaces/items';
 import { DataDragonHandlerService } from '../../../../services/data-dragon-handler.service';
@@ -24,7 +24,7 @@ import { Subscription } from 'rxjs';
    templateUrl: './build-edit.page.html',
    styleUrls: ['./build-edit.page.scss'],
 })
-export class BuildEditPage implements OnInit {
+export class BuildEditPage implements OnInit, OnDestroy {
    @ViewChild('slider', { static: false }) slides: IonSlides;
    customAlert = {
       cssClass: 'customAlert',
@@ -94,7 +94,7 @@ export class BuildEditPage implements OnInit {
    ];
    public loading: any;
    slideOpts = {
-      initialSlide: 6,
+      initialSlide: 0,
       allowTouchMove: false,
    };
 
@@ -134,7 +134,7 @@ export class BuildEditPage implements OnInit {
       this.getChampionSubscription = this.ddHandler
          .getChampions()
          .subscribe(
-            (response: ChampionResponse) =>
+            (response: ChampionsResponse) =>
                (this.champions = Object.values(response.data))
          );
       this.getRunesSubscription = this.ddHandler

@@ -22,17 +22,17 @@ export class DataDragonHandlerService {
 
    public getRunes() {
       return this.http.get(
-         `${this.resUrl}/10.9.1/data/en_US/runesReforged.json`
+         `${this.resUrl}/10.7.1/data/en_US/runesReforged.json`
       );
    }
 
    public getSpells() {
-      return this.http.get(`${this.resUrl}/10.9.1/data/en_US/summoner.json`);
+      return this.http.get(`${this.resUrl}/10.7.1/data/en_US/summoner.json`);
    }
 
    public getItems() {
       return this.http.get<ItemResponse>(
-         `${this.resUrl}/10.9.1/data/en_US/item.json`
+         `${this.resUrl}/10.7.1/data/en_US/item.json`
       );
    }
 }

@@ -329,7 +329,7 @@
                <ion-row class="ion-align-items-center">
                   <ion-col size="3">
                      <ion-img
-                        src="{{resUrl}}/10.9.1/img/spell/{{firstSpell.image.full}}"
+                        src="{{resUrl}}/10.7.1/img/spell/{{firstSpell.image.full}}"
                         class="rune-img"
                      >
                      </ion-img>
@@ -354,7 +354,7 @@
                <ion-row class="ion-align-items-center">
                   <ion-col size="3">
                      <ion-img
-                        src="{{resUrl}}/10.9.1/img/spell/{{secondSpell.image.full}}"
+                        src="{{resUrl}}/10.7.1/img/spell/{{secondSpell.image.full}}"
                         class="rune-img"
                      >
                      </ion-img>
@@ -415,7 +415,7 @@
             <ion-row *ngIf="guide" class="ion-align-items-center">
                <ion-col size="3">
                   <ion-img
-                     src="{{resUrl}}/perk-images/StatMods/{{bonus.second[guide.bonus.slotTwo].icon}}"
+                     src="{{resUrl}}/img/perk-images/StatMods/{{bonus.second[guide.bonus.slotTwo].icon}}"
                      class="rune-img"
                   >
                   </ion-img>
@@ -467,19 +467,18 @@
             </ion-row>
          </ion-grid>
          <div class="flex-holder">
-            <ion-img
-               src="{{resUrl}}/10.9.1/img/spell/{{guide.champion}}Q.png"
-               class="ability-box-image"
-            ></ion-img>
-            <ion-img
-               src="{{resUrl}}/10.9.1/img/spell/{{guide.champion}}W.png"
-            ></ion-img>
-            <ion-img
-               src="{{resUrl}}/10.9.1/img/spell/{{guide.champion}}E.png"
-            ></ion-img>
-            <ion-img
-               src="{{resUrl}}/10.9.1/img/spell/{{guide.champion}}R.png"
-            ></ion-img>
+            <div class="box">
+               <span class="level">Q</span>
+            </div>
+            <div class="box">
+               <span class="level">W</span>
+            </div>
+            <div class="box">
+               <span class="level">E</span>
+            </div>
+            <div class="box">
+               <span class="level">R</span>
+            </div>
          </div>
          <div class="flex-holder" *ngFor="let level of levels; index as y">
             <div *ngFor="let skill of skills; index as x">
@@ -567,7 +566,7 @@
                <ion-row class="ion-align-items-center">
                   <ion-col size="3">
                      <ion-img
-                        src="{{resUrl}}/10.9.1/img/champion/{{champions[threat.threat].image.full}}"
+                        src="{{resUrl}}/10.7.1/img/champion/{{champions[threat.threat].image.full}}"
                         class="items-img"
                      >
                      </ion-img>

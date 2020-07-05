@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BuildManagerService } from '../../../../services/build-manager.service';
 import { Guide, Runes } from '../../../../interfaces/build';
 import { PathResponse, PathRune } from '../../../../interfaces/runes';
-import { Champion, ChampionResponse } from '../../../../interfaces/champions';
+import { Champion, ChampionsResponse } from '../../../../interfaces/champions';
 import { Spell, SpellResponse } from '../../../../interfaces/spells';
 import { Item, ItemResponse } from '../../../../interfaces/items';
 import { DataDragonHandlerService } from '../../../../services/data-dragon-handler.service';
@@ -13,6 +13,7 @@ import { SafeHtmlPipe } from 'src/app/pipes/safe-html.pipe';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { backendBaseUrl } from 'src/environments/environment';
 import { Subscription } from 'rxjs';
+import { ChampionResponse, ChampionInfo } from 'src/app/interfaces/champion';
 
 @Component({
    selector: 'app-build-view',
@@ -43,6 +44,7 @@ export class BuildViewPage implements OnInit, OnDestroy {
    public secondSpell: Spell;
 
    public champions: { [key: string]: Champion };
+   public champion: ChampionInfo;
    public spells: Spell[];
    public items: { [key: string]: Item };
    public secondaryPathData: PathResponse;
@@ -123,13 +125,13 @@ export class BuildViewPage implements OnInit, OnDestroy {
    };
 
    public abilitiesProgression: number[];
-   idTokenSubscription: Subscription;
-   buildServiceSubscription: Subscription;
-   usernameSubscription: Subscription;
-   getChampionSubscription: Subscription;
-   getRunesSubscription: Subscription;
-   getSpellsSubscription: Subscription;
-   getItemsSubscription: Subscription;
+   private idTokenSubscription: Subscription;
+   private buildServiceSubscription: Subscription;
+   private usernameSubscription: Subscription;
+   private getChampionsSubscription: Subscription;
+   private getRunesSubscription: Subscription;
+   private getSpellsSubscription: Subscription;
+   private getItemsSubscription: Subscription;
 
    constructor(
       private ddHandler: DataDragonHandlerService,
@@ -143,7 +145,7 @@ export class BuildViewPage implements OnInit, OnDestroy {
       this.buildServiceSubscription.unsubscribe();
       this.idTokenSubscription.unsubscribe();
       this.usernameSubscription.unsubscribe();
-      this.getChampionSubscription.unsubscribe();
+      this.getChampionsSubscription.unsubscribe();
       this.getRunesSubscription.unsubscribe();
       this.getSpellsSubscription.unsubscribe();
       this.getItemsSubscription.unsubscribe();
@@ -166,10 +168,11 @@ export class BuildViewPage implements OnInit, OnDestroy {
                      (creatorUsername: string) =>
                         (this.guideCreatorUsername = creatorUsername)
                   );
-                  this.getChampionSubscription = this.ddHandler
+
+                  this.getChampionsSubscription = this.ddHandler
                      .getChampions()
                      .subscribe(
-                        (response: ChampionResponse) =>
+                        (response: ChampionsResponse) =>
                            (this.champions = response.data)
                      );
                   this.getRunesSubscription = this.ddHandler

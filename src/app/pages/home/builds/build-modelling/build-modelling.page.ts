@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, NgZone, OnDestroy } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataDragonHandlerService } from '../../../../services/data-dragon-handler.service';
 import { PathResponse } from '../../../../interfaces/runes';
-import { Champion, ChampionResponse } from '../../../../interfaces/champions';
+import { Champion, ChampionsResponse } from '../../../../interfaces/champions';
 import { Item, ItemResponse } from '../../../../interfaces/items';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { IonSlides, LoadingController, ToastController } from '@ionic/angular';
@@ -125,7 +125,7 @@ export class BuildModellingPage implements OnInit, OnDestroy {
       this.getChampionSubscription = this.getChampionSubscription = this.ddHandler
          .getChampions()
          .subscribe(
-            (response: ChampionResponse) =>
+            (response: ChampionsResponse) =>
                (this.champions = Object.values(response.data))
          );
       this.getRunesSubscription = this.getRunesSubscription = this.ddHandler

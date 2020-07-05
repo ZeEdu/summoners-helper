@@ -5,7 +5,7 @@ import { Guide, Runes } from '../../../../../interfaces/build';
 import { PathResponse, PathRune } from '../../../../../interfaces/runes';
 import {
    Champion,
-   ChampionResponse,
+   ChampionsResponse,
 } from '../../../../../interfaces/champions';
 import { Spell, SpellResponse } from '../../../../../interfaces/spells';
 import { Item, ItemResponse } from '../../../../../interfaces/items';
@@ -16,6 +16,7 @@ import { SafeHtmlPipe } from 'src/app/pipes/safe-html.pipe';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
 import { backendBaseUrl } from 'src/environments/environment';
+import { ChampionResponse, ChampionInfo } from 'src/app/interfaces/champion';
 
 @Component({
    selector: 'app-guide',
@@ -129,10 +130,11 @@ export class GuidePage implements OnInit, OnDestroy {
    private buildServiceSubscription: Subscription;
    private idTokenSubscription: Subscription;
    private usernameSubscription: Subscription;
-   private getChampionSubscription: Subscription;
    private getRunesSubscription: Subscription;
    private getSpellsSubscription: Subscription;
    private getItemsSubscription: Subscription;
+   private getChampionsSubscription: Subscription;
+   public champion: ChampionInfo;
 
    constructor(
       private ddHandler: DataDragonHandlerService,
@@ -160,10 +162,10 @@ export class GuidePage implements OnInit, OnDestroy {
                      (creatorUsername: string) =>
                         (this.guideCreatorUsername = creatorUsername)
                   );
-                  this.getChampionSubscription = this.ddHandler
+                  this.getChampionsSubscription = this.ddHandler
                      .getChampions()
                      .subscribe(
-                        (response: ChampionResponse) =>
+                        (response: ChampionsResponse) =>
                            (this.champions = response.data)
                      );
                   this.getRunesSubscription = this.ddHandler
@@ -233,9 +235,9 @@ export class GuidePage implements OnInit, OnDestroy {
       this.buildServiceSubscription.unsubscribe();
       this.idTokenSubscription.unsubscribe();
       this.usernameSubscription.unsubscribe();
-      this.getChampionSubscription.unsubscribe();
       this.getRunesSubscription.unsubscribe();
       this.getSpellsSubscription.unsubscribe();
       this.getItemsSubscription.unsubscribe();
+      this.getChampionsSubscription.unsubscribe();
    }
 }

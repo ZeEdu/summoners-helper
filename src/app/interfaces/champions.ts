@@ -1,4 +1,4 @@
-export interface ChampionResponse {
+export interface ChampionsResponse {
    type: Type;
    format: string;
    version: Version;
