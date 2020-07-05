@@ -8,13 +8,14 @@ import { DataDragonHandlerService } from 'src/app/services/data-dragon-handler.s
 import { SafeHtmlPipe } from 'src/app/pipes/safe-html.pipe';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
+import { backendBaseUrl } from 'src/environments/environment';
 
 @Component({
    selector: 'app-champion',
    templateUrl: './champion.page.html',
    styleUrls: ['./champion.page.scss'],
 })
-export class ChampionPage implements OnInit {
+export class ChampionPage implements OnInit, OnDestroy {
    @ViewChild(IonInfiniteScroll, { static: false }) infinite: IonInfiniteScroll;
    @ViewChild(IonSlides, { static: false }) slides: IonSlides;
 
@@ -31,6 +32,7 @@ export class ChampionPage implements OnInit {
    };
    private dDChampionSubscription: Subscription;
    private buildServiceSubscription: Subscription;
+   public resUrl = backendBaseUrl;
 
    constructor(
       private buildService: BuildManagerService,

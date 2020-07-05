@@ -15,7 +15,7 @@
                <ion-text color="primary">{{guide.name}}</ion-text>
             </span>
             <ion-img
-               src="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{guide.champion}}_0.jpg"
+               src="{{resUrl}}/img/champion/splash/{{guide.champion}}_0.jpg"
                alt=""
                height="100%"
                width="100%"
@@ -110,7 +110,7 @@
                <ion-row class="ion-align-items-center">
                   <ion-col size="3">
                      <ion-img
-                        src="http://ddragon.leagueoflegends.com/cdn/img/{{firstPrimaryRune.icon}}"
+                        src="{{resUrl}}/img/{{firstPrimaryRune.icon}}"
                         class="rune-img"
                      >
                      </ion-img>
@@ -136,7 +136,7 @@
                <ion-row class="ion-align-items-center">
                   <ion-col size="3">
                      <ion-img
-                        src="http://ddragon.leagueoflegends.com/cdn/img/{{secondPrimaryRune.icon}}"
+                        src="{{resUrl}}/img/{{secondPrimaryRune.icon}}"
                         class="rune-img"
                      >
                      </ion-img>
@@ -162,7 +162,7 @@
                <ion-row class="ion-align-items-center">
                   <ion-col size="3">
                      <ion-img
-                        src="http://ddragon.leagueoflegends.com/cdn/img/{{thirdPrimaryRune.icon}}"
+                        src="{{resUrl}}/img/{{thirdPrimaryRune.icon}}"
                         class="rune-img"
                      >
                      </ion-img>
@@ -188,7 +188,7 @@
                <ion-row class="ion-align-items-center">
                   <ion-col size="3">
                      <ion-img
-                        src="http://ddragon.leagueoflegends.com/cdn/img/{{fourthPrimaryRune.icon}}"
+                        src="{{resUrl}}/img/{{fourthPrimaryRune.icon}}"
                         class="rune-img"
                      >
                      </ion-img>
@@ -230,7 +230,7 @@
                <ion-row class="ion-align-items-center">
                   <ion-col size="3">
                      <ion-img
-                        src="http://ddragon.leagueoflegends.com/cdn/img/{{firstSecondaryRune.icon}}"
+                        src="{{resUrl}}/img/{{firstSecondaryRune.icon}}"
                         class="rune-img"
                      >
                      </ion-img>
@@ -256,7 +256,7 @@
                <ion-row class="ion-align-items-center">
                   <ion-col size="3">
                      <ion-img
-                        src="http://ddragon.leagueoflegends.com/cdn/img/{{secondSecondaryRune.icon}}"
+                        src="{{resUrl}}/img/{{secondSecondaryRune.icon}}"
                         class="rune-img"
                      >
                      </ion-img>
@@ -282,7 +282,7 @@
                <ion-row class="ion-align-items-center">
                   <ion-col size="3">
                      <ion-img
-                        src="http://ddragon.leagueoflegends.com/cdn/img/{{thirdSecondaryRune.icon}}"
+                        src="{{resUrl}}/img/{{thirdSecondaryRune.icon}}"
                         class="rune-img"
                      >
                      </ion-img>
@@ -329,7 +329,7 @@
                <ion-row class="ion-align-items-center">
                   <ion-col size="3">
                      <ion-img
-                        src="https://ddragon.leagueoflegends.com/cdn/10.9.1/img/spell/{{firstSpell.image.full}}"
+                        src="{{resUrl}}/10.9.1/img/spell/{{firstSpell.image.full}}"
                         class="rune-img"
                      >
                      </ion-img>
@@ -354,7 +354,7 @@
                <ion-row class="ion-align-items-center">
                   <ion-col size="3">
                      <ion-img
-                        src="https://ddragon.leagueoflegends.com/cdn/10.9.1/img/spell/{{secondSpell.image.full}}"
+                        src="{{resUrl}}/10.9.1/img/spell/{{secondSpell.image.full}}"
                         class="rune-img"
                      >
                      </ion-img>
@@ -399,7 +399,7 @@
             <ion-row *ngIf="guide" class="ion-align-items-center">
                <ion-col size="3">
                   <ion-img
-                     src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/StatMods/{{bonus.first[guide.bonus.slotOne].icon}}"
+                     src="{{resUrl}}/img/perk-images/StatMods/{{bonus.first[guide.bonus.slotOne].icon}}"
                      class="rune-img"
                   >
                   </ion-img>
@@ -415,7 +415,7 @@
             <ion-row *ngIf="guide" class="ion-align-items-center">
                <ion-col size="3">
                   <ion-img
-                     src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/StatMods/{{bonus.second[guide.bonus.slotTwo].icon}}"
+                     src="{{resUrl}}/img/perk-images/StatMods/{{bonus.second[guide.bonus.slotTwo].icon}}"
                      class="rune-img"
                   >
                   </ion-img>
@@ -431,7 +431,7 @@
             <ion-row *ngIf="guide" class="ion-align-items-center">
                <ion-col size="3">
                   <ion-img
-                     src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/StatMods/{{bonus.third[guide.bonus.slotThree].icon}}"
+                     src="{{resUrl}}/img/perk-images/StatMods/{{bonus.third[guide.bonus.slotThree].icon}}"
                      class="rune-img"
                   >
                   </ion-img>
@@ -468,17 +468,17 @@
          </ion-grid>
          <div class="flex-holder">
             <ion-img
-               src="https://ddragon.leagueoflegends.com/cdn/10.9.1/img/spell/AatroxQ.png"
+               src="{{resUrl}}/10.9.1/img/spell/{{guide.champion}}Q.png"
                class="ability-box-image"
             ></ion-img>
             <ion-img
-               src="https://ddragon.leagueoflegends.com/cdn/10.9.1/img/spell/AatroxW.png"
+               src="{{resUrl}}/10.9.1/img/spell/{{guide.champion}}W.png"
             ></ion-img>
             <ion-img
-               src="https://ddragon.leagueoflegends.com/cdn/10.9.1/img/spell/AatroxE.png"
+               src="{{resUrl}}/10.9.1/img/spell/{{guide.champion}}E.png"
             ></ion-img>
             <ion-img
-               src="https://ddragon.leagueoflegends.com/cdn/10.9.1/img/spell/AatroxR.png"
+               src="{{resUrl}}/10.9.1/img/spell/{{guide.champion}}R.png"
             ></ion-img>
          </div>
          <div class="flex-holder" *ngFor="let level of levels; index as y">
@@ -526,7 +526,7 @@
                   <ion-row class="ion-align-items-center">
                      <ion-col size="3">
                         <ion-img
-                           src="http://ddragon.leagueoflegends.com/cdn/10.7.1/img/item/{{items[item.item].image.full}}"
+                           src="{{resUrl}}/10.7.1/img/item/{{items[item.item].image.full}}"
                            class="items-img"
                         >
                         </ion-img>
@@ -567,7 +567,7 @@
                <ion-row class="ion-align-items-center">
                   <ion-col size="3">
                      <ion-img
-                        src="https://ddragon.leagueoflegends.com/cdn/10.9.1/img/champion/{{champions[threat.threat].image.full}}"
+                        src="{{resUrl}}/10.9.1/img/champion/{{champions[threat.threat].image.full}}"
                         class="items-img"
                      >
                      </ion-img>

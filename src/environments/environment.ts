@@ -16,8 +16,8 @@ export const environment = {
    },
 };
 
-// export const backendBaseUrl = 'http://localhost:3000';
-export const backendBaseUrl = 'http://summoners-helper-api.com';
+export const backendBaseUrl = 'http://localhost:3000';
+// export const backendBaseUrl = 'http://summoners-helper-api.com';
 
 /*
  * For easier debugging in development mode, you can import the following file

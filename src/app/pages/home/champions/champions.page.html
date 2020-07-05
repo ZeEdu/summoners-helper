@@ -1,31 +1,35 @@
 <ion-header class="body-margin">
-  <ion-toolbar>
-    <ion-title color="primary">Champions</ion-title>
-  </ion-toolbar>
+   <ion-toolbar>
+      <ion-title color="primary">Champions</ion-title>
+   </ion-toolbar>
 </ion-header>
 <ion-content class="padding">
-  <ion-list>
-    <ion-list-header>
-      <ion-label color="primary">Select a Champion</ion-label>
-    </ion-list-header>
-    <ion-virtual-scroll *ngIf="champions" [items]="champions">
-      <a routerLink="champion/{{champion.id}}" *virtualItem="let champion;">
-        <ion-item>
-          <ion-avatar slot="start">
-            <ion-img
-              src="http://ddragon.leagueoflegends.com/cdn/10.7.1/img/champion/{{champion.image.full}}"
-            >
-            </ion-img>
-          </ion-avatar>
-          <ion-label class="white-text">
-            <ion-text color="primary">
-              <ion-label>{{ champion.name }}</ion-label>
-            </ion-text>
-            <h2></h2>
-            <h3>{{ champion.title }}</h3>
-          </ion-label>
-        </ion-item>
-      </a>
-    </ion-virtual-scroll>
-  </ion-list>
+   <ion-list>
+      <ion-list-header>
+         <ion-label color="primary">Select a Champion</ion-label>
+      </ion-list-header>
+      <ion-virtual-scroll
+         *ngIf="champions"
+         [items]="champions"
+         approxItemHeight="320px"
+      >
+         <a routerLink="champion/{{champion.id}}" *virtualItem="let champion;">
+            <ion-item>
+               <ion-avatar slot="start">
+                  <ion-img
+                     src="{{resUrl}}/10.7.1/img/champion/{{champion.image.full}}"
+                  >
+                  </ion-img>
+               </ion-avatar>
+               <ion-label class="white-text">
+                  <ion-text color="primary">
+                     <ion-label>{{ champion.name }}</ion-label>
+                  </ion-text>
+                  <h2></h2>
+                  <h3>{{ champion.title }}</h3>
+               </ion-label>
+            </ion-item>
+         </a>
+      </ion-virtual-scroll>
+   </ion-list>
 </ion-content>

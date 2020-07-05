@@ -10,6 +10,7 @@ import {
 } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { backendBaseUrl } from 'src/environments/environment';
 
 @Component({
    selector: 'app-builds',
@@ -25,6 +26,7 @@ export class BuildsPage implements OnInit, OnDestroy {
    private userSubscription: Subscription;
    private getBuildSubscription: Subscription;
    firstLoad = true;
+   public resUrl = backendBaseUrl;
    routeSubscription: Subscription;
 
    constructor(
@@ -42,8 +44,6 @@ export class BuildsPage implements OnInit, OnDestroy {
          this.loadGuides();
       });
    }
-
-   ionViewWillEnter() {}
 
    ngOnDestroy() {
       this.userSubscription.unsubscribe();

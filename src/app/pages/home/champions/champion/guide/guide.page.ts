@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BuildManagerService } from '../../../../../services/build-manager.service';
 import { Guide, Runes } from '../../../../../interfaces/build';
@@ -15,13 +15,14 @@ import { UserManagerService } from 'src/app/services/user-manager.service';
 import { SafeHtmlPipe } from 'src/app/pipes/safe-html.pipe';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
+import { backendBaseUrl } from 'src/environments/environment';
 
 @Component({
    selector: 'app-guide',
    templateUrl: './guide.page.html',
    styleUrls: ['./guide.page.scss'],
 })
-export class GuidePage implements OnInit {
+export class GuidePage implements OnInit, OnDestroy {
    @ViewChild(IonSlides, { static: false }) slides: IonSlides;
    slideOpts = {
       initialSlide: 0,
@@ -42,6 +43,7 @@ export class GuidePage implements OnInit {
    public thirdSecondaryRune: PathRune;
    public firstSpell: Spell;
    public secondSpell: Spell;
+   public resUrl = backendBaseUrl;
 
    public champions: { [key: string]: Champion };
    public spells: Spell[];

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone, OnDestroy } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataDragonHandlerService } from '../../../../services/data-dragon-handler.service';
 import { PathResponse } from '../../../../interfaces/runes';
@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs';
    templateUrl: './build-modelling.page.html',
    styleUrls: ['./build-modelling.page.scss'],
 })
-export class BuildModellingPage implements OnInit {
+export class BuildModellingPage implements OnInit, OnDestroy {
    @ViewChild('slider', { static: false }) slides: IonSlides;
    private getChampionSubscription: Subscription;
    private getRunesSubscription: Subscription;
