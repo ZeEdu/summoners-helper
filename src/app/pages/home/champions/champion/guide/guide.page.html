@@ -307,6 +307,75 @@
          </ion-grid>
       </ion-slide>
 
+      <ion-slide class="bonus-slide">
+         <ion-grid fixed>
+            <ion-row>
+               <ion-col size="12">
+                  <h1 class="title slide-title">
+                     <ion-text color="primary">
+                        Bonus
+                     </ion-text>
+                  </h1>
+               </ion-col>
+            </ion-row>
+            <ion-row>
+               <ion-col size="12">
+                  <p class="item-section-description">
+                     {{guide.bonusDescription}}
+                  </p>
+               </ion-col>
+            </ion-row>
+            <ion-row *ngIf="guide" class="ion-align-items-center">
+               <ion-col size="3">
+                  <ion-img
+                     src="{{resUrl}}/img/perk-images/StatMods/{{bonus.first[guide.bonus.slotOne].icon}}"
+                     class="rune-img"
+                  >
+                  </ion-img>
+               </ion-col>
+               <ion-col size="9">
+                  <h2 class="sub-title">
+                     <ion-text color="primary">
+                        {{bonus.first[guide.bonus.slotOne].name}}</ion-text
+                     >
+                  </h2>
+               </ion-col>
+            </ion-row>
+            <ion-row *ngIf="guide" class="ion-align-items-center">
+               <ion-col size="3">
+                  <ion-img
+                     src="{{resUrl}}/img/perk-images/StatMods/{{bonus.second[guide.bonus.slotTwo].icon}}"
+                     class="rune-img"
+                  >
+                  </ion-img>
+               </ion-col>
+               <ion-col size="9">
+                  <h2 class="sub-title">
+                     <ion-text color="primary">
+                        {{bonus.second[guide.bonus.slotTwo].name}}</ion-text
+                     >
+                  </h2>
+               </ion-col>
+            </ion-row>
+            <ion-row *ngIf="guide" class="ion-align-items-center">
+               <ion-col size="3">
+                  <ion-img
+                     src="{{resUrl}}/img/perk-images/StatMods/{{bonus.third[guide.bonus.slotThree].icon}}"
+                     class="rune-img"
+                  >
+                  </ion-img>
+               </ion-col>
+               <ion-col size="9">
+                  <h2 class="sub-title bunus-title">
+                     <ion-text color="primary">
+                        {{bonus.third[guide.bonus.slotThree].name}}</ion-text
+                     >
+                  </h2>
+               </ion-col>
+            </ion-row>
+         </ion-grid>
+      </ion-slide>
+
       <ion-slide>
          <ion-grid fixed>
             <ion-row>
@@ -375,75 +444,6 @@
                   </ion-col>
                </ion-row>
             </div>
-         </ion-grid>
-      </ion-slide>
-
-      <ion-slide class="bonus-slide">
-         <ion-grid fixed>
-            <ion-row>
-               <ion-col size="12">
-                  <h1 class="title slide-title">
-                     <ion-text color="primary">
-                        Bonus
-                     </ion-text>
-                  </h1>
-               </ion-col>
-            </ion-row>
-            <ion-row>
-               <ion-col size="12">
-                  <p class="item-section-description">
-                     {{guide.bonusDescription}}
-                  </p>
-               </ion-col>
-            </ion-row>
-            <ion-row *ngIf="guide" class="ion-align-items-center">
-               <ion-col size="3">
-                  <ion-img
-                     src="{{resUrl}}/img/perk-images/StatMods/{{bonus.first[guide.bonus.slotOne].icon}}"
-                     class="rune-img"
-                  >
-                  </ion-img>
-               </ion-col>
-               <ion-col size="9">
-                  <h2 class="sub-title">
-                     <ion-text color="primary">
-                        {{bonus.first[guide.bonus.slotOne].name}}</ion-text
-                     >
-                  </h2>
-               </ion-col>
-            </ion-row>
-            <ion-row *ngIf="guide" class="ion-align-items-center">
-               <ion-col size="3">
-                  <ion-img
-                     src="{{resUrl}}/img/perk-images/StatMods/{{bonus.second[guide.bonus.slotTwo].icon}}"
-                     class="rune-img"
-                  >
-                  </ion-img>
-               </ion-col>
-               <ion-col size="9">
-                  <h2 class="sub-title">
-                     <ion-text color="primary">
-                        {{bonus.second[guide.bonus.slotTwo].name}}</ion-text
-                     >
-                  </h2>
-               </ion-col>
-            </ion-row>
-            <ion-row *ngIf="guide" class="ion-align-items-center">
-               <ion-col size="3">
-                  <ion-img
-                     src="{{resUrl}}/img/perk-images/StatMods/{{bonus.third[guide.bonus.slotThree].icon}}"
-                     class="rune-img"
-                  >
-                  </ion-img>
-               </ion-col>
-               <ion-col size="9">
-                  <h2 class="sub-title bunus-title">
-                     <ion-text color="primary">
-                        {{bonus.third[guide.bonus.slotThree].name}}</ion-text
-                     >
-                  </h2>
-               </ion-col>
-            </ion-row>
          </ion-grid>
       </ion-slide>
 

@@ -6,13 +6,9 @@
 <ion-content class="padding">
    <ion-list>
       <ion-list-header>
-         <ion-label color="primary">Select a Champion</ion-label>
+         <ion-label color="primary">Hello a Champion</ion-label>
       </ion-list-header>
-      <ion-virtual-scroll
-         *ngIf="champions"
-         [items]="champions"
-         approxItemHeight="400px"
-      >
+      <ion-virtual-scroll *ngIf="champions" [items]="champions">
          <a routerLink="champion/{{champion.id}}" *virtualItem="let champion;">
             <ion-item>
                <ion-avatar slot="start">
