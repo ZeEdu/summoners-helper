@@ -15,15 +15,16 @@ import { UserManagerService } from 'src/app/services/user-manager.service';
 import { SafeHtmlPipe } from 'src/app/pipes/safe-html.pipe';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
-import { backendBaseUrl } from 'src/environments/environment';
+import { environment } from 'src/environments/environment';
 import { ChampionResponse, ChampionInfo } from 'src/app/interfaces/champion';
+import { take } from 'rxjs/operators';
 
 @Component({
    selector: 'app-guide',
    templateUrl: './guide.page.html',
    styleUrls: ['./guide.page.scss'],
 })
-export class GuidePage implements OnInit, OnDestroy {
+export class GuidePage implements OnInit {
    @ViewChild(IonSlides, { static: false }) slides: IonSlides;
    slideOpts = {
       initialSlide: 0,
@@ -44,7 +45,7 @@ export class GuidePage implements OnInit, OnDestroy {
    public thirdSecondaryRune: PathRune;
    public firstSpell: Spell;
    public secondSpell: Spell;
-   public resUrl = backendBaseUrl;
+   public resUrl = environment.backendBaseUrl;
 
    public champions: { [key: string]: Champion };
    public spells: Spell[];
@@ -127,13 +128,6 @@ export class GuidePage implements OnInit, OnDestroy {
    };
 
    public abilitiesProgression: number[];
-   private buildServiceSubscription: Subscription;
-   private idTokenSubscription: Subscription;
-   private usernameSubscription: Subscription;
-   private getRunesSubscription: Subscription;
-   private getSpellsSubscription: Subscription;
-   private getItemsSubscription: Subscription;
-   private getChampionsSubscription: Subscription;
    public champion: ChampionInfo;
 
    constructor(
@@ -146,98 +140,84 @@ export class GuidePage implements OnInit, OnDestroy {
    ) {}
 
    ngOnInit() {
-      this.idTokenSubscription = this.afa.idToken.subscribe((token) => {
-         if (token) {
-            this.buildServiceSubscription = this.buildService
-               .getBuildByID(this.route.snapshot.paramMap.get('id'), token)
-               .subscribe((guide: Guide) => {
-                  this.guide = guide;
-                  const abilitiesArray = Object.values(
-                     guide.abilitiesProgression
-                  );
-                  this.abilitiesProgression = abilitiesArray;
-                  this.usernameSubscription = this.UserManager.getUsernameByUID(
-                     guide.userUID
-                  ).subscribe(
+      this.afa.idToken.pipe(take(1)).subscribe((token) => {
+         this.buildService
+            .getBuildByID(this.route.snapshot.paramMap.get('id'), token)
+            .subscribe((guide: Guide) => {
+               this.guide = guide;
+               const abilitiesArray = Object.values(guide.abilitiesProgression);
+               this.abilitiesProgression = abilitiesArray;
+               this.UserManager.getUsernameByUID(guide.userUID, token)
+                  .pipe(take(1))
+                  .subscribe(
                      (creatorUsername: string) =>
                         (this.guideCreatorUsername = creatorUsername)
                   );
-                  this.getChampionsSubscription = this.ddHandler
-                     .getChampions()
-                     .subscribe(
-                        (response: ChampionsResponse) =>
-                           (this.champions = response.data)
+               this.ddHandler
+                  .getChampions()
+                  .pipe(take(1))
+                  .subscribe(
+                     (response: ChampionsResponse) =>
+                        (this.champions = response.data)
+                  );
+               this.ddHandler
+                  .getRunes()
+                  .pipe(take(1))
+                  .subscribe((response: Array<PathResponse>) => {
+                     this.primaryPathData = response.find(
+                        (path) => path.key === guide.runes.primaryRune
                      );
-                  this.getRunesSubscription = this.ddHandler
-                     .getRunes()
-                     .subscribe((response: Array<PathResponse>) => {
-                        this.primaryPathData = response.find(
-                           (path) => path.key === guide.runes.primaryRune
+                     this.secondaryPathData = response.find(
+                        (path) => path.key === guide.runes.secondaryRune
+                     );
+                     const runesArray = [];
+                     response.forEach((r: PathResponse) => {
+                        r.slots.forEach((runes) =>
+                           runes.runes.forEach((key) => runesArray.push(key))
                         );
-                        this.secondaryPathData = response.find(
-                           (path) => path.key === guide.runes.secondaryRune
-                        );
-                        const runesArray = [];
-                        response.forEach((r: PathResponse) => {
-                           r.slots.forEach((runes) =>
-                              runes.runes.forEach((key) => runesArray.push(key))
-                           );
-                        });
-                        this.firstPrimaryRune = runesArray.find(
-                           (rune) => rune.key === guide.runes.primarySlots.first
-                        );
-                        this.secondPrimaryRune = runesArray.find(
-                           (rune) =>
-                              rune.key === guide.runes.primarySlots.second
-                        );
-                        this.thirdPrimaryRune = runesArray.find(
-                           (rune) => rune.key === guide.runes.primarySlots.third
-                        );
-                        this.fourthPrimaryRune = runesArray.find(
-                           (rune) =>
-                              rune.key === guide.runes.primarySlots.fourth
-                        );
+                     });
+                     this.firstPrimaryRune = runesArray.find(
+                        (rune) => rune.key === guide.runes.primarySlots.first
+                     );
+                     this.secondPrimaryRune = runesArray.find(
+                        (rune) => rune.key === guide.runes.primarySlots.second
+                     );
+                     this.thirdPrimaryRune = runesArray.find(
+                        (rune) => rune.key === guide.runes.primarySlots.third
+                     );
+                     this.fourthPrimaryRune = runesArray.find(
+                        (rune) => rune.key === guide.runes.primarySlots.fourth
+                     );
 
-                        this.firstSecondaryRune = runesArray.find(
-                           (rune) =>
-                              rune.key === guide.runes.secondarySlots.first
-                        );
-                        this.secondSecondaryRune = runesArray.find(
-                           (rune) =>
-                              rune.key === guide.runes.secondarySlots.second
-                        );
-                        this.thirdSecondaryRune = runesArray.find(
-                           (rune) =>
-                              rune.key === guide.runes.secondarySlots.third
-                        );
-                     });
-                  this.getSpellsSubscription = this.ddHandler
-                     .getSpells()
-                     .subscribe((response: SpellResponse) => {
-                        const spells = Object.values(response.data);
-                        this.firstSpell = spells.find(
-                           (spell) => guide.spells.first === spell.id
-                        );
-                        this.secondSpell = spells.find(
-                           (spell) => guide.spells.second === spell.id
-                        );
-                     });
-                  this.getItemsSubscription = this.ddHandler
-                     .getItems()
-                     .subscribe(
-                        (response: ItemResponse) => (this.items = response.data)
+                     this.firstSecondaryRune = runesArray.find(
+                        (rune) => rune.key === guide.runes.secondarySlots.first
                      );
-               });
-         }
+                     this.secondSecondaryRune = runesArray.find(
+                        (rune) => rune.key === guide.runes.secondarySlots.second
+                     );
+                     this.thirdSecondaryRune = runesArray.find(
+                        (rune) => rune.key === guide.runes.secondarySlots.third
+                     );
+                  });
+               this.ddHandler
+                  .getSpells()
+                  .pipe(take(1))
+                  .subscribe((response: SpellResponse) => {
+                     const spells = Object.values(response.data);
+                     this.firstSpell = spells.find(
+                        (spell) => guide.spells.first === spell.id
+                     );
+                     this.secondSpell = spells.find(
+                        (spell) => guide.spells.second === spell.id
+                     );
+                  });
+               this.ddHandler
+                  .getItems()
+                  .pipe(take(1))
+                  .subscribe(
+                     (response: ItemResponse) => (this.items = response.data)
+                  );
+            });
       });
-   }
-   ngOnDestroy() {
-      this.buildServiceSubscription.unsubscribe();
-      this.idTokenSubscription.unsubscribe();
-      this.usernameSubscription.unsubscribe();
-      this.getRunesSubscription.unsubscribe();
-      this.getSpellsSubscription.unsubscribe();
-      this.getItemsSubscription.unsubscribe();
-      this.getChampionsSubscription.unsubscribe();
    }
 }

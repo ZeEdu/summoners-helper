@@ -11,21 +11,22 @@ import { IonSlides } from '@ionic/angular';
 import { UserManagerService } from 'src/app/services/user-manager.service';
 import { SafeHtmlPipe } from 'src/app/pipes/safe-html.pipe';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { backendBaseUrl } from 'src/environments/environment';
-import { Subscription } from 'rxjs';
-import { ChampionResponse, ChampionInfo } from 'src/app/interfaces/champion';
+import { environment } from 'src/environments/environment';
+import { ChampionInfo } from 'src/app/interfaces/champion';
+import { take } from 'rxjs/operators';
 
 @Component({
    selector: 'app-build-view',
    templateUrl: './build-view.page.html',
    styleUrls: ['./build-view.page.scss'],
 })
-export class BuildViewPage implements OnInit, OnDestroy {
+export class BuildViewPage implements OnInit {
    @ViewChild(IonSlides, { static: false }) slides: IonSlides;
    slideOpts = {
       initialSlide: 0,
    };
-   public resUrl = backendBaseUrl;
+   public resUrl = environment.backendBaseUrl;
+   public patchVersion = environment.patchVersion;
    public guideCreatorUsername: string;
    public guide: Guide;
    public paths: PathResponse[];
@@ -42,7 +43,6 @@ export class BuildViewPage implements OnInit, OnDestroy {
    public thirdSecondaryRune: PathRune;
    public firstSpell: Spell;
    public secondSpell: Spell;
-
    public champions: { [key: string]: Champion };
    public champion: ChampionInfo;
    public spells: Spell[];
@@ -125,13 +125,6 @@ export class BuildViewPage implements OnInit, OnDestroy {
    };
 
    public abilitiesProgression: number[];
-   private idTokenSubscription: Subscription;
-   private buildServiceSubscription: Subscription;
-   private usernameSubscription: Subscription;
-   private getChampionsSubscription: Subscription;
-   private getRunesSubscription: Subscription;
-   private getSpellsSubscription: Subscription;
-   private getItemsSubscription: Subscription;
 
    constructor(
       private ddHandler: DataDragonHandlerService,
@@ -141,42 +134,36 @@ export class BuildViewPage implements OnInit, OnDestroy {
       private UserManager: UserManagerService,
       public safeHtml: SafeHtmlPipe
    ) {}
-   ngOnDestroy(): void {
-      this.buildServiceSubscription.unsubscribe();
-      this.idTokenSubscription.unsubscribe();
-      this.usernameSubscription.unsubscribe();
-      this.getChampionsSubscription.unsubscribe();
-      this.getRunesSubscription.unsubscribe();
-      this.getSpellsSubscription.unsubscribe();
-      this.getItemsSubscription.unsubscribe();
-   }
 
    ngOnInit() {
-      this.idTokenSubscription = this.afa.idToken.subscribe((token) => {
+      this.afa.idToken.pipe(take(1)).subscribe((token) => {
          if (token) {
-            this.buildServiceSubscription = this.buildService
+            this.buildService
                .getBuildByID(this.route.snapshot.paramMap.get('id'), token)
+               .pipe(take(1))
                .subscribe((guide: Guide) => {
                   this.guide = guide;
                   const abilitiesArray = Object.values(
                      guide.abilitiesProgression
                   );
                   this.abilitiesProgression = abilitiesArray;
-                  this.usernameSubscription = this.UserManager.getUsernameByUID(
-                     guide.userUID
-                  ).subscribe(
-                     (creatorUsername: string) =>
-                        (this.guideCreatorUsername = creatorUsername)
-                  );
+                  this.UserManager.getUsernameByUID(guide.userUID, token)
+                     .pipe(take(1))
+                     .subscribe(
+                        (creatorUsername: string) =>
+                           (this.guideCreatorUsername = creatorUsername)
+                     );
 
-                  this.getChampionsSubscription = this.ddHandler
+                  this.ddHandler
                      .getChampions()
+                     .pipe(take(1))
                      .subscribe(
                         (response: ChampionsResponse) =>
                            (this.champions = response.data)
                      );
-                  this.getRunesSubscription = this.ddHandler
+                  this.ddHandler
                      .getRunes()
+                     .pipe(take(1))
                      .subscribe((response: Array<PathResponse>) => {
                         this.primaryPathData = response.find(
                            (path) => path.key === guide.runes.primaryRune
@@ -218,8 +205,9 @@ export class BuildViewPage implements OnInit, OnDestroy {
                               rune.key === guide.runes.secondarySlots.third
                         );
                      });
-                  this.getSpellsSubscription = this.ddHandler
+                  this.ddHandler
                      .getSpells()
+                     .pipe(take(1))
                      .subscribe((response: SpellResponse) => {
                         const spells = Object.values(response.data);
                         this.firstSpell = spells.find(
@@ -229,8 +217,9 @@ export class BuildViewPage implements OnInit, OnDestroy {
                            (spell) => guide.spells.second === spell.id
                         );
                      });
-                  this.getItemsSubscription = this.ddHandler
+                  this.ddHandler
                      .getItems()
+                     .pipe(take(1))
                      .subscribe(
                         (response: ItemResponse) => (this.items = response.data)
                      );

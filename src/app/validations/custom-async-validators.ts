@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { backendBaseUrl } from '../../environments/environment';
+import { environment } from '../../environments/environment';
 
 @Injectable({
    providedIn: 'root',
 })
 export class CustomAsyncValidators {
+   private apiUrl = environment.backendBaseUrl;
    private validationsRoute = 'api/v1/validations';
 
    constructor(private http: HttpClient) {}
@@ -17,7 +18,7 @@ export class CustomAsyncValidators {
       return timer(1000).pipe(
          switchMap(() => {
             return this.http.get(
-               `${backendBaseUrl}/${this.validationsRoute}/${method}/${query}`
+               `${this.apiUrl}/${this.validationsRoute}/${method}/${query}`
             );
          })
       );

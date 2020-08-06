@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { User } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { HandleErrors } from 'src/app/models/handle-errors';
 
 @Component({
    selector: 'app-login',
@@ -24,9 +25,8 @@ export class LoginPage implements OnInit {
       await this.presentloading();
       try {
          await this.authService.login(this.userLogin);
-         this.presentToast('Login Realizado com Sucesso!');
-      } catch (error) {
-         this.presentToast(error);
+      } catch (err) {
+         this.presentToast(HandleErrors.loginErrors(err.code));
       } finally {
          this.loading.dismiss();
       }

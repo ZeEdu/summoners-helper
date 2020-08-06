@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { User } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,7 +11,8 @@ import {
 import { CustomAsyncValidators } from '../../validations/custom-async-validators';
 import { CustomValidators } from '../../validations/custom-validators';
 import { UserManagerService } from 'src/app/services/user-manager.service';
-import { Subscription } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { takeUntil, take } from 'rxjs/operators';
 
 @Component({
    selector: 'app-cadastro',
@@ -19,22 +20,21 @@ import { Subscription } from 'rxjs';
    styleUrls: ['./cadastro.page.scss'],
 })
 export class CadastroPage implements OnInit {
-   createProfileSubscription: Subscription;
-   registerOn: boolean;
+   public frmSignup: FormGroup;
+   public userRegister: User = {};
+   public usernameValue: string;
+   public loading: any;
+   protected registerOn: boolean;
+
    constructor(
       private loadingCtrl: LoadingController,
       private toastCtrl: ToastController,
       private authService: AuthService,
+      private afa: AngularFireAuth,
       private fb: FormBuilder,
       private asyncCustomValidator: CustomAsyncValidators,
       private userManager: UserManagerService
    ) {}
-
-   public frmSignup: FormGroup;
-   public userRegister: User = {};
-   public usernameValue: string;
-
-   public loading: any;
 
    public createForm() {
       this.frmSignup = this.fb.group(
@@ -86,11 +86,7 @@ export class CadastroPage implements OnInit {
    ngOnInit() {
       this.createForm();
    }
-   onDestroy() {
-      if (this.registerOn === true) {
-         this.createProfileSubscription.unsubscribe();
-      }
-   }
+
    public onSubmit() {
       this.getFormValues();
       this.register();
@@ -121,13 +117,21 @@ export class CadastroPage implements OnInit {
       this.registerOn = true;
       try {
          const newUser = await this.authService.register(this.userRegister);
-
          this.userRegister.uid = newUser.user.uid;
-         this.createProfileSubscription = this.userManager.addUser(
-            this.userRegister
-         );
 
-         this.presentToast('Account created successfully!');
+         this.afa.idToken.pipe(take(1)).subscribe((token) => {
+            this.userManager
+               .createUserProfile(this.userRegister, token)
+               .pipe(take(1))
+               .subscribe(
+                  (_) => {
+                     this.presentToast('Account created successfully!');
+                  },
+                  (err) => {
+                     this.presentToast(err);
+                  }
+               );
+         });
       } catch (error) {
          this.presentToast(error.code);
       } finally {

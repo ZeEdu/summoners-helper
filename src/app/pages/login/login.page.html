@@ -1,33 +1,48 @@
-<ion-header>
-   <ion-toolbar>
-      <ion-title class="title">SH</ion-title>
-   </ion-toolbar>
-   <ion-toolbar>
-      <ion-title class="subTitle">Summoner's Helper</ion-title>
-   </ion-toolbar>
-</ion-header>
-
 <ion-content>
-   <ion-item>
-      <ion-input
-         primary
-         type="email"
-         placeholder="Email"
-         [(ngModel)]="userLogin.email"
-      ></ion-input>
-   </ion-item>
-   <ion-item>
-      <ion-input
-         primary
-         type="password"
-         placeholder="Password"
-         [(ngModel)]="userLogin.password"
-      ></ion-input>
-   </ion-item>
-   <ion-button expand="block" (click)="login()">
-      Login
-   </ion-button>
-   <h2 class="sign-in">
-      Don't have an account yet? <a routerLink="/cadastro">Create yours Here</a>
-   </h2>
+   <ion-grid>
+      <ion-row>
+         <ion-col>
+            <h1>SH</h1>
+            <h2>Summoner's Helper</h2>
+            <ion-item>
+               <ion-input
+                  primary
+                  type="email"
+                  placeholder="Email"
+                  [(ngModel)]="userLogin.email"
+               ></ion-input>
+            </ion-item>
+            <ion-item>
+               <ion-input
+                  primary
+                  type="password"
+                  placeholder="Password"
+                  [(ngModel)]="userLogin.password"
+               ></ion-input>
+            </ion-item>
+            <div>
+               <a routerLink="/recover-password">Forgot Password </a>
+               <ion-icon
+                  color="primary"
+                  name="chevron-forward-circle-outline"
+               ></ion-icon>
+            </div>
+            <ion-button expand="block" (click)="login()">
+               Login
+            </ion-button>
+            <h3 class="sign-in">
+               Don't have an account yet?
+               <a routerLink="/cadastro">Create yours Here</a>
+            </h3>
+         </ion-col>
+      </ion-row>
+   </ion-grid>
 </ion-content>
+<ion-footer>
+   <p>
+      Summoner's Helper isn't endorsed by Riot Games and doesn't reflect the
+      views or opinions of Riot Games or anyone officially involved in producing
+      or managing Riot Games properties. Riot Games, and all associated
+      properties are trademarks or registered trademarks of Riot Games, Inc.
+   </p>
+</ion-footer>

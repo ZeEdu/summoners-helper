@@ -5,3 +5,21 @@
 .customAlert .alert-wrapper .alert-radio-label {
    color: var(--ion-color-light);
 }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+   font-family: 'Lato';
+   font-weight: bold;
+}
+
+p {
+   font-family: 'Lato';
+}
+
+ion-segment {
+   font-weight: bold;
+}

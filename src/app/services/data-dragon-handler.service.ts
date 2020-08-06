@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ItemResponse } from '../interfaces/items';
-import { backendBaseUrl } from 'src/environments/environment';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
    providedIn: 'root',
 })
 export class DataDragonHandlerService {
    constructor(private http: HttpClient) {}
-   private resUrl = backendBaseUrl;
+   private resUrl = environment.backendBaseUrl;
 
    public getChampions() {
       return this.http.get(`${this.resUrl}/10.7.1/data/en_US/champion.json`);

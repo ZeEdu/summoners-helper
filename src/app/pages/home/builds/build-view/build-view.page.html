@@ -1,9 +1,9 @@
 <ion-header>
    <ion-toolbar>
       <ion-buttons slot="start">
-         <ion-back-button color="primary" defaultHref=""></ion-back-button>
+         <ion-back-button defaultHref=""></ion-back-button>
       </ion-buttons>
-      <ion-title color="primary">Build Viewer</ion-title>
+      <ion-title>Build Viewer</ion-title>
    </ion-toolbar>
 </ion-header>
 
@@ -398,7 +398,7 @@
                <ion-row class="ion-align-items-center">
                   <ion-col size="3">
                      <ion-img
-                        src="{{resUrl}}/10.7.1/img/spell/{{firstSpell.image.full}}"
+                        src="{{resUrl}}/{{patchVersion}}/img/spell/{{firstSpell.image.full}}"
                         class="rune-img"
                      >
                      </ion-img>
@@ -423,7 +423,7 @@
                <ion-row class="ion-align-items-center">
                   <ion-col size="3">
                      <ion-img
-                        src="{{resUrl}}/10.7.1/img/spell/{{secondSpell.image.full}}"
+                        src="{{resUrl}}/{{patchVersion}}/img/spell/{{secondSpell.image.full}}"
                         class="rune-img"
                      >
                      </ion-img>
@@ -525,7 +525,7 @@
                   <ion-row class="ion-align-items-center">
                      <ion-col size="3">
                         <ion-img
-                           src="{{resUrl}}/10.7.1/img/item/{{items[item.item].image.full}}"
+                           src="{{resUrl}}/{{patchVersion}}/img/item/{{items[item.item].image.full}}"
                            class="items-img"
                         >
                         </ion-img>
@@ -566,7 +566,7 @@
                <ion-row class="ion-align-items-center">
                   <ion-col size="3">
                      <ion-img
-                        src="{{resUrl}}/10.7.1/img/champion/{{champions[threat.threat].image.full}}"
+                        src="{{resUrl}}/{{patchVersion}}/img/champion/{{champions[threat.threat].image.full}}"
                         class="items-img"
                      >
                      </ion-img>
@@ -590,6 +590,4 @@
          </ion-grid>
       </ion-slide>
    </ion-slides>
-
-   <div *ngIf="guide"></div>
 </ion-content>

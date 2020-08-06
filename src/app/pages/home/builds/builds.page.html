@@ -1,6 +1,6 @@
 <ion-header class="body-margin">
    <ion-toolbar>
-      <ion-title color="primary">My Guides</ion-title>
+      <ion-title>My Guides</ion-title>
    </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -9,7 +9,7 @@
          <ion-item *ngFor="let build of userBuilds; index as i;">
             <ion-avatar slot="start">
                <ion-img
-                  src="{{resUrl}}/10.7.1/img/champion/{{build.champion}}.png"
+                  src="{{resUrl}}/{{patchVersion}}/img/champion/{{build.champion}}.png"
                >
                </ion-img>
             </ion-avatar>

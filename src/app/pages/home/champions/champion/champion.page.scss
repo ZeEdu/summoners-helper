@@ -1,41 +1,59 @@
-.container {
-   position: relative;
-   max-width: 100%;
+ion-content {
+   ion-segment {
+      ion-segment-button {
+         color: #ffffff;
+         font-size: 12px;
+      }
 
-   .image {
-      display: block;
-      width: 100%;
-      height: auto;
+      .segment-button-checked {
+         color: #9ca6f7;
+      }
    }
 
-   .overlay {
-      position: absolute;
-      width: 100%;
-      font-size: 1rem;
+   .container {
+      position: relative;
+      max-width: 100%;
+
+      .image {
+         display: block;
+         width: 100%;
+         height: auto;
+      }
+
+      .overlay {
+         position: absolute;
+         width: 100%;
+         font-size: 1rem;
+      }
+
+      .overlay-left {
+         text-align: left;
+         left: 0;
+         padding-left: 24px;
+      }
+
+      .overlay-bottom {
+         bottom: 0;
+      }
+      span {
+         p {
+            font-weight: bold;
+            font-size: 1.25rem;
+            font-family: 'EB Garamond';
+         }
+      }
    }
 
-   .overlay-left {
-      text-align: left;
-      left: 0;
-      padding-left: 24px;
+   .title,
+   .paragraph {
+      padding-left: 14px;
+      margin-top: 0;
    }
-
-   .overlay-right {
-      text-align: right;
-      right: 0;
-      padding-right: 24px;
-   }
-
-   .overlay-top {
-      top: 0;
-      padding-top: 16px;
-   }
-
-   .overlay-bottom {
-      bottom: 0;
-      padding-bottom: 16px;
+   .title {
+      margin: 0;
    }
 }
+
 .slider-slides {
    display: flex;
 }
@@ -47,28 +65,11 @@
 .swiper-slide {
    display: block;
 }
-.title,
-.paragraph {
-   margin-top: 0;
-   margin-bottom: 0;
-}
-
-ion-segment-button {
-   color: #ffffff;
-}
-
-.segment-button-checked {
-   color: #9ca6f7;
-}
 
 ion-label,
 ion-note,
 p {
    font-size: 1rem;
-}
-
-.title {
-   font-size: 1.25rem;
 }
 
 .description {

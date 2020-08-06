@@ -46,8 +46,15 @@ const routes: Routes = [
    },
    {
       path: 'guide/:id',
+      canActivate: [AuthGuard],
       loadChildren:
          './pages/home/champions/champion/guide/guide.module#GuidePageModule',
+   },
+   {
+      path: 'recover-password',
+      canActivate: [LoginGuard],
+      loadChildren:
+         './pages/recover-password/recover-password.module#RecoverPasswordPageModule',
    },
 ];
 

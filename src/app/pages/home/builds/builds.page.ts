@@ -10,7 +10,8 @@ import {
 } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { backendBaseUrl } from 'src/environments/environment';
+import { environment } from 'src/environments/environment';
+import { take } from 'rxjs/operators';
 
 @Component({
    selector: 'app-builds',
@@ -20,14 +21,13 @@ import { backendBaseUrl } from 'src/environments/environment';
 export class BuildsPage implements OnInit, OnDestroy {
    @ViewChild(IonInfiniteScroll, { static: false }) infinite: IonInfiniteScroll;
 
-   page = 0;
+   private page = 0;
    public userBuilds: Array<Builds> = [];
-   loading: any;
-   private userSubscription: Subscription;
-   private getBuildSubscription: Subscription;
-   firstLoad = true;
-   public resUrl = backendBaseUrl;
-   routeSubscription: Subscription;
+   private loading: any;
+   private firstLoad = true;
+   public resUrl = environment.backendBaseUrl;
+   public patchVersion = environment.patchVersion;
+   private routeSubs: Subscription;
 
    constructor(
       private buildService: BuildManagerService,
@@ -38,18 +38,18 @@ export class BuildsPage implements OnInit, OnDestroy {
       public alertController: AlertController,
       public route: ActivatedRoute
    ) {}
+   ngOnDestroy(): void {
+      if (this.routeSubs) {
+         this.routeSubs.unsubscribe();
+      }
+   }
 
    ngOnInit() {
-      this.routeSubscription = this.route.params.subscribe((_) => {
+      this.routeSubs = this.route.params.subscribe((_) => {
          this.loadGuides();
       });
    }
 
-   ngOnDestroy() {
-      this.userSubscription.unsubscribe();
-      this.getBuildSubscription.unsubscribe();
-      this.routeSubscription.unsubscribe();
-   }
    firstGuideLoad(): void {
       this.loadGuides();
    }
@@ -59,11 +59,12 @@ export class BuildsPage implements OnInit, OnDestroy {
          this.page++;
       }
 
-      this.userSubscription = this.afa.user.subscribe((user) => {
+      this.afa.user.pipe(take(1)).subscribe((user) => {
          if (user) {
             user.getIdToken().then((token) => {
-               this.getBuildSubscription = this.buildService
+               this.buildService
                   .getBuildByUserUID(user.uid, token, this.page)
+                  .pipe(take(1))
                   .subscribe((r: Array<Builds>) => {
                      if (event) {
                         this.userBuilds = [...this.userBuilds, ...r];
@@ -80,12 +81,13 @@ export class BuildsPage implements OnInit, OnDestroy {
       }
    }
 
-   private getAllBuilds(uid: string, token: string, page = 0) {
-      this.page = page;
-      this.buildService
-         .getBuildByUserUID(uid, token, page)
-         .subscribe((r: Array<Builds>) => (this.userBuilds = r));
-   }
+   //  private getAllBuilds(uid: string, token: string, page = 0) {
+   //     this.page = page;
+   //     this.buildService
+   //        .getBuildByUserUID(uid, token, page)
+   //        .pipe(take(1))
+   //        .subscribe((r: Array<Builds>) => (this.userBuilds = r));
+   //  }
 
    async presentAlertConfirm(guideName: string, id: Id) {
       const alert = await this.alertController.create({
@@ -113,28 +115,32 @@ export class BuildsPage implements OnInit, OnDestroy {
    private async deleteGuide(id: Id) {
       await this.presentloading();
 
-      this.afa.idToken.subscribe((token) => {
-         this.buildManager.deleteByBuildId(id, token).subscribe(
-            (_) => {
-               this.presentToast(
-                  'Successfully deleted your build! Page will be reloaded'
-               );
-               this.reloadPage();
-            },
-            (err) => {
-               this.presentToast(err.name);
-            }
-         );
+      this.afa.idToken.pipe(take(1)).subscribe((token) => {
+         this.buildManager
+            .deleteByBuildId(id, token)
+            .pipe(take(1))
+            .subscribe(
+               (_) => {
+                  this.presentToast(
+                     'Successfully deleted your build! Page will be reloaded'
+                  );
+                  this.reloadPage();
+               },
+               (err) => {
+                  this.presentToast(err.name);
+               }
+            );
          this.loading.dismiss();
       });
    }
 
    reloadPage() {
       setTimeout(() => {
-         this.afa.user.subscribe((user) => {
+         this.afa.user.pipe(take(1)).subscribe((user) => {
             user.getIdToken().then((token) => {
                this.buildService
                   .getBuildByUserUID(user.uid, token, this.page)
+                  .pipe(take(1))
                   .subscribe((r: Array<Builds>) => (this.userBuilds = r));
             });
          });

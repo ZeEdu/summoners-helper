@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Guide } from '../interfaces/build';
 import { Id } from '../interfaces/get-builds';
-import { backendBaseUrl } from '../../environments/environment';
+import { environment } from '../../environments/environment';
 
 @Injectable({
    providedIn: 'root',
 })
 export class BuildManagerService {
    constructor(private http: HttpClient) {}
-
+   private apiUrl = environment.backendBaseUrl;
    private buildRoute = 'api/v1/builds';
 
    public getBuildByChampionID(id: string, token: string, page?: number) {
@@ -17,7 +17,7 @@ export class BuildManagerService {
          headers: new HttpHeaders().set('Authorization', `Bearer ${token}`),
       };
       const endPoint = 'getbuildsbychampion';
-      const url = `${backendBaseUrl}/${this.buildRoute}/${endPoint}/${id}/${page}`;
+      const url = `${this.apiUrl}/${this.buildRoute}/${endPoint}/${id}/${page}`;
       return this.http.get(url, header);
    }
 
@@ -26,13 +26,13 @@ export class BuildManagerService {
          headers: new HttpHeaders().set('Authorization', `Bearer ${token}`),
       };
       const endPoint = 'getbuildsbyuser';
-      const url = `${backendBaseUrl}/${this.buildRoute}/${endPoint}/${id}/${page}`;
+      const url = `${this.apiUrl}/${this.buildRoute}/${endPoint}/${id}/${page}`;
       return this.http.get(url, header);
    }
 
    public addNewBuild(guide: Guide, token: string) {
       const endPoint = 'addbuild';
-      const url = `${backendBaseUrl}/${this.buildRoute}/${endPoint}`;
+      const url = `${this.apiUrl}/${this.buildRoute}/${endPoint}`;
       const headers = {
          headers: new HttpHeaders({
             'Content-type': 'application/json',
@@ -45,7 +45,7 @@ export class BuildManagerService {
 
    public updateBuild(guide: Guide, token: string) {
       const endPoint = 'updatebuild';
-      const url = `${backendBaseUrl}/${this.buildRoute}/${endPoint}`;
+      const url = `${this.apiUrl}/${this.buildRoute}/${endPoint}`;
       const headers = {
          headers: new HttpHeaders({
             'Content-type': 'application/json',
@@ -58,7 +58,7 @@ export class BuildManagerService {
 
    public deleteByBuildId(id: Id, token: string) {
       const endPoint = 'deletebuild';
-      const url = `${backendBaseUrl}/${this.buildRoute}/${endPoint}/${id}`;
+      const url = `${this.apiUrl}/${this.buildRoute}/${endPoint}/${id}`;
       const headers = {
          headers: new HttpHeaders({
             'Content-type': 'application/json',
@@ -71,7 +71,7 @@ export class BuildManagerService {
 
    public getBuildByID(id: string, token: string) {
       const endPoint = 'getbuildbyid';
-      const url = `${backendBaseUrl}/${this.buildRoute}/${endPoint}/${id}`;
+      const url = `${this.apiUrl}/${this.buildRoute}/${endPoint}/${id}`;
       const headers = {
          headers: new HttpHeaders({
             'Content-type': 'application/json',

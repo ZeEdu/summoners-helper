@@ -1,9 +1,9 @@
 <ion-header>
    <ion-toolbar>
       <ion-buttons slot="start">
-         <ion-back-button color="primary" defaultHref=""></ion-back-button>
+         <ion-back-button defaultHref=""></ion-back-button>
       </ion-buttons>
-      <ion-title color="primary">Champion</ion-title>
+      <ion-title>Champion</ion-title>
    </ion-toolbar>
 </ion-header>
 
@@ -28,97 +28,116 @@
    >
       <ion-slide>
          <div class="container" *ngIf="championData">
-            <ion-img
+            <img
                src="{{resUrl}}/img/champion/splash/{{championData.id}}_0.jpg"
                alt="{{championData.name}} splash screen"
                height="100%"
                width="100%"
-            ></ion-img>
+            />
             <span class="overlay overlay-bottom overlay-left">
                <ion-text color="primary">
-                  {{championData.name}} {{championData.title}}
+                  <p>
+                     {{championData.name}} {{championData.title}}
+                  </p>
                </ion-text>
             </span>
          </div>
          <ion-grid *ngIf="championData">
             <ion-row>
                <ion-col>
-                  <ion-item>
-                     <ion-text color="primary" class="ion-text-start">
-                        <h2 class="title">Lore</h2>
-                     </ion-text>
-                  </ion-item>
+                  <ion-text color="primary" class="ion-text-start">
+                     <h2 class="title">Lore</h2>
+                  </ion-text>
                </ion-col>
             </ion-row>
-            <ion-col>
-               <ion-item>
+            <ion-row>
+               <ion-col>
                   <ion-text class="ion-text-start" color="light">
                      <p class="paragraph">{{championData.lore}}</p>
                   </ion-text>
-               </ion-item>
-            </ion-col>
-            <ion-col>
-               <ion-list>
-                  <ion-item>
-                     <ion-label color="light">Attack</ion-label>
-                     <ion-note slot="end" color="primary"
-                        >{{championData.info.attack}}</ion-note
-                     >
-                  </ion-item>
-                  <ion-item>
-                     <ion-label color="light">Defence</ion-label>
-                     <ion-note slot="end" color="primary"
-                        >{{championData.info.defense}}</ion-note
-                     >
-                  </ion-item>
-                  <ion-item>
-                     <ion-label color="light">Magic</ion-label>
-                     <ion-note slot="end" color="primary"
-                        >{{championData.info.magic}}</ion-note
-                     >
-                  </ion-item>
-                  <ion-item>
-                     <ion-label color="light">Difficulty</ion-label>
-                     <ion-note slot="end" color="primary"
-                        >{{championData.info.difficulty}}</ion-note
-                     >
-                  </ion-item>
-               </ion-list>
-            </ion-col>
-            <ion-col>
-               <ion-item>
+               </ion-col>
+            </ion-row>
+            <ion-row>
+               <ion-col>
                   <ion-text color="primary" class="ion-text-start">
-                     <h3 class="title">Playing With {{championData.name}}</h3>
+                     <h2 class="title">Basic Stats</h2>
                   </ion-text>
-               </ion-item>
-            </ion-col>
-            <ion-col>
-               <ion-item
-                  *ngFor="let allyTip of championData.allytips; index as i;"
-               >
-                  <ion-text class="ion-text-start" color="light">
-                     <p class="paragraph">{{allyTip}}</p>
+               </ion-col>
+            </ion-row>
+            <ion-row>
+               <ion-col>
+                  <ion-list>
+                     <ion-item>
+                        <ion-label color="light">Attack</ion-label>
+                        <ion-note slot="end" color="primary"
+                           >{{championData.info.attack}}</ion-note
+                        >
+                     </ion-item>
+                     <ion-item>
+                        <ion-label color="light">Defence</ion-label>
+                        <ion-note slot="end" color="primary"
+                           >{{championData.info.defense}}</ion-note
+                        >
+                     </ion-item>
+                     <ion-item>
+                        <ion-label color="light">Magic</ion-label>
+                        <ion-note slot="end" color="primary"
+                           >{{championData.info.magic}}</ion-note
+                        >
+                     </ion-item>
+                     <ion-item>
+                        <ion-label color="light">Difficulty</ion-label>
+                        <ion-note slot="end" color="primary"
+                           >{{championData.info.difficulty}}</ion-note
+                        >
+                     </ion-item>
+                  </ion-list>
+               </ion-col>
+            </ion-row>
+
+            <ion-row>
+               <ion-col>
+                  <ion-text color="primary" class="ion-text-start">
+                     <h3 class="title">
+                        Playing With {{championData.name}}
+                     </h3>
                   </ion-text>
-               </ion-item>
-            </ion-col>
-            <ion-col>
-               <ion-item>
+               </ion-col>
+            </ion-row>
+
+            <ion-row>
+               <ion-col>
+                  <ng-container
+                     *ngFor="let allyTip of championData.allytips; index as i;"
+                  >
+                     <ion-text class="ion-text-start" color="light">
+                        <p class="paragraph">{{allyTip}}</p>
+                     </ion-text>
+                  </ng-container>
+               </ion-col>
+            </ion-row>
+
+            <ion-row>
+               <ion-col>
                   <ion-text color="primary" class="ion-text-start">
                      <h3 class="title">
                         Playing Against {{championData.name}}
                      </h3>
                   </ion-text>
-               </ion-item>
-            </ion-col>
-            <ion-col>
-               <ion-item
-                  *ngFor="let enemyTip of championData.enemytips; index as i;"
-               >
-                  <ion-text class="ion-text-start" color="light">
-                     <p class="paragraph">{{enemyTip}}</p>
-                  </ion-text>
-               </ion-item>
-            </ion-col>
+               </ion-col>
+            </ion-row>
+
+            <ion-row>
+               <ion-col>
+                  <ng-container
+                     *ngFor="let enemyTip of championData.enemytips; index as i;"
+                  >
+                     <ion-text class="ion-text-start" color="light">
+                        <p class="paragraph">{{enemyTip}}</p>
+                     </ion-text>
+                  </ng-container>
+               </ion-col>
+            </ion-row>
          </ion-grid>
       </ion-slide>
       <ion-slide>
@@ -271,14 +290,14 @@
       </ion-slide>
       <ion-slide>
          <ion-grid class="ion-padding">
-            <div *ngIf="championData">
+            <ng-container *ngIf="championData">
                <div class="spell-block">
                   <ion-row>
                      <ion-col size="3" class="ion-text-start">
                         <img
                            width="100"
                            height="100"
-                           src="{{resUrl}}/10.7.1/img/passive/{{championData.passive.image.full}}"
+                           src="{{resUrl}}/{{patchVersion}}/img/passive/{{championData.passive.image.full}}"
                         />
                      </ion-col>
                      <ion-col size="9">
@@ -304,7 +323,7 @@
                         <img
                            width="100"
                            height="100"
-                           src="{{resUrl}}/10.7.1/img/spell/{{spell.image.full}}"
+                           src="{{resUrl}}/{{patchVersion}}/img/spell/{{spell.image.full}}"
                         />
                      </ion-col>
                      <ion-col size="9">
@@ -321,7 +340,7 @@
                      </ion-text>
                   </ion-row>
                </div>
-            </div>
+            </ng-container>
          </ion-grid>
       </ion-slide>
       <ion-slide>

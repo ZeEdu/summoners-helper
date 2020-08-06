@@ -14,21 +14,24 @@ import {
 import { BuildManagerService } from '../../../../services/build-manager.service';
 import { Guide, Threat } from '../../../../interfaces/build';
 import { Id } from '../../../../interfaces/get-builds';
-import { tap } from 'rxjs/operators';
+import { tap, take } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PathResponse } from 'src/app/interfaces/runes';
 import { Subscription } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Component({
    selector: 'app-build-edit',
    templateUrl: './build-edit.page.html',
    styleUrls: ['./build-edit.page.scss'],
 })
-export class BuildEditPage implements OnInit, OnDestroy {
+export class BuildEditPage implements OnInit {
    @ViewChild('slider', { static: false }) slides: IonSlides;
    customAlert = {
       cssClass: 'customAlert',
    };
+   public baseUrl = environment.backendBaseUrl;
+   public patchVersion = environment.patchVersion;
    public runes: Array<PathResponse>;
    public champions: Array<Champion>;
    public spells: Spell[];
@@ -106,16 +109,7 @@ export class BuildEditPage implements OnInit, OnDestroy {
    public abilitiesForm: FormGroup;
    public threatForm: FormGroup;
    guideID: string;
-   private getChampionSubscription: Subscription;
-   private getRunesSubscription: Subscription;
-   private getSpellsSubscription: Subscription;
-   private getItemsSubscription: Subscription;
-   private getBuildSubscription: Subscription;
-   private getBuildTokenSubscription: Subscription;
-   private userSubscription: Subscription;
-   private saveEditTokenSubscription: Subscription;
-   private updateBuildSubscription: Subscription;
-   private submitting: boolean;
+   submitting: boolean;
 
    constructor(
       private fb: FormBuilder,
@@ -131,23 +125,27 @@ export class BuildEditPage implements OnInit, OnDestroy {
    ) {}
 
    ngOnInit() {
-      this.getChampionSubscription = this.ddHandler
+      this.ddHandler
          .getChampions()
+         .pipe(take(1))
          .subscribe(
             (response: ChampionsResponse) =>
                (this.champions = Object.values(response.data))
          );
-      this.getRunesSubscription = this.ddHandler
+      this.ddHandler
          .getRunes()
+         .pipe(take(1))
          .subscribe((response: Array<PathResponse>) => (this.runes = response));
-      this.getSpellsSubscription = this.ddHandler
+      this.ddHandler
          .getSpells()
+         .pipe(take(1))
          .subscribe(
             (response: SpellResponse) =>
                (this.spells = Object.values(response.data))
          );
-      this.getItemsSubscription = this.ddHandler
+      this.ddHandler
          .getItems()
+         .pipe(take(1))
          .subscribe(
             (response: ItemResponse) =>
                (this.items = Object.values(response.data))
@@ -160,31 +158,17 @@ export class BuildEditPage implements OnInit, OnDestroy {
       this.initializeAbilitiesForm();
       this.initializeThreatForm();
 
-      this.getBuildTokenSubscription = this.afa.idToken.subscribe((token) => {
+      this.afa.idToken.pipe(take(1)).subscribe((token) => {
          if (token) {
-            this.getBuildSubscription = this.buildManager
+            this.buildManager
                .getBuildByID(this.route.snapshot.paramMap.get('id'), token)
+               .pipe(take(1))
                .subscribe((guide: Guide) => {
                   this.fillForms(guide);
                   this.guideID = guide._id;
                });
          }
       });
-   }
-
-   ngOnDestroy() {
-      this.getBuildTokenSubscription.unsubscribe();
-      this.getChampionSubscription.unsubscribe();
-      this.getRunesSubscription.unsubscribe();
-      this.getSpellsSubscription.unsubscribe();
-      this.getItemsSubscription.unsubscribe();
-      this.getBuildSubscription.unsubscribe();
-      if (this.submitting === true) {
-         this.saveEditTokenSubscription.unsubscribe();
-         this.userSubscription.unsubscribe();
-         this.saveEditTokenSubscription.unsubscribe();
-         this.updateBuildSubscription.unsubscribe();
-      }
    }
 
    fillForms(guide: Guide) {
@@ -257,28 +241,28 @@ export class BuildEditPage implements OnInit, OnDestroy {
       const guideAssign = Object.assign({}, ...formValues);
       guideAssign._id = this.guideID;
 
-      this.userSubscription = this.afa.user.subscribe((user) => {
+      this.afa.user.pipe(take(1)).subscribe((user) => {
          guideAssign.userUID = user.uid;
       });
       const sendGuide: Guide = guideAssign;
       await this.saveGuide(sendGuide);
    }
 
-   async saveGuide(guide: Guide) {
+   async saveGuide(guide: Guide): Promise<void> {
       await this.presentloading();
-      this.saveEditTokenSubscription = this.afa.idToken.subscribe(
-         (token) =>
-            (this.updateBuildSubscription = this.buildManager
-               .updateBuild(guide, token)
-               .subscribe(
-                  (_) => {
-                     this.presentToast(
-                        'Successfully saved your build! And will be redirected to your guides page soon'
-                     );
-                     this.returnToGuides();
-                  },
-                  (err) => this.presentToast(err.name)
-               ))
+      this.afa.idToken.pipe(take(1)).subscribe((token) =>
+         this.buildManager
+            .updateBuild(guide, token)
+            .pipe(take(1))
+            .subscribe(
+               (_) => {
+                  this.presentToast(
+                     'Successfully saved your build! And will be redirected to your guides page soon'
+                  );
+                  this.returnToGuides();
+               },
+               (err) => this.presentToast(err.name)
+            )
       );
       this.loading.dismiss();
    }

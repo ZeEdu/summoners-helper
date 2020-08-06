@@ -1,45 +1,49 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../interfaces/user';
-import { backendBaseUrl } from '../../environments/environment';
+import { environment } from '../../environments/environment';
+import { UserProfile } from '../interfaces/user-profile';
 
 @Injectable({
    providedIn: 'root',
 })
 export class UserManagerService {
    constructor(private http: HttpClient) {}
-
+   private apiUrl = environment.backendBaseUrl;
    private usersRoute = 'api/v1/users';
 
-   public getUsernameByUID(userUID: string) {
+   public getUsernameByUID(userUID: string, token: string) {
       const routeMethod = 'getuserbyuid';
-      return this.http.get(
-         `${backendBaseUrl}/${this.usersRoute}/${routeMethod}/${userUID}`
-      );
+      const url = `${this.apiUrl}/${this.usersRoute}/${routeMethod}/${userUID}`;
+      const headers = {
+         headers: new HttpHeaders().set('Authorization', `Bearer ${token}`),
+      };
+      return this.http.get(url, headers);
    }
 
-   public addUser(user: User) {
-      const routeMethod = 'adduser';
+   public getUserProfileByUID(userUID: string, token: string) {
+      const routeMethod = 'getprofilebyuid';
+      const headers = {
+         headers: new HttpHeaders().set('Authorization', `Bearer ${token}`),
+      };
+      const url = `${this.apiUrl}/${this.usersRoute}/${routeMethod}/${userUID}`;
+      return this.http.get<UserProfile>(url, headers);
+   }
+
+   public createUserProfile(user: User, token: string) {
+      const routeMethod = 'createprofile';
       const sendUser = JSON.stringify(user);
-      const httpNewHeader = new HttpHeaders({
-         'Content-type': 'application/json',
-         'Cache-Control': 'no-cache',
-      });
-      return this.http
-         .post<User>(
-            `${backendBaseUrl}/${this.usersRoute}/${routeMethod}`,
-            sendUser,
-            {
-               headers: httpNewHeader,
-            }
-         )
-         .subscribe(
-            (val) => {
-               console.log('POST call', val);
-            },
-            (err) => {
-               console.log('POST returned a error', err);
-            }
-         );
+      const headers = {
+         headers: new HttpHeaders({
+            'Content-type': 'application/json',
+            'Cache-Control': 'no-cache',
+            Authorization: `Bearer ${token}`,
+         }),
+      };
+      return this.http.post<User>(
+         `${this.apiUrl}/${this.usersRoute}/${routeMethod}`,
+         sendUser,
+         headers
+      );
    }
 }

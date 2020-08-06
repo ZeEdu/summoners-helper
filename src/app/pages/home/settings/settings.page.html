@@ -7,19 +7,27 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-   <ion-text color="primary">
-      <h2>Username</h2>
-      <ion-text color="light">
-         <p>{{currentUser.username}}</p>
+   <ng-container *ngIf="profile | async as info">
+      <ion-text color="primary">
+         <h2>Username</h2>
+         <ion-text color="light">
+            <p>{{info.username}}</p>
+         </ion-text>
       </ion-text>
-   </ion-text>
-   <ion-text color="light"> </ion-text>
-   <ion-text color="primary">
-      <h2>Email</h2>
-   </ion-text>
-   <ion-text color="light">
-      <p>{{currentUser.email}}</p>
-   </ion-text>
+      <ion-text color="light"> </ion-text>
+      <ion-text color="primary">
+         <h2>Email</h2>
+      </ion-text>
+      <ion-text color="light">
+         <p>{{info.email}}</p>
+      </ion-text>
+      <ion-text color="primary">
+         <h2>Joined</h2>
+      </ion-text>
+      <ion-text color="light">
+         <p>{{info.joined | date}}</p>
+      </ion-text>
+   </ng-container>
 </ion-content>
 <ion-footer>
    <ion-button (click)="logout()" color="danger" expand="block" bottom>
