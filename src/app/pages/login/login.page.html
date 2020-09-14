@@ -6,18 +6,20 @@
             <h2>Summoner's Helper</h2>
 
             <ion-item>
+               <ion-label position="floating">
+                  Email
+               </ion-label>
                <ion-input
                   primary
                   type="email"
-                  placeholder="Email"
                   [(ngModel)]="userLogin.email"
                ></ion-input>
             </ion-item>
             <ion-item>
+               <ion-label position="floating">Password</ion-label>
                <ion-input
                   primary
                   type="password"
-                  placeholder="Password"
                   [(ngModel)]="userLogin.password"
                ></ion-input>
             </ion-item>
