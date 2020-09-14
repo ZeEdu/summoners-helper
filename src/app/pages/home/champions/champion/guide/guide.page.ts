@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BuildManagerService } from '../../../../../services/build-manager.service';
-import { Guide, Runes } from '../../../../../interfaces/build';
+import { Guide } from '../../../../../interfaces/build';
 import { PathResponse, PathRune } from '../../../../../interfaces/runes';
 import {
    Champion,
@@ -14,9 +14,8 @@ import { IonSlides } from '@ionic/angular';
 import { UserManagerService } from 'src/app/services/user-manager.service';
 import { SafeHtmlPipe } from 'src/app/pipes/safe-html.pipe';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ChampionResponse, ChampionInfo } from 'src/app/interfaces/champion';
+import { ChampionInfo } from 'src/app/interfaces/champion';
 import { take } from 'rxjs/operators';
 
 @Component({

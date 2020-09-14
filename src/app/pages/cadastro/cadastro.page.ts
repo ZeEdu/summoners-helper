@@ -20,6 +20,7 @@ import { takeUntil, take } from 'rxjs/operators';
    styleUrls: ['./cadastro.page.scss'],
 })
 export class CadastroPage implements OnInit {
+   public hello = 'Hello World';
    public frmSignup: FormGroup;
    public userRegister: User = {};
    public usernameValue: string;

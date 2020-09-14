@@ -22,7 +22,7 @@ export class BuildsPage implements OnInit, OnDestroy {
    @ViewChild(IonInfiniteScroll, { static: false }) infinite: IonInfiniteScroll;
 
    private page = 0;
-   public userBuilds: Array<Builds> = [];
+   public userBuilds: Array<Builds>;
    private loading: any;
    private firstLoad = true;
    public resUrl = environment.backendBaseUrl;

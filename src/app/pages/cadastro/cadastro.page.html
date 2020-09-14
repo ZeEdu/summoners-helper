@@ -9,14 +9,11 @@
 
 <ion-content>
    <form [formGroup]="frmSignup" (ngSubmit)="onSubmit()">
-      <!-- Username -->
       <ion-item>
-         <ion-input
-            primary
-            type="text"
-            placeholder="Username"
-            formControlName="username"
-         ></ion-input>
+         <ion-label position="floating">
+            Username
+         </ion-label>
+         <ion-input primary type="text" formControlName="username"></ion-input>
       </ion-item>
       <ion-item
          color="danger"
@@ -72,14 +69,9 @@
             This username is available!
          </ion-label>
       </ion-item>
-      <!-- Email -->
       <ion-item>
-         <ion-input
-            primary
-            type="email"
-            placeholder="Email"
-            formControlName="email"
-         ></ion-input>
+         <ion-label position="floating"> Email</ion-label>
+         <ion-input primary type="email" formControlName="email"></ion-input>
       </ion-item>
       <ion-item
          color="danger"
@@ -117,12 +109,13 @@
             That's a vacant email!
          </ion-label>
       </ion-item>
-      <!-- Password -->
       <ion-item>
+         <ion-label position="floating">
+            Password
+         </ion-label>
          <ion-input
             primary
             type="password"
-            placeholder="Password"
             formControlName="password"
          ></ion-input>
       </ion-item>
@@ -158,12 +151,13 @@
             That's a valid password!
          </ion-label>
       </ion-item>
-      <!-- Confirm Password -->
       <ion-item>
+         <ion-label position="floating">
+            Confirm Password
+         </ion-label>
          <ion-input
             primary
             type="password"
-            placeholder="Confirm Password"
             formControlName="confirmPassword"
          ></ion-input>
       </ion-item>

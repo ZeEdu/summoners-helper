@@ -45,6 +45,15 @@
          </ion-infinite-scroll-content>
       </ion-infinite-scroll>
    </ion-grid>
+
+   <ng-container *ngIf="userBuilds && userBuilds.length === 0">
+      <section>
+         <p>
+            Você pode criar um guia clicando no botão no canto inferior direito
+            da tela
+         </p>
+      </section>
+   </ng-container>
 </ion-content>
 <a routerLink="build-modelling">
    <ion-fab vertical="bottom" horizontal="end" slot="fixed">

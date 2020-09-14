@@ -1,19 +1,23 @@
 ion-note {
-  margin-left: 5px;
+   margin-left: 5px;
 }
 
 .link-style {
-  text-decoration: none;
+   text-decoration: none;
 }
 
-.spinner-placeholder{
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.spinner-placeholder {
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }
 
 ion-spinner {
-  display: block;
-  margin: auto;
-
+   display: block;
+   margin: auto;
+}
+ng-container {
+   p {
+      color: red;
+   }
 }

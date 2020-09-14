@@ -1,7 +1,7 @@
 <ion-header>
    <ion-toolbar>
       <ion-title color="primary">
-         Settings
+         User Profile
       </ion-title>
    </ion-toolbar>
 </ion-header>
@@ -27,6 +27,9 @@
       <ion-text color="light">
          <p>{{info.joined | date}}</p>
       </ion-text>
+   </ng-container>
+   <ng-container *ngIf="!profile">
+      <div>Carregando...</div>
    </ng-container>
 </ion-content>
 <ion-footer>

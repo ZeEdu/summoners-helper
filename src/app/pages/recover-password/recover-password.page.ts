@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { LoadingController, ToastController } from '@ionic/angular';
+import { HandleErrors } from 'src/app/models/handle-errors';
 
 @Component({
    selector: 'app-recover-password',
@@ -31,7 +32,7 @@ export class RecoverPasswordPage implements OnInit {
          await this.authService.recoverPassword(userEmail);
          this.presentToast('Link Enviado para o email');
       } catch (error) {
-         this.presentToast(error.code);
+         this.presentToast(HandleErrors.resetPasswordErrors(error.code));
       } finally {
          this.loading.dismiss();
       }
