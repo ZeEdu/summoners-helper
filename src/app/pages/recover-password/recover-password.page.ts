@@ -29,10 +29,15 @@ export class RecoverPasswordPage implements OnInit {
       const userEmail = this.getEmail();
       await this.presentloading();
       try {
-         await this.authService.recoverPassword(userEmail);
-         this.presentToast('Link Enviado para o email');
+         const response: any = await this.authService.recoverPassword(
+            userEmail
+         );
+         if (response.ok) {
+            this.presentToast('Link Enviado para o email');
+         } else {
+            this.presentToast(HandleErrors.resetPasswordErrors(response.code));
+         }
       } catch (error) {
-         this.presentToast(HandleErrors.resetPasswordErrors(error.code));
       } finally {
          this.loading.dismiss();
       }

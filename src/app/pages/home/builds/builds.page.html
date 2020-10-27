@@ -5,7 +5,20 @@
 </ion-header>
 <ion-content>
    <ion-grid class="ion-padding">
-      <ion-list>
+      <ng-container
+         *ngIf="userBuilds && userBuilds.length === 0 && !isPageLoading"
+      >
+         <section class="alert-section">
+            <h1>
+               <ion-text color="primary">Oops!</ion-text>
+            </h1>
+            <p class="no-guides-alert">
+               It seems you don't have any guides yet. With Summoner's Helper
+               creating one é fast and simple as it can be.
+            </p>
+         </section>
+      </ng-container>
+      <ion-list *ngIf="userBuilds && !isPageLoading">
          <ion-item *ngFor="let build of userBuilds; index as i;">
             <ion-avatar slot="start">
                <ion-img
@@ -46,13 +59,8 @@
       </ion-infinite-scroll>
    </ion-grid>
 
-   <ng-container *ngIf="userBuilds && userBuilds.length === 0">
-      <section>
-         <p>
-            Você pode criar um guia clicando no botão no canto inferior direito
-            da tela
-         </p>
-      </section>
+   <ng-container *ngIf="isPageLoading">
+      <ion-spinner name="crescent"></ion-spinner>
    </ng-container>
 </ion-content>
 <a routerLink="build-modelling">

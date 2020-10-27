@@ -8,7 +8,7 @@ import {
    LoadingController,
    ToastController,
 } from '@ionic/angular';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { take } from 'rxjs/operators';
@@ -22,9 +22,9 @@ export class BuildsPage implements OnInit, OnDestroy {
    @ViewChild(IonInfiniteScroll, { static: false }) infinite: IonInfiniteScroll;
 
    private page = 0;
+   public isPageLoading: boolean;
    public userBuilds: Array<Builds>;
-   private loading: any;
-   private firstLoad = true;
+   private loading: HTMLIonLoadingElement;
    public resUrl = environment.backendBaseUrl;
    public patchVersion = environment.patchVersion;
    private routeSubs: Subscription;
@@ -38,6 +38,7 @@ export class BuildsPage implements OnInit, OnDestroy {
       public alertController: AlertController,
       public route: ActivatedRoute
    ) {}
+
    ngOnDestroy(): void {
       if (this.routeSubs) {
          this.routeSubs.unsubscribe();
@@ -46,15 +47,12 @@ export class BuildsPage implements OnInit, OnDestroy {
 
    ngOnInit() {
       this.routeSubs = this.route.params.subscribe((_) => {
+         this.isPageLoading = true;
          this.loadGuides();
       });
    }
 
-   firstGuideLoad(): void {
-      this.loadGuides();
-   }
-
-   loadGuides(loadMore = false, event?) {
+   protected loadGuides(loadMore = false, event?) {
       if (loadMore) {
          this.page++;
       }
@@ -71,6 +69,7 @@ export class BuildsPage implements OnInit, OnDestroy {
                      } else {
                         this.userBuilds = r;
                      }
+                     this.isPageLoading = false;
                   });
             });
          }
@@ -89,7 +88,7 @@ export class BuildsPage implements OnInit, OnDestroy {
    //        .subscribe((r: Array<Builds>) => (this.userBuilds = r));
    //  }
 
-   async presentAlertConfirm(guideName: string, id: Id) {
+   protected async presentAlertConfirm(guideName: string, id: Id) {
       const alert = await this.alertController.create({
          cssClass: 'customAlert',
          header: 'Confirm!',
@@ -134,14 +133,19 @@ export class BuildsPage implements OnInit, OnDestroy {
       });
    }
 
-   reloadPage() {
+   protected reloadPage() {
       setTimeout(() => {
+         this.isPageLoading = true;
+         this.userBuilds = [];
          this.afa.user.pipe(take(1)).subscribe((user) => {
             user.getIdToken().then((token) => {
                this.buildService
                   .getBuildByUserUID(user.uid, token, this.page)
                   .pipe(take(1))
-                  .subscribe((r: Array<Builds>) => (this.userBuilds = r));
+                  .subscribe((r: Array<Builds>) => {
+                     this.isPageLoading = false;
+                     this.userBuilds = [...r];
+                  });
             });
          });
       }, 3000);

@@ -10,17 +10,20 @@ import { environment } from 'src/environments/environment';
    styleUrls: ['./champions.page.scss'],
 })
 export class ChampionsPage implements OnInit {
-   public champions: Array<Champion> = [];
+   public champions: Array<Champion>;
+   public isLoaded = false;
    public resUrl = environment.backendBaseUrl;
    public patchVersion = environment.patchVersion;
+
    constructor(private ddHandler: DataDragonHandlerService) {}
 
    ngOnInit() {
       this.ddHandler
          .getChampions()
          .pipe(take(1))
-         .subscribe(
-            (response: any) => (this.champions = Object.values(response.data))
-         );
+         .subscribe((response: any) => {
+            this.champions = Object.values(response.data);
+            this.isLoaded = true;
+         });
    }
 }

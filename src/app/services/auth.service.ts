@@ -8,37 +8,48 @@ import { Observable } from 'rxjs';
    providedIn: 'root',
 })
 export class AuthService {
-   constructor(private afa: AngularFireAuth) {}
+   constructor(private auth: AngularFireAuth) {}
 
    public user: User;
 
+   public currentUser(): firebase.User {
+      return this.getAuth().currentUser;
+   }
+
    public login(user: User): Promise<firebase.auth.UserCredential> {
-      return this.afa.auth.signInWithEmailAndPassword(
+      return this.getAuth().signInWithEmailAndPassword(
          user.email,
          user.password
       );
    }
 
    public anonLogin(): Promise<firebase.auth.UserCredential> {
-      return this.afa.auth.signInAnonymously();
+      return this.getAuth().signInAnonymously();
    }
 
    public register(user: User): Promise<firebase.auth.UserCredential> {
-      return this.afa.auth.createUserWithEmailAndPassword(
+      return this.getAuth().createUserWithEmailAndPassword(
          user.email,
          user.password
       );
    }
 
    public logout(): Promise<void> {
-      return this.afa.auth.signOut();
+      return this.getAuth().signOut();
    }
 
    public recoverPassword(email: string): Promise<void> {
-      return this.afa.auth.sendPasswordResetEmail(email);
+      return this.getAuth().sendPasswordResetEmail(email);
    }
 
    public getAuth() {
-      return this.afa.auth;
+      return this.auth.auth;
+   }
+
+   public getAuthState() {
+      return this.auth.authState;
+   }
+   public getUser() {
+      return this.auth.user;
    }
 }

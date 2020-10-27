@@ -4,10 +4,14 @@
    </ion-toolbar>
 </ion-header>
 <ion-content class="padding">
+   <ng-container *ngIf="!isLoaded">
+      <ion-spinner name="crescent"></ion-spinner>
+   </ng-container>
    <ion-list>
       <ion-list-header>
          <ion-label>Select a Champion</ion-label>
       </ion-list-header>
+
       <ion-virtual-scroll
          *ngIf="champions"
          [items]="champions"

@@ -1,0 +1,54 @@
+<ion-header>
+   <ion-toolbar>
+      <ion-buttons slot="start">
+         <ion-back-button defaultHref=""></ion-back-button>
+      </ion-buttons>
+      <ion-title>Delete Account</ion-title>
+   </ion-toolbar>
+</ion-header>
+
+<ion-content>
+   <ion-grid fixed>
+      <ion-row>
+         <ion-col size="12">
+            <p>
+               Para que você possa cancelar a sua conta, escreva nos campos as
+               informação indicadas
+            </p>
+         </ion-col>
+      </ion-row>
+      <form (ngSubmit)="handleSubmit()">
+         <ion-item>
+            <ion-label position="stacked">
+               Your username
+            </ion-label>
+            <ion-input
+               type="text"
+               class="form-control"
+               id="name"
+               required
+               [(ngModel)]="userData.username"
+               name="name"
+            ></ion-input>
+         </ion-item>
+
+         <ion-item>
+            <ion-label position="stacked">
+               Your Email:
+            </ion-label>
+            <ion-input
+               type="email"
+               class="form-control"
+               id="email"
+               required
+               [(ngModel)]="userData.email"
+               name="email"
+            ></ion-input>
+         </ion-item>
+
+         <ion-button type="submit" color="danger" expand="block" bottom>
+            Delete Account
+         </ion-button>
+      </form>
+   </ion-grid>
+</ion-content>

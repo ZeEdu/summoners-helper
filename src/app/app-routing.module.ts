@@ -56,6 +56,13 @@ const routes: Routes = [
       loadChildren:
          './pages/recover-password/recover-password.module#RecoverPasswordPageModule',
    },
+   {
+      path: 'delete-account',
+      canActivate: [AuthGuard],
+      loadChildren:
+         './pages/home/settings/delete-account/delete-account.module#DeleteAccountPageModule',
+   },
+  { path: 'change-password', loadChildren: './pages/home/settings/change-password/change-password.module#ChangePasswordPageModule' },
 ];
 
 @NgModule({

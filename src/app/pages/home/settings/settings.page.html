@@ -8,28 +8,30 @@
 
 <ion-content class="ion-padding">
    <ng-container *ngIf="profile | async as info">
-      <ion-text color="primary">
-         <h2>Username</h2>
-         <ion-text color="light">
-            <p>{{info.username}}</p>
-         </ion-text>
-      </ion-text>
-      <ion-text color="light"> </ion-text>
-      <ion-text color="primary">
-         <h2>Email</h2>
-      </ion-text>
-      <ion-text color="light">
-         <p>{{info.email}}</p>
-      </ion-text>
-      <ion-text color="primary">
-         <h2>Joined</h2>
-      </ion-text>
-      <ion-text color="light">
-         <p>{{info.joined | date}}</p>
-      </ion-text>
+      <ion-list lines="none">
+         <ion-item>
+            <ion-label color="primary">Username</ion-label>
+            {{info.username}}
+         </ion-item>
+         <ion-item>
+            <ion-label color="primary">Email</ion-label>
+            {{info.email}}
+         </ion-item>
+         <ion-item>
+            <ion-label color="primary">Joined Date</ion-label>
+            {{info.joined | date}}
+         </ion-item>
+         <ion-item button="true" routerLink="/delete-account"
+            >Delete Account</ion-item
+         >
+         <ion-item button="true" routerLink="/change-password"
+            >Change Password</ion-item
+         >
+      </ion-list>
    </ng-container>
-   <ng-container *ngIf="!profile">
-      <div>Carregando...</div>
+
+   <ng-container *ngIf="isPageLoading && !profile">
+      <ion-spinner name="crescent"></ion-spinner>
    </ng-container>
 </ion-content>
 <ion-footer>

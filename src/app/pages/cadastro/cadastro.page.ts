@@ -110,7 +110,7 @@ export class CadastroPage implements OnInit {
    }
 
    private getPassword(): string {
-      return this.frmSignup.controls.username.value;
+      return this.frmSignup.controls.password.value;
    }
 
    public async register() {

@@ -14,6 +14,7 @@ import { Observable } from 'rxjs';
 })
 export class SettingsPage implements OnInit {
    public profile: Observable<UserProfile>;
+   public isPageLoading: boolean;
 
    constructor(
       private authService: AuthService,
@@ -22,12 +23,14 @@ export class SettingsPage implements OnInit {
    ) {}
 
    ngOnInit(): void {
+      this.isPageLoading = true;
       this.afa.user.pipe(take(1)).subscribe((user: firebase.User) => {
          user.getIdToken().then((token: string) => {
             this.profile = this.userManager.getUserProfileByUID(
                user.uid,
                token
             );
+            this.isPageLoading = false;
          });
       });
    }

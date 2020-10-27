@@ -3,12 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Guide } from '../interfaces/build';
 import { Id } from '../interfaces/get-builds';
 import { environment } from '../../environments/environment';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable({
    providedIn: 'root',
 })
 export class BuildManagerService {
-   constructor(private http: HttpClient) {}
+   constructor(private http: HttpClient, private afa: AngularFireAuth) {}
    private apiUrl = environment.backendBaseUrl;
    private buildRoute = 'api/v1/builds';
 
