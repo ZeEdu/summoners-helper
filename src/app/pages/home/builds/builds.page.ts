@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Animation, AnimationController } from '@ionic/angular';
 import { Builds, Id } from 'src/app/interfaces/get-builds';
 import { BuildManagerService } from 'src/app/services/build-manager.service';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -9,9 +10,9 @@ import {
    ToastController,
 } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { take } from 'rxjs/operators';
+import { catchError, retry, take } from 'rxjs/operators';
 
 @Component({
    selector: 'app-builds',
@@ -22,7 +23,8 @@ export class BuildsPage implements OnInit, OnDestroy {
    @ViewChild(IonInfiniteScroll, { static: false }) infinite: IonInfiniteScroll;
 
    private page = 0;
-   public isPageLoading: boolean;
+   public isLoading: boolean;
+   public connectionFailed: boolean;
    public userBuilds: Array<Builds>;
    private loading: HTMLIonLoadingElement;
    public resUrl = environment.backendBaseUrl;
@@ -36,7 +38,8 @@ export class BuildsPage implements OnInit, OnDestroy {
       private toastCtrl: ToastController,
       private buildManager: BuildManagerService,
       public alertController: AlertController,
-      public route: ActivatedRoute
+      public route: ActivatedRoute,
+      public animationCtrl: AnimationController
    ) {}
 
    ngOnDestroy(): void {
@@ -47,7 +50,7 @@ export class BuildsPage implements OnInit, OnDestroy {
 
    ngOnInit() {
       this.routeSubs = this.route.params.subscribe((_) => {
-         this.isPageLoading = true;
+         this.isLoading = true;
          this.loadGuides();
       });
    }
@@ -57,19 +60,28 @@ export class BuildsPage implements OnInit, OnDestroy {
          this.page++;
       }
 
-      this.afa.user.pipe(take(1)).subscribe((user) => {
+      this.afa.user.pipe(retry(2), take(1)).subscribe((user) => {
          if (user) {
             user.getIdToken().then((token) => {
                this.buildService
                   .getBuildByUserUID(user.uid, token, this.page)
-                  .pipe(take(1))
+                  .pipe(
+                     retry(2),
+                     take(1),
+                     catchError((err) => {
+                        this.connectionFailed = true;
+                        this.isLoading = false;
+                        return throwError(err);
+                     })
+                  )
                   .subscribe((r: Array<Builds>) => {
                      if (event) {
                         this.userBuilds = [...this.userBuilds, ...r];
                      } else {
                         this.userBuilds = r;
                      }
-                     this.isPageLoading = false;
+                     this.connectionFailed = false;
+                     this.isLoading = false;
                   });
             });
          }
@@ -135,7 +147,7 @@ export class BuildsPage implements OnInit, OnDestroy {
 
    protected reloadPage() {
       setTimeout(() => {
-         this.isPageLoading = true;
+         this.isLoading = true;
          this.userBuilds = [];
          this.afa.user.pipe(take(1)).subscribe((user) => {
             user.getIdToken().then((token) => {
@@ -143,7 +155,7 @@ export class BuildsPage implements OnInit, OnDestroy {
                   .getBuildByUserUID(user.uid, token, this.page)
                   .pipe(take(1))
                   .subscribe((r: Array<Builds>) => {
-                     this.isPageLoading = false;
+                     this.isLoading = false;
                      this.userBuilds = [...r];
                   });
             });

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ItemResponse } from '../interfaces/items';
 import { environment } from 'src/environments/environment';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
    providedIn: 'root',
@@ -9,6 +10,12 @@ import { environment } from 'src/environments/environment';
 export class DataDragonHandlerService {
    constructor(private http: HttpClient) {}
    private resUrl = environment.backendBaseUrl;
+
+   public handleErrors<T>(operation = 'operation', result: T) {
+      return (error: any): Observable<T> => {
+         return of(result as T);
+      };
+   }
 
    public getChampions() {
       return this.http.get(`${this.resUrl}/10.7.1/data/en_US/champion.json`);

@@ -4,19 +4,31 @@
    </ion-toolbar>
 </ion-header>
 <ion-content class="padding">
-   <ng-container *ngIf="!isLoaded">
+   <ng-container *ngIf="isLoading">
       <ion-spinner name="crescent"></ion-spinner>
    </ng-container>
-   <ion-list>
+
+   <ng-container *ngIf="connectionFailed && !isLoading">
+      <div class="error-holder">
+         <div class="error">
+            <img src="../../../../assets/server-down.svg" alt="" />
+            <h1>
+               <ion-text color="primary">
+                  Oops
+               </ion-text>
+            </h1>
+            <p>We couldn't connect to our servers</p>
+            <ion-button (click)="reloadContent()">Try Again?</ion-button>
+         </div>
+      </div>
+   </ng-container>
+
+   <ion-list *ngIf="champions">
       <ion-list-header>
          <ion-label>Select a Champion</ion-label>
       </ion-list-header>
 
-      <ion-virtual-scroll
-         *ngIf="champions"
-         [items]="champions"
-         approxItemHeight="67px"
-      >
+      <ion-virtual-scroll [items]="champions" approxItemHeight="67px">
          <ion-item
             routerLink="champion/{{champion.id}}"
             *virtualItem="let champion;"

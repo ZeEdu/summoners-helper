@@ -12,7 +12,8 @@ import { CustomAsyncValidators } from '../../validations/custom-async-validators
 import { CustomValidators } from '../../validations/custom-validators';
 import { UserManagerService } from 'src/app/services/user-manager.service';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { takeUntil, take } from 'rxjs/operators';
+import { takeUntil, take, retry, catchError } from 'rxjs/operators';
+import { of, throwError } from 'rxjs';
 
 @Component({
    selector: 'app-cadastro',
@@ -120,7 +121,7 @@ export class CadastroPage implements OnInit {
          const newUser = await this.authService.register(this.userRegister);
          this.userRegister.uid = newUser.user.uid;
 
-         this.afa.idToken.pipe(take(1)).subscribe((token) => {
+         this.afa.idToken.pipe(take(1), retry(2)).subscribe((token) => {
             this.userManager
                .createUserProfile(this.userRegister, token)
                .pipe(take(1))

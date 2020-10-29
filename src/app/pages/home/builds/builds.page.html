@@ -4,21 +4,36 @@
    </ion-toolbar>
 </ion-header>
 <ion-content>
-   <ion-grid class="ion-padding">
-      <ng-container
-         *ngIf="userBuilds && userBuilds.length === 0 && !isPageLoading"
-      >
-         <section class="alert-section">
+   <div
+      *ngIf="userBuilds && userBuilds.length === 0 && !isLoading"
+      [@inOutAnimation]
+      class="alert-holder"
+   >
+      <div class="alert">
+         <h1>
+            <ion-text color="primary">Get Started!!!</ion-text>
+         </h1>
+         <p class="no-guides-alert">
+            With Summoner's Helper creating one is fast and simple as it can be.
+         </p>
+      </div>
+   </div>
+   <ng-container *ngIf="connectionFailed && !isLoading">
+      <div class="error-holder">
+         <div class="error">
+            <img src="../../../../assets/server-down.svg" alt="" />
             <h1>
-               <ion-text color="primary">Oops!</ion-text>
+               <ion-text color="primary">
+                  Oops
+               </ion-text>
             </h1>
-            <p class="no-guides-alert">
-               It seems you don't have any guides yet. With Summoner's Helper
-               creating one é fast and simple as it can be.
-            </p>
-         </section>
-      </ng-container>
-      <ion-list *ngIf="userBuilds && !isPageLoading">
+            <p>We couldn't connect to our servers</p>
+            <ion-button (click)="loadGuides()">Try Again?</ion-button>
+         </div>
+      </div>
+   </ng-container>
+   <ion-grid *ngIf="userBuilds && !isLoading" class="ion-padding">
+      <ion-list>
          <ion-item *ngFor="let build of userBuilds; index as i;">
             <ion-avatar slot="start">
                <ion-img
@@ -59,7 +74,7 @@
       </ion-infinite-scroll>
    </ion-grid>
 
-   <ng-container *ngIf="isPageLoading">
+   <ng-container *ngIf="isLoading">
       <ion-spinner name="crescent"></ion-spinner>
    </ng-container>
 </ion-content>

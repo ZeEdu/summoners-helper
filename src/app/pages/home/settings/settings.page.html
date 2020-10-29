@@ -7,6 +7,9 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+   <ng-container *ngIf="isPageLoading && !profile">
+      <ion-spinner name="crescent"></ion-spinner>
+   </ng-container>
    <ng-container *ngIf="profile | async as info">
       <ion-list lines="none">
          <ion-item>
@@ -28,10 +31,6 @@
             >Change Password</ion-item
          >
       </ion-list>
-   </ng-container>
-
-   <ng-container *ngIf="isPageLoading && !profile">
-      <ion-spinner name="crescent"></ion-spinner>
    </ng-container>
 </ion-content>
 <ion-footer>

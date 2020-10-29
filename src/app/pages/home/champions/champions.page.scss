@@ -1,7 +1,22 @@
-ion-item {
-   ion-label {
-      .title {
-         font-family: 'EB Garamond';
+ion-content {
+   .error-holder {
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      .error {
+         img {
+            max-width: 75%;
+         }
+      }
+   }
+
+   ion-item {
+      ion-label {
+         .title {
+            font-family: 'EB Garamond';
+         }
       }
    }
 }

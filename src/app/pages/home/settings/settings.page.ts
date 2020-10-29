@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { UserManagerService } from 'src/app/services/user-manager.service';
-import { take } from 'rxjs/operators';
+import { retry, take } from 'rxjs/operators';
 import { User } from 'src/app/interfaces/user';
 import { UserProfile } from 'src/app/interfaces/user-profile';
 import { Observable } from 'rxjs';
@@ -24,7 +24,7 @@ export class SettingsPage implements OnInit {
 
    ngOnInit(): void {
       this.isPageLoading = true;
-      this.afa.user.pipe(take(1)).subscribe((user: firebase.User) => {
+      this.afa.user.pipe(take(1), retry(2)).subscribe((user: firebase.User) => {
          user.getIdToken().then((token: string) => {
             this.profile = this.userManager.getUserProfileByUID(
                user.uid,
