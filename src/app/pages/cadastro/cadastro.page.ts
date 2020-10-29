@@ -21,7 +21,6 @@ import { of, throwError } from 'rxjs';
    styleUrls: ['./cadastro.page.scss'],
 })
 export class CadastroPage implements OnInit {
-   public hello = 'Hello World';
    public frmSignup: FormGroup;
    public userRegister: User = {};
    public usernameValue: string;
@@ -121,7 +120,7 @@ export class CadastroPage implements OnInit {
          const newUser = await this.authService.register(this.userRegister);
          this.userRegister.uid = newUser.user.uid;
 
-         this.afa.idToken.pipe(take(1), retry(2)).subscribe((token) => {
+         this.afa.idToken.pipe(retry(2), take(1)).subscribe((token) => {
             this.userManager
                .createUserProfile(this.userRegister, token)
                .pipe(take(1))

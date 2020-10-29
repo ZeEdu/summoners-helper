@@ -4,20 +4,20 @@
    </ion-toolbar>
 </ion-header>
 <ion-content>
-   <div
-      *ngIf="userBuilds && userBuilds.length === 0 && !isLoading"
-      [@inOutAnimation]
-      class="alert-holder"
-   >
-      <div class="alert">
-         <h1>
-            <ion-text color="primary">Get Started!!!</ion-text>
-         </h1>
-         <p class="no-guides-alert">
-            With Summoner's Helper creating one is fast and simple as it can be.
-         </p>
+   <ng-container *ngIf="userBuilds && userBuilds.length === 0 && !isLoading">
+      <div class="alert-holder">
+         <div class="alert">
+            <h1>
+               <ion-text color="primary">Get Started!!!</ion-text>
+            </h1>
+            <p class="no-guides-alert">
+               With Summoner's Helper creating one is fast and simple as it can
+               be.
+            </p>
+         </div>
       </div>
-   </div>
+   </ng-container>
+
    <ng-container *ngIf="connectionFailed && !isLoading">
       <div class="error-holder">
          <div class="error">

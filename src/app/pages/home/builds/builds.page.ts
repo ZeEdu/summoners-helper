@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { Animation, AnimationController } from '@ionic/angular';
 import { Builds, Id } from 'src/app/interfaces/get-builds';
 import { BuildManagerService } from 'src/app/services/build-manager.service';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -38,8 +37,7 @@ export class BuildsPage implements OnInit, OnDestroy {
       private toastCtrl: ToastController,
       private buildManager: BuildManagerService,
       public alertController: AlertController,
-      public route: ActivatedRoute,
-      public animationCtrl: AnimationController
+      public route: ActivatedRoute
    ) {}
 
    ngOnDestroy(): void {

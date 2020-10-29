@@ -23,7 +23,7 @@ const routes: Routes = [
    },
    {
       path: 'home',
-      redirectTo: '/home/tabs/settings',
+      redirectTo: '/home/tabs/builds',
    },
 ];
 
