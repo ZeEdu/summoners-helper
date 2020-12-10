@@ -14,25 +14,25 @@ import { HTTP } from '@ionic-native/http/ngx';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 
 @NgModule({
-   declarations: [AppComponent],
-   entryComponents: [],
-   imports: [
-      BrowserModule,
-      IonicModule.forRoot(),
-      AppRoutingModule,
-      AngularFireModule.initializeApp(environment.firebase),
-      AngularFireModule,
-      AngularFireAuthModule,
-      HttpClientModule,
-   ],
-   providers: [
-      StatusBar,
-      SplashScreen,
-      { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-      HTTP,
-      SafeHtmlPipe,
-   ],
-   bootstrap: [AppComponent],
-   exports: [],
+  declarations: [AppComponent],
+  entryComponents: [],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireModule,
+    AngularFireAuthModule,
+    HttpClientModule,
+  ],
+  providers: [
+    StatusBar,
+    SplashScreen,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    HTTP,
+    SafeHtmlPipe,
+  ],
+  bootstrap: [AppComponent],
+  exports: [],
 })
 export class AppModule {}
