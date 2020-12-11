@@ -5,51 +5,48 @@ import { UserManagerService } from './user-manager.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
-   providedIn: 'root',
+  providedIn: 'root',
 })
 export class AuthService {
-   constructor(private auth: AngularFireAuth) {}
+  constructor(private auth: AngularFireAuth) {}
 
-   public user: User;
+  public user: User;
 
-   public currentUser(): firebase.User {
-      return this.getAuth().currentUser;
-   }
+  public currentUser(): firebase.User {
+    return this.getAuth().currentUser;
+  }
 
-   public login(user: User): Promise<firebase.auth.UserCredential> {
-      return this.getAuth().signInWithEmailAndPassword(
-         user.email,
-         user.password
-      );
-   }
+  public login(user: User): Promise<firebase.auth.UserCredential> {
+    return this.getAuth().signInWithEmailAndPassword(user.email, user.password);
+  }
 
-   public anonLogin(): Promise<firebase.auth.UserCredential> {
-      return this.getAuth().signInAnonymously();
-   }
+  public anonLogin(): Promise<firebase.auth.UserCredential> {
+    return this.getAuth().signInAnonymously();
+  }
 
-   public register(user: User): Promise<firebase.auth.UserCredential> {
-      return this.getAuth().createUserWithEmailAndPassword(
-         user.email,
-         user.password
-      );
-   }
+  public register(user: User): Promise<firebase.auth.UserCredential> {
+    return this.getAuth().createUserWithEmailAndPassword(
+      user.email,
+      user.password
+    );
+  }
 
-   public logout(): Promise<void> {
-      return this.getAuth().signOut();
-   }
+  public logout(): Promise<void> {
+    return this.getAuth().signOut();
+  }
 
-   public recoverPassword(email: string): Promise<void> {
-      return this.getAuth().sendPasswordResetEmail(email);
-   }
+  public recoverPassword(email: string): Promise<void> {
+    return this.getAuth().sendPasswordResetEmail(email);
+  }
 
-   public getAuth() {
-      return this.auth.auth;
-   }
+  public getAuth() {
+    return this.auth.auth;
+  }
 
-   public getAuthState() {
-      return this.auth.authState;
-   }
-   public getUser() {
-      return this.auth.user;
-   }
+  public getAuthState() {
+    return this.auth.authState;
+  }
+  public getUser() {
+    return this.auth.user;
+  }
 }

@@ -51,10 +51,6 @@ export class BuildsPage implements OnInit, OnDestroy {
       this.isLoading = true;
       this.loadGuides();
     });
-    setTimeout(() => {
-      console.log('userBuilds', this.userBuilds);
-      console.log('isLoading', this.isLoading);
-    }, 5000);
   }
 
   protected loadGuides(loadMore = false, event?) {

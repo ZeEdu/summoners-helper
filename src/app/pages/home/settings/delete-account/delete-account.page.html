@@ -1,54 +1,119 @@
 <ion-header>
-   <ion-toolbar>
-      <ion-buttons slot="start">
-         <ion-back-button defaultHref=""></ion-back-button>
-      </ion-buttons>
-      <ion-title>Delete Account</ion-title>
-   </ion-toolbar>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Delete Account</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-   <ion-grid fixed>
-      <ion-row>
-         <ion-col size="12">
-            <p>
-               Para que você possa cancelar a sua conta, escreva nos campos as
-               informação indicadas
-            </p>
-         </ion-col>
-      </ion-row>
-      <form (ngSubmit)="handleSubmit()">
-         <ion-item>
-            <ion-label position="stacked">
-               Your username
-            </ion-label>
-            <ion-input
-               type="text"
-               class="form-control"
-               id="name"
-               required
-               [(ngModel)]="userData.username"
-               name="name"
-            ></ion-input>
-         </ion-item>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12">
+        <p>
+          Para que você possa cancelar a sua conta, escreva nos campos as
+          informação indicadas
+        </p>
+      </ion-col>
+    </ion-row>
+    <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+      <ion-item>
+        <ion-label position="stacked">
+          Your username
+        </ion-label>
+        <ion-input
+          type="text"
+          class="form-control"
+          id="username"
+          name="username"
+          formControlName="username"
+        ></ion-input>
+      </ion-item>
 
-         <ion-item>
-            <ion-label position="stacked">
-               Your Email:
-            </ion-label>
-            <ion-input
-               type="email"
-               class="form-control"
-               id="email"
-               required
-               [(ngModel)]="userData.email"
-               name="email"
-            ></ion-input>
-         </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          Your email:
+        </ion-label>
+        <ion-input
+          type="email"
+          class="form-control"
+          id="email"
+          name="email"
+          formControlName="email"
+        ></ion-input>
+      </ion-item>
 
-         <ion-button type="submit" color="danger" expand="block" bottom>
-            Delete Account
-         </ion-button>
-      </form>
-   </ion-grid>
+      <ion-item>
+        <ion-label position="stacked">
+          Your password:
+        </ion-label>
+        <ion-input
+          type="password"
+          class="form-control"
+          id="password"
+          name="password"
+          formControlName="password"
+        ></ion-input>
+      </ion-item>
+
+      <ion-button
+        [disabled]="form.invalid || isLoading"
+        type="submit"
+        color="danger"
+        expand="block"
+        bottom
+      >
+        <ng-container *ngIf="!isLoading">
+          Delete Account
+        </ng-container>
+        <ng-container *ngIf="isLoading">
+          Loading...
+        </ng-container>
+      </ion-button>
+
+      <ion-item
+        *ngIf="form.controls.email.hasError('required') &&
+				 form.controls.email.pristine == false"
+      >
+        <ion-label>
+          <ion-text color="danger">
+            Email is required
+          </ion-text>
+        </ion-label>
+      </ion-item>
+      <ion-item
+        *ngIf="form.controls.username.hasError('required') &&
+				 form.controls.username.pristine == false"
+      >
+        <ion-label>
+          <ion-text color="danger">
+            Username is required
+          </ion-text>
+        </ion-label>
+      </ion-item>
+      <ion-item
+        *ngIf="form.controls.password.hasError('required') &&
+				 form.controls.password.pristine == false"
+      >
+        <ion-label>
+          <ion-text color="danger">
+            Password is required
+          </ion-text>
+        </ion-label>
+      </ion-item>
+
+      <ng-container *ngIf="errors.length > 0">
+        <ion-list>
+          <ion-item *ngFor="let error of errors">
+            <ion-label>
+              <ion-text color="danger">
+                {{error}}
+              </ion-text>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ng-container>
+    </form>
+  </ion-grid>
 </ion-content>

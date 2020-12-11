@@ -8,34 +8,31 @@ import { UserProfile } from 'src/app/interfaces/user-profile';
 import { Observable } from 'rxjs';
 
 @Component({
-   selector: 'app-settings',
-   templateUrl: './settings.page.html',
-   styleUrls: ['./settings.page.scss'],
+  selector: 'app-settings',
+  templateUrl: './settings.page.html',
+  styleUrls: ['./settings.page.scss'],
 })
 export class SettingsPage implements OnInit {
-   public profile: Observable<UserProfile>;
-   public isPageLoading: boolean;
+  public profile: Observable<UserProfile>;
+  public isPageLoading: boolean;
 
-   constructor(
-      private authService: AuthService,
-      private afa: AngularFireAuth,
-      private userManager: UserManagerService
-   ) {}
+  constructor(
+    private authService: AuthService,
+    private afa: AngularFireAuth,
+    private userManager: UserManagerService
+  ) {}
 
-   ngOnInit(): void {
-      this.isPageLoading = true;
-      this.afa.user.pipe(take(1), retry(2)).subscribe((user: firebase.User) => {
-         user.getIdToken().then((token: string) => {
-            this.profile = this.userManager.getUserProfileByUID(
-               user.uid,
-               token
-            );
-            this.isPageLoading = false;
-         });
+  ngOnInit(): void {
+    this.isPageLoading = true;
+    this.afa.user.pipe(take(1), retry(2)).subscribe((user: firebase.User) => {
+      user.getIdToken().then((token: string) => {
+        this.profile = this.userManager.getUserProfileByUID(user.uid, token);
+        this.isPageLoading = false;
       });
-   }
+    });
+  }
 
-   public logout() {
-      this.authService.logout();
-   }
+  public logout() {
+    this.authService.logout();
+  }
 }
