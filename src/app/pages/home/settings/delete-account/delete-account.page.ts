@@ -80,12 +80,12 @@ export class DeleteAccountPage implements OnInit {
                     .deleteAccount(uid, token)
                     .pipe(retry(2), take(1))
                     .subscribe((userRes: any) => {
+                      this.isLoading = false;
                       if (userRes.deleted === true) {
                         this.logout();
                       } else {
                         this.errors.push('Something Went Wrong');
                       }
-                      this.isLoading = false;
                     });
                 } else {
                   this.errors.push('Something Went Wrong');
@@ -114,6 +114,7 @@ export class DeleteAccountPage implements OnInit {
   }
 
   public handleSubmit() {
+    this.errors = [];
     this.isLoading = true;
 
     const user: User = {
@@ -136,12 +137,14 @@ export class DeleteAccountPage implements OnInit {
               if (email === user.email && username === user.username) {
                 reauthResponse = await this.reauthenticateUser(user);
               } else {
+                this.isLoading = false;
                 this.errors.push('User data do not match');
               }
 
               if (reauthResponse === true) {
                 this.confirmAccountDeletion();
               } else {
+                this.isLoading = false;
                 this.errors.push('Authentication failed');
               }
             });
