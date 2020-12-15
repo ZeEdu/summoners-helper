@@ -12,6 +12,7 @@
 Thumbs.db
 UserInterfaceState.xcuserstate
 $RECYCLE.BIN/
+sh-app.code-workspace 
 
 *.log
 log.txt
