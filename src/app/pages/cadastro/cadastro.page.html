@@ -16,7 +16,7 @@
       <ion-input primary type="text" formControlName="username"></ion-input>
     </ion-item>
     <ion-item
-      color="danger"
+      class="error-message"
       *ngIf="frmSignup.controls['username'].hasError('required')  &&
             frmSignup.controls['username'].pristine == false"
     >
@@ -25,7 +25,7 @@
       </ion-label>
     </ion-item>
     <ion-item
-      color="danger"
+      class="error-message"
       *ngIf="frmSignup.controls['username'].hasError('alphanumeric') &&
             frmSignup.controls['username'].pristine == false"
     >
@@ -34,7 +34,7 @@
       </ion-label>
     </ion-item>
     <ion-item
-      color="danger"
+      class="error-message"
       *ngIf="frmSignup.controls['username'].hasError('minlength') &&
             frmSignup.controls['username'].pristine == false"
     >
@@ -43,7 +43,7 @@
       </ion-label>
     </ion-item>
     <ion-item
-      color="danger"
+      class="error-message"
       *ngIf="frmSignup.controls['username'].hasError('maxlength') &&
             frmSignup.controls['username'].pristine == false"
     >
@@ -52,7 +52,7 @@
       </ion-label>
     </ion-item>
     <ion-item
-      color="danger"
+      class="error-message"
       *ngIf="frmSignup.controls['username'].hasError('isusernametaken') &&
             frmSignup.controls['username'].dirty"
     >
@@ -61,7 +61,7 @@
       </ion-label>
     </ion-item>
     <ion-item
-      color="success"
+      class="success-message"
       *ngIf="frmSignup.controls['username'].hasError('isusernametaken') == false &&
             frmSignup.controls['username'].pristine == false && frmSignup.controls['username'].valid"
     >
@@ -74,7 +74,7 @@
       <ion-input primary type="email" formControlName="email"></ion-input>
     </ion-item>
     <ion-item
-      color="danger"
+      class="error-message"
       *ngIf="frmSignup.controls['email'].hasError('required') &&
             frmSignup.controls['email'].pristine == false"
     >
@@ -83,7 +83,7 @@
       </ion-label>
     </ion-item>
     <ion-item
-      color="danger"
+      class="error-message"
       *ngIf="(frmSignup.controls['email'].hasError('email') || frmSignup.controls['email'].hasError('invalidemailformat')) &&
             frmSignup.controls['email'].pristine == false"
     >
@@ -92,7 +92,7 @@
       </ion-label>
     </ion-item>
     <ion-item
-      color="danger"
+      class="error-message"
       *ngIf="frmSignup.controls['email'].hasError('isemailtaken') &&
             frmSignup.controls['email'].pristine == false"
     >
@@ -116,7 +116,7 @@
       <ion-input primary type="password" formControlName="password"></ion-input>
     </ion-item>
     <ion-item
-      color="danger"
+      class="error-message"
       *ngIf="(frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].value === '') &&
             frmSignup.controls['password'].dirty"
     >
@@ -125,7 +125,7 @@
       </ion-label>
     </ion-item>
     <ion-item
-      color="danger"
+      class="error-message"
       *ngIf="frmSignup.controls['password'].hasError('minlength') &&
                 frmSignup.controls['password'].dirty"
     >
@@ -134,7 +134,7 @@
       </ion-label>
     </ion-item>
     <ion-item
-      color="danger"
+      class="error-message"
       *ngIf="frmSignup.controls['password'].hasError('maxlength') &&
                 frmSignup.controls['password'].dirty"
     >
@@ -158,7 +158,7 @@
       ></ion-input>
     </ion-item>
     <ion-item
-      color="danger"
+      class="error-message"
       *ngIf="frmSignup.controls['password'].valid && frmSignup.controls['confirmPassword'].dirty && frmSignup.controls['confirmPassword'].invalid"
     >
       <ion-label>

@@ -1,19 +1,25 @@
 .heading {
-   font-size: 20px;
+  font-size: 20px;
 }
 
 ion-content {
-   ion-item {
-      max-width: 80%;
-      margin: 10px auto;
+  ion-item {
+    max-width: 80%;
+    margin: 10px auto;
 
-      ion-input {
-         color: #fff;
-      }
-   }
+    ion-input {
+      color: #fff;
+    }
+  }
+  ion-item.error-message {
+    color: var(--ion-color-danger);
+  }
+  ion-item.success-message {
+    color: var(--ion-color-success);
+  }
 
-   ion-button {
-      max-width: 80%;
-      margin: 16px auto;
-   }
+  ion-button {
+    max-width: 80%;
+    margin: 16px auto;
+  }
 }

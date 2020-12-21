@@ -12,81 +12,81 @@ import { environment } from 'src/environments/environment';
 import { take } from 'rxjs/operators';
 
 @Component({
-   selector: 'app-champion',
-   templateUrl: './champion.page.html',
-   styleUrls: ['./champion.page.scss'],
+  selector: 'app-champion',
+  templateUrl: './champion.page.html',
+  styleUrls: ['./champion.page.scss'],
 })
 export class ChampionPage implements OnInit {
-   @ViewChild(IonInfiniteScroll, { static: false }) infinite: IonInfiniteScroll;
-   @ViewChild(IonSlides, { static: false }) slides: IonSlides;
+  @ViewChild(IonInfiniteScroll, { static: false }) infinite: IonInfiniteScroll;
+  @ViewChild(IonSlides, { static: false }) slides: IonSlides;
 
-   page = 0;
-   public builds: Array<Builds> = [];
-   public championData: Champion;
-   public segmentPosition = 0;
-   public segment = 0;
-   public selectedSlide: any;
-   public sliderOptions = {
-      initialSlide: 0,
-      slidesPerView: 1,
-      speed: 400,
-   };
-   public resUrl = environment.backendBaseUrl;
-   public patchVersion = environment.patchVersion;
+  page = 0;
+  public builds: Array<Builds> = [];
+  public championData: Champion;
+  public segmentPosition = 0;
+  public segment = 0;
+  public selectedSlide: any;
+  public sliderOptions = {
+    initialSlide: 0,
+    slidesPerView: 1,
+    speed: 400,
+  };
+  public resUrl = environment.backendBaseUrl;
+  public patchVersion = environment.patchVersion;
 
-   constructor(
-      private buildService: BuildManagerService,
-      private dDragonHandler: DataDragonHandlerService,
-      private route: ActivatedRoute,
-      public safeHtml: SafeHtmlPipe,
-      private afa: AngularFireAuth
-   ) {}
+  constructor(
+    private buildService: BuildManagerService,
+    private dDragonHandler: DataDragonHandlerService,
+    private route: ActivatedRoute,
+    public safeHtml: SafeHtmlPipe,
+    private afa: AngularFireAuth
+  ) {}
 
-   ngOnInit() {
-      const id = this.getChampionID();
+  ngOnInit() {
+    const id = this.getChampionID();
 
-      this.dDragonHandler
-         .getChampionByID(id)
-         .pipe(take(1))
-         .subscribe(
-            (response: LoLResponse) => (this.championData = response.data[id])
-         );
+    this.dDragonHandler
+      .getChampionByID(id)
+      .pipe(take(1))
+      .subscribe(
+        (response: LoLResponse) => (this.championData = response.data[id])
+      );
 
-      this.loadGuides();
-   }
+    this.loadGuides();
+  }
 
-   private getChampionID(): string {
-      return this.route.snapshot.paramMap.get('id');
-   }
+  private getChampionID(): string {
+    return this.route.snapshot.paramMap.get('id');
+  }
 
-   public async segmentChanged(event: any) {
-      await this.selectedSlide.slideTo(this.segment);
-   }
+  public async segmentChanged(event: any) {
+    await this.selectedSlide.slideTo(this.segment);
+  }
 
-   public async slideChanged(slides: IonSlides) {
-      this.selectedSlide = slides;
-      slides
-         .getActiveIndex()
-         .then((selectedIndex) => (this.segment = selectedIndex));
-   }
+  public async slideChanged(slides: IonSlides) {
+    this.selectedSlide = slides;
+    slides
+      .getActiveIndex()
+      .then((selectedIndex) => (this.segment = selectedIndex));
+  }
 
-   public loadGuides(loadMore = false, event?) {
-      if (loadMore) this.page++;
+  public loadGuides(loadMore = false, event?) {
+    if (loadMore) this.page++;
 
-      this.afa.idToken.subscribe((token) => {
-         if (token) {
-            this.buildService
-               .getBuildByChampionID(this.getChampionID(), token, this.page)
-               .pipe(take(1))
-               .subscribe(
-                  (response: Array<Builds>) =>
-                     (this.builds = [...this.builds, ...response])
-               );
-         }
-      });
-
-      if (event) {
-         event.target.complete();
+    this.afa.idToken.subscribe((token) => {
+      if (token) {
+        this.buildService
+          .getBuildByChampionID(this.getChampionID(), token, this.page)
+          .pipe(take(1))
+          .subscribe(
+            (response: Array<Builds>) =>
+              (this.builds = [...this.builds, ...response])
+          );
       }
-   }
+    });
+
+    if (event) {
+      event.target.complete();
+    }
+  }
 }

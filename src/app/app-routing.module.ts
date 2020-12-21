@@ -64,6 +64,7 @@ const routes: Routes = [
   },
   {
     path: 'change-password',
+    canActivate: [AuthGuard],
     loadChildren:
       './pages/home/settings/change-password/change-password.module#ChangePasswordPageModule',
   },

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { User } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
@@ -12,8 +12,7 @@ import { CustomAsyncValidators } from '../../validations/custom-async-validators
 import { CustomValidators } from '../../validations/custom-validators';
 import { UserManagerService } from 'src/app/services/user-manager.service';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { takeUntil, take, retry, catchError } from 'rxjs/operators';
-import { of, throwError } from 'rxjs';
+import { take, retry } from 'rxjs/operators';
 
 @Component({
   selector: 'app-cadastro',
@@ -21,6 +20,7 @@ import { of, throwError } from 'rxjs';
   styleUrls: ['./cadastro.page.scss'],
 })
 export class CadastroPage implements OnInit {
+  public helloWorld = 'Hello';
   public frmSignup: FormGroup;
   public userRegister: User = {};
   public usernameValue: string;
