@@ -18,62 +18,34 @@
   </ng-container>
 
   <ng-container *ngIf="connectionFailed && !isLoading">
-    <div class="error-holder">
-      <div class="error">
-        <img src="../../../../assets/server-down.svg" alt="" />
-        <h1>
-          <ion-text color="primary">
-            Oops
-          </ion-text>
-        </h1>
-        <p>We couldn't connect to our servers</p>
-        <ion-button (click)="loadGuides()">Try Again?</ion-button>
-      </div>
-    </div>
+    <app-error-message
+      [messageTitle]="'Something went Wrong'"
+      [messageText]="'We couldn\'t connect to our servers'"
+      [imageSource]="'../../../../assets/server-down.svg'"
+      [tryAgainMessage]="'Try Again?'"
+      (reloadEmitter)="callLoad($event)"
+    ></app-error-message>
   </ng-container>
   <ng-container *ngIf="userBuilds && userBuilds.length > 0 && !isLoading">
-    <p>Lista de Guias</p>
-    <ion-grid class="ion-padding">
-      <ion-list>
-        <ion-item *ngFor="let build of userBuilds; index as i;">
-          <ion-avatar slot="start">
-            <ion-img
-              src="{{resUrl}}/{{patchVersion}}/img/champion/{{build.champion}}.png"
-            >
-            </ion-img>
-          </ion-avatar>
-          <ion-label>
-            <a routerLink="build-view/{{build._id}}" class="link-style">
-              <ion-text color="primary">
-                <h3>{{build.name}}</h3>
-              </ion-text>
-              <ion-text color="light">
-                <h4>
-                  {{build.patch}}
-                </h4>
-              </ion-text>
-            </a>
-          </ion-label>
-          <a routerLink="build-edit/{{build._id}}">
-            <ion-icon color="primary" slot="end" name="build"></ion-icon>
-          </a>
-          <ion-icon
-            color="primary"
-            slot="end"
-            name="close"
-            (click)="presentAlertConfirm(build.name, build._id)"
-          ></ion-icon>
-        </ion-item>
-      </ion-list>
+    <ion-list>
+      <ion-list-header>
+        <ion-label>Your Guides</ion-label>
+      </ion-list-header>
+      <ng-container *ngFor="let build of userBuilds; index as i;">
+        <app-guide-item
+          [guide]="build"
+          (presentAlert)="callPresentAlertCofirm($event)"
+        ></app-guide-item>
+      </ng-container>
+    </ion-list>
 
-      <ion-infinite-scroll (ionInfinite)="loadGuides(true, $event)">
-        <ion-infinite-scroll-content
-          loadingSpinner="bubbles"
-          loadingText="Loading more guides..."
-        >
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
-    </ion-grid>
+    <ion-infinite-scroll (ionInfinite)="loadGuides(true, $event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading more guides..."
+      >
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
   </ng-container>
 
   <ng-container *ngIf="isLoading">

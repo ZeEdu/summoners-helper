@@ -6,11 +6,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ChampionPage } from './champion.page';
-import { SafeHtmlPipe } from 'src/app/pipes/safe-html.pipe';
+import { AuthGuard } from 'src/app/guards/auth.guard';
+import { ApplicationSharedPipesModule } from 'src/app/shared/application-pipes/application-pipes.module';
 
 const routes: Routes = [
   {
     path: '',
+    canActivate: [AuthGuard],
     component: ChampionPage,
   },
 ];
@@ -21,8 +23,8 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
+    ApplicationSharedPipesModule,
   ],
   declarations: [ChampionPage],
-  providers: [SafeHtmlPipe],
 })
 export class ChampionPageModule {}

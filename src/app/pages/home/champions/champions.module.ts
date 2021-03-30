@@ -6,6 +6,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ChampionsPage } from './champions.page';
+import { ApplicationSharedPipesModule } from 'src/app/shared/application-pipes/application-pipes.module';
+import { ChampionItemComponent } from 'src/app/components/champion-item/champion-item.component';
+import { ApplicationSharedComponentsModule } from 'src/app/shared/application-pipes/application-components.module';
 
 const routes: Routes = [
   {
@@ -20,7 +23,10 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
+    ApplicationSharedPipesModule,
+    ApplicationSharedComponentsModule,
   ],
-  declarations: [ChampionsPage],
+  declarations: [ChampionsPage, ChampionItemComponent],
+  providers: [],
 })
 export class ChampionsPageModule {}

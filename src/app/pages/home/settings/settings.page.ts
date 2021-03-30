@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { UserManagerService } from 'src/app/services/user-manager.service';
-import { retry, take } from 'rxjs/operators';
+import { catchError, retry, take } from 'rxjs/operators';
 import { User } from 'src/app/interfaces/user';
 import { UserProfile } from 'src/app/interfaces/user-profile';
 import { Observable } from 'rxjs';
@@ -14,7 +14,8 @@ import { Observable } from 'rxjs';
 })
 export class SettingsPage implements OnInit {
   public profile: Observable<UserProfile>;
-  public isPageLoading: boolean;
+  public isLoading: boolean;
+  public connectionSuccess: boolean;
 
   constructor(
     private authService: AuthService,
@@ -22,14 +23,51 @@ export class SettingsPage implements OnInit {
     private userManager: UserManagerService
   ) {}
 
-  ngOnInit(): void {
-    this.isPageLoading = true;
-    this.afa.user.pipe(take(1), retry(2)).subscribe((user: firebase.User) => {
-      user.getIdToken().then((token: string) => {
-        this.profile = this.userManager.getUserProfileByUID(user.uid, token);
-        this.isPageLoading = false;
+  public reloadData(): void {
+    this.loadData();
+  }
+
+  private loadData(): void {
+    this.isLoading = true;
+    this.afa.user
+      .pipe(
+        take(1),
+        retry(2),
+        catchError((_) => {
+          this.connectionSuccess = false;
+          throw new Error('Could not estabilish connection.');
+        })
+      )
+      .subscribe((user: firebase.User) => {
+        user
+          .getIdToken()
+          .then((token: string) => {
+            try {
+              this.profile = this.userManager
+                .getUserProfileByUID(user.uid, token)
+                .pipe(
+                  take(1),
+                  retry(2),
+                  catchError((_) => {
+                    this.connectionSuccess = false;
+                    throw new Error('Error in server. ');
+                  })
+                );
+              this.connectionSuccess = true;
+            } catch (error) {
+              console.log('Enter Catch');
+            }
+          })
+          .catch((err) => {
+            this.connectionSuccess = false;
+            console.log('Error');
+          })
+          .finally(() => (this.isLoading = false));
       });
-    });
+  }
+
+  ngOnInit(): void {
+    this.loadData();
   }
 
   public logout() {

@@ -1,0 +1,20 @@
+<ion-item routerLink="{{ champion.id }}">
+  <ion-avatar slot="start">
+    <ion-img
+      src="{{ resUrl }}/{{ patchVersion }}/img/champion/{{
+        champion.image.full
+      }}"
+    >
+    </ion-img>
+  </ion-avatar>
+  <ion-label>
+    <ion-text color="primary">
+      <p>
+        {{ champion.name }}
+      </p>
+    </ion-text>
+    <ion-text color="light">
+      <p class="title">{{ champion.title }}</p>
+    </ion-text>
+  </ion-label>
+</ion-item>

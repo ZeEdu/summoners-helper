@@ -3,19 +3,19 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-   production: false,
-   firebase: {
-      apiKey: 'AIzaSyAxOX-2jIekbF-E_TUjejsO99p5j4YvGTk',
-      authDomain: 'summoners-helper-dev.firebaseapp.com',
-      databaseURL: 'https://summoners-helper-dev.firebaseio.com',
-      projectId: 'summoners-helper-dev',
-      storageBucket: 'summoners-helper-dev.appspot.com',
-      messagingSenderId: '663752846896',
-      appId: '1:663752846896:web:af4fab6144660d885707f5',
-      measurementId: 'G-8XL0KJHZ99',
-   },
-   backendBaseUrl: 'http://localhost:3000',
-   patchVersion: '10.7.1',
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyAxOX-2jIekbF-E_TUjejsO99p5j4YvGTk',
+    authDomain: 'summoners-helper-dev.firebaseapp.com',
+    databaseURL: 'https://summoners-helper-dev.firebaseio.com',
+    projectId: 'summoners-helper-dev',
+    storageBucket: 'summoners-helper-dev.appspot.com',
+    messagingSenderId: '663752846896',
+    appId: '1:663752846896:web:af4fab6144660d885707f5',
+    measurementId: 'G-8XL0KJHZ99',
+  },
+  backendBaseUrl: 'http://localhost:3000',
+  patchVersion: '10.7.1',
 };
 
 /*

@@ -15,6 +15,15 @@ const routes: Routes = [
         path: 'champions',
         loadChildren: './champions/champions.module#ChampionsPageModule',
       },
+
+      {
+        path: 'champions/:id',
+        loadChildren: './champions/champion/champion.module#ChampionPageModule',
+      },
+      {
+        path: 'champions/:id/:guideid',
+        loadChildren: './champions/champion/guide/guide.module#GuidePageModule',
+      },
       {
         path: 'settings',
         loadChildren: './settings/settings.module#SettingsPageModule',

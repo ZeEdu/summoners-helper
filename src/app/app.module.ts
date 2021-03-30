@@ -11,7 +11,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP } from '@ionic-native/http/ngx';
-import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,7 +29,6 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     HTTP,
-    SafeHtmlPipe,
   ],
   bootstrap: [AppComponent],
   exports: [],

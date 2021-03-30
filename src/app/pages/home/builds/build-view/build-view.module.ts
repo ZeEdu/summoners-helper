@@ -6,25 +6,25 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { BuildViewPage } from './build-view.page';
-import { SafeHtmlPipe } from 'src/app/pipes/safe-html.pipe';
-import { ApplicationPipesModule } from 'src/app/pipes/application-pipes/application-pipes.module';
+import { ApplicationSharedPipesModule } from 'src/app/shared/application-pipes/application-pipes.module';
 
 const routes: Routes = [
-   {
-      path: '',
-      component: BuildViewPage,
-   },
+  {
+    path: '',
+    component: BuildViewPage,
+  },
 ];
 
 @NgModule({
-   imports: [
-      CommonModule,
-      FormsModule,
-      IonicModule,
-      RouterModule.forChild(routes),
-      ApplicationPipesModule,
-   ],
-   declarations: [BuildViewPage],
-   providers: [SafeHtmlPipe],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    RouterModule.forChild(routes),
+    ApplicationSharedPipesModule,
+    ApplicationSharedPipesModule,
+  ],
+  declarations: [BuildViewPage],
+  providers: [],
 })
 export class BuildViewPageModule {}

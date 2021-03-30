@@ -21,12 +21,6 @@ const routes: Routes = [
     canActivate: [LoginGuard],
   },
   {
-    path: 'home/tabs/champions/champion/:id',
-    canActivate: [AuthGuard],
-    loadChildren:
-      './pages/home/champions/champion/champion.module#ChampionPageModule',
-  },
-  {
     path: 'home/tabs/builds/build-modelling',
     canActivate: [AuthGuard],
     loadChildren:

@@ -1,40 +1,49 @@
 <ion-header>
-   <ion-toolbar>
-      <ion-title color="primary">
-         User Profile
-      </ion-title>
-   </ion-toolbar>
+  <ion-toolbar>
+    <ion-title color="primary">
+      User Profile
+    </ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-   <ng-container *ngIf="isPageLoading && !profile">
-      <ion-spinner name="crescent"></ion-spinner>
-   </ng-container>
-   <ng-container *ngIf="profile | async as info">
-      <ion-list lines="none">
-         <ion-item>
-            <ion-label color="primary">Username</ion-label>
-            {{info.username}}
-         </ion-item>
-         <ion-item>
-            <ion-label color="primary">Email</ion-label>
-            {{info.email}}
-         </ion-item>
-         <ion-item>
-            <ion-label color="primary">Joined Date</ion-label>
-            {{info.joined | date}}
-         </ion-item>
-         <ion-item button="true" routerLink="/delete-account"
-            >Delete Account</ion-item
-         >
-         <ion-item button="true" routerLink="/change-password"
-            >Change Password</ion-item
-         >
-      </ion-list>
-   </ng-container>
+  <ng-container *ngIf="isLoading && !profile">
+    <ion-spinner name="crescent"></ion-spinner>
+  </ng-container>
+  <ng-container *ngIf="!connectionSuccess && !isLoading">
+    <app-error-message
+      [messageTitle]="'Something went Wrong'"
+      [messageText]="'We couldn\'t connect to our servers'"
+      [imageSource]="'../../../../assets/server-down.svg'"
+      [tryAgainMessage]="'Try Again?'"
+      (reloadEmitter)="reloadData($event)"
+    ></app-error-message>
+  </ng-container>
+  <ng-container *ngIf="profile | async as info">
+    <ion-list lines="none">
+      <ion-item>
+        <ion-label color="primary">Username</ion-label>
+        {{info.username}}
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary">Email</ion-label>
+        {{info.email}}
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary">Joined Date</ion-label>
+        {{info.joined | date}}
+      </ion-item>
+      <ion-item button="true" routerLink="/delete-account"
+        >Delete Account</ion-item
+      >
+      <ion-item button="true" routerLink="/change-password"
+        >Change Password</ion-item
+      >
+    </ion-list>
+  </ng-container>
 </ion-content>
 <ion-footer>
-   <ion-button (click)="logout()" color="danger" expand="block" bottom>
-      Exit
-   </ion-button>
+  <ion-button (click)="logout()" color="danger" expand="block" bottom>
+    Exit
+  </ion-button>
 </ion-footer>

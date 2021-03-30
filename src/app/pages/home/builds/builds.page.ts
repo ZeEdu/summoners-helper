@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { catchError, retry, take } from 'rxjs/operators';
+import { EmitGuideInfo } from 'src/app/interfaces/emit-guide-info';
 
 @Component({
   selector: 'app-builds',
@@ -90,13 +91,9 @@ export class BuildsPage implements OnInit, OnDestroy {
     }
   }
 
-  //  private getAllBuilds(uid: string, token: string, page = 0) {
-  //     this.page = page;
-  //     this.buildService
-  //        .getBuildByUserUID(uid, token, page)
-  //        .pipe(take(1))
-  //        .subscribe((r: Array<Builds>) => (this.userBuilds = r));
-  //  }
+  public callPresentAlertCofirm(emittedGuide: EmitGuideInfo) {
+    this.presentAlertConfirm(emittedGuide.name, emittedGuide.id);
+  }
 
   protected async presentAlertConfirm(guideName: string, id: Id) {
     const alert = await this.alertController.create({
@@ -133,7 +130,7 @@ export class BuildsPage implements OnInit, OnDestroy {
             this.presentToast(
               'Successfully deleted your build! Page will be reloaded'
             );
-            this.reloadPage();
+            this.reloadContent();
           },
           (err) => {
             this.presentToast(err.name);
@@ -143,10 +140,15 @@ export class BuildsPage implements OnInit, OnDestroy {
     });
   }
 
-  protected reloadPage() {
+  public callLoad(emitter: boolean): void {
+    if (emitter === true) this.loadGuides();
+  }
+
+  protected reloadContent(): void {
     setTimeout(() => {
       this.isLoading = true;
       this.userBuilds = [];
+      this.page = 0;
       this.afa.user.pipe(take(1)).subscribe((user) => {
         user.getIdToken().then((token) => {
           this.buildService

@@ -1,55 +1,43 @@
 <ion-header class="body-margin">
-   <ion-toolbar>
-      <ion-title>Champions</ion-title>
-   </ion-toolbar>
+  <ion-toolbar>
+    <ion-title>Champions</ion-title>
+  </ion-toolbar>
 </ion-header>
 <ion-content class="padding">
-   <ng-container *ngIf="isLoading">
-      <ion-spinner name="crescent"></ion-spinner>
-   </ng-container>
+  <ng-container *ngIf="isLoading">
+    <ion-spinner name="crescent"></ion-spinner>
+  </ng-container>
 
-   <ng-container *ngIf="connectionFailed && !isLoading">
-      <div class="error-holder">
-         <div class="error">
-            <img src="../../../../assets/server-down.svg" alt="" />
-            <h1>
-               <ion-text color="primary">
-                  Oops
-               </ion-text>
-            </h1>
-            <p>We couldn't connect to our servers</p>
-            <ion-button (click)="reloadContent()">Try Again?</ion-button>
-         </div>
-      </div>
-   </ng-container>
+  <ng-container *ngIf="connectionFailed && !isLoading">
+    <app-error-message
+      [messageTitle]="'Something went Wrong'"
+      [messageText]="'We couldn\'t connect to our servers'"
+      [imageSource]="'../../../../assets/server-down.svg'"
+      [tryAgainMessage]="'Try Again?'"
+      (reloadEmitter)="callLoadContent($event)"
+    ></app-error-message>
+  </ng-container>
 
-   <ion-list *ngIf="champions">
-      <ion-list-header>
-         <ion-label>Select a Champion</ion-label>
-      </ion-list-header>
+  <ion-list *ngIf="champions">
+    <ion-list-header>
+      <ion-label>Select a Champion</ion-label>
+    </ion-list-header>
 
-      <ion-virtual-scroll [items]="champions" approxItemHeight="67px">
-         <ion-item
-            routerLink="champion/{{champion.id}}"
-            *virtualItem="let champion;"
-         >
-            <ion-avatar slot="start">
-               <ion-img
-                  src="{{resUrl}}/{{patchVersion}}/img/champion/{{champion.image.full}}"
-               >
-               </ion-img>
-            </ion-avatar>
-            <ion-label>
-               <ion-text color="primary">
-                  <p>
-                     {{ champion.name }}
-                  </p>
-               </ion-text>
-               <ion-text color="light">
-                  <p class="title">{{ champion.title }}</p>
-               </ion-text>
-            </ion-label>
-         </ion-item>
-      </ion-virtual-scroll>
-   </ion-list>
+    <ion-virtual-scroll [items]="champions">
+      <ng-container *virtualItem="let champion">
+        <app-champion-item [champion]="champion"></app-champion-item>
+      </ng-container>
+    </ion-virtual-scroll>
+
+    <ion-infinite-scroll
+      threshold="100px"
+      (ionInfinite)="callLoadContent($event)"
+    >
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading more champions..."
+      >
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-list>
 </ion-content>

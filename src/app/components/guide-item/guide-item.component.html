@@ -1,0 +1,31 @@
+<ion-item>
+  <ion-avatar slot="start">
+    <ion-img
+      src="{{ resUrl }}/{{ patchVersion }}/img/champion/{{
+        guide.champion
+      }}.png"
+    >
+    </ion-img>
+  </ion-avatar>
+  <ion-label>
+    <a routerLink="build-view/{{ guide._id }}" class="link-style">
+      <ion-text color="primary">
+        <h3>{{ guide.name }}</h3>
+      </ion-text>
+      <ion-text color="light">
+        <h4>
+          {{ guide.patch }}
+        </h4>
+      </ion-text>
+    </a>
+  </ion-label>
+  <a routerLink="build-edit/{{ guide._id }}">
+    <ion-icon color="primary" slot="end" name="build"></ion-icon>
+  </a>
+  <ion-icon
+    color="primary"
+    slot="end"
+    name="close"
+    (click)="EmmitPresentAlertConfirm(guide.name, guide._id)"
+  ></ion-icon>
+</ion-item>

@@ -1,0 +1,20 @@
+.error-holder,
+.alert-holder {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  .error,
+  .alert {
+    img {
+      max-width: 75%;
+    }
+  }
+  .alert {
+    p {
+      max-width: 75%;
+      margin: 0 auto;
+    }
+  }
+}

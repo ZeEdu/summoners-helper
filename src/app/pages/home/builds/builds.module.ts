@@ -6,21 +6,28 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { BuildsPage } from './builds.page';
+import { SafeHtmlPipe } from 'src/app/shared/application-pipes/safe-html.pipe';
+import { GuideItemComponent } from 'src/app/components/guide-item/guide-item.component';
+import { ApplicationSharedPipesModule } from 'src/app/shared/application-pipes/application-pipes.module';
+import { ApplicationSharedComponentsModule } from 'src/app/shared/application-pipes/application-components.module';
 
 const routes: Routes = [
-   {
-      path: '',
-      component: BuildsPage,
-   },
+  {
+    path: '',
+    component: BuildsPage,
+  },
 ];
 
 @NgModule({
-   imports: [
-      CommonModule,
-      FormsModule,
-      IonicModule,
-      RouterModule.forChild(routes),
-   ],
-   declarations: [BuildsPage],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    RouterModule.forChild(routes),
+    ApplicationSharedPipesModule,
+    ApplicationSharedComponentsModule,
+  ],
+  declarations: [BuildsPage, GuideItemComponent],
+  providers: [SafeHtmlPipe],
 })
 export class BuildsPageModule {}
