@@ -16,7 +16,8 @@ import { SafeHtmlPipe } from 'src/app/shared/application-pipes/safe-html.pipe';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { ChampionInfo } from 'src/app/interfaces/champion';
-import { take } from 'rxjs/operators';
+import { retry, take } from 'rxjs/operators';
+import { GetChampions } from 'src/app/interfaces/get-champions';
 
 @Component({
   selector: 'app-guide',
@@ -28,6 +29,7 @@ export class GuidePage implements OnInit {
   slideOpts = {
     initialSlide: 0,
   };
+
   public guideCreatorUsername: string;
   public guide: Guide;
   public paths: PathResponse[];
@@ -46,7 +48,7 @@ export class GuidePage implements OnInit {
   public secondSpell: Spell;
   public resUrl = environment.backendBaseUrl;
 
-  public champions: { [key: string]: Champion };
+  public championThreats: GetChampions[];
   public spells: Spell[];
   public items: { [key: string]: Item };
   public secondaryPathData: PathResponse;
@@ -139,7 +141,7 @@ export class GuidePage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.afa.idToken.pipe(take(1)).subscribe((token) => {
+    this.afa.idToken.pipe(retry(2), take(1)).subscribe((token) => {
       this.buildService
         .getBuildByID(this.route.snapshot.paramMap.get('guideid'), token)
         .subscribe((guide: Guide) => {
@@ -153,10 +155,10 @@ export class GuidePage implements OnInit {
                 (this.guideCreatorUsername = creatorUsername)
             );
           this.ddHandler
-            .getChampions()
+            .getChampionThreats(this.guide._id)
             .pipe(take(1))
             .subscribe(
-              (response: ChampionsResponse) => (this.champions = response.data)
+              (response: GetChampions[]) => (this.championThreats = response)
             );
           this.ddHandler
             .getRunes()
@@ -209,6 +211,7 @@ export class GuidePage implements OnInit {
                 (spell) => guide.spells.second === spell.id
               );
             });
+
           this.ddHandler
             .getItems()
             .pipe(take(1))

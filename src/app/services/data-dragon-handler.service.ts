@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ItemResponse } from '../interfaces/items';
 import { environment } from 'src/environments/environment';
 import { Observable, of } from 'rxjs';
+import { GetChampions } from '../interfaces/get-champions';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,12 @@ export class DataDragonHandlerService {
     return (error: any): Observable<T> => {
       return of(result as T);
     };
+  }
+
+  public getChampionThreats(guideId: string) {
+    return this.http.get(
+      `${this.apiUrl}/${this.championsRoute}/data/threats/${guideId}`
+    );
   }
 
   public getChampions(page = 0) {

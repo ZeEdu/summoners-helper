@@ -1,81 +1,73 @@
 ion-content {
-   ion-segment {
-      ion-segment-button {
-         color: #ffffff;
-         font-size: 12px;
-      }
+  ion-segment {
+    ion-segment-button {
+      color: #ffffff;
+      font-size: 12px;
+    }
 
-      .segment-button-checked {
-         color: #9ca6f7;
-      }
-   }
+    .segment-button-checked {
+      color: #9ca6f7;
+    }
+  }
 
-   .container {
-      position: relative;
-      max-width: 100%;
+  .container {
+    position: relative;
+    // max-width: 100%;
 
-      .image {
-         display: block;
-         width: 100%;
-         height: auto;
-      }
+    .image {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
 
-      .overlay {
-         position: absolute;
-         width: 100%;
-         font-size: 1rem;
-      }
+    .overlay {
+      position: absolute;
+      width: 100%;
+      font-size: 1rem;
+      text-align: left;
+      left: 0;
+      padding-left: 24px;
+      bottom: 0;
+    }
 
-      .overlay-left {
-         text-align: left;
-         left: 0;
-         padding-left: 24px;
+    span {
+      p {
+        font-weight: bold;
+        font-size: 1.25rem;
       }
+    }
+  }
 
-      .overlay-bottom {
-         bottom: 0;
-      }
-      span {
-         p {
-            font-weight: bold;
-            font-size: 1.25rem;
-            font-family: 'EB Garamond';
-         }
-      }
-   }
-
-   .title,
-   .paragraph {
-      padding-left: 14px;
-      margin-top: 0;
-   }
-   .title {
-      margin: 0;
-   }
+  .title,
+  .paragraph {
+    padding-left: 14px;
+    margin-top: 0;
+  }
+  .title {
+    margin: 0;
+  }
 }
 
 .slider-slides {
-   display: flex;
-}
-
-.slider-slide {
-   height: auto;
+  display: flex;
+  flex-direction: row;
+  // height: auto;
 }
 
 .swiper-slide {
-   display: block;
+  display: block;
 }
 
 ion-label,
 ion-note,
 p {
-   font-size: 1rem;
+  font-size: 1rem;
 }
 
 .description {
-   white-space: wrap !important;
+  white-space: wrap !important;
 }
 
 .spell-block {
-   margin-bottom: 10px;
+  margin-bottom: 10px;
 }

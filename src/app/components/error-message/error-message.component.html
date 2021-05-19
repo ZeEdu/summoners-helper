@@ -1,12 +1,18 @@
-<div class="error-holder">
-  <div class="error">
-    <img [src]="imageSource" alt="" />
-    <h1>
-      <ion-text color="primary">
-        {{ messageTitle }}
-      </ion-text>
-    </h1>
-    <p>{{ messageText }}</p>
-    <ion-button (click)="emitReload()">{{ tryAgainMessage }}</ion-button>
-  </div>
-</div>
+<ion-grid fixed>
+  <ion-row>
+    <ion-col size="12">
+      <div class="error-holder">
+        <div class="error">
+          <img [src]="imageSource" alt="" />
+          <h1>
+            <ion-text color="primary">
+              {{ messageTitle }}
+            </ion-text>
+          </h1>
+          <p>{{ messageText }}</p>
+          <ion-button (click)="emitReload()">{{ tryAgainMessage }}</ion-button>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>

@@ -1,9 +1,9 @@
 .customAlert .alert-wrapper .alert-title {
-   color: var(--ion-color-primary);
+  color: var(--ion-color-primary);
 }
 
 .customAlert .alert-wrapper .alert-radio-label {
-   color: var(--ion-color-light);
+  color: var(--ion-color-light);
 }
 
 h1,
@@ -12,20 +12,20 @@ h3,
 h4,
 h5,
 h6 {
-   font-family: 'Lato';
-   font-weight: bold;
+  //  font-family: 'Lato';
+  font-weight: bold;
 }
 
 p {
-   font-family: 'Lato';
+  //  font-family: 'Lato';
 }
 
 ion-segment {
-   font-weight: bold;
+  font-weight: bold;
 }
 
 ion-spinner {
-   position: fixed;
-   top: 50%;
-   left: 50%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
 }

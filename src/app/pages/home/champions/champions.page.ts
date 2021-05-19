@@ -33,6 +33,10 @@ export class ChampionsPage implements OnInit {
   }
 
   private loadContent(event?: any) {
+    if (this.connectionFailed === true) {
+      this.champions = [];
+    }
+
     this.isLoading = true;
     this.ddHandler
       .getChampions(this.page)
@@ -51,7 +55,7 @@ export class ChampionsPage implements OnInit {
         if (event) {
           this.champions = [...this.champions, ...champions];
         } else {
-          this.champions = champions;
+          this.champions = [...champions];
         }
       });
     if (event) {
