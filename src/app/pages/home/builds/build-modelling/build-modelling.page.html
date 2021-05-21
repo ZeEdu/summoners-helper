@@ -37,82 +37,13 @@
       </ion-grid>
     </ion-slide>
     <ion-slide>
-      <ion-grid *ngIf="spellsForm">
-        <ion-item-group [formGroup]="spellsForm">
-          <ion-item-divider>
-            <ion-label>
-              <ion-text color="primary" class="ion-text-uppercase">
-                Spells
-              </ion-text>
-            </ion-label>
-          </ion-item-divider>
-          <div formGroupName="spells">
-            <ion-item>
-              <ion-label>
-                First Spell
-              </ion-label>
-              <ion-select
-                placeholder="Select Your Spell"
-                formControlName="first"
-                [interfaceOptions]="customAlert"
-                interface="alert"
-              >
-                <div *ngFor="let spell of spells; index as i">
-                  <ion-select-option
-                    *ngIf="spellsForm.value.spells.second !== spell.id"
-                    value="{{spell.id}}"
-                  >
-                    {{spell.name}}</ion-select-option
-                  >
-                </div>
-              </ion-select>
-            </ion-item>
-            <ion-item *ngIf="spellsForm.value.spells.first">
-              <ion-label>
-                Second Spell
-              </ion-label>
-              <ion-select
-                formControlName="second"
-                [interfaceOptions]="customAlert"
-                interface="alert"
-              >
-                <div *ngFor="let spell of spells; index as i">
-                  <ion-select-option
-                    *ngIf="spellsForm.value.spells.first !== spell.id"
-                    value="{{spell.id}}"
-                  >
-                    {{spell.name}}</ion-select-option
-                  >
-                </div>
-              </ion-select>
-            </ion-item>
-          </div>
-          <div>
-            <ion-item>
-              <ion-textarea
-                formControlName="spellsDescription"
-                placeholder="Add a Description"
-              ></ion-textarea>
-            </ion-item>
-          </div>
-        </ion-item-group>
-        <ion-footer>
-          <ion-toolbar>
-            <ion-buttons slot="start">
-              <ion-button color="primary" (click)="slidePrevious()"
-                >Previous</ion-button
-              >
-            </ion-buttons>
-            <ion-buttons slot="end">
-              <ion-button
-                color="primary"
-                (click)="slideNext()"
-                [disabled]="!spellsForm.valid"
-                >Next</ion-button
-              >
-            </ion-buttons>
-          </ion-toolbar>
-        </ion-footer>
+      <ion-grid>
+        <app-spells
+          *ngIf="spells"
+          [spells]="spells"
+          (goBackEmitter)="slidePrevious()"
+          (formEmitter)="handleSpellsFormEmitter($event)"
+        ></app-spells>
       </ion-grid>
     </ion-slide>
     <ion-slide>

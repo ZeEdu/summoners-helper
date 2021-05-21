@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs';
 import { FormIntroValues } from 'src/app/interfaces/form-intro-values';
 import { FormRunesValues } from 'src/app/interfaces/form-runes-values';
 import { FormBonusValues } from 'src/app/interfaces/form-bonus-values';
+import { FormSpellsValues } from 'src/app/interfaces/form-spells-values';
 
 @Component({
   selector: 'app-build-modelling',
@@ -341,6 +342,11 @@ export class BuildModellingPage implements OnInit, OnDestroy {
   }
 
   handleBonusFormEmitter(e: FormBonusValues) {
+    console.log(e);
+    this.slideNext();
+  }
+
+  handleSpellsFormEmitter(e: FormSpellsValues) {
     console.log(e);
     this.slideNext();
   }
