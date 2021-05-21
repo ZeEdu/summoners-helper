@@ -26,6 +26,10 @@ export class DataDragonHandlerService {
     );
   }
 
+  public getChampionsList() {
+    return this.http.get(`${this.apiUrl}/10.7.1/data/en_US/champion.json`);
+  }
+
   public getChampions(page = 0) {
     return this.http.get(`${this.apiUrl}/${this.championsRoute}/data/${page}`);
     // return this.http.get(`${this.apiUrl}/10.7.1/data/en_US/champion.json`);

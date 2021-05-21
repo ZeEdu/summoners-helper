@@ -6,12 +6,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { BuildModellingPage } from './build-modelling.page';
+import { ApplicationSharedComponentsModule } from 'src/app/shared/application-pipes/application-components.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: BuildModellingPage
-  }
+    component: BuildModellingPage,
+  },
 ];
 
 @NgModule({
@@ -20,8 +21,9 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ApplicationSharedComponentsModule,
   ],
-  declarations: [BuildModellingPage]
+  declarations: [BuildModellingPage],
 })
 export class BuildModellingPageModule {}

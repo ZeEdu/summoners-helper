@@ -1,0 +1,70 @@
+<ng-container *ngIf="champions">
+  <form [formGroup]="form">
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-text color="primary" class="ion-text-uppercase">
+          <ion-label>Basic Information</ion-label>
+        </ion-text>
+      </ion-item-divider>
+      <ion-item>
+        <ion-label position="stacked">Guide Name</ion-label>
+        <ion-input type="text" formControlName="name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <ion-text color="light">
+            Select a Champion
+          </ion-text>
+        </ion-label>
+        <ion-select
+          formControlName="champion"
+          [interfaceOptions]="customAlert"
+          interface="alert"
+        >
+          <ion-select-option
+            *ngFor="let champion of champions"
+            [value]="champion.id"
+          >
+            {{ champion.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Select a Role
+        </ion-label>
+        <ion-select
+          formControlName="role"
+          [interfaceOptions]="customAlert"
+          class="customAlert"
+          interface="alert"
+        >
+          <ion-select-option value="top">Top Lane</ion-select-option>
+          <ion-select-option value="mid">Mid Lane</ion-select-option>
+          <ion-select-option value="bottom">Bottom Lane</ion-select-option>
+          <ion-select-option value="jungle">Jungle</ion-select-option>
+          <ion-select-option value="support">Support</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-textarea
+          formControlName="introduction"
+          placeholder="Add a introduction to the guide"
+        ></ion-textarea>
+      </ion-item>
+    </ion-item-group>
+  </form>
+
+  <ion-footer>
+    <ion-toolbar>
+      <ion-buttons slot="end">
+        <ion-button
+          color="primary"
+          (click)="handleEmit()"
+          [disabled]="!form.valid"
+          >Go to Runes</ion-button
+        >
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer>
+</ng-container>
