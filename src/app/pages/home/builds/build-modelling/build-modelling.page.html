@@ -11,12 +11,11 @@
   <ion-slides pager="false" [options]="slideOpts" #slider>
     <ion-slide>
       <ion-grid>
-        <ng-container *ngIf="champions">
-          <app-intro
-            [champions]="champions"
-            (formEmitter)="handleIntroFormEmitter($event)"
-          ></app-intro>
-        </ng-container>
+        <app-intro
+          *ngIf="champions"
+          [champions]="champions"
+          (formEmitter)="handleIntroFormEmitter($event)"
+        ></app-intro>
       </ion-grid>
     </ion-slide>
     <ion-slide>
@@ -30,90 +29,11 @@
       </ion-grid>
     </ion-slide>
     <ion-slide>
-      <ion-grid *ngIf="bonusForm">
-        <ion-item-group [formGroup]="bonusForm">
-          <ion-item-divider>
-            <ion-label>
-              <ion-text color="primary" class="ion-text-uppercase">
-                Bonus
-              </ion-text>
-            </ion-label>
-          </ion-item-divider>
-          <div formGroupName="bonus">
-            <ion-item>
-              <ion-label>
-                Fist Bonus
-              </ion-label>
-              <ion-select
-                formControlName="slotOne"
-                [interfaceOptions]="customAlert"
-                interface="alert"
-              >
-                <div *ngFor="let firstBonus of bonus.first; index as i">
-                  <ion-select-option value="{{firstBonus.ArrayKey}}"
-                    >{{firstBonus.name}}</ion-select-option
-                  >
-                </div>
-              </ion-select>
-            </ion-item>
-            <ion-item>
-              <ion-label>
-                Second Bonus
-              </ion-label>
-              <ion-select
-                formControlName="slotTwo"
-                [interfaceOptions]="customAlert"
-                interface="alert"
-              >
-                <div *ngFor="let secondBonus of bonus.second; index as i">
-                  <ion-select-option value="{{secondBonus.ArrayKey}}"
-                    >{{secondBonus.name}}</ion-select-option
-                  >
-                </div>
-              </ion-select>
-            </ion-item>
-            <ion-item>
-              <ion-label>
-                Third Bonus
-              </ion-label>
-              <ion-select
-                formControlName="slotThree"
-                [interfaceOptions]="customAlert"
-                interface="alert"
-              >
-                <div *ngFor="let thirdBonus of bonus.third; index as i">
-                  <ion-select-option value="{{thirdBonus.ArrayKey}}"
-                    >{{thirdBonus.name}}
-                  </ion-select-option>
-                </div>
-              </ion-select>
-            </ion-item>
-          </div>
-          <ion-item>
-            <ion-textarea
-              formControlName="bonusDescription"
-              placeholder="Add a Description"
-            ></ion-textarea>
-          </ion-item>
-        </ion-item-group>
-        <ion-footer>
-          <ion-toolbar>
-            <ion-buttons slot="start">
-              <ion-button color="primary" (click)="slidePrevious()"
-                >Previous</ion-button
-              >
-            </ion-buttons>
-
-            <ion-buttons slot="end">
-              <ion-button
-                color="primary"
-                (click)="slideNext()"
-                [disabled]="!bonusForm.valid"
-                >Next</ion-button
-              >
-            </ion-buttons>
-          </ion-toolbar>
-        </ion-footer>
+      <ion-grid>
+        <app-bonus
+          (goBackEmitter)="slidePrevious()"
+          (formEmitter)="handleBonusFormEmitter($event)"
+        ></app-bonus>
       </ion-grid>
     </ion-slide>
     <ion-slide>

@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FormIntroValues } from 'src/app/interfaces/form-intro-values';
 import { FormRunesValues } from 'src/app/interfaces/form-runes-values';
+import { FormBonusValues } from 'src/app/interfaces/form-bonus-values';
 
 @Component({
   selector: 'app-build-modelling',
@@ -32,44 +33,6 @@ export class BuildModellingPage implements OnInit, OnDestroy {
   public spells: Spell[];
   public items: Item[];
 
-  public bonus = {
-    first: [
-      {
-        name: '9 Adaptive',
-        ArrayKey: 'AdaptiveForce',
-      },
-      {
-        name: '10% Attack Speed',
-        ArrayKey: 'AttackSpeed',
-      },
-      {
-        name: '1-10% CDR',
-        ArrayKey: 'CDRScaling',
-      },
-    ],
-    second: [
-      {
-        name: '9 Adaptive',
-        ArrayKey: 'AdaptiveForce',
-      },
-      { name: '6 Armor', ArrayKey: 'Armor' },
-      {
-        name: '8 Magic Resist',
-        ArrayKey: 'MagicRes',
-      },
-    ],
-    third: [
-      { name: '6 Armor', ArrayKey: 'Armor' },
-      {
-        name: '8 Magic Resist',
-        ArrayKey: 'MagicRes',
-      },
-      {
-        name: '1-10% CDR',
-        ArrayKey: 'CDRScaling',
-      },
-    ],
-  };
   public levels = [
     'One',
     'Two',
@@ -92,7 +55,7 @@ export class BuildModellingPage implements OnInit, OnDestroy {
   ];
   public loading: any;
   slideOpts = {
-    initialSlide: 1,
+    initialSlide: 3,
     allowTouchMove: false,
   };
 
@@ -374,7 +337,11 @@ export class BuildModellingPage implements OnInit, OnDestroy {
 
   handleRunesFormEmitter(e: FormRunesValues) {
     console.log(e);
+    this.slideNext();
+  }
 
+  handleBonusFormEmitter(e: FormBonusValues) {
+    console.log(e);
     this.slideNext();
   }
 }
