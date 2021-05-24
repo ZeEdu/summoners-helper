@@ -24,6 +24,12 @@ export class SpellsComponent implements OnInit {
 
   constructor(private fb: FormBuilder) {}
 
+  disablePolicy(spellId: string) {
+    const inForm = Object.values(this.form.value.spells);
+
+    return inForm.includes(spellId) ? true : false;
+  }
+
   ngOnInit() {
     this.form = this.fb.group({
       spells: this.fb.group({

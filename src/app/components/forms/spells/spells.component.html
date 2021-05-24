@@ -17,10 +17,10 @@
         [interfaceOptions]="customAlert"
         interface="alert"
       >
-        <div *ngFor="let spell of spells; index as i">
+        <div *ngFor="let spell of spells">
           <ion-select-option
-            *ngIf="form.value.spells.second !== spell.id"
             value="{{ spell.id }}"
+            [disabled]="disablePolicy(spell.id)"
           >
             {{ spell.name }}</ion-select-option
           >
@@ -38,7 +38,7 @@
       >
         <div *ngFor="let spell of spells; index as i">
           <ion-select-option
-            *ngIf="form.value.spells.first !== spell.id"
+            [disabled]="disablePolicy(spell.id)"
             value="{{ spell.id }}"
           >
             {{ spell.name }}</ion-select-option

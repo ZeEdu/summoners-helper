@@ -6,263 +6,100 @@
     <ion-title color="primary">Create Your Build</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content fullscreen="true">
   <ion-slides pager="false" [options]="slideOpts" #slider>
     <ion-slide>
-      <ion-grid>
-        <app-intro
-          *ngIf="champions"
-          [champions]="champions"
-          (formEmitter)="handleIntroFormEmitter($event)"
-        ></app-intro>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="12">
+            <app-intro
+              *ngIf="champions"
+              [champions]="champions"
+              (formEmitter)="handleIntroFormEmitter($event)"
+            ></app-intro>
+          </ion-col>
+        </ion-row>
       </ion-grid>
     </ion-slide>
     <ion-slide>
-      <ion-grid>
-        <app-runes
-          *ngIf="runes"
-          [runes]="runes"
-          (formEmitter)="handleRunesFormEmitter($event)"
-          (goBack)="slidePrevious()"
-        ></app-runes>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="12">
+            <app-runes
+              *ngIf="runes"
+              [runes]="runes"
+              (formEmitter)="handleRunesFormEmitter($event)"
+              (goBack)="slidePrevious()"
+            ></app-runes>
+          </ion-col>
+        </ion-row>
       </ion-grid>
     </ion-slide>
     <ion-slide>
-      <ion-grid>
-        <app-bonus
-          (goBackEmitter)="slidePrevious()"
-          (formEmitter)="handleBonusFormEmitter($event)"
-        ></app-bonus>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="12">
+            <app-bonus
+              (goBackEmitter)="slidePrevious()"
+              (formEmitter)="handleBonusFormEmitter($event)"
+            ></app-bonus>
+          </ion-col>
+        </ion-row>
       </ion-grid>
     </ion-slide>
     <ion-slide>
-      <ion-grid>
-        <app-spells
-          *ngIf="spells"
-          [spells]="spells"
-          (goBackEmitter)="slidePrevious()"
-          (formEmitter)="handleSpellsFormEmitter($event)"
-        ></app-spells>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="12">
+            <app-spells
+              *ngIf="spells"
+              [spells]="spells"
+              (goBackEmitter)="slidePrevious()"
+              (formEmitter)="handleSpellsFormEmitter($event)"
+            ></app-spells>
+          </ion-col>
+        </ion-row>
       </ion-grid>
     </ion-slide>
     <ion-slide>
-      <ion-grid *ngIf="itemsForm">
-        <ion-item-group [formGroup]="itemsForm">
-          <ion-item-divider>
-            <ion-label>
-              <ion-text class="ion-text-uppercase" color="primary">
-                Items
-              </ion-text>
-            </ion-label>
-          </ion-item-divider>
-          <div formArrayName="itemsBlock">
-            <div
-              *ngFor="let block of itemsForm['controls'].itemsBlock['controls']; index as i"
-            >
-              <div formGroupName="{{i}}">
-                <ion-item>
-                  <ion-label position="stacked">
-                    Name this Roll
-                  </ion-label>
-                  <ion-input
-                    type="text"
-                    formControlName="itemRollName"
-                  ></ion-input>
-                </ion-item>
-
-                <div formArrayName="itemArray">
-                  <div
-                    *ngFor="let item of block['controls'].itemArray['controls']; index as j"
-                  >
-                    <div formGroupName="{{ j }}">
-                      <ion-item>
-                        <ion-label>
-                          <ion-text color="light">
-                            {{ j + 1 }}º Item
-                          </ion-text>
-                        </ion-label>
-                        <ion-select
-                          formControlName="item"
-                          placeholder="Select a item"
-                          [interfaceOptions]="customAlert"
-                          interface="alert"
-                        >
-                          <ion-select-option
-                            *ngFor="let gameItem of items"
-                            value="{{gameItem.image.full.replace('.png', '')}}"
-                            >{{gameItem.name}}</ion-select-option
-                          >
-                        </ion-select>
-                      </ion-item>
-                    </div>
-                  </div>
-                  <ion-button color="danger" (click)="removeLastItem(i)"
-                    >Remove Last Item
-                  </ion-button>
-                  <ion-button color="primary" (click)="addItem(i)"
-                    >Add New Item
-                  </ion-button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <ion-button color="danger" (click)="addItemRoll()"
-            >Remove Last Roll
-          </ion-button>
-          <ion-button color="primary" (click)="addItemRoll()"
-            >Add New Roll
-          </ion-button>
-          <ion-item>
-            <ion-textarea
-              formControlName="itemsDescription"
-              placeholder="Add a Description"
-            ></ion-textarea>
-          </ion-item>
-        </ion-item-group>
-        <ion-footer>
-          <ion-toolbar>
-            <ion-buttons slot="start">
-              <ion-button color="primary" (click)="slidePrevious()"
-                >Previous</ion-button
-              >
-            </ion-buttons>
-
-            <ion-buttons slot="end">
-              <ion-button
-                color="primary"
-                (click)="slideNext()"
-                [disabled]="!itemsForm.valid"
-                >Next</ion-button
-              >
-            </ion-buttons>
-          </ion-toolbar>
-        </ion-footer>
-      </ion-grid>
-    </ion-slide>
-
-    <ion-slide>
-      <ion-grid *ngIf="abilitiesForm">
-        <ion-item-group [formGroup]="abilitiesForm">
-          <ion-item-divider>
-            <ion-label>
-              <ion-text color="primary" class="ion-text-uppercase">
-                Abilities Progression
-              </ion-text>
-            </ion-label>
-          </ion-item-divider>
-          <div formGroupName="abilitiesProgression">
-            <ion-list>
-              <ion-item *ngFor="let level of levels; index as i">
-                <ion-label>
-                  Level {{ level }}
-                </ion-label>
-                <ion-select
-                  formControlName="l{{i + 1}}"
-                  [interfaceOptions]="customAlert"
-                  interface="alert"
-                >
-                  <ion-select-option [value]="0">Q</ion-select-option>
-                  <ion-select-option [value]="1">W</ion-select-option>
-                  <ion-select-option [value]="2">E</ion-select-option>
-                  <ion-select-option *ngIf="i >= 4" [value]="3"
-                    >R
-                  </ion-select-option>
-                </ion-select>
-              </ion-item>
-            </ion-list>
-          </div>
-          <ion-item>
-            <ion-textarea
-              formControlName="abilitiesProgressionDescription"
-              placeholder="Add a description to this threat here"
-            ></ion-textarea>
-          </ion-item>
-        </ion-item-group>
-        <ion-footer>
-          <ion-toolbar>
-            <ion-buttons slot="start">
-              <ion-button color="primary" (click)="slidePrevious()"
-                >Previous</ion-button
-              >
-            </ion-buttons>
-            <ion-buttons slot="end">
-              <ion-button
-                color="primary"
-                (click)="slideNext()"
-                [disabled]="!abilitiesForm.valid"
-                >Next</ion-button
-              >
-            </ion-buttons>
-          </ion-toolbar>
-        </ion-footer>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="12">
+            <app-items
+              *ngIf="items"
+              [items]="items"
+              (goBackEmitter)="slidePrevious()"
+              (formEmitter)="handleItemsFormEmitter($event)"
+            ></app-items>
+          </ion-col>
+        </ion-row>
       </ion-grid>
     </ion-slide>
     <ion-slide>
-      <ion-grid *ngIf="threatForm">
-        <ion-item-group [formGroup]="threatForm">
-          <ion-item-divider>
-            <ion-label>
-              <ion-text color="primary" class="ion-text-uppercase">
-                Threats
-              </ion-text>
-            </ion-label>
-          </ion-item-divider>
-          <div formArrayName="threats">
-            <div
-              *ngFor="let block of threatForm['controls'].threats['controls']; index as i"
-            >
-              <div formGroupName="{{i}}">
-                <ion-item>
-                  <ion-label>
-                    Select a Threat
-                  </ion-label>
-                  <ion-select
-                    formControlName="threat"
-                    placeholder="Select a Threat"
-                    [interfaceOptions]="customAlert"
-                    interface="alert"
-                  >
-                    <ion-select-option
-                      *ngFor="let champion of champions"
-                      value="{{champion.id}}"
-                      >{{champion.name}}</ion-select-option
-                    >
-                  </ion-select>
-                </ion-item>
-                <ion-item>
-                  <ion-textarea
-                    formControlName="description"
-                    placeholder="Add a description to this threat here"
-                  ></ion-textarea>
-                </ion-item>
-              </div>
-            </div>
-            <ion-button color="danger" (click)="removeLastThreat()"
-              >Remove Last Threat
-            </ion-button>
-            <ion-button color="primary" (click)="addThreat()"
-              >Add New Threat
-            </ion-button>
-          </div>
-        </ion-item-group>
-        <ion-footer>
-          <ion-toolbar>
-            <ion-buttons slot="start">
-              <ion-button color="primary" (click)="slidePrevious()"
-                >Previous</ion-button
-              >
-            </ion-buttons>
-            <ion-buttons slot="end">
-              <ion-button
-                color="primary"
-                (click)="onSubmit()"
-                [disabled]="!threatForm.valid"
-                >Publish Guide</ion-button
-              >
-            </ion-buttons>
-          </ion-toolbar>
-        </ion-footer>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="12">
+            <app-abilities
+              [champion]="getChampion()"
+              (goBackEmitter)="slidePrevious()"
+              (formEmitter)="handleAbilitiesFormEmitter($event)"
+            ></app-abilities>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+    <ion-slide>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="12">
+            <app-threats
+              *ngIf="champions"
+              [champions]="champions"
+              (goBackEmitter)="slidePrevious()"
+              (formEmitter)="handleThreatsFormEmitter($event)"
+            ></app-threats>
+          </ion-col>
+        </ion-row>
       </ion-grid>
     </ion-slide>
   </ion-slides>

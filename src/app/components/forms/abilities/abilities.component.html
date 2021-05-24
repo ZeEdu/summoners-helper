@@ -1,0 +1,65 @@
+<ion-item-group [formGroup]="form">
+  <ion-item-divider>
+    <ion-label>
+      <ion-text color="primary" class="ion-text-uppercase">
+        {{ champion ? 'Abilities Progression' : 'Select a Champion First!!!' }}
+      </ion-text>
+    </ion-label>
+  </ion-item-divider>
+  <ng-container *ngIf="champion">
+    <div formGroupName="abilitiesProgression">
+      <ion-list>
+        <ion-item *ngFor="let level of levels; index as i">
+          <ion-label> Level {{ level }} </ion-label>
+          <ion-select
+            formControlName="l{{ i + 1 }}"
+            [interfaceOptions]="customAlert"
+            interface="alert"
+          >
+            <ion-select-option [value]="0">
+              {{
+                champion === 'Aphelios' ? 'Attack Damage' : 'Q'
+              }}</ion-select-option
+            >
+            <ion-select-option [value]="1">
+              {{
+                champion === 'Aphelios' ? 'Attack Speed' : 'W'
+              }}</ion-select-option
+            >
+            <ion-select-option [value]="2">
+              {{
+                champion === 'Aphelios' ? 'Lethality' : 'E'
+              }}</ion-select-option
+            >
+            <ion-select-option
+              *ngIf="i >= 4 && champion !== 'Aphelios'"
+              [value]="3"
+              >R
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </div>
+    <ion-item>
+      <ion-textarea
+        formControlName="abilitiesProgressionDescription"
+        placeholder="Add a description to this threat here"
+      ></ion-textarea>
+    </ion-item>
+  </ng-container>
+</ion-item-group>
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="primary" (click)="goBack()">Previous</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button
+        color="primary"
+        (click)="handleFormSubmit()"
+        [disabled]="!form.valid"
+        >Next</ion-button
+      >
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

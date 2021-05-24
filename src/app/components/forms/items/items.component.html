@@ -1,0 +1,84 @@
+<ion-item-group [formGroup]="form">
+  <ion-item-divider>
+    <ion-label>
+      <ion-text class="ion-text-uppercase" color="primary">
+        Items
+      </ion-text>
+    </ion-label>
+  </ion-item-divider>
+  <div formArrayName="itemsBlock">
+    <div
+      *ngFor="let block of form['controls'].itemsBlock['controls']; index as i"
+    >
+      <div formGroupName="{{ i }}">
+        <ion-item>
+          <ion-label position="stacked">
+            Name this Roll
+          </ion-label>
+          <ion-input type="text" formControlName="itemRollName"></ion-input>
+        </ion-item>
+
+        <div formArrayName="itemArray">
+          <div
+            *ngFor="
+              let item of block['controls'].itemArray['controls'];
+              index as j
+            "
+          >
+            <div formGroupName="{{ j }}">
+              <ion-item>
+                <ion-label>
+                  <ion-text color="light"> {{ j + 1 }}º Item </ion-text>
+                </ion-label>
+                <ion-select
+                  formControlName="item"
+                  placeholder="Select a item"
+                  [interfaceOptions]="customAlert"
+                  interface="alert"
+                >
+                  <ion-select-option
+                    *ngFor="let gameItem of items"
+                    value="{{ gameItem.image.full.replace('.png', '') }}"
+                    >{{ gameItem.name }}</ion-select-option
+                  >
+                </ion-select>
+              </ion-item>
+            </div>
+          </div>
+          <ion-button color="danger" (click)="removeLastItem(i)"
+            >Remove Last Item
+          </ion-button>
+          <ion-button color="primary" (click)="addItem(i)"
+            >Add New Item
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ion-button color="danger" (click)="addItemRoll()"
+    >Remove Last Roll
+  </ion-button>
+  <ion-button color="primary" (click)="addItemRoll()">Add New Roll </ion-button>
+  <ion-item>
+    <ion-textarea
+      formControlName="itemsDescription"
+      placeholder="Add a Description"
+    ></ion-textarea>
+  </ion-item>
+</ion-item-group>
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="primary" (click)="goBack()">Previous</ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button
+        color="primary"
+        (click)="handleForm()"
+        [disabled]="!form.valid"
+        >Next</ion-button
+      >
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

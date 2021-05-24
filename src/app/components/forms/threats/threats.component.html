@@ -1,0 +1,66 @@
+<ng-container *ngIf="form">
+  <ion-item-group [formGroup]="form">
+    <ion-item-divider>
+      <ion-label>
+        <ion-text color="primary" class="ion-text-uppercase">
+          Threats
+        </ion-text>
+      </ion-label>
+    </ion-item-divider>
+    <div formArrayName="threats">
+      <div
+        *ngFor="let block of form['controls'].threats['controls']; index as i"
+      >
+        <div formGroupName="{{ i }}">
+          <ion-item>
+            <ion-label>
+              Select a Threat
+            </ion-label>
+            <ion-select
+              formControlName="threat"
+              placeholder="Select a Threat"
+              [interfaceOptions]="customAlert"
+              interface="alert"
+            >
+              <ion-select-option
+                *ngFor="let champion of champions"
+                value="{{ champion.id }}"
+                >{{ champion.name }}</ion-select-option
+              >
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-textarea
+              formControlName="description"
+              placeholder="Add a description to this threat here"
+            ></ion-textarea>
+          </ion-item>
+        </div>
+      </div>
+      <div>
+        <ion-button color="danger" (click)="removeLastThreat()"
+          >Remove Last Threat</ion-button
+        >
+        <ion-button color="primary" (click)="addThreat()">
+          Add Threat
+        </ion-button>
+      </div>
+    </div>
+  </ion-item-group>
+
+  <ion-footer>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button color="primary" (click)="goBack()">Previous</ion-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button
+          color="primary"
+          (click)="handleFormSubmit()"
+          [disabled]="!form.valid"
+          >Publish Guide</ion-button
+        >
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer>
+</ng-container>
