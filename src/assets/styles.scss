@@ -1,8 +1,13 @@
 .customAlert .alert-wrapper .alert-title {
   color: var(--ion-color-primary);
+  text-transform: capitalize;
 }
 
 .customAlert .alert-wrapper .alert-radio-label {
+  color: var(--ion-color-light);
+}
+
+[aria-checked='true'].sc-ion-alert-md .alert-radio-label.sc-ion-alert-md {
   color: var(--ion-color-light);
 }
 

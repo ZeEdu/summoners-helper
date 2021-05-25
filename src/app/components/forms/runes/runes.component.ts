@@ -31,6 +31,7 @@ export class RunesComponent implements OnInit {
   };
 
   public namingSlots = ['first', 'second', 'third', 'fourth'];
+  public namingSlotsSecond = ['first', 'second', 'third'];
 
   constructor(private fb: FormBuilder) {}
 
@@ -53,21 +54,44 @@ export class RunesComponent implements OnInit {
       }),
       runesDescription: [''],
     });
-
-    this.getSecondaryRunes(0);
   }
 
   /**
-   * disablePolicy
+   * getOptions
    */
+  public getOptions(domain: string, depth: number) {
+    return this.runes.find((i) => i.key === domain).slots[depth].runes;
+  }
+
+  // public getSecondary() {
+  //   return this.runes.filter(
+  //     (i) => i.key !== this.form.value.runes.primaryRune
+  //   );
+  // }
+
+  public disabledPrimaryRunes(key: string) {
+    if (!this.form.value.runes.secondaryRune) return false;
+    return this.form.value.runes.secondaryRune === key ? true : false;
+  }
+
+  public disabledSecondaryRunes(key: string) {
+    if (!this.form.value.runes.primaryRune) return false;
+    return this.form.value.runes.primaryRune === key ? true : false;
+  }
+
   public disablePolicy(key: string) {
     const r = Object.values(this.form.value.runes.secondarySlots);
 
     return r.includes(key) ? true : false;
   }
 
-  public getSecondaryRunes(index: number) {
-    const c = [...this.runes[index].slots];
+  public getSecondaryRunes() {
+    if (!this.form.value.runes.secondaryRune) return [];
+    const a = this.runes.find(
+      (i) => i.key === this.form.value.runes.secondaryRune
+    );
+
+    const c = [...a.slots];
     c.shift();
 
     const r = c.map((slot) => {
@@ -87,6 +111,8 @@ export class RunesComponent implements OnInit {
   }
 
   handleFormEmitter() {
-    this.formEmitter.emit(this.form.value);
+    console.log(this.form.value);
+
+    // this.formEmitter.emit(this.form.value);
   }
 }

@@ -38,9 +38,16 @@ export class BuildModellingPage implements OnInit, OnDestroy {
   public items: Item[];
 
   public loading: any;
+  userSubscription: Subscription;
+  idTokenSubscription: void;
+  submitting: boolean;
+
+  customAlert = {
+    cssClass: 'customAlert',
+  };
 
   slideOpts = {
-    initialSlide: 0,
+    initialSlide: 1,
     allowTouchMove: false,
   };
 
@@ -59,14 +66,6 @@ export class BuildModellingPage implements OnInit, OnDestroy {
   public introExists() {
     return this.introValues ? true : false;
   }
-
-  customAlert = {
-    cssClass: 'customAlert',
-  };
-
-  userSubscription: Subscription;
-  idTokenSubscription: void;
-  submitting: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -152,10 +151,12 @@ export class BuildModellingPage implements OnInit, OnDestroy {
   }
 
   returnToGuides() {
-    setTimeout(
-      () => this.zone.run(() => this.router.navigate(['/home/tabs/builds'])),
-      4000
-    );
+    // setTimeout(
+    //   () => this.zone.run(() => this.router.navigate(['/home/tabs/builds'])),
+    //   4000
+    // );
+
+    setTimeout(() => this.router.navigate(['/home/tabs/builds']), 4000);
   }
 
   async presentloading() {
