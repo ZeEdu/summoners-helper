@@ -1,0 +1,26 @@
+.container {
+  position: relative;
+
+  .image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .overlay {
+    position: absolute;
+    width: 100%;
+    font-size: 1rem;
+    text-align: left;
+    left: 0;
+    padding-left: 20px;
+    bottom: 0;
+  }
+
+  span {
+    p {
+      font-weight: bold;
+      font-size: 1.25rem;
+    }
+  }
+}

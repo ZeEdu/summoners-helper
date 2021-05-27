@@ -1,0 +1,29 @@
+<ion-row>
+  <ion-col>
+    <ion-text color="primary" class="ion-text-start">
+      <h2 class="title">Basic Stats</h2>
+    </ion-text>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-list>
+      <ion-item>
+        <ion-label color="light">Attack</ion-label>
+        <ion-note slot="end" color="primary">{{ info.attack }}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label color="light">Defence</ion-label>
+        <ion-note slot="end" color="primary">{{ info.defense }}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label color="light">Magic</ion-label>
+        <ion-note slot="end" color="primary">{{ info.magic }}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label color="light">Difficulty</ion-label>
+        <ion-note slot="end" color="primary">{{ info.difficulty }}</ion-note>
+      </ion-item>
+    </ion-list>
+  </ion-col>
+</ion-row>

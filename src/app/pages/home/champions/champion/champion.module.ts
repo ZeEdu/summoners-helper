@@ -8,7 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { ChampionPage } from './champion.page';
 import { AuthGuard } from 'src/app/guards/auth.guard';
 import { ApplicationSharedPipesModule } from 'src/app/shared/pipes/application-pipes.module';
-import { ChampionOverviewSharedComponentsModule } from 'src/app/shared/components/champion-overview-components.module';
+import { ChampionSharedComponentsModule } from 'src/app/shared/components/champion/champion-shared-components.module';
 
 const routes: Routes = [
   {
@@ -25,7 +25,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes),
     ApplicationSharedPipesModule,
-    ChampionOverviewSharedComponentsModule,
+    ChampionSharedComponentsModule,
   ],
   declarations: [ChampionPage],
 })

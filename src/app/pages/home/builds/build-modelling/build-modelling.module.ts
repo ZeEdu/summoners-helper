@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { BuildModellingPage } from './build-modelling.page';
 import { ApplicationSharedComponentsModule } from 'src/app/shared/components/application-components.module';
-import { GuideFormModule } from 'src/app/shared/components/guide-form.module';
+import { GuideFormSharedComponentsModule } from 'src/app/shared/components/guide-form/guide-form-shared-components.module';
 
 const routes: Routes = [
   {
@@ -24,7 +24,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     ApplicationSharedComponentsModule,
-    GuideFormModule,
+    GuideFormSharedComponentsModule,
   ],
   declarations: [BuildModellingPage],
 })
