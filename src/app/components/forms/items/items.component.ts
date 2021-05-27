@@ -10,6 +10,8 @@ import { FormItemsValues } from 'src/app/interfaces/form-items-values';
 })
 export class ItemsComponent implements OnInit {
   @Input() items: Item[];
+  @Input() formValues: FormItemsValues;
+
   @Output() goBackEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() formEmitter: EventEmitter<FormItemsValues> = new EventEmitter<
     FormItemsValues
@@ -27,6 +29,32 @@ export class ItemsComponent implements OnInit {
     this.form = this.fb.group({
       itemsBlock: this.fb.array([this.itemRoll()]),
       itemsDescription: [''],
+    });
+    if (!this.formValues) return null;
+
+    const itemArray = this.form.get('itemsBlock') as FormArray;
+    itemArray.removeAt(0);
+    this.formValues.itemsBlock.forEach((itemBlock, i) => {
+      const newItemBlock = this.itemRoll();
+      newItemBlock.patchValue({
+        itemRollName: itemBlock.itemRollName,
+        itemArray: itemBlock.itemArray,
+      });
+      itemArray.push(newItemBlock);
+
+      const itemControl = (this.form.controls.itemsBlock as FormArray)
+        .at(i)
+        .get('itemArray') as FormArray;
+      itemBlock.itemArray.forEach((val, j) => {
+        const itemInsert = this.item();
+        itemInsert.patchValue({
+          item: val.item,
+        });
+        itemControl.push(itemInsert);
+      });
+    });
+    this.form.patchValue({
+      itemsDescription: this.formValues.itemsDescription,
     });
   }
 

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormBonusValues } from 'src/app/interfaces/form-bonus-values';
 
@@ -9,7 +9,7 @@ import { FormBonusValues } from 'src/app/interfaces/form-bonus-values';
 })
 export class BonusComponent implements OnInit {
   form: FormGroup;
-
+  @Input() formValues: FormBonusValues;
   @Output() goBackEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() formEmitter: EventEmitter<FormBonusValues> = new EventEmitter<
     FormBonusValues
@@ -68,6 +68,11 @@ export class BonusComponent implements OnInit {
         slotThree: ['', Validators.required],
       }),
       bonusDescription: [''],
+    });
+    if (!this.formValues) return null;
+    this.form.patchValue({
+      bonus: this.formValues.bonus,
+      bonusDescription: this.formValues.bonusDescription,
     });
   }
 

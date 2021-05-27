@@ -18,6 +18,7 @@ import { FormRunesValues } from 'src/app/interfaces/form-runes-values';
 })
 export class RunesComponent implements OnInit {
   @Input() runes: Array<PathResponse>;
+  @Input() formValues: FormRunesValues;
 
   @Output() formEmitter: EventEmitter<FormRunesValues> = new EventEmitter<
     FormRunesValues
@@ -54,20 +55,17 @@ export class RunesComponent implements OnInit {
       }),
       runesDescription: [''],
     });
+
+    if (!this.formValues) return;
+    this.form.patchValue({
+      runes: this.formValues.runes,
+      runesDescription: this.formValues.runesDescription,
+    });
   }
 
-  /**
-   * getOptions
-   */
   public getOptions(domain: string, depth: number) {
     return this.runes.find((i) => i.key === domain).slots[depth].runes;
   }
-
-  // public getSecondary() {
-  //   return this.runes.filter(
-  //     (i) => i.key !== this.form.value.runes.primaryRune
-  //   );
-  // }
 
   public disabledPrimaryRunes(key: string) {
     if (!this.form.value.runes.secondaryRune) return false;
@@ -111,8 +109,6 @@ export class RunesComponent implements OnInit {
   }
 
   handleFormEmitter() {
-    console.log(this.form.value);
-
-    // this.formEmitter.emit(this.form.value);
+    this.formEmitter.emit(this.form.value);
   }
 }

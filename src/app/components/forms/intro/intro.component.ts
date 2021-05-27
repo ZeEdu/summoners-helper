@@ -10,6 +10,8 @@ import { FormIntroValues } from 'src/app/interfaces/form-intro-values';
 })
 export class IntroComponent implements OnInit {
   @Input() champions: Array<Champion>;
+  @Input() formValues: FormIntroValues;
+
   @Output() formEmitter: EventEmitter<FormIntroValues> = new EventEmitter<
     FormIntroValues
   >();
@@ -33,6 +35,13 @@ export class IntroComponent implements OnInit {
       champion: ['', Validators.required],
       role: ['', Validators.required],
       introduction: [''],
+    });
+    if (!this.formValues) return;
+    this.form.patchValue({
+      name: this.formValues.name,
+      champion: this.formValues.champion,
+      role: this.formValues.role,
+      introduction: this.formValues.introduction,
     });
   }
 }

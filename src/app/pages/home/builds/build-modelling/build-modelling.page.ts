@@ -11,13 +11,6 @@ import { BuildManagerService } from 'src/app/services/build-manager.service';
 import { SpellResponse, Spell } from 'src/app/interfaces/spells';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { FormIntroValues } from 'src/app/interfaces/form-intro-values';
-import { FormRunesValues } from 'src/app/interfaces/form-runes-values';
-import { FormBonusValues } from 'src/app/interfaces/form-bonus-values';
-import { FormSpellsValues } from 'src/app/interfaces/form-spells-values';
-import { FormItemsValues } from 'src/app/interfaces/form-items-values';
-import { FormAbilitiesValues } from 'src/app/interfaces/form-abilities-values';
-import { FormThreatsValues } from 'src/app/interfaces/form-threats-values';
 
 @Component({
   selector: 'app-build-modelling',
@@ -26,6 +19,7 @@ import { FormThreatsValues } from 'src/app/interfaces/form-threats-values';
 })
 export class BuildModellingPage implements OnInit, OnDestroy {
   @ViewChild('slider', { static: false }) slides: IonSlides;
+
   private getChampionSubscription: Subscription;
   private getRunesSubscription: Subscription;
   private getSpellsSubscription: Subscription;
@@ -47,28 +41,11 @@ export class BuildModellingPage implements OnInit, OnDestroy {
   };
 
   slideOpts = {
-    initialSlide: 1,
+    initialSlide: 0,
     allowTouchMove: false,
   };
 
-  private introValues: FormIntroValues;
-  private runeValues: FormRunesValues;
-  private bonusValues: FormBonusValues;
-  private spellsValues: FormSpellsValues;
-  private itemsValues: FormItemsValues;
-  private abilitiesValues: FormAbilitiesValues;
-  private threatsValues: FormThreatsValues;
-
-  public getChampion() {
-    return this.introValues ? this.introValues.champion : null;
-  }
-
-  public introExists() {
-    return this.introValues ? true : false;
-  }
-
   constructor(
-    private fb: FormBuilder,
     private ddHandler: DataDragonHandlerService,
     private afa: AngularFireAuth,
     private loadingCtrl: LoadingController,
@@ -106,29 +83,19 @@ export class BuildModellingPage implements OnInit, OnDestroy {
     this.getRunesSubscription.unsubscribe();
     this.getSpellsSubscription.unsubscribe();
     this.getItemsSubscription.unsubscribe();
-    if (this.submitting === true) {
+    if (this.submitting) {
       this.userSubscription.unsubscribe();
     }
   }
 
-  public async submitGuide() {
+  public async submitGuide(formConstructed: any) {
     this.submitting = true;
-    const formValues = [
-      this.introValues,
-      this.runeValues,
-      this.bonusValues,
-      this.spellsValues,
-      this.itemsValues,
-      this.abilitiesValues,
-      this.threatsValues,
-    ];
-    const guideAssign = Object.assign({}, ...formValues);
     this.userSubscription = this.afa.user.subscribe(async (user) => {
       if (!user) return null;
-      guideAssign.userUID = user.uid;
+      formConstructed.userUID = user.uid;
       user.getIdToken().then((token) => {
         if (!token) return null;
-        const sendGuide: Guide = guideAssign;
+        const sendGuide: Guide = formConstructed;
         this.saveGuide(sendGuide, token);
       });
     });
@@ -151,12 +118,12 @@ export class BuildModellingPage implements OnInit, OnDestroy {
   }
 
   returnToGuides() {
-    // setTimeout(
-    //   () => this.zone.run(() => this.router.navigate(['/home/tabs/builds'])),
-    //   4000
-    // );
+    setTimeout(
+      () => this.zone.run(() => this.router.navigate(['/home/tabs/builds'])),
+      4000
+    );
 
-    setTimeout(() => this.router.navigate(['/home/tabs/builds']), 4000);
+    // setTimeout(() => this.router.navigate(['/home/tabs/builds']), 4000);
   }
 
   async presentloading() {
@@ -169,48 +136,5 @@ export class BuildModellingPage implements OnInit, OnDestroy {
   async presentToast(message: string) {
     const toast = await this.toastCtrl.create({ message, duration: 3000 });
     await toast.present();
-  }
-
-  slideNext() {
-    this.slides.slideNext();
-  }
-
-  slidePrevious() {
-    this.slides.slidePrev();
-  }
-
-  handleIntroFormEmitter(e: FormIntroValues) {
-    this.introValues = e;
-    this.slideNext();
-  }
-
-  handleRunesFormEmitter(e: FormRunesValues) {
-    this.runeValues = e;
-    this.slideNext();
-  }
-
-  handleBonusFormEmitter(e: FormBonusValues) {
-    this.bonusValues = e;
-    this.slideNext();
-  }
-
-  handleSpellsFormEmitter(e: FormSpellsValues) {
-    this.spellsValues = e;
-    this.slideNext();
-  }
-
-  handleItemsFormEmitter(e: FormItemsValues) {
-    this.itemsValues = e;
-    this.slideNext();
-  }
-
-  handleAbilitiesFormEmitter(e: FormAbilitiesValues) {
-    this.abilitiesValues = e;
-    this.slideNext();
-  }
-
-  handleThreatsFormEmitter(e: FormThreatsValues) {
-    this.threatsValues = e;
-    this.submitGuide();
   }
 }

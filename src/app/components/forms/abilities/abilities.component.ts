@@ -9,6 +9,8 @@ import { FormAbilitiesValues } from 'src/app/interfaces/form-abilities-values';
 })
 export class AbilitiesComponent implements OnInit {
   @Input() champion: string;
+  @Input() formValues: FormAbilitiesValues;
+
   @Output() goBackEmitter = new EventEmitter<boolean>();
   @Output() formEmitter = new EventEmitter<FormAbilitiesValues>();
 
@@ -65,12 +67,12 @@ export class AbilitiesComponent implements OnInit {
       }),
       abilitiesProgressionDescription: [''],
     });
-
-    setTimeout(() => {
-      if (this.champion) {
-        console.log(this.champion);
-      }
-    }, 5000);
+    if (!this.formValues) return null;
+    this.form.patchValue({
+      abilitiesProgression: this.formValues.abilitiesProgression,
+      abilitiesProgressionDescription: this.formValues
+        .abilitiesProgressionDescription,
+    });
   }
 
   goBack() {

@@ -5,7 +5,7 @@ export interface FormRunesValues {
       first: string;
       second: string;
       third: string;
-      fourth: string;
+      fourth?: string;
     };
     secondaryRune: string;
     secondarySlots: {

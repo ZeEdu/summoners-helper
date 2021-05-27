@@ -10,6 +10,7 @@ import { Spell } from 'src/app/interfaces/spells';
 })
 export class SpellsComponent implements OnInit {
   @Input() spells: Spell[];
+  @Input() formValues: FormSpellsValues;
 
   @Output() goBackEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() formEmitter: EventEmitter<FormSpellsValues> = new EventEmitter<
@@ -37,6 +38,12 @@ export class SpellsComponent implements OnInit {
         second: ['', Validators.required],
       }),
       spellsDescription: [''],
+    });
+
+    if (!this.formValues) return null;
+    this.form.patchValue({
+      spells: this.formValues.spells,
+      spellsDescription: this.formValues.spellsDescription,
     });
   }
 

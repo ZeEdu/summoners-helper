@@ -6,22 +6,24 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { BuildEditPage } from './build-edit.page';
+import { ApplicationSharedComponentsModule } from 'src/app/shared/application-pipes/application-components.module';
 
 const routes: Routes = [
-   {
-      path: '',
-      component: BuildEditPage,
-   },
+  {
+    path: '',
+    component: BuildEditPage,
+  },
 ];
 
 @NgModule({
-   imports: [
-      CommonModule,
-      FormsModule,
-      IonicModule,
-      RouterModule.forChild(routes),
-      ReactiveFormsModule,
-   ],
-   declarations: [BuildEditPage],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    RouterModule.forChild(routes),
+    ReactiveFormsModule,
+    ApplicationSharedComponentsModule,
+  ],
+  declarations: [BuildEditPage],
 })
 export class BuildEditPageModule {}

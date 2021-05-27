@@ -10,6 +10,7 @@ import { RunesComponent } from 'src/app/components/forms/runes/runes.component';
 import { ItemsComponent } from 'src/app/components/forms/items/items.component';
 import { AbilitiesComponent } from 'src/app/components/forms/abilities/abilities.component';
 import { ThreatsComponent } from 'src/app/components/forms/threats/threats.component';
+import { GuideComponent } from 'src/app/components/forms/guide/guide.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ThreatsComponent } from 'src/app/components/forms/threats/threats.compo
     ItemsComponent,
     AbilitiesComponent,
     ThreatsComponent,
+    GuideComponent,
   ],
   imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule],
   exports: [
@@ -32,6 +34,7 @@ import { ThreatsComponent } from 'src/app/components/forms/threats/threats.compo
     ItemsComponent,
     AbilitiesComponent,
     ThreatsComponent,
+    GuideComponent,
   ],
 })
 export class ApplicationSharedComponentsModule {}

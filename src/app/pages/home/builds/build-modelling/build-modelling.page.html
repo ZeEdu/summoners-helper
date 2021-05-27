@@ -1,106 +1,20 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button color="primary" defaultHref=""></ion-back-button>
+      <ion-back-button
+        color="primary"
+        [defaultHref]="['/', 'home', 'tabs', 'builds']"
+      ></ion-back-button>
     </ion-buttons>
     <ion-title color="primary">Create Your Build</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content fullscreen="true">
-  <ion-slides pager="false" [options]="slideOpts" #slider>
-    <ion-slide>
-      <ion-grid fixed>
-        <ion-row>
-          <ion-col size="12">
-            <app-intro
-              *ngIf="champions"
-              [champions]="champions"
-              (formEmitter)="handleIntroFormEmitter($event)"
-            ></app-intro>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-slide>
-    <ion-slide>
-      <ion-grid fixed>
-        <ion-row>
-          <ion-col size="12">
-            <app-runes
-              *ngIf="runes"
-              [runes]="runes"
-              (formEmitter)="handleRunesFormEmitter($event)"
-              (goBack)="slidePrevious()"
-            ></app-runes>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-slide>
-    <ion-slide>
-      <ion-grid fixed>
-        <ion-row>
-          <ion-col size="12">
-            <app-bonus
-              (goBackEmitter)="slidePrevious()"
-              (formEmitter)="handleBonusFormEmitter($event)"
-            ></app-bonus>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-slide>
-    <ion-slide>
-      <ion-grid fixed>
-        <ion-row>
-          <ion-col size="12">
-            <app-spells
-              *ngIf="spells"
-              [spells]="spells"
-              (goBackEmitter)="slidePrevious()"
-              (formEmitter)="handleSpellsFormEmitter($event)"
-            ></app-spells>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-slide>
-    <ion-slide>
-      <ion-grid fixed>
-        <ion-row>
-          <ion-col size="12">
-            <app-items
-              *ngIf="items"
-              [items]="items"
-              (goBackEmitter)="slidePrevious()"
-              (formEmitter)="handleItemsFormEmitter($event)"
-            ></app-items>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-slide>
-    <ion-slide>
-      <ion-grid fixed>
-        <ion-row>
-          <ion-col size="12">
-            <app-abilities
-              [champion]="getChampion()"
-              (goBackEmitter)="slidePrevious()"
-              (formEmitter)="handleAbilitiesFormEmitter($event)"
-            ></app-abilities>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-slide>
-    <ion-slide>
-      <ion-grid fixed>
-        <ion-row>
-          <ion-col size="12">
-            <app-threats
-              *ngIf="champions"
-              [champions]="champions"
-              (goBackEmitter)="slidePrevious()"
-              (formEmitter)="handleThreatsFormEmitter($event)"
-            ></app-threats>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-slide>
-  </ion-slides>
+  <app-guide
+    [champions]="champions"
+    [runes]="runes"
+    [spells]="spells"
+    [items]="items"
+    (emitGuide)="submitGuide($event)"
+  ></app-guide>
 </ion-content>

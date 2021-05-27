@@ -10,6 +10,7 @@ import { FormThreatsValues } from 'src/app/interfaces/form-threats-values';
 })
 export class ThreatsComponent implements OnInit {
   @Input() champions: Array<Champion>;
+  @Input() formValues: FormThreatsValues;
 
   @Output() goBackEmitter = new EventEmitter<boolean>();
   @Output() formEmitter = new EventEmitter<FormThreatsValues>();
@@ -25,6 +26,17 @@ export class ThreatsComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       threats: this.fb.array([this.threat()]),
+    });
+    if (!this.formValues) return null;
+    const threatArray = this.form.get('threats') as FormArray;
+    threatArray.removeAt(0);
+    this.formValues.threats.forEach((value) => {
+      const newThreat = this.threat();
+      newThreat.patchValue({
+        threat: value.threat,
+        description: value.description,
+      });
+      threatArray.push(newThreat);
     });
   }
 
@@ -50,6 +62,6 @@ export class ThreatsComponent implements OnInit {
   }
 
   handleFormSubmit() {
-    this.formEmitter.emit(this.form.value);
+    this.formEmitter.emit({ threats: this.form.value } as FormThreatsValues);
   }
 }
