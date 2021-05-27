@@ -27,6 +27,7 @@
     (ionSlidesDidLoad)="slideChanged(slides)"
   >
     <ion-slide>
+      <app-overview></app-overview>
       <div class="container" *ngIf="championData">
         <img
           src="{{resUrl}}/img/champion/splash/{{championData.id}}_0.jpg"
@@ -94,7 +95,6 @@
             </ion-list>
           </ion-col>
         </ion-row>
-
         <ion-row>
           <ion-col>
             <ion-text color="primary" class="ion-text-start">
@@ -104,7 +104,6 @@
             </ion-text>
           </ion-col>
         </ion-row>
-
         <ion-row>
           <ion-col>
             <ng-container
@@ -116,7 +115,6 @@
             </ng-container>
           </ion-col>
         </ion-row>
-
         <ion-row>
           <ion-col>
             <ion-text color="primary" class="ion-text-start">
@@ -126,7 +124,6 @@
             </ion-text>
           </ion-col>
         </ion-row>
-
         <ion-row>
           <ion-col>
             <ng-container

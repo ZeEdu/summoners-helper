@@ -6,10 +6,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { BuildsPage } from './builds.page';
-import { SafeHtmlPipe } from 'src/app/shared/application-pipes/safe-html.pipe';
+import { SafeHtmlPipe } from 'src/app/shared/pipes/safe-html.pipe';
 import { GuideItemComponent } from 'src/app/components/guide-item/guide-item.component';
-import { ApplicationSharedPipesModule } from 'src/app/shared/application-pipes/application-pipes.module';
-import { ApplicationSharedComponentsModule } from 'src/app/shared/application-pipes/application-components.module';
+import { ApplicationSharedPipesModule } from 'src/app/shared/pipes/application-pipes.module';
+import { ApplicationSharedComponentsModule } from 'src/app/shared/components/application-components.module';
 
 const routes: Routes = [
   {

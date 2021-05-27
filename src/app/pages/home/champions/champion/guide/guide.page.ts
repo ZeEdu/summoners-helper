@@ -12,7 +12,7 @@ import { Item, ItemResponse } from '../../../../../interfaces/items';
 import { DataDragonHandlerService } from '../../../../../services/data-dragon-handler.service';
 import { IonSlides } from '@ionic/angular';
 import { UserManagerService } from 'src/app/services/user-manager.service';
-import { SafeHtmlPipe } from 'src/app/shared/application-pipes/safe-html.pipe';
+import { SafeHtmlPipe } from 'src/app/shared/pipes/safe-html.pipe';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { ChampionInfo } from 'src/app/interfaces/champion';

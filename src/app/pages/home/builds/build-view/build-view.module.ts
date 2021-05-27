@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { BuildViewPage } from './build-view.page';
-import { ApplicationSharedPipesModule } from 'src/app/shared/application-pipes/application-pipes.module';
+import { ApplicationSharedPipesModule } from 'src/app/shared/pipes/application-pipes.module';
 
 const routes: Routes = [
   {

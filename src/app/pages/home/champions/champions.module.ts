@@ -6,9 +6,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ChampionsPage } from './champions.page';
-import { ApplicationSharedPipesModule } from 'src/app/shared/application-pipes/application-pipes.module';
+import { ApplicationSharedPipesModule } from 'src/app/shared/pipes/application-pipes.module';
 import { ChampionItemComponent } from 'src/app/components/champion-item/champion-item.component';
-import { ApplicationSharedComponentsModule } from 'src/app/shared/application-pipes/application-components.module';
+import { ApplicationSharedComponentsModule } from 'src/app/shared/components/application-components.module';
 
 const routes: Routes = [
   {

@@ -5,7 +5,7 @@ import { Champion, LoLResponse } from 'src/app/interfaces/champion-overview';
 import { BuildManagerService } from 'src/app/services/build-manager.service';
 import { Builds } from 'src/app/interfaces/get-builds';
 import { DataDragonHandlerService } from 'src/app/services/data-dragon-handler.service';
-import { SafeHtmlPipe } from 'src/app/shared/application-pipes/safe-html.pipe';
+import { SafeHtmlPipe } from 'src/app/shared/pipes/safe-html.pipe';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 
