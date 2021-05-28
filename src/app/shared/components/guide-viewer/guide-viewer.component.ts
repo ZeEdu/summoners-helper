@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Guide } from 'src/app/interfaces/build';
 
 @Component({
   selector: 'app-guide-viewer',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./guide-viewer.component.scss'],
 })
 export class GuideViewerComponent implements OnInit {
+  @Input() guide: Guide;
+  @Input() guideCreatorUsername: string;
+
   slideOpts = {
     initialSlide: 0,
   };

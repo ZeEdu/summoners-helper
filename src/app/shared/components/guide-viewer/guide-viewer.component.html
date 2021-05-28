@@ -1,12 +1,26 @@
 <ion-slides pager="false" [options]="slideOpts">
   <ion-slide>
-    <app-introduction></app-introduction>
+    <app-introduction
+      [name]="guide.name"
+      [champion]="guide.champion"
+      [role]="guide.role"
+      [patch]="guide.patch"
+      [introduction]="guide.introduction"
+      [updatedOn]="guide.updatedOn"
+      [createdOn]="guide.createdOn"
+      [creatorUsername]="guideCreatorUsername"
+    ></app-introduction>
   </ion-slide>
   <ion-slide>
-    <app-runes></app-runes>
+    <!-- <app-runes
+      [order]="'first'"
+      [description]="guide.runesDescription"
+      [path]="guide.runes.primaryRune"
+			[firstRune]=""
+    ></app-runes> -->
   </ion-slide>
   <ion-slide>
-    <app-runes></app-runes>
+    <!-- <app-runes></app-runes> -->
   </ion-slide>
   <ion-slide>
     <app-bonus></app-bonus>

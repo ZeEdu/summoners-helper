@@ -1,44 +1,63 @@
-<app-hero-image></app-hero-image>
-<ion-grid class="ion-padding">
+<app-hero-image
+  [champion]="champion"
+  [patch]="patch"
+  [role]="role"
+></app-hero-image>
+<ion-grid>
   <ion-row>
     <ion-col size="12">
       <ion-item>
         <ion-text color="primary">
-          <h1 class="title">Introduction</h1>
+          <h1 class="title" class="ion-text-start">Introduction</h1>
         </ion-text>
       </ion-item>
     </ion-col>
     <ion-col size="12">
       <ion-item>
-        <p>{{ introduction }}</p>
+        <p class="ion-text-start">{{ introduction }}</p>
       </ion-item>
     </ion-col>
   </ion-row>
   <ion-row>
-    <ion-col size="6" *ngIf="updatedOn">
-      <p class="bottom-content">
-        <ion-text color="primary">Last Updated: </ion-text>
-        <ion-text color="light">{{ updatedOn | date }}</ion-text>
-      </p>
+    <ion-col size="12" *ngIf="updatedOn">
+      <ion-item>
+        <ion-text color="primary">
+          <span>Last Updated: </span>
+        </ion-text>
+        <ion-text color="light"
+          ><span>{{ updatedOn | date }}</span></ion-text
+        >
+
+        <!-- <p class="bottom-content">
+        </p> -->
+      </ion-item>
     </ion-col>
-    <ion-col size="6" *ngIf="!updatedOn">
-      <p class="bottom-content">
-        <ion-text color="primary">Created On: </ion-text>
-        <ion-text color="light">{{ createdOn | date }}</ion-text>
-      </p>
+    <ion-col size="12" *ngIf="!updatedOn">
+      <ion-item>
+        <p class="bottom-content">
+          <ion-text color="primary">Created On: </ion-text>
+          <ion-text color="light">{{ createdOn | date }}</ion-text>
+        </p>
+      </ion-item>
     </ion-col>
-    <ion-col size="6" *ngIf="creatorUsername; else creatorNotFound">
-      <p class="bottom-content">
-        <ion-text color="primary">Created by: </ion-text>
-        <ion-text color="light">{{ creatorUsername }}</ion-text>
-      </p>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12" *ngIf="creatorUsername; else creatorNotFound">
+      <ion-item>
+        <p class="bottom-content">
+          <ion-text color="primary">Created by: </ion-text>
+          <ion-text color="light">{{ creatorUsername }}</ion-text>
+        </p>
+      </ion-item>
     </ion-col>
     <ng-template #creatorNotFound>
       <ion-col size="6">
-        <p class="bottom-content">
-          <ion-text color="primary">Created by: </ion-text>
-          <ion-text color="light">Not Found</ion-text>
-        </p>
+        <ion-item>
+          <p class="bottom-content">
+            <ion-text color="primary">Created by: </ion-text>
+            <ion-text color="light">Not Found</ion-text>
+          </p>
+        </ion-item>
       </ion-col>
     </ng-template>
   </ion-row>

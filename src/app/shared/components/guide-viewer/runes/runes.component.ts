@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { PathRune } from 'src/app/interfaces/runes';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-runes',
@@ -6,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./runes.component.scss'],
 })
 export class RunesComponent implements OnInit {
+  @Input() order: 'first' | 'second';
+  @Input() description?: string;
+  @Input() path: string;
+  @Input() firstRune: PathRune;
+  @Input() secondRune: PathRune;
+  @Input() thirdRune: PathRune;
+  @Input() fouthRune?: PathRune;
 
-  constructor() { }
+  public resUrl = environment.backendBaseUrl;
+
+  constructor() {}
 
   ngOnInit() {}
-
 }
