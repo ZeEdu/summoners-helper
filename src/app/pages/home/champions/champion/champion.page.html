@@ -40,32 +40,7 @@
       ></app-abilities>
     </ion-slide>
     <ion-slide>
-      <ion-grid class="ion-padding">
-        <ion-list *ngIf="builds">
-          <ion-item
-            *ngFor="let build of builds; index as i;"
-            routerLink="{{build._id}}"
-          >
-            <ion-label>
-              <ion-text color="light">
-                {{build.name}}
-              </ion-text>
-            </ion-label>
-            <ion-note slot="end">
-              <ion-text>
-                {{build.patch}}
-              </ion-text>
-            </ion-note>
-          </ion-item>
-        </ion-list>
-        <ion-infinite-scroll (ionInfinite)="loadGuides(true, $event)">
-          <ion-infinite-scroll-content
-            loadingSpinner="bubbles"
-            loadingText="Loading more Guides..."
-          >
-          </ion-infinite-scroll-content>
-        </ion-infinite-scroll>
-      </ion-grid>
+      <app-guides [championId]="getChampionID()"></app-guides>
     </ion-slide>
   </ion-slides>
 </ion-content>

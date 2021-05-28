@@ -11,6 +11,7 @@ import { StatusComponent } from './status/status.component';
 import { AbilitiesComponent } from './abilities/abilities.component';
 import { AbilityComponent } from './abilities/ability/ability.component';
 import { GuidesComponent } from './guides/guides.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,13 @@ import { GuidesComponent } from './guides/guides.component';
     AbilityComponent,
     GuidesComponent,
   ],
-  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    IonicModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+  ],
   exports: [
     OverviewComponent,
     HeroImageComponent,

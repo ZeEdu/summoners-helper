@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { GuidePage } from './guide.page';
 import { ApplicationSharedPipesModule } from 'src/app/shared/pipes/application-pipes.module';
+import { GuideViewerSharedComponentsModule } from 'src/app/shared/components/guide-viewer/guide-viewer-shared-components.module';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes),
     ApplicationSharedPipesModule,
+    GuideViewerSharedComponentsModule,
   ],
   declarations: [GuidePage],
   providers: [],

@@ -55,7 +55,7 @@ export class ChampionPage implements OnInit {
     this.loadGuides();
   }
 
-  private getChampionID(): string {
+  public getChampionID(): string {
     return this.route.snapshot.paramMap.get('id');
   }
 
