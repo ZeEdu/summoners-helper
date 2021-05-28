@@ -1,0 +1,45 @@
+<app-hero-image></app-hero-image>
+<ion-grid class="ion-padding">
+  <ion-row>
+    <ion-col size="12">
+      <ion-item>
+        <ion-text color="primary">
+          <h1 class="title">Introduction</h1>
+        </ion-text>
+      </ion-item>
+    </ion-col>
+    <ion-col size="12">
+      <ion-item>
+        <p>{{ introduction }}</p>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="6" *ngIf="updatedOn">
+      <p class="bottom-content">
+        <ion-text color="primary">Last Updated: </ion-text>
+        <ion-text color="light">{{ updatedOn | date }}</ion-text>
+      </p>
+    </ion-col>
+    <ion-col size="6" *ngIf="!updatedOn">
+      <p class="bottom-content">
+        <ion-text color="primary">Created On: </ion-text>
+        <ion-text color="light">{{ createdOn | date }}</ion-text>
+      </p>
+    </ion-col>
+    <ion-col size="6" *ngIf="creatorUsername; else creatorNotFound">
+      <p class="bottom-content">
+        <ion-text color="primary">Created by: </ion-text>
+        <ion-text color="light">{{ creatorUsername }}</ion-text>
+      </p>
+    </ion-col>
+    <ng-template #creatorNotFound>
+      <ion-col size="6">
+        <p class="bottom-content">
+          <ion-text color="primary">Created by: </ion-text>
+          <ion-text color="light">Not Found</ion-text>
+        </p>
+      </ion-col>
+    </ng-template>
+  </ion-row>
+</ion-grid>

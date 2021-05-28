@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content fullscreen>
-  <app-viewer></app-viewer>
+  <app-guide-viewer></app-guide-viewer>
 
   <ion-slides pager="false" [options]="slideOpts" *ngIf="guide">
     <ion-slide>
@@ -46,7 +46,7 @@
         <ion-row>
           <ion-col size="12">
             <ion-item>
-              <p clas="padding">
+              <p class="padding">
                 {{guide.introduction}}
               </p>
             </ion-item>

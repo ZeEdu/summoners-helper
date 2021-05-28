@@ -7,11 +7,11 @@ import { ItemsModule } from './items/Items.module';
 import { IntroductionModule } from './introduction/introduction.module';
 import { BonusModule } from './bonus/bonus.module';
 import { AbilitiesProgressionModule } from './abilities-progression/abilities-progression.module';
-import { ViewerComponent } from './viewer.component';
+import { GuideViewerComponent } from './guide-viewer.component';
 import { IonicModule } from '@ionic/angular';
 
 @NgModule({
-  declarations: [ViewerComponent],
+  declarations: [GuideViewerComponent],
   imports: [
     CommonModule,
     IonicModule,
@@ -23,5 +23,6 @@ import { IonicModule } from '@ionic/angular';
     ItemsModule,
     ThreatsModule,
   ],
+  exports: [GuideViewerComponent],
 })
-export class ViewerModule {}
+export class GuideViewerModule {}

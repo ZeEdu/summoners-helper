@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ViewerComponent } from './viewer.component';
+import { GuideViewerComponent } from './guide-viewer.component';
 
-describe('ViewerComponent', () => {
-  let component: ViewerComponent;
-  let fixture: ComponentFixture<ViewerComponent>;
+describe('GuideViewerComponent', () => {
+  let component: GuideViewerComponent;
+  let fixture: ComponentFixture<GuideViewerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewerComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [GuideViewerComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ViewerComponent);
+    fixture = TestBed.createComponent(GuideViewerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
