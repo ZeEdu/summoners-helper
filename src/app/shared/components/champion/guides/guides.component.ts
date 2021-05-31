@@ -23,9 +23,6 @@ export class GuidesComponent implements OnInit {
   ngOnInit() {
     this.loadGuides();
   }
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter');
-  }
 
   public loadGuides(loadMore = false, event?) {
     if (loadMore) this.page++;

@@ -12,21 +12,37 @@
     ></app-introduction>
   </ion-slide>
   <ion-slide>
-    <!-- <app-runes
+    <app-runes
       [order]="'first'"
       [description]="guide.runesDescription"
       [path]="guide.runes.primaryRune"
-			[firstRune]=""
-    ></app-runes> -->
+      [firstRune]="firstPrimaryRune"
+      [secondRune]="secondPrimaryRune"
+      [thirdRune]="thirdPrimaryRune"
+      [fouthRune]="fourthPrimaryRune"
+    ></app-runes>
   </ion-slide>
   <ion-slide>
-    <!-- <app-runes></app-runes> -->
+    <app-runes
+      [order]="'second'"
+      [path]="guide.runes.secondaryRune"
+      [firstRune]="firstSecondaryRune"
+      [secondRune]="secondSecondaryRune"
+      [thirdRune]="thirdSecondaryRune"
+    ></app-runes>
   </ion-slide>
   <ion-slide>
-    <app-bonus></app-bonus>
+    <app-bonus
+      [bonus]="guide.bonus"
+      [description]="guide.bonusDescription"
+    ></app-bonus>
   </ion-slide>
   <ion-slide>
-    <app-spells></app-spells>
+    <app-spells
+      [description]="guide.spellsDescription"
+      [firstSpell]="firstSpell"
+      [secondSpell]="secondSpell"
+    ></app-spells>
   </ion-slide>
   <ion-slide>
     <app-abilities-progression></app-abilities-progression>

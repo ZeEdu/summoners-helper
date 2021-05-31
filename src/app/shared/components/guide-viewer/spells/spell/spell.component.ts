@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-spell',
@@ -6,9 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./spell.component.scss'],
 })
 export class SpellComponent implements OnInit {
+  @Input() name: string;
+  @Input() src: string;
+  @Input() description: string;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {}
-
 }

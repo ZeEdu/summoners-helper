@@ -1,16 +1,20 @@
 <ion-row>
   <ion-col>
-    <ion-text color="primary" class="ion-text-start">
-      <h3 class="title">Playing {{ mode }} {{ name }}</h3>
-    </ion-text>
+    <ion-item>
+      <ion-text color="primary" class="ion-text-start">
+        <h2 class="title">Playing {{ mode }} {{ name }}</h2>
+      </ion-text>
+    </ion-item>
   </ion-col>
 </ion-row>
 <ion-row>
   <ion-col>
     <ng-container *ngFor="let tip of tips; index as i">
-      <ion-text class="ion-text-start" color="light">
-        <p class="paragraph">{{ tip }}</p>
-      </ion-text>
+      <ion-item>
+        <ion-text class="ion-text-start">
+          <p>{{ tip }}</p>
+        </ion-text>
+      </ion-item>
     </ng-container>
   </ion-col>
 </ion-row>

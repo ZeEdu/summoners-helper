@@ -27,7 +27,7 @@ export class ChampionPage implements OnInit {
   public segment = 0;
   public selectedSlide: any;
   public sliderOptions = {
-    initialSlide: 0,
+    initialSlide: 2,
     slidesPerView: 1,
     speed: 400,
   };

@@ -1,23 +1,28 @@
-<div class="spell-block">
-  <ion-row>
-    <ion-col size="3" class="ion-text-start">
+<ion-row>
+  <ion-col class="ion-text-start">
+    <ion-item>
       <img
+        slot="start"
         width="100"
         height="100"
         src="{{ resUrl }}/{{ patchVersion }}/img/spell/{{ spell.image.full }}"
       />
-    </ion-col>
-    <ion-col size="9">
-      <ion-text color="primary" class="ion-text-start">
-        <h3>
-          {{ spell.name }}
-        </h3>
+      <ion-label>
+        <ion-text color="primary" class="ion-text-start">
+          <h3>
+            {{ spell.name }}
+          </h3>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-text class="ion-text-start">
+        <p>{{ spell.description }}</p>
       </ion-text>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-text class="ion-text-start" color="light">
-      <p>{{ spell.description }}</p>
-    </ion-text>
-  </ion-row>
-</div>
+    </ion-item>
+  </ion-col>
+</ion-row>

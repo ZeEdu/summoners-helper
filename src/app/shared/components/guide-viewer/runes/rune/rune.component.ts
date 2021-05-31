@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-rune',
@@ -6,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./rune.component.scss'],
 })
 export class RuneComponent implements OnInit {
+  @Input() icon: string;
+  @Input() name: string;
+  @Input() longDesc: string;
 
-  constructor() { }
+  public resUrl = environment.backendBaseUrl;
+
+  constructor() {}
 
   ngOnInit() {}
-
 }

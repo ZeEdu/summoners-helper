@@ -3,10 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { BuildManagerService } from '../../../../../services/build-manager.service';
 import { Guide } from '../../../../../interfaces/build';
 import { PathResponse, PathRune } from '../../../../../interfaces/runes';
-import {
-  Champion,
-  ChampionsResponse,
-} from '../../../../../interfaces/champions';
 import { Spell, SpellResponse } from '../../../../../interfaces/spells';
 import { Item, ItemResponse } from '../../../../../interfaces/items';
 import { DataDragonHandlerService } from '../../../../../services/data-dragon-handler.service';

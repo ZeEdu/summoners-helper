@@ -1,3 +1,23 @@
-<p>
-  rune works!
-</p>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-img
+        slot="start"
+        src="{{ resUrl }}/img/{{ icon }}"
+        style="width: 4rem;"
+        width="64"
+        height="64"
+      ></ion-img>
+      <ion-label>
+        <ion-text color="primary">
+          <h2>
+            {{ name }}
+          </h2>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <p [innerHTML]="longDesc | safeHtml"></p>
+    </ion-item>
+  </ion-col>
+</ion-row>

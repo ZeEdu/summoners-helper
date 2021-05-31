@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-bonus-item',
@@ -6,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bonus-item.component.scss'],
 })
 export class BonusItemComponent implements OnInit {
+  @Input() icon: string;
+  @Input() name: string;
 
-  constructor() { }
+  public resUrl = environment.backendBaseUrl;
+
+  constructor() {}
 
   ngOnInit() {}
-
 }
