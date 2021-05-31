@@ -45,7 +45,11 @@
     ></app-spells>
   </ion-slide>
   <ion-slide>
-    <app-abilities-progression></app-abilities-progression>
+    <app-abilities-progression
+      [description]="guide.abilitiesProgressionDescription"
+      [champion]="guide.champion"
+      [progression]="guide.abilitiesProgression"
+    ></app-abilities-progression>
   </ion-slide>
   <ion-slide>
     <app-items></app-items>

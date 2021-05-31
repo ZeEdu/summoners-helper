@@ -49,6 +49,7 @@ export class GuidePage implements OnInit {
   public items: { [key: string]: Item };
   public secondaryPathData: PathResponse;
   public skills = ['q', 'w', 'e', 'r'];
+
   public levels = [
     0,
     1,

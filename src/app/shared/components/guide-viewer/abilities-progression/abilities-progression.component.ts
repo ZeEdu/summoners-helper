@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { AbilitiesProgression } from 'src/app/interfaces/build';
 
 @Component({
   selector: 'app-abilities-progression',
@@ -6,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./abilities-progression.component.scss'],
 })
 export class AbilitiesProgressionComponent implements OnInit {
+  @Input() description: string;
+  @Input() champion: string;
+  @Input() progression: AbilitiesProgression;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {}
-
 }

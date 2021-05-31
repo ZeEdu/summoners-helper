@@ -22,7 +22,7 @@ export class GuideViewerComponent implements OnInit {
   @Input() secondSpell: Spell;
 
   slideOpts = {
-    initialSlide: 4,
+    initialSlide: 5,
   };
 
   constructor() {}

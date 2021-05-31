@@ -1,3 +1,14 @@
-<p>
-  abilities-progression works!
-</p>
+<ion-item>
+  <ion-label>
+    <ion-text color="primary">
+      <h1>Abilities Progression</h1>
+    </ion-text>
+  </ion-label>
+</ion-item>
+<ion-item>
+  <p>{{ description }}</p>
+</ion-item>
+<app-abilities
+  [progression]="progression"
+  [champion]="champion"
+></app-abilities>

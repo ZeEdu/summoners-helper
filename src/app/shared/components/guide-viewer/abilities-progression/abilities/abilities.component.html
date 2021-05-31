@@ -1,3 +1,30 @@
-<p>
-  abilities works!
-</p>
+<div class="flex-holder">
+  <div class="box">
+    <div class="level">{{ champion === 'Aphelios' ? 'A' : 'Q' }}</div>
+  </div>
+  <div class="box">
+    <div class="level">{{ champion === 'Aphelios' ? 'S' : 'W' }}</div>
+  </div>
+  <div class="box">
+    <div class="level">{{ champion === 'Aphelios' ? 'L' : 'E' }}</div>
+  </div>
+  <div *ngIf="champion !== 'Aphelios'" class="box">
+    <div class="level">R</div>
+  </div>
+</div>
+<div class="flex-holder" *ngFor="let level of levels; index as y">
+  <ng-container *ngIf="champion === 'Aphelios'">
+    <div *ngFor="let skill of skillsAphelios; index as x">
+      <div class="box" [ngClass]="x === progression[y] ? 'active' : ''">
+        <span class="level">{{ y + 1 }}</span>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container #defaultBlock>
+    <div *ngFor="let skill of skills; index as x">
+      <div class="box" [ngClass]="x === progValues[y] ? 'active' : ''">
+        <span class="level" *ngIf="x === progValues[y]">{{ y + 1 }}</span>
+      </div>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,60 @@
+// .flex-holder {
+//   display: flex;
+//   justify-content: space-around;
+//   margin-bottom: 12px;
+//   &:first-child {
+//     margin-top: 32px;
+//   }
+//   .box {
+//     display: flex;
+//     flex-wrap: wrap;
+//     width: 64px;
+//     height: 64px;
+//     border-radius: 5px;
+//     background-color: #1d383b;
+//     &.active {
+//       background-color: var(--ion-color-primary);
+//     }
+//     .level {
+//       display: flex;
+//       align-items: center;
+//       margin-left: auto;
+//       margin-right: auto;
+//       color: var(--ion-color-light);
+//     }
+//   }
+// }
+
+.flex-holder {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 12px;
+}
+.flex-holder:first-child {
+  margin-top: 32px;
+}
+
+.ability-box-image {
+  border-radius: 5px;
+}
+
+.box {
+  display: flex;
+  flex-wrap: wrap;
+  width: 64px;
+  height: 64px;
+  border-radius: 5px;
+  background-color: #1d383b;
+}
+
+div.box.active {
+  background-color: var(--ion-color-primary);
+}
+
+.level {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--ion-color-light);
+}
