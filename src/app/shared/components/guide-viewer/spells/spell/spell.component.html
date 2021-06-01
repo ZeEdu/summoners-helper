@@ -1,5 +1,7 @@
 <ion-item>
-  <ion-img slot="start" [src]="src"> </ion-img>
+  <ion-thumbnail slot="start">
+    <ion-img [src]="src" [alt]="name"> </ion-img>
+  </ion-thumbnail>
   <ion-label>
     <ion-text color="primary">
       <h2>{{ name }}</h2>

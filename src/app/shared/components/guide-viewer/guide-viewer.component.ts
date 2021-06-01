@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Guide } from 'src/app/interfaces/build';
+import { GetChampions } from 'src/app/interfaces/get-champions';
 import { Item } from 'src/app/interfaces/items';
 import { PathRune } from 'src/app/interfaces/runes';
 import { Spell } from 'src/app/interfaces/spells';
@@ -22,9 +23,10 @@ export class GuideViewerComponent implements OnInit {
   @Input() firstSpell: Spell;
   @Input() secondSpell: Spell;
   @Input() items: { [key: string]: Item };
+  @Input() championThreats: GetChampions[];
 
   slideOpts = {
-    initialSlide: 6,
+    initialSlide: 7,
   };
 
   constructor() {}

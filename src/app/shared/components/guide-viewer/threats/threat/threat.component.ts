@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-threat',
@@ -6,9 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./threat.component.scss'],
 })
 export class ThreatComponent implements OnInit {
+  @Input() src: string;
+  @Input() name: string;
+  @Input() description: string;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {}
-
 }

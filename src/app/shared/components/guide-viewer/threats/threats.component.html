@@ -1,3 +1,20 @@
-<p>
-  threats works!
-</p>
+<ion-grid fixed>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label>
+          <ion-text color="primary">
+            <h1>Threats</h1>
+          </ion-text>
+        </ion-label>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <app-threat
+    *ngFor="let threat of championThreats; index as i"
+    [src]="resUrl + '/10.7.1/img/champion/' + threat.image.full"
+    [name]="threat.name"
+    [description]="threats[i].description"
+  >
+  </app-threat>
+</ion-grid>
