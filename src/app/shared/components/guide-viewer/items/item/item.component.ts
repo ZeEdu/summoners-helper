@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ItemArray } from 'src/app/interfaces/build';
 
 @Component({
   selector: 'app-item',
@@ -6,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./item.component.scss'],
 })
 export class ItemComponent implements OnInit {
+  @Input() src: string;
+  @Input() name: string;
+  @Input() description: string;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {}
-
 }

@@ -1,3 +1,13 @@
-<p>
-  items-roll works!
-</p>
+<ion-row>
+  <ion-col size="12">
+    <ion-item>
+      <ion-label>{{ rollName }}</ion-label>
+    </ion-item>
+    <app-item
+      *ngFor="let item of itemArray"
+      [src]="resUrl + '/10.7.1/img/item/' + items[item.item].image.full"
+      [name]="items[item.item].name"
+      [description]="items[item.item].description"
+    ></app-item>
+  </ion-col>
+</ion-row>

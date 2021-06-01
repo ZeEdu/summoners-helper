@@ -52,7 +52,11 @@
     ></app-abilities-progression>
   </ion-slide>
   <ion-slide>
-    <app-items></app-items>
+    <app-items
+      [description]="guide.itemsDescription"
+      [itemsBlock]="guide.itemsBlock"
+      [items]="items"
+    ></app-items>
   </ion-slide>
   <ion-slide>
     <app-threats></app-threats>
