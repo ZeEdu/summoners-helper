@@ -1,4 +1,10 @@
-<ion-slides *ngIf="loaded" pager="false" [options]="slideOpts" #slider>
+<ion-slides
+  *ngIf="loaded"
+  pager="false"
+  [options]="slideOpts"
+  #slider
+  (ionSlideDidChange)="handleSlideChange()"
+>
   <ion-slide>
     <ion-grid fixed>
       <ion-row>

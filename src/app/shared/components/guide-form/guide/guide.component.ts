@@ -36,6 +36,7 @@ export class GuideComponent implements OnInit {
 
   @Output()
   emitGuide = new EventEmitter<any>();
+  @Output() slideChangeEmitter = new EventEmitter<boolean>();
 
   loaded = false;
 
@@ -54,7 +55,15 @@ export class GuideComponent implements OnInit {
   };
 
   ngOnInit() {
+    if (!this.guide) {
+      this.loaded = true;
+      return null;
+    }
+
     this.createFormValues(this.guide);
+  }
+  handleSlideChange() {
+    this.slideChangeEmitter.emit(true);
   }
 
   createFormValues(guide: Guide) {

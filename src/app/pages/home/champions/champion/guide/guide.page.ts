@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { BuildManagerService } from '../../../../../services/build-manager.service';
 import { Guide } from '../../../../../interfaces/build';
 import { PathResponse, PathRune } from '../../../../../interfaces/runes';
 import { Spell, SpellResponse } from '../../../../../interfaces/spells';
 import { Item, ItemResponse } from '../../../../../interfaces/items';
 import { DataDragonHandlerService } from '../../../../../services/data-dragon-handler.service';
-import { IonSlides } from '@ionic/angular';
+import { IonContent, IonSlides } from '@ionic/angular';
 import { UserManagerService } from 'src/app/services/user-manager.service';
 import { SafeHtmlPipe } from 'src/app/shared/pipes/safe-html.pipe';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -22,9 +22,13 @@ import { GetChampions } from 'src/app/interfaces/get-champions';
 })
 export class GuidePage implements OnInit {
   @ViewChild(IonSlides, { static: false }) slides: IonSlides;
+  @ViewChild(IonContent, { static: false }) content: IonContent;
+
   slideOpts = {
     initialSlide: 0,
   };
+
+  public championRoute: string;
 
   public guideCreatorUsername: string;
   public guide: Guide;
@@ -138,6 +142,10 @@ export class GuidePage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.route.params.subscribe((params) => {
+      this.championRoute = params.id;
+    });
+
     this.afa.idToken.pipe(retry(2), take(1)).subscribe((token) => {
       this.buildService
         .getBuildByID(this.route.snapshot.paramMap.get('guideid'), token)
@@ -217,5 +225,9 @@ export class GuidePage implements OnInit {
             );
         });
     });
+  }
+
+  handleSlideChange() {
+    this.content.scrollToTop();
   }
 }

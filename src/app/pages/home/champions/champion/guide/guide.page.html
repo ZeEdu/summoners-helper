@@ -1,7 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref=""></ion-back-button>
+      <ion-back-button
+        [defaultHref]="['/', 'home', 'tabs', 'champions', championRoute]"
+      ></ion-back-button>
     </ion-buttons>
     <ion-title>{{guide ? guide.name : 'Loading...'}}</ion-title>
   </ion-toolbar>
@@ -20,8 +22,7 @@
 		&& firstSpell
 		&& secondSpell
 		&& items
-		&& championThreats
-		"
+		&& championThreats"
     [guide]="guide"
     [guideCreatorUsername]="guideCreatorUsername"
     [firstPrimaryRune]="firstPrimaryRune"
@@ -35,40 +36,6 @@
     [secondSpell]="secondSpell"
     [items]="items"
     [championThreats]="championThreats"
+    (slideChangeEmitter)="handleSlideChange()"
   ></app-guide-viewer>
-
-  <ion-slides pager="false" [options]="slideOpts" *ngIf="guide">
-    <ion-slide>
-      <ion-grid fixed *ngIf="championThreats">
-        <ion-row>
-          <ion-col size="12">
-            <h1 class="title slide-title">
-              <ion-text color="primary">
-                Threats
-              </ion-text>
-            </h1>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size="12">
-            <ng-container *ngFor="let threat of championThreats; index as i">
-              <ion-item>
-                <ion-thumbnail slot="start">
-                  <img
-                    src="{{resUrl}}/10.7.1/img/champion/{{threat.image.full}}"
-                  />
-                </ion-thumbnail>
-                <div class="threats">
-                  <ion-text color="primary">
-                    <h2 class="sub-title">{{threat.name}}</h2>
-                  </ion-text>
-                  <p>{{guide.threats[i].description}}</p>
-                </div>
-              </ion-item>
-            </ng-container>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-slide>
-  </ion-slides>
 </ion-content>

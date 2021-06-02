@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { IonInfiniteScroll, IonSlides } from '@ionic/angular';
+import { IonContent, IonInfiniteScroll, IonSlides } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { Champion, LoLResponse } from 'src/app/interfaces/champion-overview';
 import { BuildManagerService } from 'src/app/services/build-manager.service';
@@ -27,7 +27,7 @@ export class ChampionPage implements OnInit {
   public segment = 0;
   public selectedSlide: any;
   public sliderOptions = {
-    initialSlide: 2,
+    initialSlide: 0,
     slidesPerView: 1,
     speed: 400,
   };

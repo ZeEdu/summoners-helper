@@ -1,4 +1,8 @@
-<ion-slides pager="false" [options]="slideOpts">
+<ion-slides
+  pager="false"
+  [options]="slideOpts"
+  (ionSlideDidChange)="handleSlideChange()"
+>
   <ion-slide>
     <app-introduction
       [name]="guide.name"

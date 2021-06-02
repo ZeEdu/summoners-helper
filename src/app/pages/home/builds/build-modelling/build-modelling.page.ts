@@ -5,7 +5,12 @@ import { PathResponse } from '../../../../interfaces/runes';
 import { Champion, ChampionsResponse } from '../../../../interfaces/champions';
 import { Item, ItemResponse } from '../../../../interfaces/items';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { IonSlides, LoadingController, ToastController } from '@ionic/angular';
+import {
+  IonContent,
+  IonSlides,
+  LoadingController,
+  ToastController,
+} from '@ionic/angular';
 import { Guide } from 'src/app/interfaces/build';
 import { BuildManagerService } from 'src/app/services/build-manager.service';
 import { SpellResponse, Spell } from 'src/app/interfaces/spells';
@@ -19,6 +24,7 @@ import { Subscription } from 'rxjs';
 })
 export class BuildModellingPage implements OnInit, OnDestroy {
   @ViewChild('slider', { static: false }) slides: IonSlides;
+  @ViewChild(IonContent, { static: false }) content: IonContent;
 
   private getChampionSubscription: Subscription;
   private getRunesSubscription: Subscription;
@@ -86,6 +92,10 @@ export class BuildModellingPage implements OnInit, OnDestroy {
     if (this.submitting) {
       this.userSubscription.unsubscribe();
     }
+  }
+
+  public handleSlideEmitter(e: boolean) {
+    this.content.scrollToTop();
   }
 
   public async submitGuide(formConstructed: any) {
