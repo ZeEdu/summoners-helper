@@ -62,6 +62,6 @@ export class ThreatsComponent implements OnInit {
   }
 
   handleFormSubmit() {
-    this.formEmitter.emit({ threats: this.form.value } as FormThreatsValues);
+    this.formEmitter.emit(this.form.value as FormThreatsValues);
   }
 }

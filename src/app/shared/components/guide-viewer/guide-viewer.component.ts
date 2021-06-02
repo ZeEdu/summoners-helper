@@ -47,5 +47,7 @@ export class GuideViewerComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('Hello World');
+  }
 }

@@ -147,8 +147,10 @@ export class GuidePage implements OnInit {
     });
 
     this.afa.idToken.pipe(retry(2), take(1)).subscribe((token) => {
+      if (!token) return null;
       this.buildService
         .getBuildByID(this.route.snapshot.paramMap.get('guideid'), token)
+        .pipe(take(1))
         .subscribe((guide: Guide) => {
           this.guide = guide;
           const abilitiesArray = Object.values(guide.abilitiesProgression);

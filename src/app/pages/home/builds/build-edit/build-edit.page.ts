@@ -10,6 +10,7 @@ import {
   ToastController,
   IonSlides,
   NavController,
+  IonContent,
 } from '@ionic/angular';
 import { BuildManagerService } from '../../../../services/build-manager.service';
 import { Guide, Threat } from '../../../../interfaces/build';
@@ -27,6 +28,8 @@ import { environment } from 'src/environments/environment';
 })
 export class BuildEditPage implements OnInit {
   @ViewChild('slider', { static: false }) slides: IonSlides;
+  @ViewChild(IonContent, { static: false }) content: IonContent;
+
   customAlert = {
     cssClass: 'customAlert',
   };
@@ -363,5 +366,9 @@ export class BuildEditPage implements OnInit {
 
   slidePrevious() {
     this.slides.slidePrev();
+  }
+
+  handleSlideEmitter() {
+    this.content.scrollToTop();
   }
 }

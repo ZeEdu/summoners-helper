@@ -50,7 +50,7 @@ export class GuideComponent implements OnInit {
 
   constructor() {}
   slideOpts = {
-    initialSlide: 0,
+    initialSlide: 1,
     allowTouchMove: false,
   };
 

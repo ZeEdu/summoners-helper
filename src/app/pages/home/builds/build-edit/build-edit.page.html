@@ -1,7 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref=""></ion-back-button>
+      <ion-back-button
+        [defaultHref]="['/','home','tabs','builds']"
+      ></ion-back-button>
     </ion-buttons>
     <ion-title>Edit Your Build</ion-title>
   </ion-toolbar>
@@ -16,5 +18,6 @@
     [items]="items"
     [guide]="guide"
     (emitGuide)="handleEmit($event)"
+    (slideChangeEmitter)="handleSlideEmitter()"
   ></app-guide>
 </ion-content>
