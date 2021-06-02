@@ -13,6 +13,7 @@ export class GuidesComponent implements OnInit {
   @Input() championId: string;
 
   public builds: Array<Builds> = [];
+  public loadedAll: boolean;
   page: number;
 
   constructor(
@@ -24,20 +25,21 @@ export class GuidesComponent implements OnInit {
     this.loadGuides();
   }
 
-  public loadGuides(loadMore = false, event?) {
+  public loadGuides(loadMore = false, event?: any) {
     if (loadMore) this.page++;
-
-    this.afa.idToken.subscribe((token) => {
-      if (token) {
-        this.buildService
-          .getBuildByChampionID(this.championId, token, this.page)
-          .pipe(take(1))
-          .subscribe(
-            (response: Array<Builds>) =>
-              (this.builds = [...this.builds, ...response])
-          );
-      }
-    });
+    if (!this.loadedAll) {
+      this.afa.idToken.subscribe((token) => {
+        if (token) {
+          this.buildService
+            .getBuildByChampionID(this.championId, token, this.page)
+            .pipe(take(1))
+            .subscribe((response: Array<Builds>) => {
+              if (response.length < 10) this.loadedAll = true;
+              this.builds = [...this.builds, ...response];
+            });
+        }
+      });
+    }
 
     if (event) {
       event.target.complete();
