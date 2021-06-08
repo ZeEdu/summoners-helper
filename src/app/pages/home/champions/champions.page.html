@@ -8,36 +8,26 @@
     <ion-spinner name="crescent"></ion-spinner>
   </ng-container>
 
-  <ng-container *ngIf="connectionFailed && !isLoading">
+  <ng-container *ngIf="!championsObs && !isLoading">
     <app-error-message
       [messageTitle]="'Something went Wrong'"
       [messageText]="'We couldn\'t connect to our servers'"
       [imageSource]="'../../../../assets/server-down.svg'"
       [tryAgainMessage]="'Try Again?'"
-      (reloadEmitter)="callLoadContent($event)"
+      (reloadEmitter)="loadContent()"
     ></app-error-message>
   </ng-container>
 
-  <ion-list *ngIf="champions">
+  <ion-list>
     <ion-list-header>
       <ion-label>Select a Champion</ion-label>
     </ion-list-header>
 
-    <ion-virtual-scroll [items]="champions">
-      <ng-container *virtualItem="let champion">
-        <app-champion-item [champion]="champion"></app-champion-item>
-      </ng-container>
-    </ion-virtual-scroll>
-
-    <ion-infinite-scroll
-      threshold="100px"
-      (ionInfinite)="callLoadContent($event)"
-    >
-      <ion-infinite-scroll-content
-        loadingSpinner="bubbles"
-        loadingText="Loading more champions..."
-      >
-      </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
+    <app-champion-item
+      *ngFor="let item of championsObs | async"
+      [id]="item.id"
+      [title]="item.title"
+      [name]="item.name"
+    ></app-champion-item>
   </ion-list>
 </ion-content>

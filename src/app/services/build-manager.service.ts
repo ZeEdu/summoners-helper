@@ -84,6 +84,19 @@ export class BuildManagerService {
     return this.http.delete(url, options);
   }
 
+  public getFullGuideByID(id: string, token: string) {
+    const endPoint = 'getfullguidebyid';
+    const url = `${this.apiUrl}/${this.buildRoute}/${endPoint}/${id}`;
+    const headers = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/json',
+        'Cache-Control': 'no-cache',
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+    return this.http.get(url, headers);
+  }
+
   public getBuildByID(id: string, token: string) {
     const endPoint = 'getbuildbyid';
     const url = `${this.apiUrl}/${this.buildRoute}/${endPoint}/${id}`;

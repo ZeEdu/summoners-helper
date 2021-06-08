@@ -8,7 +8,10 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./champion-item.component.scss'],
 })
 export class ChampionItemComponent implements OnInit {
-  @Input() champion: ChampionHeader;
+  @Input() id: string;
+  @Input() name: string;
+  @Input() title: string;
+  @Input() image: string;
 
   public resUrl: string = environment.backendBaseUrl;
   public patchVersion: string = environment.patchVersion;
