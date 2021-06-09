@@ -18,14 +18,14 @@
   <ion-row>
     <ion-col>
       <app-spell
-        [src]="resUrl + '/10.7.1/img/spell/' + firstSpell.image.full"
-        [name]="firstSpell.name"
-        [description]="firstSpell.description"
+        [src]="resUrl + '/10.7.1/img/spell/' + spells.first.image"
+        [name]="spells.first.name"
+        [description]="spells.first.description"
       ></app-spell>
       <app-spell
-        [src]="resUrl + '/10.7.1/img/spell/' + secondSpell.image.full"
-        [name]="secondSpell.name"
-        [description]="secondSpell.description"
+        [src]="resUrl + '/10.7.1/img/spell/' + spells.second.image"
+        [name]="spells.second.name"
+        [description]="spells.second.description"
       ></app-spell>
     </ion-col>
   </ion-row>

@@ -17,15 +17,24 @@
     </ion-col>
   </ion-row>
   <app-rune
-    *ngFor="let rune of [firstRune, secondRune, thirdRune]"
-    [icon]="rune.icon"
-    [name]="rune.name"
-    [longDesc]="rune.longDesc"
+    [icon]="runes.first.icon"
+    [name]="runes.first.name"
+    [longDesc]="runes.first.description"
   ></app-rune>
   <app-rune
-    *ngIf="order === 'first'"
-    [icon]="fouthRune.icon"
-    [name]="fouthRune.name"
-    [longDesc]="fouthRune.longDesc"
+    [icon]="runes.second.icon"
+    [name]="runes.second.name"
+    [longDesc]="runes.second.description"
+  ></app-rune>
+  <app-rune
+    [icon]="runes.third.icon"
+    [name]="runes.third.name"
+    [longDesc]="runes.third.description"
+  ></app-rune>
+  <app-rune
+    *ngIf="runes.fourth"
+    [icon]="runes.fourth.icon"
+    [name]="runes.fourth.name"
+    [longDesc]="runes.fourth.description"
   ></app-rune>
 </ion-grid>

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Champion } from 'src/app/interfaces/champion-overview';
 
 @Component({

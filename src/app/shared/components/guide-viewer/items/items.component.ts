@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Items } from 'src/app/interfaces/build';
-import { Item } from 'src/app/interfaces/items';
+import { Items } from 'src/app/interfaces/full-guide';
 
 @Component({
   selector: 'app-items',
@@ -10,7 +9,6 @@ import { Item } from 'src/app/interfaces/items';
 export class ItemsComponent implements OnInit {
   @Input() description: string;
   @Input() itemsBlock: Items[];
-  @Input() items: { [key: string]: Item };
 
   constructor() {}
 

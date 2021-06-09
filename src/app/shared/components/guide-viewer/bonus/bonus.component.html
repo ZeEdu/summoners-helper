@@ -19,19 +19,13 @@
   </ion-row>
   <ion-row>
     <ion-col>
-      <app-bonus-item
-        [icon]="bonusBase.first[bonus.slotOne].icon"
-        [name]="bonusBase.first[bonus.slotOne].name"
-      >
+      <app-bonus-item [icon]="bonus.slotOne.icon" [name]="bonus.slotOne.name">
+      </app-bonus-item>
+      <app-bonus-item [icon]="bonus.slotTwo.icon" [name]="bonus.slotTwo.name">
       </app-bonus-item>
       <app-bonus-item
-        [icon]="bonusBase.second[bonus.slotTwo].icon"
-        [name]="bonusBase.second[bonus.slotTwo].name"
-      >
-      </app-bonus-item>
-      <app-bonus-item
-        [icon]="bonusBase.third[bonus.slotThree].icon"
-        [name]="bonusBase.third[bonus.slotThree].name"
+        [icon]="bonus.slotThree.icon"
+        [name]="bonus.slotThree.name"
       >
       </app-bonus-item>
     </ion-col>

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PathRune } from 'src/app/interfaces/runes';
+import { ArySlots } from 'src/app/interfaces/full-guide';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -11,10 +11,7 @@ export class RunesComponent implements OnInit {
   @Input() order: 'first' | 'second';
   @Input() description?: string;
   @Input() path: string;
-  @Input() firstRune: PathRune;
-  @Input() secondRune: PathRune;
-  @Input() thirdRune: PathRune;
-  @Input() fouthRune?: PathRune;
+  @Input() runes: ArySlots;
 
   public resUrl = environment.backendBaseUrl;
 

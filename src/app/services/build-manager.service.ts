@@ -84,7 +84,7 @@ export class BuildManagerService {
     return this.http.delete(url, options);
   }
 
-  public getFullGuideByID(id: string, token: string) {
+  public getFullGuide(id: string, token: string) {
     const endPoint = 'getfullguidebyid';
     const url = `${this.apiUrl}/${this.buildRoute}/${endPoint}/${id}`;
     const headers = {

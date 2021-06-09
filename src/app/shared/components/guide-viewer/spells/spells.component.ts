@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Spell } from 'src/app/interfaces/spells';
+import { Spells } from 'src/app/interfaces/full-guide';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -9,8 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class SpellsComponent implements OnInit {
   @Input() description: string;
-  @Input() firstSpell: Spell;
-  @Input() secondSpell: Spell;
+  @Input() spells: Spells;
 
   public resUrl = environment.backendBaseUrl;
 

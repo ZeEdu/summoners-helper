@@ -5,7 +5,7 @@
         [defaultHref]="['/', 'home', 'tabs', 'champions']"
       ></ion-back-button>
     </ion-buttons>
-    <ion-title>Champion</ion-title>
+    <ion-title>{{(championObservable | async)?.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -22,23 +22,23 @@
   </ion-segment>
 
   <ion-slides
-    *ngIf="championData"
     #slides
     pager="false"
+    *ngIf="champion && !loading"
     [options]="sliderOptions"
     (ionSlideDidChange)="slideChanged(slides)"
     (ionSlidesDidLoad)="slideChanged(slides)"
   >
     <ion-slide>
-      <app-overview *ngIf="championData" [data]="championData"></app-overview>
+      <app-overview [data]="champion"></app-overview>
     </ion-slide>
     <ion-slide>
-      <app-status [stats]="championData.stats"></app-status>
+      <app-status [stats]="champion.stats"></app-status>
     </ion-slide>
     <ion-slide>
       <app-abilities
-        [passive]="championData.passive"
-        [spells]="championData.spells"
+        [passive]="champion.passive"
+        [spells]="champion.spells"
       ></app-abilities>
     </ion-slide>
     <ion-slide>

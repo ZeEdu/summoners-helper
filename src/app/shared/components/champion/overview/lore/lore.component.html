@@ -1,18 +1,20 @@
-<ion-row>
-  <ion-col>
-    <ion-item>
-      <ion-text color="primary" class="ion-text-start">
-        <h1>Lore</h1>
-      </ion-text>
-    </ion-item>
-  </ion-col>
-</ion-row>
-<ion-row>
-  <ion-col>
-    <ion-item>
-      <ion-text class="ion-text-start" color="light">
-        <p>{{ lore }}</p>
-      </ion-text>
-    </ion-item>
-  </ion-col>
-</ion-row>
+<ng-container *ngIf="lore">
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-text color="primary" class="ion-text-start">
+          <h1>Lore</h1>
+        </ion-text>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-text class="ion-text-start" color="light">
+          <p>{{ lore }}</p>
+        </ion-text>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ng-container>

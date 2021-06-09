@@ -1,35 +1,37 @@
-<ion-grid>
-  <div class="spell-block">
-    <ion-row>
-      <ion-col class="ion-text-start">
-        <ion-item>
-          <img
-            slot="start"
-            width="100"
-            height="100"
-            src="{{ resUrl }}/{{ patchVersion }}/img/passive/{{
-              passive.image.full
-            }}"
-          />
-          <ion-label>
-            <ion-text color="primary" class="ion-text-start">
-              <h3>Passive - {{ passive.name }}</h3>
+<ng-container *ngIf="passive && spells">
+  <ion-grid>
+    <div class="spell-block">
+      <ion-row>
+        <ion-col class="ion-text-start">
+          <ion-item>
+            <img
+              slot="start"
+              width="100"
+              height="100"
+              src="{{ resUrl }}/{{ patchVersion }}/img/passive/{{
+                passive.image.full
+              }}"
+            />
+            <ion-label>
+              <ion-text color="primary" class="ion-text-start">
+                <h3>Passive - {{ passive.name }}</h3>
+              </ion-text>
+            </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-text class="ion-text-start" color="light">
+              <p [innerHTML]="passive.description"></p>
             </ion-text>
-          </ion-label>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-item>
-          <ion-text class="ion-text-start" color="light">
-            <p [innerHTML]="passive.description"></p>
-          </ion-text>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-  </div>
-  <ng-container *ngFor="let spell of spells">
-    <app-ability [spell]="spell"></app-ability>
-  </ng-container>
-</ion-grid>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </div>
+    <ng-container *ngFor="let spell of spells">
+      <app-ability [spell]="spell"></app-ability>
+    </ng-container>
+  </ion-grid>
+</ng-container>

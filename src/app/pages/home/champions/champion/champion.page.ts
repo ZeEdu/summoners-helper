@@ -9,7 +9,10 @@ import { SafeHtmlPipe } from 'src/app/shared/pipes/safe-html.pipe';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 
-import { take } from 'rxjs/operators';
+import { retry, take } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { ChampionsService } from 'src/app/services/champions.service';
+import { ChampionInfo } from 'src/app/interfaces/champion';
 
 @Component({
   selector: 'app-champion',
@@ -22,7 +25,11 @@ export class ChampionPage implements OnInit {
 
   page = 0;
   public builds: Array<Builds> = [];
-  public championData: Champion;
+  public champion: Champion;
+  public loading: boolean;
+
+  public championObservable: Observable<Champion>;
+
   public segmentPosition = 0;
   public segment = 0;
   public selectedSlide: any;
@@ -36,21 +43,20 @@ export class ChampionPage implements OnInit {
 
   constructor(
     private buildService: BuildManagerService,
-    private dDragonHandler: DataDragonHandlerService,
     private route: ActivatedRoute,
     public safeHtml: SafeHtmlPipe,
-    private afa: AngularFireAuth
+    private afa: AngularFireAuth,
+    private championService: ChampionsService
   ) {}
 
   ngOnInit() {
     const id = this.getChampionID();
-
-    this.dDragonHandler
-      .getChampionByID(id)
-      .pipe(take(1))
-      .subscribe(
-        (response: LoLResponse) => (this.championData = response.data[id])
-      );
+    this.championObservable = this.championService.getChampion(id);
+    this.loading = true;
+    this.championService
+      .getChampion(id)
+      .pipe(take(1), retry(2))
+      .subscribe((champion) => (this.champion = champion));
 
     this.loadGuides();
   }
@@ -72,16 +78,15 @@ export class ChampionPage implements OnInit {
 
   public loadGuides(loadMore = false, event?) {
     if (loadMore) this.page++;
-
     this.afa.idToken.subscribe((token) => {
       if (token) {
         this.buildService
           .getBuildByChampionID(this.getChampionID(), token, this.page)
           .pipe(take(1))
-          .subscribe(
-            (response: Array<Builds>) =>
-              (this.builds = [...this.builds, ...response])
-          );
+          .subscribe((response: Array<Builds>) => {
+            this.builds = [...this.builds, ...response];
+            if (this.loading) this.loading = false;
+          });
       }
     });
 

@@ -7,11 +7,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
-import { Guide } from 'src/app/interfaces/build';
-import { GetChampions } from 'src/app/interfaces/get-champions';
-import { Item } from 'src/app/interfaces/items';
-import { PathRune } from 'src/app/interfaces/runes';
-import { Spell } from 'src/app/interfaces/spells';
+import { FullGuide } from 'src/app/interfaces/full-guide';
 
 @Component({
   selector: 'app-guide-viewer',
@@ -21,19 +17,7 @@ import { Spell } from 'src/app/interfaces/spells';
 export class GuideViewerComponent implements OnInit {
   @ViewChild(IonSlides, { static: false }) slides: IonSlides;
 
-  @Input() guide: Guide;
-  @Input() guideCreatorUsername: string;
-  @Input() firstPrimaryRune: PathRune;
-  @Input() secondPrimaryRune: PathRune;
-  @Input() thirdPrimaryRune: PathRune;
-  @Input() fourthPrimaryRune: PathRune;
-  @Input() firstSecondaryRune: PathRune;
-  @Input() secondSecondaryRune: PathRune;
-  @Input() thirdSecondaryRune: PathRune;
-  @Input() firstSpell: Spell;
-  @Input() secondSpell: Spell;
-  @Input() items: { [key: string]: Item };
-  @Input() championThreats: GetChampions[];
+  @Input() guide: FullGuide;
 
   @Output() slideChangeEmitter = new EventEmitter<boolean>();
 
@@ -47,7 +31,5 @@ export class GuideViewerComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
-    console.log('Hello World');
-  }
+  ngOnInit() {}
 }

@@ -1,31 +1,33 @@
-<ion-row>
-  <ion-col>
-    <ion-item>
-      <ion-text color="primary" class="ion-text-start">
-        <h2>Basic Stats</h2>
-      </ion-text>
-    </ion-item>
-  </ion-col>
-</ion-row>
-<ion-row>
-  <ion-col>
-    <ion-list>
+<ng-container *ngIf="info">
+  <ion-row>
+    <ion-col>
       <ion-item>
-        <ion-label color="light">Attack</ion-label>
-        <ion-note slot="end" color="primary">{{ info.attack }}</ion-note>
+        <ion-text color="primary" class="ion-text-start">
+          <h2>Basic Stats</h2>
+        </ion-text>
       </ion-item>
-      <ion-item>
-        <ion-label color="light">Defence</ion-label>
-        <ion-note slot="end" color="primary">{{ info.defense }}</ion-note>
-      </ion-item>
-      <ion-item>
-        <ion-label color="light">Magic</ion-label>
-        <ion-note slot="end" color="primary">{{ info.magic }}</ion-note>
-      </ion-item>
-      <ion-item>
-        <ion-label color="light">Difficulty</ion-label>
-        <ion-note slot="end" color="primary">{{ info.difficulty }}</ion-note>
-      </ion-item>
-    </ion-list>
-  </ion-col>
-</ion-row>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-list>
+        <ion-item>
+          <ion-label color="light">Attack</ion-label>
+          <ion-note slot="end" color="primary">{{ info.attack }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label color="light">Defence</ion-label>
+          <ion-note slot="end" color="primary">{{ info.defense }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label color="light">Magic</ion-label>
+          <ion-note slot="end" color="primary">{{ info.magic }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label color="light">Difficulty</ion-label>
+          <ion-note slot="end" color="primary">{{ info.difficulty }}</ion-note>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+</ng-container>

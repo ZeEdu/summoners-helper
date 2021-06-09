@@ -1,136 +1,118 @@
-<ion-grid class="ion-padding">
-	<ion-col>
-		<ion-list >
-			<ion-item>
-				<ion-label color="light">Hit Points</ion-label>
-				<ion-note slot="end" color="primary"
-					>{{stats.hp}}</ion-note
-				>
-			</ion-item>
-			<ion-item>
-				<ion-label color="light">Hit Points (p/ Level)</ion-label>
-				<ion-note slot="end" color="primary"
-					>{{stats.hpperlevel}}</ion-note
-				>
-			</ion-item>
-			<ion-item>
-				<ion-label color="light">Hit Points Regeneration</ion-label>
-				<ion-note slot="end" color="primary"
-					>{{stats.hpregen}}</ion-note
-				>
-			</ion-item>
-			<ion-item>
-				<ion-label color="light"
-					>Hit Points Regeneration (p/ Level)</ion-label
-				>
-				<ion-note slot="end" color="primary"
-					>{{stats.hpregenperlevel}}</ion-note
-				>
-			</ion-item>
+<ng-container *ngIf="stats">
+  <ion-grid class="ion-padding">
+    <ion-col>
+      <ion-list>
+        <ion-item>
+          <ion-label color="light">Hit Points</ion-label>
+          <ion-note slot="end" color="primary">{{ stats.hp }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label color="light">Hit Points (p/ Level)</ion-label>
+          <ion-note slot="end" color="primary">{{ stats.hpperlevel }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label color="light">Hit Points Regeneration</ion-label>
+          <ion-note slot="end" color="primary">{{ stats.hpregen }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label color="light"
+            >Hit Points Regeneration (p/ Level)</ion-label
+          >
+          <ion-note slot="end" color="primary">{{
+            stats.hpregenperlevel
+          }}</ion-note>
+        </ion-item>
 
-			<ion-item>
-				<ion-label color="light">Attack Damage</ion-label>
-				<ion-note slot="end" color="primary"
-					>{{stats.attackdamage}}</ion-note
-				>
-			</ion-item>
+        <ion-item>
+          <ion-label color="light">Attack Damage</ion-label>
+          <ion-note slot="end" color="primary">{{
+            stats.attackdamage
+          }}</ion-note>
+        </ion-item>
 
-			<ion-item>
-				<ion-label color="light">Attack Damage (p/ Level)</ion-label>
-				<ion-note slot="end" color="primary"
-					>{{stats.attackdamageperlevel}}</ion-note
-				>
-			</ion-item>
+        <ion-item>
+          <ion-label color="light">Attack Damage (p/ Level)</ion-label>
+          <ion-note slot="end" color="primary">{{
+            stats.attackdamageperlevel
+          }}</ion-note>
+        </ion-item>
 
-			<ion-item>
-				<ion-label color="light">Attack Range (p/ Level)</ion-label>
-				<ion-note slot="end" color="primary"
-					>{{stats.attackrange}}</ion-note
-				>
-			</ion-item>
+        <ion-item>
+          <ion-label color="light">Attack Range (p/ Level)</ion-label>
+          <ion-note slot="end" color="primary">{{
+            stats.attackrange
+          }}</ion-note>
+        </ion-item>
 
-			<ion-item>
-				<ion-label color="light">Atack Speed</ion-label>
-				<ion-note slot="end" color="primary"
-					>{{stats.attackspeed}}</ion-note
-				>
-			</ion-item>
+        <ion-item>
+          <ion-label color="light">Atack Speed</ion-label>
+          <ion-note slot="end" color="primary">{{
+            stats.attackspeed
+          }}</ion-note>
+        </ion-item>
 
-			<ion-item>
-				<ion-label color="light">Attack Speed (p/ Level)</ion-label>
-				<ion-note slot="end" color="primary"
-					>{{stats.attackspeedperlevel}}</ion-note
-				>
-			</ion-item>
+        <ion-item>
+          <ion-label color="light">Attack Speed (p/ Level)</ion-label>
+          <ion-note slot="end" color="primary">{{
+            stats.attackspeedperlevel
+          }}</ion-note>
+        </ion-item>
 
-			<ion-item>
-				<ion-label color="light">Movespeed</ion-label>
-				<ion-note slot="end" color="primary"
-					>{{stats.movespeed}}</ion-note
-				>
-			</ion-item>
+        <ion-item>
+          <ion-label color="light">Movespeed</ion-label>
+          <ion-note slot="end" color="primary">{{ stats.movespeed }}</ion-note>
+        </ion-item>
 
-			<ion-item>
-				<ion-label color="light">Critical (p/ Level)</ion-label>
-				<ion-note slot="end" color="primary"
-					>{{stats.crit}}</ion-note
-				>
-			</ion-item>
-			<ion-item>
-				<ion-label color="light">Critical (p/ Level)</ion-label>
-				<ion-note slot="end" color="primary"
-					>{{stats.critperlevel}}</ion-note
-				>
-			</ion-item>
+        <ion-item>
+          <ion-label color="light">Critical (p/ Level)</ion-label>
+          <ion-note slot="end" color="primary">{{ stats.crit }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label color="light">Critical (p/ Level)</ion-label>
+          <ion-note slot="end" color="primary">{{
+            stats.critperlevel
+          }}</ion-note>
+        </ion-item>
 
-			<ion-item>
-				<ion-label color="light">Armor</ion-label>
-				<ion-note slot="end" color="primary"
-					>{{stats.armor}}</ion-note
-				>
-			</ion-item>
-			<ion-item>
-				<ion-label color="light">Armor (p/ Level)</ion-label>
-				<ion-note slot="end" color="primary"
-					>{{stats.armorperlevel}}</ion-note
-				>
-			</ion-item>
-			<ion-item>
-				<ion-label color="light">Mana</ion-label>
-				<ion-note slot="end" color="primary"
-					>{{stats.mp}}</ion-note
-				>
-			</ion-item>
-			<ion-item>
-				<ion-label color="light">Mana (p/ Level)</ion-label>
-				<ion-note slot="end" color="primary"
-					>{{stats.mpperlevel}}</ion-note
-				>
-			</ion-item>
-			<ion-item>
-				<ion-label color="light">Mana Regeneration</ion-label>
-				<ion-note slot="end" color="primary"
-					>{{stats.mpregen}}</ion-note
-				>
-			</ion-item>
-			<ion-item>
-				<ion-label color="light">Mana Regeneration (p/ Level)</ion-label>
-				<ion-note slot="end" color="primary"
-					>{{stats.mpregenperlevel}}</ion-note
-				>
-			</ion-item>
-			<ion-item>
-				<ion-label color="light">Spellblock</ion-label>
-				<ion-note slot="end" color="primary"
-					>{{stats.spellblock}}</ion-note
-				>
-			</ion-item>
-			<ion-item>
-				<ion-label color="light">Spellblock (p/ Level)</ion-label>
-				<ion-note slot="end" color="primary"
-					>{{stats.spellblockperlevel}}</ion-note
-				>
-			</ion-item>
-		</ion-list>
-	</ion-col>
-</ion-grid>
+        <ion-item>
+          <ion-label color="light">Armor</ion-label>
+          <ion-note slot="end" color="primary">{{ stats.armor }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label color="light">Armor (p/ Level)</ion-label>
+          <ion-note slot="end" color="primary">{{
+            stats.armorperlevel
+          }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label color="light">Mana</ion-label>
+          <ion-note slot="end" color="primary">{{ stats.mp }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label color="light">Mana (p/ Level)</ion-label>
+          <ion-note slot="end" color="primary">{{ stats.mpperlevel }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label color="light">Mana Regeneration</ion-label>
+          <ion-note slot="end" color="primary">{{ stats.mpregen }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label color="light">Mana Regeneration (p/ Level)</ion-label>
+          <ion-note slot="end" color="primary">{{
+            stats.mpregenperlevel
+          }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label color="light">Spellblock</ion-label>
+          <ion-note slot="end" color="primary">{{ stats.spellblock }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label color="light">Spellblock (p/ Level)</ion-label>
+          <ion-note slot="end" color="primary">{{
+            stats.spellblockperlevel
+          }}</ion-note>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-grid>
+</ng-container>

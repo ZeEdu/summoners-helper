@@ -5,9 +5,9 @@
     </ion-item>
     <app-item
       *ngFor="let item of itemArray"
-      [src]="resUrl + '/10.7.1/img/item/' + items[item.item].image.full"
-      [name]="items[item.item].name"
-      [description]="items[item.item].description"
+      [src]="resUrl + '/10.7.1/img/item/' + item.image"
+      [name]="item.name"
+      [description]="item.description"
     ></app-item>
   </ion-col>
 </ion-row>

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ItemArray } from 'src/app/interfaces/build';
+import { ItemArray } from 'src/app/interfaces/full-guide';
 import { Item } from 'src/app/interfaces/items';
 import { environment } from 'src/environments/environment';
 
@@ -11,7 +11,6 @@ import { environment } from 'src/environments/environment';
 export class ItemsRollComponent implements OnInit {
   @Input() rollName: string;
   @Input() itemArray: ItemArray[];
-  @Input() items: { [key: string]: Item };
 
   public resUrl = environment.backendBaseUrl;
 

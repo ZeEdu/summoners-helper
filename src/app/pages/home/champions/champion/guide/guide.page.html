@@ -11,31 +11,8 @@
 
 <ion-content>
   <app-guide-viewer
-    *ngIf="guide
-		&& firstPrimaryRune
-		&& secondPrimaryRune
-		&& thirdPrimaryRune
-		&& fourthPrimaryRune
-		&& firstSecondaryRune
-		&& secondSecondaryRune
-		&& thirdSecondaryRune
-		&& firstSpell
-		&& secondSpell
-		&& items
-		&& championThreats"
+    *ngIf="guide"
     [guide]="guide"
-    [guideCreatorUsername]="guideCreatorUsername"
-    [firstPrimaryRune]="firstPrimaryRune"
-    [secondPrimaryRune]="secondPrimaryRune"
-    [thirdPrimaryRune]="thirdPrimaryRune"
-    [fourthPrimaryRune]="fourthPrimaryRune"
-    [firstSecondaryRune]="firstSecondaryRune"
-    [secondSecondaryRune]="secondSecondaryRune"
-    [thirdSecondaryRune]="thirdSecondaryRune"
-    [firstSpell]="firstSpell"
-    [secondSpell]="secondSpell"
-    [items]="items"
-    [championThreats]="championThreats"
     (slideChangeEmitter)="handleSlideChange()"
   ></app-guide-viewer>
 </ion-content>

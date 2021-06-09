@@ -12,27 +12,22 @@
       [introduction]="guide.introduction"
       [updatedOn]="guide.updatedOn"
       [createdOn]="guide.createdOn"
-      [creatorUsername]="guideCreatorUsername"
+      [creatorUsername]="guide.username"
     ></app-introduction>
   </ion-slide>
   <ion-slide>
     <app-runes
       [order]="'first'"
       [description]="guide.runesDescription"
+      [runes]="guide.runes.primarySlots"
       [path]="guide.runes.primaryRune"
-      [firstRune]="firstPrimaryRune"
-      [secondRune]="secondPrimaryRune"
-      [thirdRune]="thirdPrimaryRune"
-      [fouthRune]="fourthPrimaryRune"
     ></app-runes>
   </ion-slide>
   <ion-slide>
     <app-runes
       [order]="'second'"
-      [path]="guide.runes.secondaryRune"
-      [firstRune]="firstSecondaryRune"
-      [secondRune]="secondSecondaryRune"
-      [thirdRune]="thirdSecondaryRune"
+      [path]="guide.runes.primaryRune"
+      [runes]="guide.runes.secondarySlots"
     ></app-runes>
   </ion-slide>
   <ion-slide>
@@ -44,8 +39,7 @@
   <ion-slide>
     <app-spells
       [description]="guide.spellsDescription"
-      [firstSpell]="firstSpell"
-      [secondSpell]="secondSpell"
+      [spells]="guide.spells"
     ></app-spells>
   </ion-slide>
   <ion-slide>
@@ -59,13 +53,9 @@
     <app-items
       [description]="guide.itemsDescription"
       [itemsBlock]="guide.itemsBlock"
-      [items]="items"
     ></app-items>
   </ion-slide>
   <ion-slide>
-    <app-threats
-      [championThreats]="championThreats"
-      [threats]="guide.threats"
-    ></app-threats>
+    <app-threats [threats]="guide.threats"></app-threats>
   </ion-slide>
 </ion-slides>
