@@ -47,6 +47,6 @@ export class BuildViewPage implements OnInit {
     });
   }
   handleSlideChange() {
-    this.content.scrollToTop(0.5);
+    this.content.scrollToTop(1);
   }
 }

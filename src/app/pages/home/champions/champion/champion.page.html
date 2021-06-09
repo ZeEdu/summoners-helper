@@ -5,7 +5,7 @@
         [defaultHref]="['/', 'home', 'tabs', 'champions']"
       ></ion-back-button>
     </ion-buttons>
-    <ion-title>{{(championObservable | async)?.name}}</ion-title>
+    <ion-title>{{champion ? champion.name : 'Carregando...'}}</ion-title>
   </ion-toolbar>
 </ion-header>
 

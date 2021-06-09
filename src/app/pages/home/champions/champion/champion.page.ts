@@ -1,18 +1,17 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonContent, IonInfiniteScroll, IonSlides } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
-import { Champion, LoLResponse } from 'src/app/interfaces/champion-overview';
+import { Champion } from 'src/app/interfaces/champion-overview';
 import { BuildManagerService } from 'src/app/services/build-manager.service';
 import { Builds } from 'src/app/interfaces/get-builds';
-import { DataDragonHandlerService } from 'src/app/services/data-dragon-handler.service';
+
 import { SafeHtmlPipe } from 'src/app/shared/pipes/safe-html.pipe';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 
 import { retry, take } from 'rxjs/operators';
-import { Observable, Subscription } from 'rxjs';
+
 import { ChampionsService } from 'src/app/services/champions.service';
-import { ChampionInfo } from 'src/app/interfaces/champion';
 
 @Component({
   selector: 'app-champion',
@@ -22,13 +21,12 @@ import { ChampionInfo } from 'src/app/interfaces/champion';
 export class ChampionPage implements OnInit {
   @ViewChild(IonInfiniteScroll, { static: false }) infinite: IonInfiniteScroll;
   @ViewChild(IonSlides, { static: false }) slides: IonSlides;
+  @ViewChild(IonContent, { static: false }) content: IonContent;
 
   page = 0;
   public builds: Array<Builds> = [];
   public champion: Champion;
   public loading: boolean;
-
-  public championObservable: Observable<Champion>;
 
   public segmentPosition = 0;
   public segment = 0;
@@ -37,6 +35,7 @@ export class ChampionPage implements OnInit {
     initialSlide: 0,
     slidesPerView: 1,
     speed: 400,
+    autoHeight: true,
   };
   public resUrl = environment.backendBaseUrl;
   public patchVersion = environment.patchVersion;
@@ -51,7 +50,6 @@ export class ChampionPage implements OnInit {
 
   ngOnInit() {
     const id = this.getChampionID();
-    this.championObservable = this.championService.getChampion(id);
     this.loading = true;
     this.championService
       .getChampion(id)
@@ -74,6 +72,8 @@ export class ChampionPage implements OnInit {
     slides
       .getActiveIndex()
       .then((selectedIndex) => (this.segment = selectedIndex));
+
+    this.content.scrollToTop(1);
   }
 
   public loadGuides(loadMore = false, event?) {

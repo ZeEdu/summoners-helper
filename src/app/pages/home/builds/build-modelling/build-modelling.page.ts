@@ -72,7 +72,7 @@ export class BuildModellingPage implements OnInit, OnDestroy {
   }
 
   public handleSlideEmitter(e: boolean) {
-    this.content.scrollToTop();
+    this.content.scrollToTop(1);
   }
 
   public async submitGuide(formConstructed: any) {

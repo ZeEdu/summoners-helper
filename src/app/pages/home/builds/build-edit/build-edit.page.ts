@@ -291,6 +291,6 @@ export class BuildEditPage implements OnInit {
   }
 
   handleSlideEmitter() {
-    this.content.scrollToTop();
+    this.content.scrollToTop(1);
   }
 }

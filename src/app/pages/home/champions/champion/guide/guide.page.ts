@@ -52,6 +52,6 @@ export class GuidePage implements OnInit {
   }
 
   handleSlideChange() {
-    this.content.scrollToTop();
+    this.content.scrollToTop(1);
   }
 }
