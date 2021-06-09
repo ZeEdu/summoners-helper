@@ -1,15 +1,7 @@
-import {
-  AfterViewChecked,
-  AfterViewInit,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PathResponse, Slot, PathRune } from 'src/app/interfaces/runes';
 import { FormRunesValues } from 'src/app/interfaces/form-runes-values';
+import { Runes } from 'src/app/interfaces/guide-form-static-data';
 
 @Component({
   selector: 'app-runes',
@@ -17,7 +9,7 @@ import { FormRunesValues } from 'src/app/interfaces/form-runes-values';
   styleUrls: ['./runes.component.scss'],
 })
 export class RunesComponent implements OnInit {
-  @Input() runes: Array<PathResponse>;
+  @Input() runes: Runes[];
   @Input() formValues: FormRunesValues;
 
   @Output() formEmitter: EventEmitter<FormRunesValues> = new EventEmitter<

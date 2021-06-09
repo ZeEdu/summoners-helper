@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Champion } from 'src/app/interfaces/champions';
 import { FormThreatsValues } from 'src/app/interfaces/form-threats-values';
+import { Champion } from 'src/app/interfaces/guide-form-static-data';
 
 @Component({
   selector: 'app-threats',

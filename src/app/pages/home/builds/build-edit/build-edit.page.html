@@ -11,12 +11,9 @@
 
 <ion-content fullscreen="true">
   <app-guide
-    *ngIf="guide"
-    [champions]="champions"
-    [runes]="runes"
-    [spells]="spells"
-    [items]="items"
+    *ngIf="guide && staticData"
     [guide]="guide"
+    [staticData]="staticData"
     (emitGuide)="handleEmit($event)"
     (slideChangeEmitter)="handleSlideEmitter()"
   ></app-guide>

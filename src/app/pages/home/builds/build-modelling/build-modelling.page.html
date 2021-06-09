@@ -11,10 +11,8 @@
 </ion-header>
 <ion-content fullscreen="true">
   <app-guide
-    [champions]="champions"
-    [runes]="runes"
-    [spells]="spells"
-    [items]="items"
+    *ngIf="formStaticData"
+    [staticData]="formStaticData"
     (emitGuide)="submitGuide($event)"
     (slideChangeEmitter)="handleSlideEmitter($event)"
   ></app-guide>

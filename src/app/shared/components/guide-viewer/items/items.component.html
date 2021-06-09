@@ -8,7 +8,7 @@
           </ion-text>
         </ion-label>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="description">
         <p>{{ description }}</p>
       </ion-item>
     </ion-col>

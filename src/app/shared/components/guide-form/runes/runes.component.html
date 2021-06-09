@@ -42,7 +42,7 @@
                   *ngFor="
                     let option of getOptions(form.value.runes.primaryRune, i)
                   "
-                  [value]="option.id"
+                  [value]="option.key"
                   >{{ option.name }}</ion-select-option
                 >
               </ion-select>

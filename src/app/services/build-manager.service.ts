@@ -97,6 +97,19 @@ export class BuildManagerService {
     return this.http.get(url, headers);
   }
 
+  public getFormStaticData(token: string) {
+    const endPoint = 'getformstaticdata';
+    const url = `${this.apiUrl}/${this.buildRoute}/${endPoint}`;
+    const headers = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/json',
+        'Cache-Control': 'no-cache',
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+    return this.http.get(url, headers);
+  }
+
   public getBuildByID(id: string, token: string) {
     const endPoint = 'getbuildbyid';
     const url = `${this.apiUrl}/${this.buildRoute}/${endPoint}/${id}`;

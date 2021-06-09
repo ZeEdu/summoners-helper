@@ -16,6 +16,8 @@ import { BuildManagerService } from 'src/app/services/build-manager.service';
 import { SpellResponse, Spell } from 'src/app/interfaces/spells';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { GuideFormStaticData } from 'src/app/interfaces/guide-form-static-data';
 
 @Component({
   selector: 'app-build-modelling',
@@ -26,21 +28,13 @@ export class BuildModellingPage implements OnInit, OnDestroy {
   @ViewChild('slider', { static: false }) slides: IonSlides;
   @ViewChild(IonContent, { static: false }) content: IonContent;
 
-  private getChampionSubscription: Subscription;
-  private getRunesSubscription: Subscription;
-  private getSpellsSubscription: Subscription;
-  private getItemsSubscription: Subscription;
-
   public guideForm: FormGroup;
-  public runes: Array<PathResponse>;
-  public champions: Array<Champion>;
-  public spells: Spell[];
-  public items: Item[];
 
   public loading: any;
   userSubscription: Subscription;
   idTokenSubscription: void;
   submitting: boolean;
+  formStaticData: GuideFormStaticData;
 
   customAlert = {
     cssClass: 'customAlert',
@@ -62,36 +56,19 @@ export class BuildModellingPage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.getChampionSubscription = this.getChampionSubscription = this.ddHandler
-      .getChampionsList()
-      .subscribe(
-        (response: ChampionsResponse) =>
-          (this.champions = Object.values(response.data))
-      );
-    this.getRunesSubscription = this.getRunesSubscription = this.ddHandler
-      .getRunes()
-      .subscribe((response: Array<PathResponse>) => (this.runes = response));
-    this.getSpellsSubscription = this.getSpellsSubscription = this.ddHandler
-      .getSpells()
-      .subscribe(
-        (response: SpellResponse) =>
-          (this.spells = Object.values(response.data))
-      );
-    this.getItemsSubscription = this.getItemsSubscription = this.ddHandler
-      .getItems()
-      .subscribe(
-        (response: ItemResponse) => (this.items = Object.values(response.data))
-      );
+    this.afa.idToken.pipe(take(1)).subscribe((token) => {
+      if (!token) return null;
+      this.buildManager
+        .getFormStaticData(token)
+        .pipe(take(1))
+        .subscribe((staticData: GuideFormStaticData) => {
+          this.formStaticData = staticData;
+        });
+    });
   }
 
   ngOnDestroy() {
-    this.getChampionSubscription.unsubscribe();
-    this.getRunesSubscription.unsubscribe();
-    this.getSpellsSubscription.unsubscribe();
-    this.getItemsSubscription.unsubscribe();
-    if (this.submitting) {
-      this.userSubscription.unsubscribe();
-    }
+    if (this.submitting) this.userSubscription.unsubscribe();
   }
 
   public handleSlideEmitter(e: boolean) {

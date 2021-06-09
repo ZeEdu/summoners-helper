@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Item } from 'src/app/interfaces/items';
 import { FormItemsValues } from 'src/app/interfaces/form-items-values';
+import { Item } from 'src/app/interfaces/guide-form-static-data';
 
 @Component({
   selector: 'app-items',

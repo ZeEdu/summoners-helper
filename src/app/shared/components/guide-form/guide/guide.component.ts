@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
 import { Guide } from 'src/app/interfaces/build';
-import { Champion } from 'src/app/interfaces/champions';
 import { FormAbilitiesValues } from 'src/app/interfaces/form-abilities-values';
 import { FormBonusValues } from 'src/app/interfaces/form-bonus-values';
 import { FormIntroValues } from 'src/app/interfaces/form-intro-values';
@@ -16,9 +15,7 @@ import { FormItemsValues } from 'src/app/interfaces/form-items-values';
 import { FormRunesValues } from 'src/app/interfaces/form-runes-values';
 import { FormSpellsValues } from 'src/app/interfaces/form-spells-values';
 import { FormThreatsValues } from 'src/app/interfaces/form-threats-values';
-import { Item } from 'src/app/interfaces/items';
-import { PathResponse } from 'src/app/interfaces/runes';
-import { Spell } from 'src/app/interfaces/spells';
+import { GuideFormStaticData } from 'src/app/interfaces/guide-form-static-data';
 
 @Component({
   selector: 'app-guide',
@@ -28,11 +25,8 @@ import { Spell } from 'src/app/interfaces/spells';
 export class GuideComponent implements OnInit {
   @ViewChild('slider', { static: false }) slides: IonSlides;
 
-  @Input() champions: Array<Champion>;
   @Input() guide: Guide;
-  @Input() runes: Array<PathResponse>;
-  @Input() spells: Spell[];
-  @Input() items: Item[];
+  @Input() staticData: GuideFormStaticData;
 
   @Output()
   emitGuide = new EventEmitter<any>();
@@ -48,9 +42,8 @@ export class GuideComponent implements OnInit {
   abilitiesValues: FormAbilitiesValues;
   threatsValues: FormThreatsValues;
 
-  constructor() {}
   slideOpts = {
-    initialSlide: 1,
+    initialSlide: 0,
     allowTouchMove: false,
   };
 

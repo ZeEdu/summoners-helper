@@ -10,8 +10,7 @@
       <ion-row>
         <ion-col size="12">
           <app-intro
-            *ngIf="champions"
-            [champions]="champions"
+            [champions]="staticData.champions"
             [formValues]="introValues"
             (formEmitter)="handleIntroFormEmitter($event)"
           ></app-intro>
@@ -24,8 +23,7 @@
       <ion-row>
         <ion-col size="12">
           <app-runes
-            *ngIf="runes"
-            [runes]="runes"
+            [runes]="staticData.paths"
             [formValues]="runeValues"
             (formEmitter)="handleRunesFormEmitter($event)"
             (goBack)="slidePrevious()"
@@ -52,8 +50,7 @@
       <ion-row>
         <ion-col size="12">
           <app-spells
-            *ngIf="spells"
-            [spells]="spells"
+            [spells]="staticData.spells"
             [formValues]="spellsValues"
             (goBackEmitter)="slidePrevious()"
             (formEmitter)="handleSpellsFormEmitter($event)"
@@ -67,8 +64,7 @@
       <ion-row>
         <ion-col size="12">
           <app-items
-            *ngIf="items"
-            [items]="items"
+            [items]="staticData.items"
             [formValues]="itemsValues"
             (goBackEmitter)="slidePrevious()"
             (formEmitter)="handleItemsFormEmitter($event)"
@@ -96,8 +92,7 @@
       <ion-row>
         <ion-col size="12">
           <app-threats
-            *ngIf="champions"
-            [champions]="champions"
+            [champions]="staticData.champions"
             [formValues]="threatsValues"
             (goBackEmitter)="slidePrevious()"
             (formEmitter)="handleThreatsFormEmitter($event)"

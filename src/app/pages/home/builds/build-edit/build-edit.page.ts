@@ -20,6 +20,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PathResponse } from 'src/app/interfaces/runes';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { GuideFormStaticData } from 'src/app/interfaces/guide-form-static-data';
 
 @Component({
   selector: 'app-build-edit',
@@ -35,72 +36,10 @@ export class BuildEditPage implements OnInit {
   };
 
   public guide: Guide;
-
+  public staticData: GuideFormStaticData;
   public baseUrl = environment.backendBaseUrl;
   public patchVersion = environment.patchVersion;
-  public runes: Array<PathResponse>;
-  public champions: Array<Champion>;
-  public spells: Spell[];
-  public items: Item[];
-  public namingSlots = ['first', 'second', 'third', 'fourth'];
-  public bonus = {
-    first: [
-      {
-        name: '9 Adaptive',
-        ArrayKey: 'AdaptiveForce',
-      },
-      {
-        name: '10% Attack Speed',
-        ArrayKey: 'AttackSpeed',
-      },
-      {
-        name: '1-10% CDR',
-        ArrayKey: 'CDRScaling',
-      },
-    ],
-    second: [
-      {
-        name: '9 Adaptive',
-        ArrayKey: 'AdaptiveForce',
-      },
-      { name: '6 Armor', ArrayKey: 'Armor' },
-      {
-        name: '8 Magic Resist',
-        ArrayKey: 'MagicRes',
-      },
-    ],
-    third: [
-      { name: '6 Armor', ArrayKey: 'Armor' },
-      {
-        name: '8 Magic Resist',
-        ArrayKey: 'MagicRes',
-      },
-      {
-        name: '15-90 HP',
-        ArrayKey: 'HealthScaling',
-      },
-    ],
-  };
-  public levels = [
-    'One',
-    'Two',
-    'Three',
-    'Four',
-    'Five',
-    'Six',
-    'Seven',
-    'Eight',
-    'Nine',
-    'Ten',
-    'Eleven',
-    'Twelve',
-    'Thirteen',
-    'Fourteen',
-    'Fifteen',
-    'Sixteen',
-    'Seventeen',
-    'Eighteen',
-  ];
+
   public loading: any;
   slideOpts = {
     initialSlide: 0,
@@ -131,30 +70,6 @@ export class BuildEditPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.ddHandler
-      .getChampionsList()
-      .pipe(take(1))
-      .subscribe(
-        (response: ChampionsResponse) =>
-          (this.champions = Object.values(response.data))
-      );
-    this.ddHandler
-      .getRunes()
-      .pipe(take(1))
-      .subscribe((response: Array<PathResponse>) => (this.runes = response));
-    this.ddHandler
-      .getSpells()
-      .pipe(take(1))
-      .subscribe(
-        (response: SpellResponse) =>
-          (this.spells = Object.values(response.data))
-      );
-    this.ddHandler
-      .getItems()
-      .pipe(take(1))
-      .subscribe(
-        (response: ItemResponse) => (this.items = Object.values(response.data))
-      );
     // this.initializeBasicForm();
     // this.initializeRunesForm();
     // this.initializeBonusForm();
@@ -165,6 +80,13 @@ export class BuildEditPage implements OnInit {
 
     this.afa.idToken.pipe(take(1)).subscribe((token) => {
       if (token) {
+        this.buildManager
+          .getFormStaticData(token)
+          .pipe(take(11))
+          .subscribe((data: GuideFormStaticData) => {
+            this.staticData = data;
+          });
+
         this.buildManager
           .getBuildByID(this.route.snapshot.paramMap.get('id'), token)
           .pipe(take(1))

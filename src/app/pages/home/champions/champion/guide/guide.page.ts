@@ -22,105 +22,16 @@ import { FullGuide } from 'src/app/interfaces/full-guide';
   styleUrls: ['./guide.page.scss'],
 })
 export class GuidePage implements OnInit {
-  @ViewChild(IonSlides, { static: false }) slides: IonSlides;
   @ViewChild(IonContent, { static: false }) content: IonContent;
-
-  slideOpts = {
-    initialSlide: 0,
-  };
 
   public championRoute: string;
 
   public guide: FullGuide;
 
-  // public resUrl = environment.backendBaseUrl;
-
-  // public skills = ['q', 'w', 'e', 'r'];
-
-  // public levels = [
-  //   0,
-  //   1,
-  //   2,
-  //   3,
-  //   4,
-  //   5,
-  //   6,
-  //   7,
-  //   8,
-  //   9,
-  //   10,
-  //   11,
-  //   12,
-  //   13,
-  //   14,
-  //   15,
-  //   16,
-  //   17,
-  // ];
-
-  // public bonus = {
-  //   first: {
-  //     AdaptiveForce: {
-  //       name: '9 Adaptive',
-  //       ArrayKey: 'AdaptiveForce',
-  //       icon: 'StatModsAdaptiveForceIcon.png',
-  //     },
-  //     AttackSpeed: {
-  //       name: '10% Attack Speed',
-  //       ArrayKey: 'AttackSpeed',
-  //       icon: 'StatModsAttackSpeedIcon.png',
-  //     },
-  //     CDRScaling: {
-  //       name: '1-10% CDR',
-  //       ArrayKey: 'CDRScaling',
-  //       icon: 'StatModsCDRScalingIcon.png',
-  //     },
-  //   },
-  //   second: {
-  //     AdaptiveForce: {
-  //       name: '9 Adaptive',
-  //       ArrayKey: 'AdaptiveForce',
-  //       icon: 'StatModsAdaptiveForceIcon.png',
-  //     },
-  //     Armor: {
-  //       name: '6 Armor',
-  //       ArrayKey: 'Armor',
-  //       icon: 'StatModsArmorIcon.png',
-  //     },
-  //     MagicRes: {
-  //       name: '8 Magic Resist',
-  //       ArrayKey: 'MagicRes',
-  //       icon: 'StatModsMagicResIcon.png',
-  //     },
-  //   },
-  //   third: {
-  //     Armor: {
-  //       name: '6 Armor',
-  //       ArrayKey: 'Armor',
-  //       icon: 'StatModsArmorIcon.png',
-  //     },
-  //     MagicRes: {
-  //       name: '8 Magic Resist',
-  //       ArrayKey: 'MagicRes',
-  //       icon: 'StatModsMagicResIcon.png',
-  //     },
-  //     HealthScaling: {
-  //       name: '15-90 HP',
-  //       ArrayKey: 'HealthScaling',
-  //       icon: 'StatModsHealthScalingIcon.png',
-  //     },
-  //   },
-  // };
-
-  // public abilitiesProgression: number[];
-  // public champion: ChampionInfo;
-
   constructor(
-    private ddHandler: DataDragonHandlerService,
     private afa: AngularFireAuth,
     private route: ActivatedRoute,
     private buildService: BuildManagerService,
-    private UserManager: UserManagerService,
     public safeHtml: SafeHtmlPipe
   ) {}
 

@@ -13,18 +13,18 @@
   </div>
 </div>
 <div class="flex-holder" *ngFor="let level of levels; index as y">
-  <ng-container *ngIf="champion === 'Aphelios'">
+  <ng-container *ngIf="champion === 'Aphelios'; else defaultBlock">
     <div *ngFor="let skill of skillsAphelios; index as x">
-      <div class="box" [ngClass]="x === progression[y] ? 'active' : ''">
-        <span class="level">{{ y + 1 }}</span>
-      </div>
-    </div>
-  </ng-container>
-  <ng-container #defaultBlock>
-    <div *ngFor="let skill of skills; index as x">
       <div class="box" [ngClass]="x === progValues[y] ? 'active' : ''">
         <span class="level" *ngIf="x === progValues[y]">{{ y + 1 }}</span>
       </div>
     </div>
   </ng-container>
+  <ng-template #defaultBlock>
+    <div *ngFor="let skill of skills; index as x">
+      <div class="box" [ngClass]="x === progValues[y] ? 'active' : ''">
+        <span class="level" *ngIf="x === progValues[y]">{{ y + 1 }}</span>
+      </div>
+    </div>
+  </ng-template>
 </div>

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Champion } from 'src/app/interfaces/champions';
 import { FormIntroValues } from 'src/app/interfaces/form-intro-values';
+import { Champion } from 'src/app/interfaces/guide-form-static-data';
 
 @Component({
   selector: 'app-intro',

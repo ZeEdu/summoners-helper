@@ -38,7 +38,7 @@
                 >
                   <ion-select-option
                     *ngFor="let gameItem of items"
-                    value="{{ gameItem.image.full.replace('.png', '') }}"
+                    value="{{ gameItem.id }}"
                     >{{ gameItem.name }}</ion-select-option
                   >
                 </ion-select>
