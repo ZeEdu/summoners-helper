@@ -6,7 +6,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content>
   <ng-container *ngIf="isLoading && !profile">
     <ion-spinner name="crescent"></ion-spinner>
   </ng-container>
@@ -20,26 +20,32 @@
     ></app-error-message>
   </ng-container>
   <ng-container *ngIf="profile | async as info">
-    <ion-list lines="none">
-      <ion-item>
-        <ion-label color="primary">Username</ion-label>
-        {{info.username}}
-      </ion-item>
-      <ion-item>
-        <ion-label color="primary">Email</ion-label>
-        {{info.email}}
-      </ion-item>
-      <ion-item>
-        <ion-label color="primary">Joined Date</ion-label>
-        {{info.joined | date}}
-      </ion-item>
-      <ion-item button="true" routerLink="/delete-account"
-        >Delete Account</ion-item
-      >
-      <ion-item button="true" routerLink="/change-password"
-        >Change Password</ion-item
-      >
-    </ion-list>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-list lines="none">
+            <ion-item>
+              <ion-label color="primary">Username</ion-label>
+              {{info.username}}
+            </ion-item>
+            <ion-item>
+              <ion-label color="primary">Email</ion-label>
+              {{info.email}}
+            </ion-item>
+            <ion-item>
+              <ion-label color="primary">Joined Date</ion-label>
+              {{info.joined | date}}
+            </ion-item>
+            <ion-item button="true" routerLink="/delete-account"
+              >Delete Account</ion-item
+            >
+            <ion-item button="true" routerLink="/change-password"
+              >Change Password</ion-item
+            >
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ng-container>
 </ion-content>
 <ion-footer>

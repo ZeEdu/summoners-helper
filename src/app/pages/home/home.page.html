@@ -1,15 +1,15 @@
 <ion-content>
   <ion-tabs>
-    <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="builds">
+    <ion-tab-bar [slot]="tabsPlacement">
+      <ion-tab-button [layout]="tabsLayout" tab="builds">
         <ion-label>Guides</ion-label>
         <ion-icon name="book"></ion-icon>
       </ion-tab-button>
-      <ion-tab-button tab="champions">
+      <ion-tab-button [layout]="tabsLayout" tab="champions">
         <ion-label>Champions</ion-label>
         <ion-icon name="paw"></ion-icon>
       </ion-tab-button>
-      <ion-tab-button tab="settings">
+      <ion-tab-button [layout]="tabsLayout" tab="settings">
         <ion-label>Settings</ion-label>
         <ion-icon name="settings"></ion-icon>
       </ion-tab-button>
