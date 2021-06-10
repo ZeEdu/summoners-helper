@@ -1,19 +1,10 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { BuildManagerService } from '../../../../../services/build-manager.service';
-import { Guide } from '../../../../../interfaces/build';
-import { PathResponse, PathRune } from '../../../../../interfaces/runes';
-import { Spell, SpellResponse } from '../../../../../interfaces/spells';
-import { Item, ItemResponse } from '../../../../../interfaces/items';
-import { DataDragonHandlerService } from '../../../../../services/data-dragon-handler.service';
-import { IonContent, IonSlides } from '@ionic/angular';
-import { UserManagerService } from 'src/app/services/user-manager.service';
+import { IonContent } from '@ionic/angular';
 import { SafeHtmlPipe } from 'src/app/shared/pipes/safe-html.pipe';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { environment } from 'src/environments/environment';
-import { ChampionInfo } from 'src/app/interfaces/champion';
 import { retry, take } from 'rxjs/operators';
-import { GetChampions } from 'src/app/interfaces/get-champions';
 import { FullGuide } from 'src/app/interfaces/full-guide';
 
 @Component({

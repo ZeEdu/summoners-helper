@@ -44,7 +44,7 @@ export class GuideComponent implements OnInit {
 
   slideOpts = {
     initialSlide: 0,
-    allowTouchMove: false,
+    autoHeight: true,
   };
 
   ngOnInit() {

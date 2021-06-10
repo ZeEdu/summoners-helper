@@ -1,64 +1,66 @@
-<app-hero-image
-  [champion]="champion"
-  [patch]="patch"
-  [role]="role"
-></app-hero-image>
+<ion-img
+  src="{{ resUrl }}/img/champion/splash/{{ champion }}_0.jpg"
+  alt=""
+  height="100%"
+  width="100%"
+></ion-img>
 <ion-grid>
   <ion-row>
-    <ion-col size="12">
-      <ion-item>
-        <ion-text color="primary">
-          <h1 class="title" class="ion-text-start">Introduction</h1>
-        </ion-text>
-      </ion-item>
-    </ion-col>
-    <ion-col size="12">
-      <ion-item>
-        <p class="ion-text-start">{{ introduction }}</p>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col size="12" *ngIf="updatedOn">
-      <ion-item>
-        <ion-text color="primary">
-          <span>Last Updated: </span>
-        </ion-text>
-        <ion-text color="light"
-          ><span>{{ updatedOn | date }}</span></ion-text
-        >
-
-        <!-- <p class="bottom-content">
-        </p> -->
-      </ion-item>
-    </ion-col>
-    <ion-col size="12" *ngIf="!updatedOn">
-      <ion-item>
-        <p class="bottom-content">
-          <ion-text color="primary">Created On: </ion-text>
-          <ion-text color="light">{{ createdOn | date }}</ion-text>
-        </p>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col size="12" *ngIf="creatorUsername; else creatorNotFound">
-      <ion-item>
-        <p class="bottom-content">
-          <ion-text color="primary">Created by: </ion-text>
-          <ion-text color="light">{{ creatorUsername }}</ion-text>
-        </p>
-      </ion-item>
-    </ion-col>
-    <ng-template #creatorNotFound>
-      <ion-col size="6">
+    <ion-col>
+      <ion-list>
         <ion-item>
+          <ion-text color="primary">
+            <h1 class="ion-text-start">{{ name }}</h1>
+          </ion-text>
+        </ion-item>
+        <ion-item>
+          <p class="ion-text-start">{{ introduction }}</p>
+        </ion-item>
+        <ion-item>
+          <ion-text color="primary">
+            <span>Champion: </span>
+          </ion-text>
+          <ion-text color="light">
+            <span> {{ champion }}</span>
+          </ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-text color="primary">
+            <span>Patch: </span>
+          </ion-text>
+          <ion-text color="light">
+            <span>{{ patch }}</span>
+          </ion-text>
+        </ion-item>
+        <ion-item *ngIf="updatedOn">
+          <ion-text color="primary">
+            <span>Last Updated: </span>
+          </ion-text>
+          <ion-text color="light"
+            ><span>{{ updatedOn | date }}</span></ion-text
+          >
+        </ion-item>
+        <ion-item *ngIf="!updatedOn">
           <p class="bottom-content">
-            <ion-text color="primary">Created by: </ion-text>
-            <ion-text color="light">Not Found</ion-text>
+            <ion-text color="primary">Created On: </ion-text>
+            <ion-text color="light">{{ createdOn | date }}</ion-text>
           </p>
         </ion-item>
-      </ion-col>
-    </ng-template>
+        <ion-item *ngIf="creatorUsername; else creatorNotFound">
+          <p class="bottom-content">
+            <ion-text color="primary">Created by: </ion-text>
+            <ion-text color="light">{{ creatorUsername }}</ion-text>
+          </p>
+        </ion-item>
+        <ng-template #creatorNotFound>
+          <ion-item>
+            <p class="bottom-content">
+              <ion-text color="primary">Created by: </ion-text>
+              <ion-text color="light">Not Found</ion-text>
+            </p>
+          </ion-item>
+        </ng-template>
+      </ion-list>
+    </ion-col>
   </ion-row>
 </ion-grid>

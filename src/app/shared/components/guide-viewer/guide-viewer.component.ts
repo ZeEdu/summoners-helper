@@ -15,16 +15,16 @@ import { FullGuide } from 'src/app/interfaces/full-guide';
   templateUrl: './guide-viewer.component.html',
   styleUrls: ['./guide-viewer.component.scss'],
 })
-export class GuideViewerComponent implements OnInit {
+export class GuideViewerComponent implements OnInit, AfterViewInit {
   @ViewChild(IonSlides, { static: false }) slides: IonSlides;
-
   @Input() guide: FullGuide;
-
   @Output() slideChangeEmitter = new EventEmitter<boolean>();
 
   slideOpts = {
     initialSlide: 0,
     autoHeight: true,
+
+    createElements: true,
   };
 
   handleSlideChange() {
@@ -32,6 +32,9 @@ export class GuideViewerComponent implements OnInit {
   }
 
   constructor() {}
+  ngAfterViewInit(): void {
+    this.slides.update();
+  }
 
   ngOnInit() {}
 }

@@ -7,10 +7,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./hero-image.component.scss'],
 })
 export class HeroImageComponent implements OnInit {
-  @Input() name: string;
   @Input() champion: string;
-  @Input() role: string;
-  @Input() patch: string;
 
   public resUrl = environment.backendBaseUrl;
 

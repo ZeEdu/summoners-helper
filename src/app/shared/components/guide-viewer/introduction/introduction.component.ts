@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-introduction',
@@ -14,6 +15,8 @@ export class IntroductionComponent implements OnInit {
   @Input() updatedOn?: string;
   @Input() createdOn: string;
   @Input() creatorUsername?: string;
+
+  public resUrl = environment.backendBaseUrl;
 
   constructor() {}
 
