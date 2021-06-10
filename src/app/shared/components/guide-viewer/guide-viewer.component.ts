@@ -23,8 +23,6 @@ export class GuideViewerComponent implements OnInit, AfterViewInit {
   slideOpts = {
     initialSlide: 0,
     autoHeight: true,
-
-    createElements: true,
   };
 
   handleSlideChange() {
