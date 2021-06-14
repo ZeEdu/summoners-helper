@@ -1,9 +1,13 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title color="primary">
-      User Profile
-    </ion-title>
-  </ion-toolbar>
+  <ion-row>
+    <ion-col size-lg="6" offset-lg="3">
+      <ion-toolbar>
+        <ion-title>
+          User Profile
+        </ion-title>
+      </ion-toolbar>
+    </ion-col>
+  </ion-row>
 </ion-header>
 
 <ion-content>
@@ -22,7 +26,7 @@
   <ng-container *ngIf="profile | async as info">
     <ion-grid>
       <ion-row>
-        <ion-col>
+        <ion-col offset-lg="3" size-lg="6">
           <ion-list lines="none">
             <ion-item>
               <ion-label color="primary">Username</ion-label>
@@ -42,14 +46,31 @@
             <ion-item button="true" routerLink="/change-password"
               >Change Password</ion-item
             >
+
+            <ion-item *ngIf="isDesktop">
+              <ion-button
+                slot="end"
+                size="default"
+                expand="block"
+                color="danger"
+              >
+                Exit
+              </ion-button>
+            </ion-item>
           </ion-list>
         </ion-col>
       </ion-row>
     </ion-grid>
   </ng-container>
 </ion-content>
-<ion-footer>
-  <ion-button (click)="logout()" color="danger" expand="block" bottom>
-    Exit
-  </ion-button>
+<ion-footer *ngIf="!isDesktop">
+  <ion-grid>
+    <ion-row>
+      <ion-col offset-lg="3" size-lg="6">
+        <ion-button (click)="logout()" color="danger" expand="block">
+          Exit
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-footer>

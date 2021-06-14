@@ -1,13 +1,19 @@
-<div class="container">
-  <img
-    src="{{ resUrl }}/img/champion/splash/{{ id }}_0.jpg"
-    alt="{{ name }} splash screen"
-    height="100%"
-    width="100%"
-  />
-  <span class="overlay">
-    <ion-text color="primary">
-      <p>{{ name }} {{ title }}</p>
-    </ion-text>
-  </span>
-</div>
+<ion-grid class="ion-no-padding">
+  <ion-row>
+    <ion-col size-lg="6" offset-lg="3">
+      <div class="container">
+        <img
+          src="{{ resUrl }}/img/champion/splash/{{ id }}_0.jpg"
+          alt="{{ name }} splash screen"
+          height="100%"
+          width="100%"
+        />
+        <span class="overlay">
+          <ion-text color="primary">
+            <p>{{ name }} {{ title }}</p>
+          </ion-text>
+        </span>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>

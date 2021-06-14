@@ -13,6 +13,7 @@ import { Subscription, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { catchError, retry, take } from 'rxjs/operators';
 import { EmitGuideInfo } from 'src/app/interfaces/emit-guide-info';
+import { ScreenSizeService } from 'src/app/services/screensize.service';
 
 @Component({
   selector: 'app-builds',
@@ -30,6 +31,8 @@ export class BuildsPage implements OnInit, OnDestroy {
   public resUrl = environment.backendBaseUrl;
   public patchVersion = environment.patchVersion;
   private routeSubs: Subscription;
+
+  isDesktop: boolean;
 
   constructor(
     private buildService: BuildManagerService,

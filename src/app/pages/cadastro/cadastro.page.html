@@ -1,180 +1,204 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
-    </ion-buttons>
-    <ion-title class="heading">Create account</ion-title>
-  </ion-toolbar>
+  <ion-row>
+    <ion-col size-lg="6" offset-lg="3">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="/login"></ion-back-button>
+        </ion-buttons>
+        <ion-title class="heading">Create account</ion-title>
+      </ion-toolbar>
+    </ion-col>
+  </ion-row>
 </ion-header>
-
 <ion-content>
-  <form [formGroup]="frmSignup" (ngSubmit)="onSubmit()">
-    <ion-item>
-      <ion-label position="floating">
-        Username
-      </ion-label>
-      <ion-input primary type="text" formControlName="username"></ion-input>
-    </ion-item>
-    <ion-item
-      class="error-message"
-      *ngIf="frmSignup.controls['username'].hasError('required')  &&
-            frmSignup.controls['username'].pristine == false"
-    >
-      <ion-label>
-        Username is required
-      </ion-label>
-    </ion-item>
-    <ion-item
-      class="error-message"
-      *ngIf="frmSignup.controls['username'].hasError('alphanumeric') &&
-            frmSignup.controls['username'].pristine == false"
-    >
-      <ion-label>
-        Only letters, number and underscore are valid
-      </ion-label>
-    </ion-item>
-    <ion-item
-      class="error-message"
-      *ngIf="frmSignup.controls['username'].hasError('minlength') &&
-            frmSignup.controls['username'].pristine == false"
-    >
-      <ion-label>
-        Must have at least 5 characters
-      </ion-label>
-    </ion-item>
-    <ion-item
-      class="error-message"
-      *ngIf="frmSignup.controls['username'].hasError('maxlength') &&
-            frmSignup.controls['username'].pristine == false"
-    >
-      <ion-label>
-        Must have less than 30 characters
-      </ion-label>
-    </ion-item>
-    <ion-item
-      class="error-message"
-      *ngIf="frmSignup.controls['username'].hasError('isusernametaken') &&
-            frmSignup.controls['username'].dirty"
-    >
-      <ion-label>
-        Username already taken
-      </ion-label>
-    </ion-item>
-    <ion-item
-      class="success-message"
-      *ngIf="frmSignup.controls['username'].hasError('isusernametaken') == false &&
-            frmSignup.controls['username'].pristine == false && frmSignup.controls['username'].valid"
-    >
-      <ion-label>
-        This username is available!
-      </ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating"> Email</ion-label>
-      <ion-input primary type="email" formControlName="email"></ion-input>
-    </ion-item>
-    <ion-item
-      class="error-message"
-      *ngIf="frmSignup.controls['email'].hasError('required') &&
-            frmSignup.controls['email'].pristine == false"
-    >
-      <ion-label>
-        Email is required
-      </ion-label>
-    </ion-item>
-    <ion-item
-      class="error-message"
-      *ngIf="(frmSignup.controls['email'].hasError('email') || frmSignup.controls['email'].hasError('invalidemailformat')) &&
-            frmSignup.controls['email'].pristine == false"
-    >
-      <ion-label>
-        Invalid email format
-      </ion-label>
-    </ion-item>
-    <ion-item
-      class="error-message"
-      *ngIf="frmSignup.controls['email'].hasError('isemailtaken') &&
-            frmSignup.controls['email'].pristine == false"
-    >
-      <ion-label>
-        Email already taken
-      </ion-label>
-    </ion-item>
-    <ion-item
-      color="success"
-      *ngIf="frmSignup.controls['email'].hasError('isemailtaken') == false &&
-            frmSignup.controls['email'].pristine == false && frmSignup.controls['email'].valid"
-    >
-      <ion-label>
-        That's a vacant email!
-      </ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">
-        Password
-      </ion-label>
-      <ion-input primary type="password" formControlName="password"></ion-input>
-    </ion-item>
-    <ion-item
-      class="error-message"
-      *ngIf="(frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].value === '') &&
-            frmSignup.controls['password'].dirty"
-    >
-      <ion-label>
-        Password is required
-      </ion-label>
-    </ion-item>
-    <ion-item
-      class="error-message"
-      *ngIf="frmSignup.controls['password'].hasError('minlength') &&
-                frmSignup.controls['password'].dirty"
-    >
-      <ion-label>
-        Password must have at least 6 characters
-      </ion-label>
-    </ion-item>
-    <ion-item
-      class="error-message"
-      *ngIf="frmSignup.controls['password'].hasError('maxlength') &&
-                frmSignup.controls['password'].dirty"
-    >
-      <ion-label>
-        Password must have less than 30 characters
-      </ion-label>
-    </ion-item>
-    <ion-item color="success" *ngIf="frmSignup.controls['password'].valid">
-      <ion-label>
-        That's a valid password!
-      </ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">
-        Confirm Password
-      </ion-label>
-      <ion-input
-        primary
-        type="password"
-        formControlName="confirmPassword"
-      ></ion-input>
-    </ion-item>
-    <ion-item
-      class="error-message"
-      *ngIf="frmSignup.controls['password'].valid && frmSignup.controls['confirmPassword'].dirty && frmSignup.controls['confirmPassword'].invalid"
-    >
-      <ion-label>
-        Passwords do not match!
-      </ion-label>
-    </ion-item>
-    <ion-item
-      color="success"
-      *ngIf="frmSignup.controls['password'].valid && frmSignup.controls['confirmPassword'].valid"
-    >
-      <ion-label>
-        Passwords do match!
-      </ion-label>
-    </ion-item>
-    <ion-button expand="block" type="submit" [disabled]="!frmSignup.valid">
-      Create account
-    </ion-button>
-  </form>
+  <ion-grid>
+    <ion-row>
+      <ion-col offset-lg="3" size-lg="6">
+        <form [formGroup]="frmSignup" (ngSubmit)="onSubmit()">
+          <ion-item>
+            <ion-label position="floating">
+              Username
+            </ion-label>
+            <ion-input
+              primary
+              type="text"
+              formControlName="username"
+            ></ion-input>
+          </ion-item>
+          <ion-item
+            class="error-message"
+            *ngIf="frmSignup.controls['username'].hasError('required')  &&
+								frmSignup.controls['username'].pristine == false"
+          >
+            <ion-label>
+              Username is required
+            </ion-label>
+          </ion-item>
+          <ion-item
+            class="error-message"
+            *ngIf="frmSignup.controls['username'].hasError('alphanumeric') &&
+								frmSignup.controls['username'].pristine == false"
+          >
+            <ion-label>
+              Only letters, number and underscore are valid
+            </ion-label>
+          </ion-item>
+          <ion-item
+            class="error-message"
+            *ngIf="frmSignup.controls['username'].hasError('minlength') &&
+								frmSignup.controls['username'].pristine == false"
+          >
+            <ion-label>
+              Must have at least 5 characters
+            </ion-label>
+          </ion-item>
+          <ion-item
+            class="error-message"
+            *ngIf="frmSignup.controls['username'].hasError('maxlength') &&
+								frmSignup.controls['username'].pristine == false"
+          >
+            <ion-label>
+              Must have less than 30 characters
+            </ion-label>
+          </ion-item>
+          <ion-item
+            class="error-message"
+            *ngIf="frmSignup.controls['username'].hasError('isusernametaken') &&
+								frmSignup.controls['username'].dirty"
+          >
+            <ion-label>
+              Username already taken
+            </ion-label>
+          </ion-item>
+          <ion-item
+            class="success-message"
+            *ngIf="frmSignup.controls['username'].hasError('isusernametaken') == false &&
+								frmSignup.controls['username'].pristine == false && frmSignup.controls['username'].valid"
+          >
+            <ion-label>
+              This username is available!
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating"> Email</ion-label>
+            <ion-input primary type="email" formControlName="email"></ion-input>
+          </ion-item>
+          <ion-item
+            class="error-message"
+            *ngIf="frmSignup.controls['email'].hasError('required') &&
+								frmSignup.controls['email'].pristine == false"
+          >
+            <ion-label>
+              Email is required
+            </ion-label>
+          </ion-item>
+          <ion-item
+            class="error-message"
+            *ngIf="(frmSignup.controls['email'].hasError('email') || frmSignup.controls['email'].hasError('invalidemailformat')) &&
+								frmSignup.controls['email'].pristine == false"
+          >
+            <ion-label>
+              Invalid email format
+            </ion-label>
+          </ion-item>
+          <ion-item
+            class="error-message"
+            *ngIf="frmSignup.controls['email'].hasError('isemailtaken') &&
+								frmSignup.controls['email'].pristine == false"
+          >
+            <ion-label>
+              Email already taken
+            </ion-label>
+          </ion-item>
+          <ion-item
+            color="success"
+            *ngIf="frmSignup.controls['email'].hasError('isemailtaken') == false &&
+								frmSignup.controls['email'].pristine == false && frmSignup.controls['email'].valid"
+          >
+            <ion-label>
+              That's a vacant email!
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">
+              Password
+            </ion-label>
+            <ion-input
+              primary
+              type="password"
+              formControlName="password"
+            ></ion-input>
+          </ion-item>
+          <ion-item
+            class="error-message"
+            *ngIf="(frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].value === '') &&
+								frmSignup.controls['password'].dirty"
+          >
+            <ion-label>
+              Password is required
+            </ion-label>
+          </ion-item>
+          <ion-item
+            class="error-message"
+            *ngIf="frmSignup.controls['password'].hasError('minlength') &&
+										frmSignup.controls['password'].dirty"
+          >
+            <ion-label>
+              Password must have at least 6 characters
+            </ion-label>
+          </ion-item>
+          <ion-item
+            class="error-message"
+            *ngIf="frmSignup.controls['password'].hasError('maxlength') &&
+										frmSignup.controls['password'].dirty"
+          >
+            <ion-label>
+              Password must have less than 30 characters
+            </ion-label>
+          </ion-item>
+          <ion-item
+            color="success"
+            *ngIf="frmSignup.controls['password'].valid"
+          >
+            <ion-label>
+              That's a valid password!
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">
+              Confirm Password
+            </ion-label>
+            <ion-input
+              primary
+              type="password"
+              formControlName="confirmPassword"
+            ></ion-input>
+          </ion-item>
+          <ion-item
+            class="error-message"
+            *ngIf="frmSignup.controls['password'].valid && frmSignup.controls['confirmPassword'].dirty && frmSignup.controls['confirmPassword'].invalid"
+          >
+            <ion-label>
+              Passwords do not match!
+            </ion-label>
+          </ion-item>
+          <ion-item
+            color="success"
+            *ngIf="frmSignup.controls['password'].valid && frmSignup.controls['confirmPassword'].valid"
+          >
+            <ion-label>
+              Passwords do match!
+            </ion-label>
+          </ion-item>
+          <ion-button
+            expand="block"
+            type="submit"
+            [disabled]="!frmSignup.valid"
+          >
+            Create account
+          </ion-button>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

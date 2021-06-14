@@ -1,6 +1,6 @@
 <ng-container *ngIf="name && tips">
   <ion-row>
-    <ion-col>
+    <ion-col offset-lg="3" size-lg="6">
       <ion-item>
         <ion-text color="primary" class="ion-text-start">
           <h2 class="title">Playing {{ mode }} {{ name }}</h2>
@@ -9,7 +9,7 @@
     </ion-col>
   </ion-row>
   <ion-row>
-    <ion-col>
+    <ion-col offset-lg="3" size-lg="6">
       <ng-container *ngFor="let tip of tips; index as i">
         <ion-item>
           <ion-text class="ion-text-start">

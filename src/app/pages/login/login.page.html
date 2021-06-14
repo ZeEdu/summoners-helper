@@ -1,51 +1,51 @@
 <ion-content>
-   <ion-grid>
-      <ion-row>
-         <ion-col>
-            <h1>SH</h1>
-            <h2>Summoner's Helper</h2>
+  <ion-grid>
+    <ion-row>
+      <ion-col offset-lg="3" size-lg="6">
+        <h1>SH</h1>
+        <h2>Summoner's Helper</h2>
 
-            <ion-item>
-               <ion-label position="floating">
-                  Email
-               </ion-label>
-               <ion-input
-                  primary
-                  type="email"
-                  [(ngModel)]="userLogin.email"
-               ></ion-input>
-            </ion-item>
-            <ion-item>
-               <ion-label position="floating">Password</ion-label>
-               <ion-input
-                  primary
-                  type="password"
-                  [(ngModel)]="userLogin.password"
-               ></ion-input>
-            </ion-item>
-            <div>
-               <a routerLink="/recover-password">Forgot Password </a>
-               <ion-icon
-                  color="primary"
-                  name="chevron-forward-circle-outline"
-               ></ion-icon>
-            </div>
-            <ion-button expand="block" (click)="login()">
-               Login
-            </ion-button>
-            <h3 class="sign-in">
-               Don't have an account yet?
-               <a routerLink="/cadastro">Create yours Here</a>
-            </h3>
-         </ion-col>
-      </ion-row>
-   </ion-grid>
+        <ion-item>
+          <ion-label position="floating">
+            Email
+          </ion-label>
+          <ion-input
+            primary
+            type="email"
+            [(ngModel)]="userLogin.email"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input
+            primary
+            type="password"
+            [(ngModel)]="userLogin.password"
+          ></ion-input>
+        </ion-item>
+        <div>
+          <a routerLink="/recover-password">Forgot Password </a>
+          <ion-icon
+            color="primary"
+            name="chevron-forward-circle-outline"
+          ></ion-icon>
+        </div>
+        <ion-button expand="block" (click)="login()">
+          Login
+        </ion-button>
+        <h3 class="sign-in">
+          Don't have an account yet?
+          <a routerLink="/cadastro">Create yours Here</a>
+        </h3>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
 <ion-footer>
-   <p>
-      Summoner's Helper isn't endorsed by Riot Games and doesn't reflect the
-      views or opinions of Riot Games or anyone officially involved in producing
-      or managing Riot Games properties. Riot Games, and all associated
-      properties are trademarks or registered trademarks of Riot Games, Inc.
-   </p>
+  <p>
+    Summoner's Helper isn't endorsed by Riot Games and doesn't reflect the views
+    or opinions of Riot Games or anyone officially involved in producing or
+    managing Riot Games properties. Riot Games, and all associated properties
+    are trademarks or registered trademarks of Riot Games, Inc.
+  </p>
 </ion-footer>

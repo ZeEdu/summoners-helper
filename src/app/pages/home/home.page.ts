@@ -12,9 +12,9 @@ export class HomePage {
   tabsLayout: 'icon-start' | 'icon-top' = 'icon-top';
 
   constructor(public platform: Platform) {
-    if (!this.platform.is('mobile')) {
-      this.tabsPlacement = 'top';
-      this.tabsLayout = 'icon-start';
-    }
+    // if (!this.platform.is('mobile')) {
+    //   this.tabsPlacement = 'top';
+    //   this.tabsLayout = 'icon-start';
+    // }
   }
 }

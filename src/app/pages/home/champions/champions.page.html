@@ -1,33 +1,41 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Champions</ion-title>
-  </ion-toolbar>
+  <ion-row>
+    <ion-col size-lg="6" offset-lg="3">
+      <ion-toolbar>
+        <ion-title>Champions</ion-title>
+      </ion-toolbar>
+    </ion-col>
+  </ion-row>
 </ion-header>
 <ion-content>
-  <ng-container *ngIf="isLoading">
-    <ion-spinner name="crescent"></ion-spinner>
-  </ng-container>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-lg="6" offset-lg="3">
+        <ng-container *ngIf="isLoading">
+          <ion-spinner name="crescent"></ion-spinner>
+        </ng-container>
+        <ng-container *ngIf="!championsObs && !isLoading">
+          <app-error-message
+            [messageTitle]="'Something went Wrong'"
+            [messageText]="'We couldn\'t connect to our servers'"
+            [imageSource]="'../../../../assets/server-down.svg'"
+            [tryAgainMessage]="'Try Again?'"
+            (reloadEmitter)="loadContent()"
+          ></app-error-message>
+        </ng-container>
+        <ion-list>
+          <ion-list-header>
+            <ion-label>Select a Champion</ion-label>
+          </ion-list-header>
 
-  <ng-container *ngIf="!championsObs && !isLoading">
-    <app-error-message
-      [messageTitle]="'Something went Wrong'"
-      [messageText]="'We couldn\'t connect to our servers'"
-      [imageSource]="'../../../../assets/server-down.svg'"
-      [tryAgainMessage]="'Try Again?'"
-      (reloadEmitter)="loadContent()"
-    ></app-error-message>
-  </ng-container>
-
-  <ion-list>
-    <ion-list-header>
-      <ion-label>Select a Champion</ion-label>
-    </ion-list-header>
-
-    <app-champion-item
-      *ngFor="let item of championsObs | async"
-      [id]="item.id"
-      [title]="item.title"
-      [name]="item.name"
-    ></app-champion-item>
-  </ion-list>
+          <app-champion-item
+            *ngFor="let item of championsObs | async"
+            [id]="item.id"
+            [title]="item.title"
+            [name]="item.name"
+          ></app-champion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

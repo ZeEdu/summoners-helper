@@ -1,13 +1,17 @@
-<ion-header class="body-margin">
+<ion-header>
   <ion-toolbar>
-    <ion-title>My Guides</ion-title>
+    <ion-row>
+      <ion-col size-lg="6" offset-lg="3">
+        <ion-title>My Guides</ion-title>
+      </ion-col>
+    </ion-row>
   </ion-toolbar>
 </ion-header>
 <ion-content>
   <ng-container *ngIf="userBuilds && userBuilds.length === 0 && !isLoading">
-    <ion-grid fixed>
+    <ion-grid>
       <ion-row>
-        <ion-col size="12">
+        <ion-col offset-lg="3" size-lg="6">
           <div class="alert-holder">
             <div class="alert">
               <h1>
@@ -34,25 +38,31 @@
     ></app-error-message>
   </ng-container>
   <ng-container *ngIf="userBuilds && userBuilds.length > 0 && !isLoading">
-    <ion-list>
-      <ion-list-header>
-        <ion-label>Your Guides</ion-label>
-      </ion-list-header>
-      <ng-container *ngFor="let build of userBuilds; index as i;">
-        <app-guide-item
-          [guide]="build"
-          (presentAlert)="callPresentAlertCofirm($event)"
-        ></app-guide-item>
-      </ng-container>
-    </ion-list>
+    <ion-grid>
+      <ion-row>
+        <ion-col offset-lg="3" size-lg="6">
+          <ion-list>
+            <ion-list-header>
+              <ion-label>Your Guides</ion-label>
+            </ion-list-header>
+            <ng-container *ngFor="let build of userBuilds; index as i;">
+              <app-guide-item
+                [guide]="build"
+                (presentAlert)="callPresentAlertCofirm($event)"
+              ></app-guide-item>
+            </ng-container>
+          </ion-list>
 
-    <ion-infinite-scroll (ionInfinite)="loadGuides(true, $event)">
-      <ion-infinite-scroll-content
-        loadingSpinner="bubbles"
-        loadingText="Loading more guides..."
-      >
-      </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
+          <ion-infinite-scroll (ionInfinite)="loadGuides(true, $event)">
+            <ion-infinite-scroll-content
+              loadingSpinner="bubbles"
+              loadingText="Loading more guides..."
+            >
+            </ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ng-container>
 
   <ng-container *ngIf="isLoading">

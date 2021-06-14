@@ -6,6 +6,7 @@ import { catchError, retry, take } from 'rxjs/operators';
 import { User } from 'src/app/interfaces/user';
 import { UserProfile } from 'src/app/interfaces/user-profile';
 import { Observable } from 'rxjs';
+import { ScreenSizeService } from 'src/app/services/screensize.service';
 
 @Component({
   selector: 'app-settings',
@@ -16,11 +17,13 @@ export class SettingsPage implements OnInit {
   public profile: Observable<UserProfile>;
   public isLoading: boolean;
   public connectionSuccess: boolean;
+  public isDesktop: boolean;
 
   constructor(
     private authService: AuthService,
     private afa: AngularFireAuth,
-    private userManager: UserManagerService
+    private userManager: UserManagerService,
+    private screenSizeService: ScreenSizeService
   ) {}
 
   public reloadData(): void {
@@ -68,6 +71,10 @@ export class SettingsPage implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
+
+    this.screenSizeService.isDesktopView().subscribe((isDesktop) => {
+      this.isDesktop = isDesktop;
+    });
   }
 
   public logout() {
