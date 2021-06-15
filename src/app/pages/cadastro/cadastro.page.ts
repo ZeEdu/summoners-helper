@@ -20,7 +20,6 @@ import { take, retry } from 'rxjs/operators';
   styleUrls: ['./cadastro.page.scss'],
 })
 export class CadastroPage implements OnInit {
-  public helloWorld = 'Hello';
   public frmSignup: FormGroup;
   public userRegister: User = {};
   public usernameValue: string;
@@ -125,7 +124,9 @@ export class CadastroPage implements OnInit {
               this.presentToast('Account created successfully!');
             },
             (err) => {
-              this.presentToast(err);
+              const errors = Object.values(err).join('.\n');
+              this.presentToast(errors);
+              this.authService.logout();
             }
           );
       });

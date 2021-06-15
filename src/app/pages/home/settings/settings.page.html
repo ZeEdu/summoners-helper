@@ -22,6 +22,17 @@
       [tryAgainMessage]="'Try Again?'"
       (reloadEmitter)="reloadData($event)"
     ></app-error-message>
+    <ion-item *ngIf="isDesktop">
+      <ion-button
+        slot="end"
+        size="default"
+        expand="block"
+        color="danger"
+        (click)="logout()"
+      >
+        Exit
+      </ion-button>
+    </ion-item>
   </ng-container>
   <ng-container *ngIf="profile | async as info">
     <ion-grid>

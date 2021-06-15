@@ -9,10 +9,12 @@ import { BonusModule } from './bonus/bonus.module';
 import { AbilitiesProgressionModule } from './abilities-progression/abilities-progression.module';
 import { GuideViewerComponent } from './guide-viewer.component';
 import { IonicModule } from '@ionic/angular';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [GuideViewerComponent],
   imports: [
+    FormsModule,
     CommonModule,
     IonicModule,
     IntroductionModule,

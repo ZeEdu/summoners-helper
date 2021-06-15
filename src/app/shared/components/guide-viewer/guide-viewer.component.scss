@@ -1,3 +1,13 @@
 ion-slides {
-  min-height: calc(100vh - 7.0625rem);
+  min-height: calc(100vh - 4.125rem);
+}
+ion-segment {
+  ion-segment-button {
+    color: #ffffff;
+    font-size: 12px;
+  }
+
+  .segment-button-checked {
+    color: #9ca6f7;
+  }
 }

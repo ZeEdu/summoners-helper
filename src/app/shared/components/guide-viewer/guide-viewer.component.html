@@ -1,12 +1,27 @@
-<!-- <div>
-  <div></div>
-  <div></div>
-</div> -->
+<ion-row>
+  <ion-col size-lg="6" offset-lg="3" class="ion-no-padding">
+    <ion-segment
+      scrollable
+      [(ngModel)]="segment"
+      (ionChange)="segmentChanged($event)"
+    >
+      <ion-segment-button value="0">intro</ion-segment-button>
+      <ion-segment-button value="1">primary rune</ion-segment-button>
+      <ion-segment-button value="2">secondary rune</ion-segment-button>
+      <ion-segment-button value="3">bonus</ion-segment-button>
+      <ion-segment-button value="4">spells</ion-segment-button>
+      <ion-segment-button value="5">Progression</ion-segment-button>
+      <ion-segment-button value="6">Items</ion-segment-button>
+      <ion-segment-button value="7">Threats</ion-segment-button>
+    </ion-segment>
+  </ion-col>
+</ion-row>
 
 <ion-slides
   pager="false"
   [options]="slideOpts"
-  (ionSlideDidChange)="handleSlideChange()"
+  (ionSlideDidChange)="slideChanged(slides)"
+  (ionSlidesDidLoad)="slideChanged(slides)"
 >
   <ion-slide>
     <app-introduction

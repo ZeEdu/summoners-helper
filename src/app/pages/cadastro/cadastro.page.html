@@ -111,7 +111,7 @@
             </ion-label>
           </ion-item>
           <ion-item
-            color="success"
+            class="success-message"
             *ngIf="frmSignup.controls['email'].hasError('isemailtaken') == false &&
 								frmSignup.controls['email'].pristine == false && frmSignup.controls['email'].valid"
           >
@@ -157,7 +157,7 @@
             </ion-label>
           </ion-item>
           <ion-item
-            color="success"
+            class="success-message"
             *ngIf="frmSignup.controls['password'].valid"
           >
             <ion-label>
@@ -183,7 +183,7 @@
             </ion-label>
           </ion-item>
           <ion-item
-            color="success"
+            class="success-message"
             *ngIf="frmSignup.controls['password'].valid && frmSignup.controls['confirmPassword'].valid"
           >
             <ion-label>

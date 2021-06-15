@@ -34,7 +34,6 @@ export class ChampionPage implements OnInit {
   public sliderOptions = {
     initialSlide: 0,
     slidesPerView: 1,
-    speed: 400,
     autoHeight: true,
   };
   public resUrl = environment.backendBaseUrl;

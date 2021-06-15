@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
 import { FullGuide } from 'src/app/interfaces/full-guide';
+import { ScreenSizeService } from 'src/app/services/screensize.service';
 
 @Component({
   selector: 'app-guide-viewer',
@@ -20,19 +21,42 @@ export class GuideViewerComponent implements OnInit, AfterViewInit {
   @Input() guide: FullGuide;
   @Output() slideChangeEmitter = new EventEmitter<boolean>();
 
+  public segment = 0;
+  public selectedSlide: any;
   slideOpts = {
     initialSlide: 0,
+    slidesPerView: 1,
     autoHeight: true,
   };
 
-  handleSlideChange() {
-    this.slideChangeEmitter.emit(true);
+  public async segmentChanged(event: any) {
+    await this.selectedSlide.slideTo(this.segment);
   }
+
+  public async slideChanged(slides: IonSlides) {
+    this.selectedSlide = slides;
+    slides
+      .getActiveIndex()
+      .then((selectedIndex) => (this.segment = selectedIndex));
+
+    this.slideChangeEmitter.emit(true);
+
+    // this.content.scrollToTop(1);
+  }
+
+  calcHeight(): string {
+    return `${window.innerHeight - 66}`;
+  }
+
+  handleSlideChange() {}
 
   constructor() {}
-  ngAfterViewInit(): void {
-    this.slides.update();
+  async ngAfterViewInit(): Promise<void> {
+    // this.slides.update();
+    console.log(await this.slides.length());
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.calcHeight();
+  }
 }
