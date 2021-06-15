@@ -1,9 +1,39 @@
+<!-- (ionChange)="segmentChanged($event)" -->
+
+<ion-row>
+  <ion-col size-lg="6" offset-lg="3" class="ion-no-padding">
+    <ion-segment scrollable [(ngModel)]="segment">
+      <ion-segment-button [disabled]="setDisabledSegment(0)" value="0"
+        >introduction</ion-segment-button
+      >
+      <ion-segment-button [disabled]="setDisabledSegment(1)" value="1"
+        >runes</ion-segment-button
+      >
+      <ion-segment-button [disabled]="setDisabledSegment(2)" value="2"
+        >bonus</ion-segment-button
+      >
+      <ion-segment-button [disabled]="setDisabledSegment(3)" value="3"
+        >spells</ion-segment-button
+      >
+      <ion-segment-button [disabled]="setDisabledSegment(4)" value="4"
+        >items</ion-segment-button
+      >
+      <ion-segment-button [disabled]="setDisabledSegment(5)" value="5"
+        >progression</ion-segment-button
+      >
+      <ion-segment-button [disabled]="setDisabledSegment(6)" value="6"
+        >threats</ion-segment-button
+      >
+    </ion-segment>
+  </ion-col>
+</ion-row>
 <ion-slides
   *ngIf="loaded"
   pager="false"
   [options]="slideOpts"
   #slider
-  (ionSlideDidChange)="handleSlideChange()"
+  (ionSlideDidChange)="slideChanged(slides)"
+  (ionSlidesDidLoad)="slideChanged(slides)"
 >
   <ion-slide>
     <ion-grid>

@@ -45,7 +45,32 @@ export class GuideComponent implements OnInit {
   slideOpts = {
     initialSlide: 0,
     autoHeight: true,
+    allowTouchMove: false,
   };
+
+  public segment = 0;
+  public selectedSlide: any;
+
+  public setDisabledSegment(current: number): boolean {
+    if (Number(current) === Number(this.segment)) {
+      console.log(Number(current), Number(this.segment));
+    }
+
+    return Number(current) === Number(this.segment) ? false : true;
+  }
+
+  public async segmentChanged(event: any) {
+    await this.selectedSlide.slideTo(this.segment);
+  }
+
+  public async slideChanged(slides: IonSlides) {
+    this.selectedSlide = slides;
+    slides
+      .getActiveIndex()
+      .then((selectedIndex) => (this.segment = selectedIndex));
+
+    this.slideChangeEmitter.emit(true);
+  }
 
   ngOnInit() {
     if (!this.guide) {
@@ -54,9 +79,6 @@ export class GuideComponent implements OnInit {
     }
 
     this.createFormValues(this.guide);
-  }
-  handleSlideChange() {
-    this.slideChangeEmitter.emit(true);
   }
 
   createFormValues(guide: Guide) {
