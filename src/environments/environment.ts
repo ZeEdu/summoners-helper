@@ -14,8 +14,8 @@ export const environment = {
     appId: '1:663752846896:web:af4fab6144660d885707f5',
     measurementId: 'G-8XL0KJHZ99',
   },
-  backendBaseUrl: 'http://localhost:3000',
-  // backendBaseUrl: 'https://summoners-helper-api.herokuapp.com',
+  // backendBaseUrl: 'http://localhost:3000',
+  backendBaseUrl: 'https://summoners-helper-api.herokuapp.com',
   // firebase: {
   //   apiKey: 'AIzaSyAlxXly9cTeEQ8cNMtaqNqAU9_jzIOp4Gg',
   //   authDomain: 'summoners-helper.firebaseapp.com',
