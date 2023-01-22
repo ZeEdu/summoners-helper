@@ -11,10 +11,7 @@
 </ion-header>
 
 <ion-content>
-  <ng-container *ngIf="isLoading && !profile">
-    <ion-spinner name="crescent"></ion-spinner>
-  </ng-container>
-  <ng-container *ngIf="!connectionSuccess && !isLoading">
+  <!-- <ng-container *ngIf="!connectionSuccess && !isLoading">
     <app-error-message
       [messageTitle]="'Something went Wrong'"
       [messageText]="'We couldn\'t connect to our servers'"
@@ -22,7 +19,7 @@
       [tryAgainMessage]="'Try Again?'"
       (reloadEmitter)="reloadData($event)"
     ></app-error-message>
-    <ion-item *ngIf="isDesktop">
+    <ion-item *ngIf="isDesktop$ | async">
       <ion-button
         slot="end"
         size="default"
@@ -30,11 +27,11 @@
         color="danger"
         (click)="logout()"
       >
-        Exit
+        Exit Desktop
       </ion-button>
     </ion-item>
-  </ng-container>
-  <ng-container *ngIf="profile | async as info">
+  </ng-container> -->
+  <ng-container *ngIf="profile$ | async as info; else loadingTemplate">
     <ion-grid>
       <ion-row>
         <ion-col offset-lg="3" size-lg="6">
@@ -58,7 +55,7 @@
               >Change Password</ion-item
             >
 
-            <ion-item *ngIf="isDesktop">
+            <ion-item *ngIf="isDesktop$ | async">
               <ion-button
                 slot="end"
                 size="default"
@@ -66,7 +63,7 @@
                 color="danger"
                 (click)="logout()"
               >
-                Exit
+                Exit isDesktop
               </ion-button>
             </ion-item>
           </ion-list>
@@ -74,13 +71,16 @@
       </ion-row>
     </ion-grid>
   </ng-container>
+  <ng-template #loadingTemplate>
+    <ion-spinner name="crescent"></ion-spinner>
+  </ng-template>
 </ion-content>
-<ion-footer *ngIf="!isDesktop">
+<ion-footer *ngIf="!(isDesktop$ | async)">
   <ion-grid>
     <ion-row>
       <ion-col offset-lg="3" size-lg="6">
         <ion-button (click)="logout()" color="danger" expand="block">
-          Exit
+          Exit Mobile
         </ion-button>
       </ion-col>
     </ion-row>

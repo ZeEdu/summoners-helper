@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { UserManagerService } from 'src/app/services/user-manager.service';
-import { catchError, retry, take } from 'rxjs/operators';
-import { User } from 'src/app/interfaces/user';
+import { retry, switchMap, tap } from 'rxjs/operators';
 import { UserProfile } from 'src/app/interfaces/user-profile';
-import { Observable } from 'rxjs';
+import { forkJoin, from, Observable, of } from 'rxjs';
 import { ScreenSizeService } from 'src/app/services/screensize.service';
 
 @Component({
@@ -14,10 +13,8 @@ import { ScreenSizeService } from 'src/app/services/screensize.service';
   styleUrls: ['./settings.page.scss'],
 })
 export class SettingsPage implements OnInit {
-  public profile: Observable<UserProfile>;
-  public isLoading: boolean;
-  public connectionSuccess: boolean;
-  public isDesktop: boolean;
+  public profile$: Observable<UserProfile>;
+  public isDesktop$: Observable<boolean>;
 
   constructor(
     private authService: AuthService,
@@ -26,55 +23,24 @@ export class SettingsPage implements OnInit {
     private screenSizeService: ScreenSizeService
   ) {}
 
+  ngOnInit(): void {
+    this.loadData();
+    this.isDesktop$ = this.screenSizeService.isDesktopView();
+  }
+
   public reloadData(): void {
     this.loadData();
   }
 
   private loadData(): void {
-    this.isLoading = true;
-    this.afa.user
-      .pipe(
-        take(1),
-        retry(2),
-        catchError((_) => {
-          this.connectionSuccess = false;
-          throw new Error('Could not estabilish connection.');
-        })
+    this.profile$ = this.afa.user.pipe(
+      switchMap((user: firebase.User) =>
+        forkJoin({ token: from(user.getIdToken()), uid: of(user.uid) })
+      ),
+      switchMap(({ token, uid }) =>
+        this.userManager.getUserProfileByUID(uid, token).pipe(retry(2))
       )
-      .subscribe((user: firebase.User) => {
-        user
-          .getIdToken()
-          .then((token: string) => {
-            try {
-              this.profile = this.userManager
-                .getUserProfileByUID(user.uid, token)
-                .pipe(
-                  take(1),
-                  retry(2),
-                  catchError((_) => {
-                    this.connectionSuccess = false;
-                    throw new Error('Error in server. ');
-                  })
-                );
-              this.connectionSuccess = true;
-            } catch (error) {
-              console.log('Enter Catch');
-            }
-          })
-          .catch((err) => {
-            this.connectionSuccess = false;
-            console.log('Error');
-          })
-          .finally(() => (this.isLoading = false));
-      });
-  }
-
-  ngOnInit(): void {
-    this.loadData();
-
-    this.screenSizeService.isDesktopView().subscribe((isDesktop) => {
-      this.isDesktop = isDesktop;
-    });
+    );
   }
 
   public logout() {
